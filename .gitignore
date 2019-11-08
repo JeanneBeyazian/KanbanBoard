@@ -106,7 +106,15 @@ fabric.properties
 !.vscode/extensions.json
 *.code-workspace
 
-
-
 *.lock
 *.bin
+
+.gradle/*
+.idea/*
+.settings
+.project
+.classpath
+.vscode/*
+gradle*
+build/*
+
