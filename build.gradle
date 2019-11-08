@@ -1,0 +1,12 @@
+apply plugin: 'java'
+apply plugin: 'application'
+mainClassName = 'model.KanbanBoard'
+dependencies{
+    implementation 'org.openjfx:javafx:14-ea+2'
+}
+
+repositories{
+    mavenCentral()
+
+}
+
