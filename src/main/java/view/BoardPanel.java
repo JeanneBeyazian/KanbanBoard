@@ -1,4 +1,4 @@
-package model;
+package view;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,20 +12,26 @@ import java.util.ArrayList;
 
 public class BoardPanel extends JPanel {
 
-    //ArrayList<KanbanColumn> columns;
+    ArrayList<KanbanColumn> columns;
 
-    public BoardPanel(){
+    public BoardPanel() {
         super();
-        //columns = new ArrayList<>();
+        columns = new ArrayList<>();
         initialiseBoard();
     }
 
     public void initialiseBoard() {
 
+        KanbanColumn first = new KanbanColumn("First");
+        add(first, BorderLayout.NORTH);
+        first.setVisible(true);
+
         // Create vertical separation with JSeparator
 
         // Create buttons: add, exit
         createButtons();
+
+
     }
 
     public void createButtons(){
@@ -39,7 +45,7 @@ public class BoardPanel extends JPanel {
 
         // Add button (not operational)
         JButton addButton = new JButton("+");
-        addButton.setBackground(Color.GRAY);
+        //addButton.setBackground(Color.GRAY);
         addButton.setBounds(30, 30, 30, 30);
         addButton.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         add(addButton, BorderLayout.EAST);
