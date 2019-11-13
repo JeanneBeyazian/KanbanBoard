@@ -1,5 +1,7 @@
 package model;
 
+import view.KanbanMenu;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
@@ -20,8 +22,8 @@ public class KanbanBoard extends JFrame {
 
     public void initialise() {
         // Set up the JFrame
-        setTitle("First Try using Java Swing");
-        setSize(500, 500);
+        setTitle("Kanban Board");
+        setSize(1000, 700);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         createMenuBar();
@@ -33,34 +35,7 @@ public class KanbanBoard extends JFrame {
 
     public void createMenuBar() {
 
-        JMenuBar menu = new JMenuBar();
-        JMenu kanban = new JMenu("Kanban settings");
-
-        // Items for JMenu 'kanban'
-        JMenuItem team = new JMenu("Team");
-        JMenuItem newBoard = new JMenu("New");
-        JMenuItem renameBoard = new JMenu("Rename");
-        JMenuItem settings = new JMenu("Other settings");
-
-        kanban.add(team);
-        kanban.add(renameBoard);
-        kanban.add(newBoard);
-        kanban.add(settings);
-
-        JMenu help = new JMenu("Help");
-        JMenu view = new JMenu("View");
-        JCheckBoxMenuItem showBar = new JCheckBoxMenuItem("Show bar");
-        showBar.setSelected(true);
-
-        showBar.addItemListener((e) -> {
-            if (e.getStateChange() == ItemEvent.SELECTED) menu.setVisible(true);
-            else menu.setVisible(false);
-        });
-
-        view.add(showBar);
-        menu.add(kanban);
-        menu.add(view);
-        menu.add(help);
+        KanbanMenu menu = new KanbanMenu();
         setJMenuBar(menu);
     }
 
