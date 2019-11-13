@@ -30,11 +30,10 @@ public class KanbanBoard extends JFrame {
 
         // Create a panel
         board = new BoardPanel();
-        getContentPane().add(board, BorderLayout.SOUTH);
+        getContentPane().add(board);
     }
 
     public void createMenuBar() {
-
         KanbanMenu menu = new KanbanMenu();
         setJMenuBar(menu);
     }
