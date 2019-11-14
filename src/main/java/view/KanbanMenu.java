@@ -3,15 +3,22 @@ package view;
 import javax.swing.*;
 import java.awt.event.ItemEvent;
 
+/**
+ * This class is responsible for the creation of the menu
+ * bar at the top of the board.
+ */
 public class KanbanMenu extends JMenuBar {
 
     public KanbanMenu(){
         super();
-        initialiseMenu();
+        add(createFileMenu());
+        add(createEditMenu());
+        add(createKanbanMenu());
+        add(createViewMenu());
+        add(createHelpMenu());
     }
 
-    public void initialiseMenu() {
-
+    JMenu createFileMenu(){
         // Menu items for JMenu 'file'
         JMenu file = new JMenu("File");
 
@@ -32,6 +39,12 @@ public class KanbanMenu extends JMenuBar {
         file.add(renameBoard);
         file.add(saveBoard);
 
+        return file;
+    }
+
+
+    JMenu createEditMenu() {
+
         // Menu items for JMenu 'Edit'
         JMenu edit = new JMenu("Edit");
 
@@ -39,19 +52,32 @@ public class KanbanMenu extends JMenuBar {
         ImageIcon deleteIcon = new ImageIcon("src/images/delete.jpg");
         ImageIcon clearIcon = new ImageIcon("src/images/delete-symbol.jpg");
 
-        JMenuItem insertColumn = new JMenuItem("Insert new column", addIcon);
-        JMenuItem insertCard = new JMenuItem("Insert new card", addIcon);
-        JMenuItem deleteColumn = new JMenuItem("Remove a column", deleteIcon);
-        JMenuItem deleteCard = new JMenuItem("Remove a card", deleteIcon);
+        JMenu insertMenu = new JMenu("Add");
+        insertMenu.setIcon(addIcon);
+        JMenuItem insertColumn = new JMenuItem("Insert new column");
+        JMenuItem insertCard = new JMenuItem("Insert new card");
+        insertMenu.add(insertColumn);
+        insertMenu.add(insertCard);
+
+        JMenu deleteMenu = new JMenu("Delete");
+        deleteMenu.setIcon(deleteIcon);
+        JMenuItem deleteColumn = new JMenuItem("Remove a column");
+        JMenuItem deleteCard = new JMenuItem("Remove a card");
+        deleteMenu.add(deleteColumn);
+        deleteMenu.add(deleteCard);
+
         JMenuItem clearBoard = new JMenuItem("Clear board", clearIcon);
 
-        edit.add(insertColumn);
-        edit.add(insertCard);
+        edit.add(insertMenu);
         edit.add(new JSeparator(SwingConstants.HORIZONTAL));
-        edit.add(deleteColumn);
-        edit.add(deleteCard);
+        edit.add(deleteMenu);
         edit.add(new JSeparator(SwingConstants.HORIZONTAL));
         edit.add(clearBoard);
+
+        return edit;
+    }
+
+    JMenu createKanbanMenu() {
 
         // Menu items for JMenu 'kanban'
         JMenu kanban = new JMenu("Kanban");
@@ -64,8 +90,13 @@ public class KanbanMenu extends JMenuBar {
         kanban.add(new JSeparator(SwingConstants.HORIZONTAL));
         kanban.add(exitBoard);
 
-        // JMenus help and view
-        JMenu help = new JMenu ("Help");
+        return kanban;
+    }
+
+
+    JMenu createViewMenu() {
+
+        // JMenu items for View menu
         JMenu view = new JMenu("View");
         JCheckBoxMenuItem showBar = new JCheckBoxMenuItem("Show bar");
         showBar.setSelected(true);
@@ -76,12 +107,19 @@ public class KanbanMenu extends JMenuBar {
         });
 
         view.add(showBar);
-        add(file);
-        add(edit);
-        add(kanban);
-        add(view);
-        add(help);
+
+        return view;
     }
 
+
+    JMenu createHelpMenu() {
+
+        // JMenu help
+        JMenu help = new JMenu ("Help");
+        ImageIcon helpIcon = new ImageIcon("src/images/question-mark.jpg");
+        help.setIcon(helpIcon);
+
+        return help;
+    }
 
 }
