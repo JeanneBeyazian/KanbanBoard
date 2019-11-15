@@ -1,6 +1,5 @@
 package view;
 
-import javafx.scene.Group;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -12,23 +11,40 @@ import static javax.swing.GroupLayout.Alignment.*;
 public class EditorPanel extends JPanel {
 
     public EditorPanel() {
+        initialiseEditorPanel();
+    }
 
-        setBackground(new java.awt.Color(230,230,250));
-        BoxLayout box = new BoxLayout(this, BoxLayout.Y_AXIS);
-        this.setLayout(box);
-        this.setBorder(new EmptyBorder(new Insets(30,10,10,30)));
+    private void initialiseEditorPanel() {
 
-        JLabel title = new JLabel("> EDITOR PANEL");
+
+        setBackground(new java.awt.Color(5, 53, 67));
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        //this.setSize(800, 700);
+
+        this.setBorder(new EmptyBorder(new Insets(10,30,10,30)));
+
+        JLabel title = createLabel("EDITOR PANEL");
         add(title);
         add(new JSeparator());
+
+        // New group layout to display buttons and labels
+        add(createUserInterface());
+        add(new JSeparator());
+
+        // Create an exit button
+        add(createExitButton());
+    }
+
+    private JPanel createUserInterface() {
 
         // Create buttons and labels
         JButton addButton = createButton(" + ");
         JButton removeButton =  createButton(" - ");
-        JLabel addLabel = new JLabel("Insert");
-        JLabel removeLabel = new JLabel("Delete");
+        JButton editButton = createButton("Edit");
+        JLabel addLabel = createLabel("Insert");
+        JLabel removeLabel = createLabel("Delete");
 
-        // New group layout to display buttons and labels
+
         JPanel pane = new JPanel();
         pane.setOpaque(false);
         GroupLayout group = new GroupLayout(pane);
@@ -39,36 +55,43 @@ public class EditorPanel extends JPanel {
         // First, horizontal grouping
         group.setHorizontalGroup(
                 group.createSequentialGroup()
-                    .addGroup(group.createParallelGroup(LEADING)
-                        .addComponent(addButton).addComponent(removeButton))
-                    .addGroup(group.createParallelGroup()
-                        .addComponent(addLabel).addComponent(removeLabel))
+                        .addGroup(group.createParallelGroup(LEADING)
+                                .addComponent(addButton).addComponent(removeButton)).addComponent(editButton)
+                        .addGroup(group.createParallelGroup()
+                                .addComponent(addLabel).addComponent(removeLabel))
         );
+
 
         // Second, vertical grouping
         group.setVerticalGroup(
                 group.createSequentialGroup()
-                    .addGroup(group.createParallelGroup(BASELINE)
-                        .addComponent(addButton).addComponent(addLabel))
-                    .addGroup(group.createParallelGroup(BASELINE)
-                        .addComponent(removeButton).addComponent(removeLabel))
+                        .addGroup(group.createParallelGroup(BASELINE)
+                                .addComponent(addButton).addComponent(addLabel))
+                        .addGroup(group.createParallelGroup(BASELINE)
+                                .addComponent(removeButton).addComponent(removeLabel))
+                        .addGap(20)
+                        .addGroup(group.createParallelGroup(BASELINE)
+                                .addComponent(editButton))
         );
 
         group.linkSize(SwingConstants.HORIZONTAL, addButton, removeButton);
 
-        add(pane);
 
-        add(new JSeparator());
+        return pane;
+    }
 
-        // Create an exit button
-        add(createExitButton());
-
+    private JLabel createLabel(String labelName) {
+        JLabel label = new JLabel(labelName);
+        label.setForeground(Color.lightGray);
+        return label;
     }
 
     private JButton createButton(String buttonName) {
 
         JButton button = new JButton(buttonName);
-        button.setBackground(new java.awt.Color(200,200,250));
+        // Modify font : button.setFont(Font.getFont("arial"));
+        button.setBackground(new java.awt.Color(21, 34, 59));
+        button.setForeground(Color.lightGray);
         button.setBorderPainted(false);
         return button;
     }
@@ -76,7 +99,6 @@ public class EditorPanel extends JPanel {
     private JButton createExitButton() {
 
         JButton exitButton = new JButton("Exit Application");
-        exitButton.setBounds(60, 60, 80, 30);
         exitButton.addActionListener(e->System.exit(0));
         exitButton.setToolTipText("Quit Indigo-Kanban?");
         exitButton.setBackground(new java.awt.Color(250, 105, 128));
