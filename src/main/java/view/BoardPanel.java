@@ -22,35 +22,16 @@ public class BoardPanel extends JPanel {
 
     public void initialiseBoard() {
 
-        KanbanColumn first = new KanbanColumn("First");
-        add(first, BorderLayout.NORTH);
-        first.setVisible(true);
+        //KanbanColumn first = new KanbanColumn("First");
+        //add(first, TOP_ALIGNMENT);
+        //first.setVisible(true);
 
         // Create vertical separation with JSeparator
 
-        // Create buttons: add, exit
-        createButtons();
 
 
     }
 
-    public void createButtons(){
-
-        // For now only contains an exit button
-        JButton exitButton = new JButton("Exit");
-        exitButton.setBounds(60, 60, 80, 30);
-        exitButton.addActionListener(e->System.exit(0));
-        exitButton.setToolTipText("Quit Indigo-Kanban?");
-        add(exitButton, BorderLayout.SOUTH);
-
-        // Add button (not operational)
-        JButton addButton = new JButton("+");
-        //addButton.setBackground(Color.GRAY);
-        addButton.setBounds(30, 30, 30, 30);
-        addButton.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-        add(addButton, BorderLayout.EAST);
-
-    }
 
     public void addColumn() {
 
