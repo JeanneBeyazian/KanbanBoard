@@ -13,8 +13,9 @@ import java.awt.event.ItemEvent;
 public class KanbanBoard extends JFrame {
 
     private BoardPanel board;
-    // TODO (Jeanne) : implement button functions and set up controllers
+    // TODO (J) : implement button functions and set up controllers
     // TODO (maybe): implement a card layout for boards in use
+    // TODO : focus on making tests for GUI and start the model part
     // i.e only one board can be seen at a time, but several are open.
     // It is possible to use JSwing tabs
 
@@ -59,7 +60,7 @@ public class KanbanBoard extends JFrame {
 
     }
 
-    //TODO (Jeanne) : methods below
+    //TODO (J) : methods below
     public void newBoard() {}
 
     public void boardReset() {

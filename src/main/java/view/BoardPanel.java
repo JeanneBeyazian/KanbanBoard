@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class BoardPanel extends JPanel {
 
+    // TODO (J) : figure out how to remove the west border layout empty space
 
     public BoardPanel() {
         super();

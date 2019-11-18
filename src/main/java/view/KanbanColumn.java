@@ -9,11 +9,14 @@ import java.util.ArrayList;
 
 public class KanbanColumn extends JPanel {
 
-    String id;  //TODO : give a unique ID to each column
-    ColumnRole role;
-    JScrollPane columnPane; //TODO : columnPane should have one container where the cards are added
-
+    // TODO : give a unique ID to each column
     // TODO : choose a proper size for column using constants below
+    // TODO (J) : the columnPane (scrollPane) should have one container in which the cards are added.
+    // TODO (J) : the container should keep a list of buttons pointing to cards
+
+    String id;
+    ColumnRole role;
+    JScrollPane columnPane;
     int WIDTH;
     int LENGTH;
 

@@ -10,6 +10,8 @@ import static javax.swing.GroupLayout.Alignment.*;
 
 public class EditorPanel extends JPanel {
 
+    // TODO : add activity log and history buttons
+
     public EditorPanel() {
         initialiseEditorPanel();
     }
@@ -24,6 +26,8 @@ public class EditorPanel extends JPanel {
         this.setBorder(new EmptyBorder(new Insets(10,30,10,30)));
 
         JLabel title = createLabel("EDITOR PANEL");
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         add(title);
         add(new JSeparator());
 
@@ -103,6 +107,8 @@ public class EditorPanel extends JPanel {
         exitButton.setToolTipText("Quit Indigo-Kanban?");
         exitButton.setBackground(new java.awt.Color(250, 105, 128));
         exitButton.setBorderPainted(false);
+        exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
 
         return exitButton;
 
