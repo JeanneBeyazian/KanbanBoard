@@ -42,7 +42,9 @@ public class BoardPanel extends JPanel {
 
     public void addColumn(KanbanColumn column) {
         add(column);
-        add(new JSeparator(SwingConstants.VERTICAL));
+        add(Box.createRigidArea(new Dimension(10, 0)));
+
+        //add(new JSeparator(SwingConstants.VERTICAL));
     }
 
     public void removeColumn() {}
