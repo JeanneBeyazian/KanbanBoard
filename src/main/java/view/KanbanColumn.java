@@ -1,32 +1,40 @@
 package view;
 
+import controller.ColumnRole;
+
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class KanbanColumn extends JPanel {
+
     private ArrayList<KanbanCard> cards;
+    ColumnRole role;
+    JScrollPane columnPane;
 
-    public KanbanColumn(String nameIn) {
+    // TODO : choose a proper size for column using constants below
+    int WIDTH;
+    int LENGTH;
 
+    public KanbanColumn(String columnTitle, ColumnRole role) {
+
+        this.role = role;
+        columnPane = new JScrollPane();
         cards = new ArrayList<>();
-        setSize(150,600);
-        initialiseColumn(nameIn);
-    }
 
+        //setSize(WIDTH,LENGTH);
+        initialiseColumn(columnTitle);
+    }
 
     private void initialiseColumn(String nameIn) {
 
         JLabel columnName = new JLabel(nameIn);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        JScrollPane columnPane = new JScrollPane();
-
-        // testing purpose
-        for (int i = 1; i <=10; i++) {
-            columnPane.add(new JButton(" Press " + i));
-        }
-
+        add(Box.createVerticalGlue());
         add(columnName);
         add(columnPane);
+
 
     }
 
