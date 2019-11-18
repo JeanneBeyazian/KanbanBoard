@@ -1,5 +1,7 @@
 package view;
 
+import controller.ColumnRole;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -12,32 +14,38 @@ import java.util.ArrayList;
 
 public class BoardPanel extends JPanel {
 
-    ArrayList<KanbanColumn> columns;
 
     public BoardPanel() {
         super();
-        columns = new ArrayList<>();
         initialiseBoard();
     }
 
     public void initialiseBoard() {
 
-        //KanbanColumn first = new KanbanColumn("First");
-        //add(first, TOP_ALIGNMENT);
-        //first.setVisible(true);
+        // TESTING PURPOSE : test columns
+        KanbanColumn first = new KanbanColumn("First", ColumnRole.BACKLOG);
+        KanbanColumn second = new KanbanColumn("Second", ColumnRole.COMPLETED);
+        KanbanColumn third = new KanbanColumn("Third", ColumnRole.IN_PROGRESS);
 
         // Create vertical separation with JSeparator
+        setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        add(Box.createHorizontalGlue());
 
-
+        addColumn(first);
+        addColumn(second);
+        addColumn(third);
 
     }
 
 
-    public void addColumn() {
+    // TODO : Implementation of the following methods
 
+    public void addColumn(KanbanColumn column) {
+        add(column);
+        add(new JSeparator(SwingConstants.VERTICAL));
     }
 
-    public void reset(){
-        //columns.clear();
-    }
+    public void removeColumn() {}
+
+    public void reset() {}
 }
