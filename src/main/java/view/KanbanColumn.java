@@ -28,7 +28,7 @@ public class KanbanColumn extends JPanel {
 
     private void initialiseColumn(String nameIn) {
 
-        setBackground(new java.awt.Color(120, 194, 177));
+        setBackground(new java.awt.Color(86, 164, 194));
 
         JLabel columnName = new JLabel(nameIn);
         columnName.setSize(30,10);
