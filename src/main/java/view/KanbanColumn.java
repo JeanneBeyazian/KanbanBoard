@@ -35,7 +35,8 @@ public class KanbanColumn extends JPanel {
         add(columnName);
         add(columnPane);
 
-
+        addCard(new KanbanCard("Card one", "This is the first card", 10));
+        addCard(new KanbanCard("Card two", "This is the second card", 20));
     }
 
     private void addCard(KanbanCard card) {

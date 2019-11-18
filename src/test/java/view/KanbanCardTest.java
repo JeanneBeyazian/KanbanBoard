@@ -1,5 +1,4 @@
 package view;
-import model.KanbanCard;
 import org.junit.Test;
 import com.athaydes.automaton.Swinger;
 
