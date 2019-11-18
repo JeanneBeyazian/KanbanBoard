@@ -1,41 +1,55 @@
 package view;
 
+import controller.ColumnRole;
+
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class KanbanColumn extends JPanel {
-    private ArrayList<KanbanCard> cards;
 
-    public KanbanColumn(String nameIn) {
+    String id;  //TODO : give a unique ID to each column
+    ColumnRole role;
+    JScrollPane columnPane; //TODO : columnPane should have one container where the cards are added
 
-        cards = new ArrayList<>();
-        setSize(150,600);
-        initialiseColumn(nameIn);
+    // TODO : choose a proper size for column using constants below
+    int WIDTH;
+    int LENGTH;
+
+    public KanbanColumn(String columnTitle, ColumnRole role) {
+
+        this.role = role;
+        columnPane = new JScrollPane();
+
+        //setSize(WIDTH,LENGTH);
+        initialiseColumn(columnTitle);
     }
-
 
     private void initialiseColumn(String nameIn) {
 
+        setBackground(new java.awt.Color(120, 194, 177));
+
         JLabel columnName = new JLabel(nameIn);
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        JScrollPane columnPane = new JScrollPane();
-
-        // testing purpose
-        for (int i = 1; i <=10; i++) {
-            columnPane.add(new JButton(" Press " + i));
-        }
-
+        columnName.setSize(30,10);
+        columnName.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(columnName);
+
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        add(Box.createVerticalGlue());
         add(columnPane);
 
+        addCard(new KanbanCard("Card one", "This is the first card", 10));
+        addCard(new KanbanCard("Card two", "This is the second card", 20));
     }
 
     private void addCard(KanbanCard card) {
-        cards.add(card);
+        card.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(card);
+        //columnPane.add(card);
     }
 
     private void removeCard(KanbanCard card) {
-        cards.remove(card);
     }
 
 }

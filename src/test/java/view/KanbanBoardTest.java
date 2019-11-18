@@ -1,5 +1,4 @@
 package view;
-import model.KanbanBoard;
 import org.junit.Test;
 import com.athaydes.automaton.Swinger;
 

@@ -13,7 +13,9 @@ import java.awt.event.ItemEvent;
 public class KanbanBoard extends JFrame {
 
     private BoardPanel board;
-    // make an array list of all boards, one only can be visible at a time
+    // TODO : implement a card layout for boards in use
+    // i.e only one board can be seen at a time, but several are open.
+    // It is possible to use JSwing tabs
 
     public KanbanBoard() {
 
@@ -21,6 +23,7 @@ public class KanbanBoard extends JFrame {
         setTitle("Kanban Board");
         setSize(1000, 700);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
         // Create the menu bar
         createMenuBar();
@@ -30,7 +33,21 @@ public class KanbanBoard extends JFrame {
 
         // Create board panel
         board = new BoardPanel();
-        add(board, BorderLayout.CENTER);
+        add(board);
+
+        // Testing purpose : create a new frame containing a 'card'
+        /** TESTING
+        JFrame frame = new JFrame();
+        frame.setSize(500, 500);
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        JPanel pane = new JPanel();
+        pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
+        pane.add(Box.createVerticalGlue());
+        JScrollPane scroll = new JScrollPane(new KanbanCard("Name", "Description", 50));
+        pane.add(scroll);
+        frame.getContentPane().add(pane);
+        frame.setVisible(true); */
+
     }
 
 
@@ -41,8 +58,11 @@ public class KanbanBoard extends JFrame {
 
     }
 
+    //TODO (Jeanne) : methods below
+    public void newBoard() {}
+
     public void boardReset() {
-        board.reset();
+        //board.reset();
     }
 
 
