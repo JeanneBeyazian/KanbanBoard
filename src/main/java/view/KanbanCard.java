@@ -9,13 +9,16 @@ import javax.swing.*;
  */
 public class KanbanCard extends JPanel {
 
+    // TODO : Give a unique ID to each card
+    // TODO : Fix the group layout - or change to a new type of layout
+
     private int id;
     private String description;
     private int storyPoints;
 
     public KanbanCard(String name, String description, int storyPoints) {
 
-        JLabel title = new JLabel(name);
+        /**JLabel title = new JLabel(name);
         JLabel info = new JLabel(description);
         JLabel points = new JLabel(String.valueOf(storyPoints));
 
@@ -29,8 +32,10 @@ public class KanbanCard extends JPanel {
                         .addComponent(title)
                         .addComponent(info)
                         .addComponent(points)
-        );
-        
+        );*/
+
+        add(new JLabel("This is a card"));
+
     }
 
 
