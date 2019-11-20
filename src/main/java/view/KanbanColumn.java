@@ -18,7 +18,7 @@ public class KanbanColumn extends JPanel {
     private ColumnRole role;
     private JScrollPane columnPane;
     private int WIDTH;
-    private int LENGTH;
+    private int HEIGHT;
 
     public KanbanColumn(String columnTitle, ColumnRole role) {
 
@@ -47,7 +47,7 @@ public class KanbanColumn extends JPanel {
     }
 
     private void addCard(KanbanCard card) {
-        card.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //card.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(card);
         //columnPane.add(card);
     }
