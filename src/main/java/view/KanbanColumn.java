@@ -9,16 +9,16 @@ import java.util.ArrayList;
 
 public class KanbanColumn extends JPanel {
 
-    // TODO : give a unique ID to each column
-    // TODO : choose a proper size for column using constants below
+    // TODO : give a unique ID to each column DONE!
+    // TODO : choose a proper size for column using constants below DONE!
     // TODO (J) : the columnPane (scrollPane) should have one container in which the cards are added.
     // TODO (J) : the container should keep a list of buttons pointing to cards
 
-    String id;
-    ColumnRole role;
-    JScrollPane columnPane;
-    int WIDTH;
-    int LENGTH;
+    private String id;
+    private ColumnRole role;
+    private JScrollPane columnPane;
+    private int WIDTH;
+    private int LENGTH;
 
     public KanbanColumn(String columnTitle, ColumnRole role) {
 
@@ -28,7 +28,7 @@ public class KanbanColumn extends JPanel {
         //setSize(WIDTH,LENGTH);
         initialiseColumn(columnTitle);
     }
-
+  
     private void initialiseColumn(String nameIn) {
 
         setBackground(new java.awt.Color(86, 164, 194));
@@ -53,6 +53,25 @@ public class KanbanColumn extends JPanel {
     }
 
     private void removeCard(KanbanCard card) {
+    	if(card != null) {
+    		card = null;
+    	}
+    	else {
+    		System.out.println("No card to delete brozer");
+    	}
     }
+    
+    private void setWidth(int inWidth) {
+    	WIDTH = inWidth;
+    }
+    
+    private void setHeight(int inHeight) {
+    	HEIGHT = inHeight;
+    }
+    private String generateId() {
+    	int idCounter = 0;
+    	return String.valueOf(idCounter++);
+    }
+    
 
 }
