@@ -13,7 +13,7 @@ import java.awt.*;
         lastEdit = "22/11/2019"
 )
 /**
- * Log Panel is a tabbed pane made of two JPanels for activity logg and versions history.
+ * Log Panel is a tabbed pane made of two JPanels for activity log and versions history.
  * The Log Panel is located inside the Editor Panel.
  */
 public class LogPanel extends JTabbedPane {
@@ -60,6 +60,10 @@ public class LogPanel extends JTabbedPane {
         return activityScroll;
     }
 
+    /**
+     * Create the versions history panel - second panel of the tabbed panels.
+     * @return panel with button to access history
+     */
     private JPanel makeVersionsLog() {
         JPanel panel = new JPanel();
         JButton seeVersions = new JButton("See Full Board history");
