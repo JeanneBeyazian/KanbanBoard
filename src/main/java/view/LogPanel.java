@@ -1,14 +1,18 @@
 package view;
 
+import controller.ActivityType;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class LogPanel extends JTabbedPane {
 
-    // TODO : class hierarchy for scrollpane containing buttons
+    private static final int LOG_WIDTH = 100;
+    private static final int LOG_HEIGHT = 300;
 
-    private JPanel activityLog;
+    private ScrollContainer activityLog;
+    private ScrollContainer versionsLog;
 
     public LogPanel(){
         initialiseLogPane();
@@ -17,32 +21,28 @@ public class LogPanel extends JTabbedPane {
     public void initialiseLogPane() {
 
         setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-        setPreferredSize(new Dimension(100,300));
-        activityLog = new JPanel();
+        setPreferredSize(new Dimension(LOG_WIDTH,LOG_HEIGHT));
+        activityLog = new ScrollContainer();
+        versionsLog = new ScrollContainer();
 
         addTab("Activity log", null, makeActivityLog(), "See recent changes");
+        //SHOULD BE addTab("Activity log", null, activityLog, "See recent changes");
         //activity.setMnemonicAt(0, KeyEvent.VK_1);
 
-        addTab("Recent files", null, makeVersionsLog(), "See history");
+        addTab("Recent files", null, versionsLog, "See history");
         //activity.setMnemonicAt(1, KeyEvent.VK_2);
     }
 
-    /**
-     * TESTING PURPOSE : create a few buttons into the scrollpane
-     */
+    /** TESTING PURPOSE */
     private JScrollPane makeActivityLog(){
 
-        int x = 8;
-        activityLog.setLayout(new GridLayout(x, 1));
-        for (int i = 0; i < x ; i++) {
-            JButton button = new JButton(String.valueOf(i));
-            button.setPreferredSize(new Dimension(100, 100));
-            activityLog.add(button);
-        }
-        JPanel container = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        container.add(activityLog);
-        JScrollPane activityScroll = new JScrollPane(container);
+        ActivityButton button1 = new ActivityButton(ActivityType.BOARD_RESET);
+        ActivityButton button2 = new ActivityButton(ActivityType.COLUMN_ADD);
+        ActivityButton button3 = new ActivityButton(ActivityType.CARD_REMOVE);
 
+        ScrollContainer activityScroll = new ScrollContainer();
+        activityScroll.add(button1);
+        activityScroll.add(button2);
 
         return activityScroll;
     }
