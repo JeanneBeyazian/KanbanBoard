@@ -3,14 +3,13 @@ package view;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.*;
-
 import static javax.swing.GroupLayout.Alignment.*;
 
 public class EditorPanel extends JPanel {
 
-    // TODO : add activity log and history buttons
+    // TODO (J) : make tabbed pane into a scroll pane
+    // TODO : make a class that contains log activity cards (panels)
 
     public EditorPanel() {
         initialiseEditorPanel();
@@ -18,28 +17,30 @@ public class EditorPanel extends JPanel {
 
     private void initialiseEditorPanel() {
 
-
-        setBackground(new java.awt.Color(5, 53, 67));
+        setBackground(new java.awt.Color(26, 58, 161));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         //this.setSize(800, 700);
 
-        this.setBorder(new EmptyBorder(new Insets(10,30,10,30)));
+        this.setBorder(new EmptyBorder(new Insets(10,10,10,10)));
 
         JLabel title = createLabel("EDITOR PANEL");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+        add(Box.createRigidArea(new Dimension(0, 15)));
         add(title);
+        add(Box.createRigidArea(new Dimension(0, 10)));
         add(new JSeparator());
 
         // New group layout to display buttons and labels
-        add(createUserInterface());
+        add(createCommandsLayout());
         add(new JSeparator());
 
+        add(new LogPane());
+        add(new JSeparator());
         // Create an exit button
         add(createExitButton());
     }
 
-    private JPanel createUserInterface() {
+    private JPanel createCommandsLayout() {
 
         // Create buttons and labels
         JButton addButton = createButton(" + ");
@@ -84,6 +85,7 @@ public class EditorPanel extends JPanel {
         return pane;
     }
 
+
     private JLabel createLabel(String labelName) {
         JLabel label = new JLabel(labelName);
         label.setForeground(Color.lightGray);
@@ -113,5 +115,4 @@ public class EditorPanel extends JPanel {
         return exitButton;
 
     }
-
 }
