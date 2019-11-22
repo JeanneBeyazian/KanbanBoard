@@ -1,5 +1,7 @@
 package view;
 
+import annotations.ClassAnnotation;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
@@ -8,6 +10,11 @@ import java.awt.event.ItemEvent;
  * This class is responsible for the creation of the menu
  * bar at the top of the board.
  */
+@ClassAnnotation(
+        classAuthors = {"Jeanne"},
+        creationDate = "13/11/2019",
+        lastEdit = "22/11/2019"
+)
 public class KanbanMenu extends JMenuBar {
 
     public KanbanMenu(){

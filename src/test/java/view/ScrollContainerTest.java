@@ -1,4 +1,5 @@
 package view;
+import annotations.ClassAnnotation;
 import controller.ActivityType;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -10,7 +11,11 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 
-
+@ClassAnnotation(
+        classAuthors = {"Jeanne"},
+        creationDate = "22/11/2019",
+        lastEdit = "22/11/2019"
+)
 public class ScrollContainerTest {
 
     @Test

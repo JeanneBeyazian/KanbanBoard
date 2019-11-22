@@ -1,11 +1,21 @@
 package view;
 
+import annotations.ClassAnnotation;
 import controller.ActivityType;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+@ClassAnnotation(
+        classAuthors = {"Jeanne"},
+        creationDate = "22/11/2019",
+        lastEdit = "22/11/2019"
+)
+/**
+ * Log Panel is a tabbed pane made of two JPanels for activity logg and versions history.
+ * The Log Panel is located inside the Editor Panel.
+ */
 public class LogPanel extends JTabbedPane {
 
     private static final int LOG_WIDTH = 100;
@@ -15,10 +25,13 @@ public class LogPanel extends JTabbedPane {
     private ScrollContainer versionsLog;
 
     public LogPanel(){
-        initialiseLogPane();
+        initialiseLogPanel();
     }
 
-    public void initialiseLogPane() {
+    /**
+     * Initialise the panel and create its components : activityLog and versionsLog.
+     */
+    public void initialiseLogPanel() {
 
         setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         setPreferredSize(new Dimension(LOG_WIDTH,LOG_HEIGHT));
@@ -29,7 +42,7 @@ public class LogPanel extends JTabbedPane {
         //SHOULD BE addTab("Activity log", null, activityLog, "See recent changes");
         //activity.setMnemonicAt(0, KeyEvent.VK_1);
 
-        addTab("Recent files", null, versionsLog, "See history");
+        addTab("Recent files", null, makeVersionsLog(), "See history");
         //activity.setMnemonicAt(1, KeyEvent.VK_2);
     }
 

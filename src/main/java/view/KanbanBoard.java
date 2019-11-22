@@ -1,15 +1,25 @@
 package view;
 
+import annotations.ClassAnnotation;
+
 import view.KanbanMenu;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 
+
+
 /**
  * This class is the application window.
  * It contains the maine frame and a menu bar.
  */
+@ClassAnnotation(
+        classAuthors = {"Jeanne"},
+        creationDate = "08/11/2019",
+        lastEdit = "22/11/2019"
+)
+
 public class KanbanBoard extends JFrame {
 
     private BoardPanel board;
