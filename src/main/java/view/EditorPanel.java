@@ -34,7 +34,7 @@ public class EditorPanel extends JPanel {
         add(createCommandsLayout());
         add(new JSeparator());
 
-        add(new LogPane());
+        add(new LogPanel());
         add(new JSeparator());
         // Create an exit button
         add(createExitButton());
