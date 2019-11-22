@@ -4,13 +4,11 @@ import controller.ActivityType;
 
 import javax.swing.*;
 
-public class ActivityPane extends JPanel {
-
-    private JLabel activityName;
+public class ActivityPane extends JButton {
 
     public ActivityPane(ActivityType activityType) {
 
-        activityName = new JLabel(activityType.getDescription());
+        setText(activityType.getDescription());
 
         if (activityType.isAddition() == true ) {
             setBackground(new java.awt.Color(92, 151, 100, 255));
@@ -18,6 +16,7 @@ public class ActivityPane extends JPanel {
         else {
             setBackground(new java.awt.Color(145, 65, 53, 255));
         }
+
     }
 
 }
