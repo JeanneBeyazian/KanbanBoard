@@ -13,6 +13,9 @@ import java.awt.event.ItemEvent;
 public class KanbanBoard extends JFrame {
 
     private BoardPanel board;
+    private static final int WIDTH = 1000;
+    private static final int HEIGHT = 750;
+
     // TODO (J) : implement button functions and set up controllers
     // TODO (maybe): implement a card layout for boards in use
     // TODO : focus on making tests for GUI and start the model part
@@ -23,7 +26,7 @@ public class KanbanBoard extends JFrame {
 
         // Set up the JFrame
         setTitle("Kanban Board");
-        setSize(1000, 700);
+        setSize(WIDTH, HEIGHT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -31,11 +34,27 @@ public class KanbanBoard extends JFrame {
         createMenuBar();
 
         // Create the editor panel
-        add(new EditorPanel(), BorderLayout.EAST);
+        EditorPanel editorPanel = new EditorPanel();
+        editorPanel.setPreferredSize(new Dimension(WIDTH/4,HEIGHT));
+        add(editorPanel, BorderLayout.EAST);
 
         // Create board panel
         board = new BoardPanel();
+        board.setPreferredSize(new Dimension(WIDTH/4*3, HEIGHT));
         add(board);
+
+        // Create empty box on the west border
+        JPanel westBox = new JPanel();
+        westBox.setBackground(Color.black);
+        westBox.setPreferredSize(new Dimension(10, HEIGHT));
+        add(westBox, BorderLayout.WEST);
+
+        // Create empty box on the north border
+        JPanel northBox = new JPanel();
+        northBox.setBackground(Color.black);
+        northBox.setPreferredSize(new Dimension(WIDTH, 10));
+        add(northBox, BorderLayout.NORTH);
+
 
         // Testing purpose : create a new frame containing a 'card'
         /** TESTING

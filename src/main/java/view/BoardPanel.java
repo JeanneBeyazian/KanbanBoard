@@ -23,6 +23,8 @@ public class BoardPanel extends JPanel {
 
     public void initialiseBoard() {
 
+        setBackground(Color.black);
+
         // TESTING PURPOSE : test columns
         KanbanColumn first = new KanbanColumn("First", ColumnRole.BACKLOG);
         KanbanColumn second = new KanbanColumn("Second", ColumnRole.COMPLETED);
@@ -30,7 +32,7 @@ public class BoardPanel extends JPanel {
 
         // Create vertical separation with JSeparator
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-        add(Box.createHorizontalGlue());
+        //add(Box.createHorizontalGlue());
 
         addColumn(first);
         addColumn(second);
