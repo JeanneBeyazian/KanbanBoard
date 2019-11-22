@@ -20,14 +20,25 @@ public class ScrollContainer extends JScrollPane {
         initialiseScrollContainer();
     }
 
+    /**
+     * Create ScrollContainer and its container
+     */
     private void initialiseScrollContainer() {
-        container.setLayout(new GridLayout(2,1));
-        JPanel pane = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        //container.setLayout(new GridLayout(8,1));
+        //JPanel pane = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        //pane.add(container);
+        //getViewport().add(pane, null);
+
+        // Trying out flow pane
+        JPanel pane = new JPanel();
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
         pane.add(container);
-        getViewport().add(pane, null);
+        getViewport().add(container,null);
+
     }
 
     public void add(ActivityButton button) {
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
         container.add(button);
     }
 

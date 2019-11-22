@@ -56,6 +56,7 @@ public class LogPanel extends JTabbedPane {
         ScrollContainer activityScroll = new ScrollContainer();
         activityScroll.add(button1);
         activityScroll.add(button2);
+        activityScroll.add(button3);
 
         return activityScroll;
     }

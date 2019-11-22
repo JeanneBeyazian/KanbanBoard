@@ -43,15 +43,16 @@ public class KanbanBoard extends JFrame {
         // Create the menu bar
         createMenuBar();
 
-        // Create the editor panel
-        EditorPanel editorPanel = new EditorPanel();
-        editorPanel.setPreferredSize(new Dimension(WIDTH/4,HEIGHT));
-        add(editorPanel, BorderLayout.EAST);
-
         // Create board panel
         board = new BoardPanel();
         board.setPreferredSize(new Dimension(WIDTH/4*3, HEIGHT));
         add(board);
+
+        // Create the editor panel
+        EditorPanel editorPanel = new EditorPanel(board);
+        editorPanel.setPreferredSize(new Dimension(WIDTH/4,HEIGHT));
+        add(editorPanel, BorderLayout.EAST);
+
 
         // Create empty box on the west border
         JPanel westBox = new JPanel();

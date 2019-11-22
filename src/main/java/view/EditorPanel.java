@@ -24,8 +24,10 @@ public class EditorPanel extends JPanel {
 
     // TODO (J) : make tabbed pane into a scroll pane
     // TODO : make a class that contains log activity cards (panels)
+    BoardPanel currentPanel;
 
-    public EditorPanel() {
+    public EditorPanel(BoardPanel currentPanel) {
+        this.currentPanel = currentPanel;
         initialiseEditorPanel();
     }
 
@@ -67,11 +69,18 @@ public class EditorPanel extends JPanel {
     private JPanel createCommandsLayout() {
 
         // Create buttons and labels
-        JButton addButton = createButton(" + ");
-        JButton removeButton =  createButton(" - ");
-        JButton editButton = createButton("Edit");
-        JLabel addLabel = createLabel("Insert");
-        JLabel removeLabel = createLabel("Delete");
+        JButton addCardButton = createButton(" + ");
+        JButton removeCardButton =  createButton(" - ");
+        JLabel addCardLabel = createLabel("Insert card");
+        JLabel removeCardLabel = createLabel("Delete card");
+
+        JButton addColumnButton = createButton(" + ");
+        JButton removeColumnButton =  createButton(" - ");
+        JLabel addColumnLabel = createLabel("Insert column");
+        JLabel removeColumnLabel = createLabel("Delete column");
+
+        JButton editCardButton = createButton("Edit selected card");
+        JButton editColumnButton = createButton("Edit selected column");
 
 
         JPanel pane = new JPanel();
@@ -85,9 +94,12 @@ public class EditorPanel extends JPanel {
         group.setHorizontalGroup(
                 group.createSequentialGroup()
                         .addGroup(group.createParallelGroup(LEADING)
-                                .addComponent(addButton).addComponent(removeButton)).addComponent(editButton)
+                                .addComponent(addCardButton).addComponent(removeCardButton)
+                                .addComponent(addColumnButton).addComponent(removeColumnButton)
+                                .addComponent(editCardButton).addComponent(editColumnButton))
                         .addGroup(group.createParallelGroup()
-                                .addComponent(addLabel).addComponent(removeLabel))
+                                .addComponent(addCardLabel).addComponent(removeCardLabel)
+                                .addComponent(addColumnLabel).addComponent(removeColumnLabel))
         );
 
 
@@ -95,15 +107,19 @@ public class EditorPanel extends JPanel {
         group.setVerticalGroup(
                 group.createSequentialGroup()
                         .addGroup(group.createParallelGroup(BASELINE)
-                                .addComponent(addButton).addComponent(addLabel))
+                                .addComponent(addCardButton).addComponent(addCardLabel))
                         .addGroup(group.createParallelGroup(BASELINE)
-                                .addComponent(removeButton).addComponent(removeLabel))
+                                .addComponent(removeCardButton).addComponent(removeCardLabel))
+                        .addGroup(group.createParallelGroup(BASELINE)
+                                .addComponent(addColumnButton).addComponent(addColumnLabel))
+                        .addGroup(group.createParallelGroup(BASELINE)
+                                .addComponent(removeColumnButton).addComponent(removeColumnLabel))
                         .addGap(20)
-                        .addGroup(group.createParallelGroup(BASELINE)
-                                .addComponent(editButton))
+                        .addGroup(group.createParallelGroup(BASELINE).addComponent(editCardButton))
+                        .addGroup(group.createParallelGroup(BASELINE).addComponent(editColumnButton))
         );
 
-        group.linkSize(SwingConstants.HORIZONTAL, addButton, removeButton);
+        group.linkSize(SwingConstants.HORIZONTAL, addCardButton, removeCardButton, addColumnButton, removeColumnButton);
 
         return pane;
     }
