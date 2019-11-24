@@ -19,7 +19,7 @@ import java.awt.*;
 public class LogPanel extends JTabbedPane {
 
     private static final int LOG_WIDTH = 100;
-    private static final int LOG_HEIGHT = 300;
+    private static final int LOG_HEIGHT = 250;
 
     private ScrollContainer activityLog;
     private ScrollContainer versionsLog;

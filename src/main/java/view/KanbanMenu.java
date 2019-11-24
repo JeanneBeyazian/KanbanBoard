@@ -3,6 +3,7 @@ package view;
 import annotations.ClassAnnotation;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 
@@ -20,6 +21,8 @@ public class KanbanMenu extends JMenuBar {
     public KanbanMenu(){
         super();
         setBackground(new java.awt.Color(7, 9, 41));
+        setBorder(new EmptyBorder(0,0,0,0));
+
         add(createFileMenu());
         add(createEditMenu());
         add(createKanbanMenu());

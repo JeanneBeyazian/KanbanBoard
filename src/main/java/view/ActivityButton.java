@@ -25,6 +25,7 @@ public class ActivityButton extends JButton {
     public ActivityButton(ActivityType activityType) {
 
         setText(activityType.getDescription());
+        setBorderPainted(false);
         setPreferredSize(new Dimension(ACTIVITY_BUTTON_WIDTH, ACTIVITY_BUTTON_HEIGHT));
 
         // If element has been added to board
