@@ -19,9 +19,14 @@ public class KanbanCard extends JFrame {
 
     public KanbanCard(String name, String description, int storyPoints) {
 
+        super(name);
         JLabel titleLabel = new JLabel(name);
-        JLabel info = new JLabel(description);
+        JTextArea info = new JTextArea(description);
         JLabel points = new JLabel(String.valueOf(storyPoints));
+        
+        setLayout(new FlowLayout());
+        add(titleLabel,info);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 /**
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
