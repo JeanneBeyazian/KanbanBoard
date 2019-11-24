@@ -5,6 +5,7 @@ import annotations.ClassAnnotation;
 import view.KanbanMenu;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 
@@ -23,8 +24,8 @@ import java.awt.event.ItemEvent;
 public class KanbanBoard extends JFrame {
 
     private BoardPanel board;
-    private static final int WIDTH = 1000;
-    private static final int HEIGHT = 750;
+    private static final int WIDTH = 1100;
+    private static final int HEIGHT = 800;
 
     // TODO (J) : implement button functions and set up controllers
     // TODO (maybe): implement a card layout for boards in use
@@ -45,8 +46,10 @@ public class KanbanBoard extends JFrame {
 
         // Create board panel
         board = new BoardPanel();
-        board.setPreferredSize(new Dimension(WIDTH/4*3, HEIGHT));
-        add(board);
+        //board.setPreferredSize(new Dimension(WIDTH/4*3, HEIGHT));
+        JScrollPane boardScroll = new JScrollPane(board);
+        boardScroll.setBorder(new EmptyBorder(0,0,0,0));
+        add(boardScroll);
 
         // Create the editor panel
         EditorPanel editorPanel = new EditorPanel(board);
