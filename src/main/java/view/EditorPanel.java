@@ -2,10 +2,14 @@ package view;
 
 
 import annotations.ClassAnnotation;
+import controller.ColumnRole;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import static javax.swing.GroupLayout.Alignment.*;
 
 @ClassAnnotation(
@@ -44,14 +48,18 @@ public class EditorPanel extends JPanel {
         // Editor title
         JLabel title = createLabel("EDITOR PANEL");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(Box.createRigidArea(new Dimension(0, 15)));
+        add(Box.createRigidArea(new Dimension(0, 5)));
         add(title);
-        add(Box.createRigidArea(new Dimension(0, 10)));
+        add(Box.createRigidArea(new Dimension(0, 5)));
         add(new JSeparator());
 
         // New group layout to display user commands
         add(createCommandsLayout());
         add(new JSeparator());
+
+        // Add edit buttons
+        add(createEditPanel());
+        add(Box.createRigidArea(new Dimension(0, 10)));
 
         // Tabbed pane for activity log and versions history
         add(new LogPanel());
@@ -75,13 +83,10 @@ public class EditorPanel extends JPanel {
         JLabel removeCardLabel = createLabel("Delete card");
 
         JButton addColumnButton = createButton(" + ");
+        addColumnButton.addActionListener(new addColumnEvent());
         JButton removeColumnButton =  createButton(" - ");
         JLabel addColumnLabel = createLabel("Insert column");
         JLabel removeColumnLabel = createLabel("Delete column");
-
-        JButton editCardButton = createButton("Edit selected card");
-        JButton editColumnButton = createButton("Edit selected column");
-
 
         JPanel pane = new JPanel();
         pane.setOpaque(false);
@@ -95,8 +100,7 @@ public class EditorPanel extends JPanel {
                 group.createSequentialGroup()
                         .addGroup(group.createParallelGroup(LEADING)
                                 .addComponent(addCardButton).addComponent(removeCardButton)
-                                .addComponent(addColumnButton).addComponent(removeColumnButton)
-                                .addComponent(editCardButton).addComponent(editColumnButton))
+                                .addComponent(addColumnButton).addComponent(removeColumnButton))
                         .addGroup(group.createParallelGroup()
                                 .addComponent(addCardLabel).addComponent(removeCardLabel)
                                 .addComponent(addColumnLabel).addComponent(removeColumnLabel))
@@ -114,14 +118,27 @@ public class EditorPanel extends JPanel {
                                 .addComponent(addColumnButton).addComponent(addColumnLabel))
                         .addGroup(group.createParallelGroup(BASELINE)
                                 .addComponent(removeColumnButton).addComponent(removeColumnLabel))
-                        .addGap(20)
-                        .addGroup(group.createParallelGroup(BASELINE).addComponent(editCardButton))
-                        .addGroup(group.createParallelGroup(BASELINE).addComponent(editColumnButton))
+                        .addGap(10)
         );
 
         group.linkSize(SwingConstants.HORIZONTAL, addCardButton, removeCardButton, addColumnButton, removeColumnButton);
 
         return pane;
+    }
+
+    private JPanel createEditPanel(){
+        JPanel editPanel = new JPanel();
+        editPanel.setOpaque(false);
+
+        JButton editCardButton = createButton("Edit selected card");
+        JButton editColumnButton = createButton("Edit selected column");
+        editCardButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        editColumnButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        editPanel.add(editCardButton);
+        editPanel.add(editColumnButton);
+
+        return editPanel;
     }
 
     /**
@@ -133,6 +150,7 @@ public class EditorPanel extends JPanel {
     private JLabel createLabel(String labelName) {
         JLabel label = new JLabel(labelName);
         label.setForeground(Color.lightGray);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
         return label;
     }
 
@@ -148,6 +166,7 @@ public class EditorPanel extends JPanel {
         // Modify font : button.setFont(Font.getFont("arial"));
         button.setBackground(new java.awt.Color(21, 34, 59));
         button.setForeground(Color.lightGray);
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setBorderPainted(false);
         return button;
     }
@@ -168,5 +187,33 @@ public class EditorPanel extends JPanel {
 
         return exitButton;
 
+    }
+
+    //TODO : make a class hierarchy that extends JButton : addButtons and removeButtons.
+    // Set their event in their class. If it's an addButton it opens up a new frame to create either a column
+    // or a card and add it to the board.
+    class addColumnEvent implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() instanceof JButton) currentPanel.addColumn(new KanbanColumn("Button test", ColumnRole.IN_PROGRESS));
+        }
+    }
+
+    class addCardEvent implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+        }
+    }
+
+    class removeColumnEvent implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+        }
+    }
+
+    class removeCardEvent implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+        }
     }
 }
