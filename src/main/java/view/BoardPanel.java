@@ -43,18 +43,27 @@ public class BoardPanel extends JPanel {
         addColumn(first);
         addColumn(second);
         addColumn(third);
+        removeColumn(second);
+
+        reset();
 
     }
 
 
-    // TODO : Implementation of the following methods
 
     public void addColumn(KanbanColumn column) {
         add(column);
-        add(Box.createRigidArea(new Dimension(10, 0)));
+        // TODO : add the following in column class directly
+        add(Box.createRigidArea(new Dimension(5, 0)));
+        revalidate();
     }
 
-    public void removeColumn() {}
+    public void removeColumn(KanbanColumn column) {
+        remove(column);
+        revalidate();
+    }
 
-    public void reset() {}
+    public void reset() {
+        removeAll();
+    }
 }
