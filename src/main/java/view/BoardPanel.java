@@ -1,5 +1,6 @@
 package view;
 
+import annotations.ClassAnnotation;
 import controller.ColumnRole;
 
 import javax.swing.*;
@@ -11,6 +12,11 @@ import java.util.ArrayList;
  * The user should be able to add columns.
  * The columns will welcome the Kanban cards.
  */
+@ClassAnnotation(
+        classAuthors = {"Jeanne"},
+        creationDate = "09/11/2019",
+        lastEdit = "22/11/2019"
+)
 
 public class BoardPanel extends JPanel {
 
@@ -37,20 +43,27 @@ public class BoardPanel extends JPanel {
         addColumn(first);
         addColumn(second);
         addColumn(third);
+        removeColumn(second);
+
+        clear();
 
     }
 
 
-    // TODO : Implementation of the following methods
 
     public void addColumn(KanbanColumn column) {
         add(column);
-        add(Box.createRigidArea(new Dimension(10, 0)));
-
-        //add(new JSeparator(SwingConstants.VERTICAL));
+        // TODO : add the following in column class directly
+        add(Box.createRigidArea(new Dimension(5, 0)));
+        revalidate();
     }
 
-    public void removeColumn() {}
+    public void removeColumn(KanbanColumn column) {
+        remove(column);
+        revalidate();
+    }
 
-    public void reset() {}
+    public void clear() {
+        removeAll();
+    }
 }

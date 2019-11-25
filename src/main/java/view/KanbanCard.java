@@ -1,5 +1,7 @@
 package view;
 
+import annotations.ClassAnnotation;
+
 import javax.swing.*;
 
 /**
@@ -7,6 +9,11 @@ import javax.swing.*;
  * Each class contains an id, a title, a description and story points.
  * Cards are inserted in to KanbanColumns.
  */
+@ClassAnnotation(
+        classAuthors = {"Jeanne, Nathan"},
+        creationDate = "13/11/2019",
+        lastEdit = "22/11/2019"
+)
 public class KanbanCard extends JPanel {
 
     // TODO : Give a unique ID to each card

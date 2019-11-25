@@ -1,11 +1,18 @@
 package view;
 
+import annotations.ClassAnnotation;
 import controller.ColumnRole;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
+
+@ClassAnnotation(
+        classAuthors = {"Ali & Jeanne"},
+        creationDate = "13/11/2019",
+        lastEdit = "25/11/2019"
+)
 
 public class KanbanColumn extends JPanel {
 
@@ -49,7 +56,7 @@ public class KanbanColumn extends JPanel {
     private void addCard(KanbanCard card) {
         //card.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(card);
-        //columnPane.add(card);
+        columnPane.add(card);
     }
 
     private void removeCard(KanbanCard card) {
