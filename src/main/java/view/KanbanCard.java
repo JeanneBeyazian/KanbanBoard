@@ -23,6 +23,7 @@ public class KanbanCard extends JFrame {
         JLabel titleLabel = new JLabel(name);
         JTextArea info = new JTextArea(description);
         JLabel points = new JLabel(String.valueOf(storyPoints));
+        this.setSize(600, 600);
         
         setLayout(new FlowLayout());
         add(titleLabel,info);
