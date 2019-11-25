@@ -96,10 +96,6 @@ public class KanbanBoard extends JFrame {
     //TODO (J) : methods below
     public void newBoard() {}
 
-    public void boardReset() {
-        //board.reset();
-    }
-
 
     public static void main(String[] args) {
         KanbanBoard board = new KanbanBoard();

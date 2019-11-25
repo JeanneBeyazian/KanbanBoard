@@ -45,7 +45,7 @@ public class BoardPanel extends JPanel {
         addColumn(third);
         removeColumn(second);
 
-        reset();
+        clear();
 
     }
 
@@ -63,7 +63,7 @@ public class BoardPanel extends JPanel {
         revalidate();
     }
 
-    public void reset() {
+    public void clear() {
         removeAll();
     }
 }
