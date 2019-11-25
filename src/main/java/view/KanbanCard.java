@@ -23,11 +23,28 @@ public class KanbanCard extends JFrame {
         JLabel titleLabel = new JLabel(name);
         JTextArea info = new JTextArea(description);
         JLabel points = new JLabel(String.valueOf(storyPoints));
-        this.setSize(600, 600);
-        
+//        JButton delete = new JButton("delete");
+//        delete.setBounds(1000,10,100,100);
+        setSize(600, 600);
         setLayout(new FlowLayout());
-        add(titleLabel,info);
+        JPanel panel = new JPanel();
+        panel.setSize(600,550);
+        add(panel);
+        JButton delete = new JButton("delete");
+        delete.setBounds(5,5,5,5);
+        panel.add(delete);
+        panel.add(titleLabel);
+        panel.add(info);
+//        panel.setLayout(null);
+//        panel.add(titleLabel);
+//        panel.add(delete);
+        setLayout(new FlowLayout());
+        //add(titleLabel);
+        //add(info);
+        //add(delete);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setResizable(true);
+        getContentPane().setBackground(Color.BLUE);
 /**
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
