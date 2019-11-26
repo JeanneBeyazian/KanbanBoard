@@ -5,6 +5,8 @@ import annotations.ClassAnnotation;
 import javax.swing.*;
 import java.awt.FlowLayout;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * This class is responsible for the creation of kanban cards.
@@ -35,7 +37,7 @@ public class KanbanCard extends JFrame {
         setSize(500, 500);
         setTitle(title.getText());
         setLayout(new FlowLayout());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
         setResizable(false);
     }
@@ -69,6 +71,7 @@ public class KanbanCard extends JFrame {
 
     private JButton createDeleteButton() {
         JButton delete = new JButton("delete");
+        delete.addActionListener(new deleteCardEvent());
         delete.setBounds(500,500,5,5);
         return delete;
     }
@@ -83,6 +86,15 @@ public class KanbanCard extends JFrame {
 
     public int getId(){
         return id;
+    }
+
+
+    class deleteCardEvent implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+
+            // TO IMPLEMENT : card is set to null and its button is removed from the board
+        }
     }
 
 }

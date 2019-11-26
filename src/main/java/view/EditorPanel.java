@@ -76,18 +76,19 @@ public class EditorPanel extends JPanel {
      */
     private JPanel createCommandsLayout() {
 
-        // Create buttons and labels
-        JButton addCardButton = createButton(" + ");
-        JButton removeCardButton =  createButton(" - ");
+        // Create buttons
+        JButton addCardButton = createAddCardButton();
+        JButton removeCardButton =  createRemoveCardButton();
+        JButton addColumnButton = createAddColumnButton();
+        JButton removeColumnButton =  createRemoveColumnButton();
+
+        // Create labels
         JLabel addCardLabel = createLabel("Insert card");
         JLabel removeCardLabel = createLabel("Delete card");
-
-        JButton addColumnButton = createButton(" + ");
-        addColumnButton.addActionListener(new addColumnEvent());
-        JButton removeColumnButton =  createButton(" - ");
         JLabel addColumnLabel = createLabel("Insert column");
         JLabel removeColumnLabel = createLabel("Delete column");
 
+        // Set up panel and group layout
         JPanel pane = new JPanel();
         pane.setOpaque(false);
         GroupLayout group = new GroupLayout(pane);
@@ -126,6 +127,35 @@ public class EditorPanel extends JPanel {
         return pane;
     }
 
+    private JButton createAddCardButton(){
+        JButton addCardButton = createButton(" + ");
+        addCardButton.addActionListener(new itemInteraction());
+        addCardButton.setActionCommand("addCard");
+        return addCardButton;
+    }
+
+    private JButton createRemoveCardButton(){
+        JButton removeCardButton =  createButton(" - ");
+        removeCardButton.addActionListener(new itemInteraction());
+        removeCardButton.setActionCommand("removeCard");
+        return removeCardButton;
+    }
+
+    private JButton createAddColumnButton(){
+        JButton addColumnButton = createButton(" + ");
+        addColumnButton.addActionListener(new itemInteraction());
+        addColumnButton.setActionCommand("addColumn");
+        return addColumnButton;
+    }
+
+    private JButton createRemoveColumnButton(){
+        JButton removeColumnButton =  createButton(" - ");
+        removeColumnButton.addActionListener(new itemInteraction());
+        removeColumnButton.setActionCommand("removeColumn");
+        return removeColumnButton;
+    }
+
+
     private JPanel createEditPanel(){
         JPanel editPanel = new JPanel();
         editPanel.setOpaque(false);
@@ -140,6 +170,7 @@ public class EditorPanel extends JPanel {
 
         return editPanel;
     }
+
 
     /**
      * Method for uniform labels creation.
@@ -192,29 +223,33 @@ public class EditorPanel extends JPanel {
     //TODO : make a class hierarchy that extends JButton : addButtons and removeButtons.
     // Set their event in their class. If it's an addButton it opens up a new frame to create either a column
     // or a card and add it to the board.
-    class addColumnEvent implements ActionListener {
 
-        public void actionPerformed(ActionEvent e) {
-            //if (e.getSource() instanceof JButton)
-            currentPanel.addColumn(new KanbanColumn("Test Column", ColumnRole.IN_PROGRESS));
-        }
-    }
+    /**
+     * Class for button event handling.
+     * It allows addition and deletion of items (cards or columns) on the board.
+     */
+    class itemInteraction implements ActionListener {
 
-    class addCardEvent implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
 
-        public void actionPerformed(ActionEvent e) {
-        }
-    }
-
-    class removeColumnEvent implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-        }
-    }
-
-    class removeCardEvent implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
+            if (event.getActionCommand().equals("addColumn")) {
+                currentPanel.addColumn(new KanbanColumn("Test Column", ColumnRole.IN_PROGRESS));
+            }
+            else if(event.getActionCommand().equals("removeColumn")) {
+                // implement here
+            }
+            else if(event.getActionCommand().equals("addCard")) {
+                // implement here
+            }
+            else if(event.getActionCommand().equals("removeCard")) {
+                // implement here
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Command Not Found", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 }
+
+
