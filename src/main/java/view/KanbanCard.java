@@ -21,17 +21,20 @@ public class KanbanCard extends JFrame {
     // TODO : Give a unique ID to each card
     // TODO : Fix the group layout - or change to a new type of layout
 
-    private int id;
+    private static int id;
+    private String title;
     private String description;
     private int storyPoints;
 
 
     public KanbanCard(String name, String description, int storyPoints) {
+        ++id;
+        initialiseCard();
+    }
 
+    public void initialiseCard() {
 
-
-
-        JTextArea titleLabel = new JTextArea(name);
+        JTextArea titleLabel = new JTextArea(title);
         JTextArea info = new JTextArea(description);
         JTextArea points = new JTextArea(String.valueOf(storyPoints));
         JLabel emp = new JLabel("       ");
@@ -76,6 +79,10 @@ public class KanbanCard extends JFrame {
 
     public void setPoint(int newPoint) {
         storyPoints = newPoint;
+    }
+
+    public int getId(){
+        return id;
     }
 
 }
