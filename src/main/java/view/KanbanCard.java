@@ -14,71 +14,70 @@ import java.awt.*;
 @ClassAnnotation(
         classAuthors = {"Jeanne, Nathan"},
         creationDate = "13/11/2019",
-        lastEdit = "22/11/2019"
+        lastEdit = "26/11/2019"
 )
 public class KanbanCard extends JFrame {
 
-    // TODO : Give a unique ID to each card
-    // TODO : Fix the group layout - or change to a new type of layout
-
     private static int id;
-    private String title;
-    private String description;
-    private int storyPoints;
+    private JTextArea title;
+    private JTextArea description;
+    private JTextArea storyPoints;
 
 
     public KanbanCard(String name, String description, int storyPoints) {
         ++id;
-        initialiseCard();
+        add(makeContainerPanel(name,description,storyPoints));
+        initialise();
+
     }
 
-    public void initialiseCard() {
+    private void initialise() {
+        setSize(200, 150);
+        setTitle(title.getText());
+        setLayout(new FlowLayout());
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(true);
+    }
 
-        JTextArea titleLabel = new JTextArea(title);
-        JTextArea info = new JTextArea(description);
-        JTextArea points = new JTextArea(String.valueOf(storyPoints));
-        JLabel emp = new JLabel("       ");
-        info.setRows(20);
-        info.setColumns(30);
-//        JButton delete = new JButton("delete");
-//        delete.setBounds(1000,10,100,100);
-        setSize(600, 600);
-        //setLayout(new FlowLayout());
+    private JPanel makeContainerPanel(String titleIn, String descriptionIn, int storyPointsIn) {
+
+        // Create Text areas
+        title = new JTextArea(titleIn);
+        storyPoints = new JTextArea(String.valueOf(storyPointsIn));
+        createDescriptionArea(descriptionIn);
+
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setSize(600,550);
-        add(panel);
-        JButton delete = new JButton("delete");
-        delete.setBounds(500,500,5,5);
-        panel.add(titleLabel);
-        panel.add(emp);
-        panel.add(info);
-        panel.add(points);
-        panel.add(delete);
+        panel.setBackground(Color.BLUE);
+        //panel.setSize(600,550);
+        panel.add(title);
+        panel.add(Box.createRigidArea(new Dimension(0, 5)));
+        panel.add(description);
+        panel.add(storyPoints);
+        panel.add(createDeleteButton());
 
-//        panel.setLayout(null);
-//        panel.add(titleLabel);
-//        panel.add(delete);
-        setLayout(new FlowLayout());
-        //add(titleLabel);
-        //add(info);
-        //add(delete);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(true);
-        //getContentPane().setBackground(Color.BLUE);
-
-        //add(new JLabel("This is a card"));
+        return panel;
 
     }
 
+    private void createDescriptionArea(String descriptionIn){
+        description = new JTextArea(descriptionIn);
+        description.setRows(20);
+        description.setColumns(30);
+    }
 
+    private JButton createDeleteButton() {
+        JButton delete = new JButton("delete");
+        delete.setBounds(500,500,5,5);
+        return delete;
+    }
 
     public void setDescription(String newDes) {
-        description = newDes;
+        description.setText(newDes);
     }
 
     public void setPoint(int newPoint) {
-        storyPoints = newPoint;
+       storyPoints.setText(String.valueOf(newPoint));
     }
 
     public int getId(){
