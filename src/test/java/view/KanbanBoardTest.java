@@ -1,9 +1,13 @@
 package view;
-import model.KanbanBoard;
+import annotations.ClassAnnotation;
 import org.junit.Test;
 import com.athaydes.automaton.Swinger;
 
-
+@ClassAnnotation(
+        classAuthors = {"Jeanne"},
+        creationDate = "09/11/2019",
+        lastEdit = "22/11/2019"
+)
 public class KanbanBoardTest {
 
     @Test
