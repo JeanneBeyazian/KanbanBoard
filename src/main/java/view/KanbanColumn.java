@@ -15,18 +15,18 @@ import java.util.ArrayList;
 
 public class KanbanColumn extends JPanel {
 
-    // TODO : give a unique ID to each column DONE!
+    // TODO : give a unique ID to each column DONE
     public static final int WIDTH = 300;
     private ArrayList<KanbanCardButton> cards;
-    private int id;
+    private static int id = -1;
     private ColumnRole role;
     private JScrollPane columnPane;
     private int HEIGHT;
 
-    public KanbanColumn(String columnTitle, ColumnRole role, int id) {
+    public KanbanColumn(String columnTitle, ColumnRole role) {
         cards = new ArrayList<>();
         this.role = role;
-        this.id = id;
+        ++id;
         columnPane = new JScrollPane();
 
         //setSize(WIDTH,LENGTH);
@@ -72,6 +72,10 @@ public class KanbanColumn extends JPanel {
     
     private void setHeight(int inHeight) {
     	HEIGHT = inHeight;
+    }
+
+    public int getId(){
+        return id;
     }
     
 
