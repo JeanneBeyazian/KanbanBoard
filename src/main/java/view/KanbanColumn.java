@@ -10,22 +10,21 @@ import java.util.ArrayList;
 @ClassAnnotation(
         classAuthors = {"Ali & Jeanne"},
         creationDate = "13/11/2019",
-        lastEdit = "25/11/2019"
+        lastEdit = "26/11/2019"
 )
 
 public class KanbanColumn extends JPanel {
 
     // TODO : give a unique ID to each column DONE!
-
-    private ArrayList<KanbanCard> cards;
+    public static final int WIDTH = 300;
+    private ArrayList<KanbanCardButton> cards;
     private int id;
     private ColumnRole role;
     private JScrollPane columnPane;
-    private int WIDTH;
     private int HEIGHT;
 
     public KanbanColumn(String columnTitle, ColumnRole role, int id) {
-        cards = new ArrayList<KanbanCard>();
+        cards = new ArrayList<>();
         this.role = role;
         this.id = id;
         columnPane = new JScrollPane();
@@ -55,8 +54,8 @@ public class KanbanColumn extends JPanel {
     }
 
     private void addCard(KanbanCardButton card) {
-        //card.setAlignmentX(Component.CENTER_ALIGNMENT);
-        //cards.add(card);
+        card.setAlignmentX(Component.CENTER_ALIGNMENT);
+        cards.add(card);
         add(card);
         columnPane.add(card);
     }
@@ -69,10 +68,7 @@ public class KanbanColumn extends JPanel {
     		System.out.println("No card to delete brozer");
     	}
     }
-    
-    private void setWidth(int inWidth) {
-    	WIDTH = inWidth;
-    }
+
     
     private void setHeight(int inHeight) {
     	HEIGHT = inHeight;
