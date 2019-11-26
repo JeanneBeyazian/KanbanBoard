@@ -15,20 +15,17 @@ import java.util.ArrayList;
 
 public class KanbanColumn extends JPanel {
 
-    public static final int WIDTH = 300;
     private ArrayList<KanbanCardButton> cards;
     private static int id = -1;
     private ColumnRole role;
     private ScrollContainer columnPane;
-    private int HEIGHT;
 
     public KanbanColumn(String columnTitle, ColumnRole role) {
         cards = new ArrayList<>();
         this.role = role;
         ++id;
         columnPane = new ScrollContainer();
-
-        //setSize(WIDTH,LENGTH);
+        setPreferredSize(new Dimension(150,710));
         initialiseColumn(columnTitle);
     }
   
@@ -78,10 +75,6 @@ public class KanbanColumn extends JPanel {
     	}
     }
 
-    
-    private void setHeight(int inHeight) {
-    	HEIGHT = inHeight;
-    }
 
     public int getId(){
         return id;

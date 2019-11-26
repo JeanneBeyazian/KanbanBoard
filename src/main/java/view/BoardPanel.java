@@ -30,7 +30,8 @@ public class BoardPanel extends JPanel {
     public void initialiseBoard() {
         columns = new ArrayList<>();
         setBackground(Color.black);
-        setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        //setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        setLayout(new FlowLayout());
     }
 
 
