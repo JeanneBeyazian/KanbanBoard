@@ -54,9 +54,9 @@ public class KanbanColumn extends JPanel {
         addCard(new KanbanCardButton("Card two", "This is the second card", 20));
     }
 
-    private void addCard(KanbanCard card) {
+    private void addCard(KanbanCardButton card) {
         //card.setAlignmentX(Component.CENTER_ALIGNMENT);
-        cards.add(card);
+        //cards.add(card);
         add(card);
         columnPane.add(card);
     }
