@@ -18,11 +18,18 @@ import java.awt.event.ItemEvent;
 )
 public class KanbanMenu extends JMenuBar {
 
-    public KanbanMenu(){
+    KanbanBoard currentBoard;
+
+    public KanbanMenu(KanbanBoard currentBoard) {
+
         super();
-        setBackground(new java.awt.Color(7, 9, 41));
+        this.currentBoard = currentBoard;
+
+        // Aesthetics
+        setBackground(new java.awt.Color(10, 15, 67));
         setBorder(new EmptyBorder(0,0,0,0));
 
+        // Create all JMenuItems for the Kanban Menu
         add(createFileMenu());
         add(createEditMenu());
         add(createKanbanMenu());
@@ -124,12 +131,12 @@ public class KanbanMenu extends JMenuBar {
 
         // JMenu items for View menu
         JMenu view = makeMenu("View");
-        JCheckBoxMenuItem showBar = new JCheckBoxMenuItem("Show bar");
+        JCheckBoxMenuItem showBar = new JCheckBoxMenuItem("Show Editor Panel");
         showBar.setSelected(true);
 
         showBar.addItemListener((e)->{
-            if (e.getStateChange() == ItemEvent.SELECTED) setVisible(true);
-            else setVisible(false);
+            if (e.getStateChange() == ItemEvent.SELECTED) currentBoard.getEditorPanel().setVisible(true);
+            else currentBoard.getEditorPanel().setVisible(false);
         });
 
         view.add(showBar);
@@ -142,7 +149,7 @@ public class KanbanMenu extends JMenuBar {
 
         // JMenu help
         JMenu help = makeMenu("Help");
-        ImageIcon helpIcon = new ImageIcon("src/images/question-mark.jpg");
+        ImageIcon helpIcon = new ImageIcon("src/images/help.png");
         help.setIcon(helpIcon);
 
         return help;

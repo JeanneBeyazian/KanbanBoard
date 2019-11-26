@@ -50,7 +50,6 @@ public class BoardPanel extends JPanel {
     }
 
 
-
     public void addColumn(KanbanColumn column) {
         add(column);
         // TODO : add the following in column class directly

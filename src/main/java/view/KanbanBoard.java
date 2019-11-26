@@ -24,6 +24,7 @@ import java.awt.event.ItemEvent;
 public class KanbanBoard extends JFrame {
 
     private BoardPanel board;
+    private EditorPanel editorPanel;
     private static final int WIDTH = 1100;
     private static final int HEIGHT = 800;
 
@@ -41,9 +42,6 @@ public class KanbanBoard extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Create the menu bar
-        createMenuBar();
-
         // Create board panel
         board = new BoardPanel();
         //board.setPreferredSize(new Dimension(WIDTH/4*3, HEIGHT));
@@ -52,10 +50,9 @@ public class KanbanBoard extends JFrame {
         add(boardScroll);
 
         // Create the editor panel
-        EditorPanel editorPanel = new EditorPanel(board);
+        editorPanel = new EditorPanel(board);
         editorPanel.setPreferredSize(new Dimension(WIDTH/4,HEIGHT));
         add(editorPanel, BorderLayout.EAST);
-
 
         // Create empty box on the west border
         JPanel westBox = new JPanel();
@@ -68,6 +65,9 @@ public class KanbanBoard extends JFrame {
         northBox.setBackground(Color.black);
         northBox.setPreferredSize(new Dimension(WIDTH, 10));
         add(northBox, BorderLayout.NORTH);
+
+        // Create the menu bar
+        createMenuBar(this);
 
 
         // Testing purpose : create a new frame containing a 'card'
@@ -85,16 +85,22 @@ public class KanbanBoard extends JFrame {
 
     }
 
-
-    public void createMenuBar() {
-
-        KanbanMenu menu = new KanbanMenu();
+    /** Sets up the Kanban menu */
+    public void createMenuBar(KanbanBoard currentBoard) {
+        KanbanMenu menu = new KanbanMenu(currentBoard);
         setJMenuBar(menu);
-
     }
 
     //TODO (J) : methods below
     public void newBoard() {}
+
+    public BoardPanel getBoard(){
+        return board;
+    }
+
+    public EditorPanel getEditorPanel(){
+        return editorPanel;
+    }
 
 
     public static void main(String[] args) {
