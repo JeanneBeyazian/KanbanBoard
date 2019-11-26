@@ -42,6 +42,10 @@ public class ScrollContainer extends JScrollPane {
         container.add(button);
     }
 
+    public void remove(JComponent button){
+        container.remove(button);
+    }
+
     public int getActivityButtons(){
         return container.getComponentCount();
     }

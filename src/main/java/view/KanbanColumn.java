@@ -49,8 +49,16 @@ public class KanbanColumn extends JPanel {
         add(Box.createVerticalGlue());
         add(columnPane);
 
-        addCard(new KanbanCardButton("Card one", "This is the first card", 10));
-        addCard(new KanbanCardButton("Card two", "This is the second card", 20));
+        // TESTING PURPOSE : ADDS A SINGLE CARD TO THE COLUMN
+        KanbanCardButton testing = new KanbanCardButton("name", "description", 10);
+        addCard(testing);
+        removeCard(testing);
+
+        // TESTING PURPOSE : ADDS 50 CARDS TO A COLUMN
+        for (int i=0; i<50; i++){
+            addCard(new KanbanCardButton(("Card "+ i), "Description for card", i+10));
+        }
+
     }
 
     private void addCard(KanbanCardButton card) {
@@ -60,10 +68,12 @@ public class KanbanColumn extends JPanel {
         columnPane.add(card);
     }
 
-    private void removeCard(KanbanCard card) {
+    private void removeCard(KanbanCardButton card) {
     	if(card != null) {
-    		card = null;
-    	}
+    		cards.remove(card);
+    		columnPane.remove(card);
+            card = null;
+        }
     	else {
     		System.out.println("No card to delete brozer");
     	}
