@@ -32,11 +32,12 @@ public class KanbanCard extends JFrame {
     }
 
     private void initialise() {
-        setSize(200, 150);
+        setSize(500, 500);
         setTitle(title.getText());
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(true);
+        pack();
+        setResizable(false);
     }
 
     private JPanel makeContainerPanel(String titleIn, String descriptionIn, int storyPointsIn) {

@@ -195,7 +195,8 @@ public class EditorPanel extends JPanel {
     class addColumnEvent implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() instanceof JButton) currentPanel.addColumn(new KanbanColumn("Test Column", ColumnRole.IN_PROGRESS));
+            //if (e.getSource() instanceof JButton)
+            currentPanel.addColumn(new KanbanColumn("Test Column", ColumnRole.IN_PROGRESS));
         }
     }
 

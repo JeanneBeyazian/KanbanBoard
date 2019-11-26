@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 public class KanbanColumn extends JPanel {
 
-    // TODO : give a unique ID to each column DONE
     public static final int WIDTH = 300;
     private ArrayList<KanbanCardButton> cards;
     private static int id = -1;
