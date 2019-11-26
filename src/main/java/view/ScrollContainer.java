@@ -3,7 +3,6 @@ package view;
 import annotations.ClassAnnotation;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 
 @ClassAnnotation(
@@ -19,6 +18,7 @@ public class ScrollContainer extends JScrollPane {
         container = new JPanel();
         initialiseScrollContainer();
     }
+
 
     /**
      * Create ScrollContainer and its container
@@ -37,7 +37,7 @@ public class ScrollContainer extends JScrollPane {
 
     }
 
-    public void add(ActivityButton button) {
+    public void add(JComponent button) {
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         container.add(button);
     }

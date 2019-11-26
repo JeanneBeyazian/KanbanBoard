@@ -20,14 +20,14 @@ public class KanbanColumn extends JPanel {
     private ArrayList<KanbanCardButton> cards;
     private static int id = -1;
     private ColumnRole role;
-    private JScrollPane columnPane;
+    private ScrollContainer columnPane;
     private int HEIGHT;
 
     public KanbanColumn(String columnTitle, ColumnRole role) {
         cards = new ArrayList<>();
         this.role = role;
         ++id;
-        columnPane = new JScrollPane();
+        columnPane = new ScrollContainer();
 
         //setSize(WIDTH,LENGTH);
         initialiseColumn(columnTitle);
@@ -55,7 +55,7 @@ public class KanbanColumn extends JPanel {
 
     private void addCard(KanbanCardButton card) {
         card.setAlignmentX(Component.CENTER_ALIGNMENT);
-        cards.add(card);
+        cards.add(card);    // Add to ArrayList
         add(card);
         columnPane.add(card);
     }
