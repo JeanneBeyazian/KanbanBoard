@@ -1,7 +1,6 @@
-package view;
+package view.boardComponents;
 
 import annotations.ClassAnnotation;
-import controller.ColumnRole;
 
 import javax.swing.*;
 import java.awt.*;

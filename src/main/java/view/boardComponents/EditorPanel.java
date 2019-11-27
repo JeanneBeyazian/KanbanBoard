@@ -1,7 +1,8 @@
-package view;
+package view.boardComponents;
 
 import annotations.ClassAnnotation;
 import controller.ColumnRole;
+import view.containers.LogPanel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

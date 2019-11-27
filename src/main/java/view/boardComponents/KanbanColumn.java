@@ -1,7 +1,8 @@
-package view;
+package view.boardComponents;
 
 import annotations.ClassAnnotation;
 import controller.ColumnRole;
+import view.containers.ScrollContainer;
 
 import javax.swing.*;
 import java.awt.*;

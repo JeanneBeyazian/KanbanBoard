@@ -2,13 +2,14 @@ package view;
 
 import annotations.ClassAnnotation;
 
-import view.KanbanMenu;
+import view.boardComponents.BoardPanel;
+import view.boardComponents.EditorPanel;
+import view.boardComponents.KanbanMenu;
+import view.frames.AddCardFrame;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ItemEvent;
-
 
 
 /**

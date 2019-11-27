@@ -1,6 +1,7 @@
-package view;
+package view.boardComponents;
 
 import annotations.ClassAnnotation;
+import view.KanbanBoard;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

@@ -1,4 +1,4 @@
-package view;
+package view.containers;
 
 import annotations.ClassAnnotation;
 

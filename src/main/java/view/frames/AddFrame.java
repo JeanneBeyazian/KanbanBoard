@@ -1,4 +1,4 @@
-package view;
+package view.frames;
 import annotations.ClassAnnotation;
 import javax.swing.*;
 import java.awt.*;

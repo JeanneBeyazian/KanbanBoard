@@ -1,7 +1,8 @@
-package view;
+package view.containers;
 
 import annotations.ClassAnnotation;
 import controller.ActivityType;
+import view.boardComponents.ActivityButton;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

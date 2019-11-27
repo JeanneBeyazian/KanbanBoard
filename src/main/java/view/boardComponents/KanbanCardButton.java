@@ -1,4 +1,6 @@
-package view;
+package view.boardComponents;
+
+import view.containers.KanbanCard;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

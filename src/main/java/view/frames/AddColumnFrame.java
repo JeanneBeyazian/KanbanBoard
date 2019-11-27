@@ -1,4 +1,4 @@
-package view;
+package view.frames;
 
 public class AddColumnFrame extends AddFrame {
 
