@@ -2,6 +2,8 @@ package view;
 import annotations.ClassAnnotation;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
@@ -12,14 +14,15 @@ import java.awt.*;
 abstract public class AddFrame extends JFrame {
 
     protected JPanel container;
-    protected static JButton CANCEL = new JButton("Cancel");
-    protected static JButton SUBMIT = new JButton("Submit");
+    protected JButton submit;
+    protected JButton cancel;
     protected JTextField titleField;
     protected JLabel title = new JLabel("Enter a title: ");
 
 
     public AddFrame(String type) {
         titleField = new JTextField(20);
+        createButtons();
         initialise(type);
     }
 
@@ -43,9 +46,9 @@ abstract public class AddFrame extends JFrame {
         constraints.gridy = 2;
         constraints.gridwidth = 2;
         constraints.anchor = GridBagConstraints.CENTER;
-        container.add(SUBMIT, constraints);
+        container.add(submit, constraints);
         constraints.anchor = GridBagConstraints.EAST;
-        container.add(CANCEL,constraints);
+        container.add(cancel,constraints);
 
         container.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
                 ("Adding a new " + type + " to the board")));
@@ -53,6 +56,14 @@ abstract public class AddFrame extends JFrame {
 
         pack();
         setLocationRelativeTo(null);
+    }
+
+    private void createButtons(){
+        cancel = new JButton("Cancel");
+        submit = new JButton("Submit");
+        cancel.addActionListener(e->this.dispose());
+        submit.setActionCommand("submit");
+
     }
 
 
