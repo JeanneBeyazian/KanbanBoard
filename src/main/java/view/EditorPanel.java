@@ -1,6 +1,5 @@
 package view;
 
-
 import annotations.ClassAnnotation;
 import controller.ColumnRole;
 
@@ -136,21 +135,21 @@ public class EditorPanel extends JPanel {
 
     private JButton createRemoveCardButton(){
         JButton removeCardButton =  createButton(" - ");
-        removeCardButton.addActionListener(new itemInteraction());
         removeCardButton.setActionCommand("removeCard");
         return removeCardButton;
     }
 
     private JButton createAddColumnButton(){
         JButton addColumnButton = createButton(" + ");
-        addColumnButton.addActionListener(new itemInteraction());
-        addColumnButton.setActionCommand("addColumn");
+        //addColumnButton.setActionCommand("addColumn");
+        addColumnButton.addActionListener(e->currentPanel.addColumn
+                (new KanbanColumn("Test Column", ColumnRole.IN_PROGRESS)));
+
         return addColumnButton;
     }
 
     private JButton createRemoveColumnButton(){
         JButton removeColumnButton =  createButton(" - ");
-        removeColumnButton.addActionListener(new itemInteraction());
         removeColumnButton.setActionCommand("removeColumn");
         return removeColumnButton;
     }
@@ -199,6 +198,7 @@ public class EditorPanel extends JPanel {
         button.setForeground(Color.lightGray);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setBorderPainted(false);
+        button.addActionListener(new itemInteraction());
         return button;
     }
 
@@ -210,8 +210,8 @@ public class EditorPanel extends JPanel {
     private JButton createExitButton() {
 
         JButton exitButton = new JButton("Exit Application");
-        exitButton.addActionListener(e->System.exit(0));
         exitButton.setToolTipText("Quit Indigo-Kanban?");
+        exitButton.addActionListener(e->System.exit(0));
         exitButton.setBackground(new java.awt.Color(250, 105, 128));
         exitButton.setBorderPainted(false);
         exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -220,18 +220,17 @@ public class EditorPanel extends JPanel {
 
     }
 
-    //TODO : make a class hierarchy that extends JButton : addButtons and removeButtons.
-    // Set their event in their class. If it's an addButton it opens up a new frame to create either a column
-    // or a card and add it to the board.
 
     /**
      * Class for button event handling.
      * It allows addition and deletion of items (cards or columns) on the board.
      */
+
+
     class itemInteraction implements ActionListener {
 
         public void actionPerformed(ActionEvent event) {
-
+            /*
             if (event.getActionCommand().equals("addColumn")) {
                 currentPanel.addColumn(new KanbanColumn("Test Column", ColumnRole.IN_PROGRESS));
             }
@@ -248,6 +247,7 @@ public class EditorPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Command Not Found", "Error",
                         JOptionPane.ERROR_MESSAGE);
             }
+            */
         }
     }
 }
