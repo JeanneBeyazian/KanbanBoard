@@ -1,6 +1,8 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,12 +13,14 @@ public class KanbanCardButton extends JButton {
 
     public KanbanCardButton(String name, String description, int storyPoints) {
         super(name);
-        addActionListener(new openCardEvent());
-        setBackground(new java.awt.Color(153, 240, 168));
         cardTitle = name;
         card = new KanbanCard(name, description, storyPoints);
-    }
 
+        addActionListener(new openCardEvent());
+        setBackground(new java.awt.Color(19, 96, 99));
+        setBorder(new EmptyBorder(0,0,0,0));
+        setPreferredSize(new Dimension(140,70));
+    }
 
     public String getCardTitle() {
         return cardTitle;

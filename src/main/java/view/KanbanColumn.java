@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @ClassAnnotation(
         classAuthors = {"Ali & Jeanne"},
         creationDate = "13/11/2019",
-        lastEdit = "26/11/2019"
+        lastEdit = "27/11/2019"
 )
 
 public class KanbanColumn extends JPanel {
@@ -25,20 +25,21 @@ public class KanbanColumn extends JPanel {
         this.role = role;
         ++id;
         columnPane = new ScrollContainer();
-        setPreferredSize(new Dimension(150,710));
+        setPreferredSize(new Dimension(200,710));
         initialiseColumn(columnTitle);
     }
   
     private void initialiseColumn(String nameIn) {
 
         JLabel ID = new JLabel(String.valueOf(id));
+        ID.setForeground(Color.lightGray);
         add(ID);
 
-        setBackground(new java.awt.Color(86, 164, 194));
+        setBackground(new java.awt.Color(26, 58, 161));
 
         JLabel columnName = new JLabel(nameIn);
-        columnName.setSize(30,10);
         columnName.setAlignmentX(Component.CENTER_ALIGNMENT);
+        columnName.setForeground(Color.lightGray);
         add(columnName);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -51,17 +52,23 @@ public class KanbanColumn extends JPanel {
         removeCard(testing);
 
         // TESTING PURPOSE : ADDS 50 CARDS TO A COLUMN
-        for (int i=0; i<50; i++){
+        for (int i=0; i<2; i++){
             addCard(new KanbanCardButton(("Card "+ i), "Description for card", i+10));
         }
 
     }
 
     private void addCard(KanbanCardButton card) {
-        card.setAlignmentX(Component.CENTER_ALIGNMENT);
         cards.add(card);    // Add to ArrayList
-        add(card);
-        columnPane.add(card);
+        JPanel cardContainer = new JPanel();
+        //cardContainer.setPreferredSize(new Dimension(170,0));
+        //cardContainer.setAlignmentY(JPanel.TOP_ALIGNMENT);
+
+        cardContainer.add(card);
+        card.setAlignmentX(Component.CENTER_ALIGNMENT);
+        columnPane.add(cardContainer);
+        columnPane.add(Box.createRigidArea(new Dimension(0, 10)));
+
     }
 
     private void removeCard(KanbanCardButton card) {
