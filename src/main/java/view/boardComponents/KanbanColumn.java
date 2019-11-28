@@ -46,7 +46,7 @@ public class KanbanColumn extends JPanel {
         add(columnPane);
 
         // TESTING PURPOSE : ADDS 50 CARDS TO A COLUMN
-        for (int i=0; i<50; i++){
+        for (int i=0; i<5; i++){
             addCard(new KanbanCardButton(this,("Card "+ i), "Description for card", i+10));
         }
 

@@ -37,7 +37,6 @@ public class BoardPanel extends JPanel {
     public void addColumn(KanbanColumn column) {
         columns.add(column);
         add(column);
-        // TODO : add the following in column class directly
         add(Box.createRigidArea(new Dimension(5, 0)));
         revalidate();
     }

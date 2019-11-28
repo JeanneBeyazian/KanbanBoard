@@ -93,9 +93,7 @@ public class KanbanBoard extends JFrame {
     }
 
     public static void main(String[] args) {
-        KanbanBoard board = new KanbanBoard("Our KanbanBoard");
-        AddCardFrame frame = new AddCardFrame();
-        frame.setVisible(true);
+        KanbanBoard board = new KanbanBoard("KanbanBoard");
         board.setVisible(true);
     }
 
