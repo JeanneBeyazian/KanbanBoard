@@ -14,17 +14,21 @@ public class KanbanColumn extends JPanel {
     // TODO (J) : the columnPane (scrollPane) should have one container in which the cards are added.
     // TODO (J) : the container should keep a list of buttons pointing to cards
 
-    String id;
-    ColumnRole role;
-    JScrollPane columnPane;
-    int WIDTH;
-    int LENGTH;
+    public static final int WIDTH = 300;
+    private ArrayList<KanbanCardButton> cards;
+    private static int id = -1;
+    private ColumnRole role;
+    //private ScrollContainer columnPane;
+    private JScrollPane columnPane;
+    private int HEIGHT;
 
     public KanbanColumn(String columnTitle, ColumnRole role) {
 
+        cards = new ArrayList<>();
         this.role = role;
+        ++id;
+        //columnPane = new ScrollContainer();
         columnPane = new JScrollPane();
-
         //setSize(WIDTH,LENGTH);
         initialiseColumn(columnTitle);
     }
@@ -42,17 +46,44 @@ public class KanbanColumn extends JPanel {
         add(Box.createVerticalGlue());
         add(columnPane);
 
-        addCard(new KanbanCard("Card one", "This is the first card", 10));
-        addCard(new KanbanCard("Card two", "This is the second card", 20));
+
+        // TESTING PURPOSE : ADDS A SINGLE CARD TO THE COLUMN
+//        KanbanCardButton testing = new KanbanCardButton("name", "description", 10);
+//        addCard(testing);
+//        removeCard(testing);
+
+        // TESTING PURPOSE : ADDS 50 CARDS TO A COLUMN
+        for (int i=0; i<50; i++){
+            addCard(new KanbanCardButton(this, ("Card "+ i), "Description for card", i+10));
+        }
+
     }
 
-    private void addCard(KanbanCard card) {
+    private void addCard(KanbanCardButton card) {
         card.setAlignmentX(Component.CENTER_ALIGNMENT);
+        cards.add(card);    // Add to ArrayList
         add(card);
-        //columnPane.add(card);
+        columnPane.add(card);
+    }
+    //private to public
+    public void removeCard(KanbanCardButton card) {
+    	if(card != null) {
+    		cards.remove(card);
+    		columnPane.remove(card);
+            card = null;
+            revalidate();
+        }
+    	else {
+    		System.out.println("No card to delete brozer");
+    	}
     }
 
-    private void removeCard(KanbanCard card) {
+    private void setHeight(int inHeight) {
+        HEIGHT = inHeight;
+    }
+
+    public int getId(){
+        return id;
     }
 
 }

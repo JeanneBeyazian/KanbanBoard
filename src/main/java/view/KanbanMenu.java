@@ -2,6 +2,7 @@ package view;
 
 import javax.swing.*;
 import java.awt.event.ItemEvent;
+import java.awt.event.*;
 
 /**
  * This class is responsible for the creation of the menu
@@ -120,6 +121,13 @@ public class KanbanMenu extends JMenuBar {
         help.setIcon(helpIcon);
 
         return help;
+    }
+
+    class removeCardEvent implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+
+        }
     }
 
 }
