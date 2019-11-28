@@ -1,6 +1,7 @@
 package view.containers;
 
 import annotations.ClassAnnotation;
+import view.boardComponents.KanbanCardButton;
 
 import javax.swing.*;
 import java.awt.FlowLayout;
@@ -72,7 +73,6 @@ public class KanbanCard extends JFrame {
 
     public JButton createDeleteButton() {
         JButton delete = new JButton("delete");
-        delete.addActionListener(new deleteCardEvent());
         delete.setBounds(500,500,5,5);
         delete.addActionListener(e->cardButton.getColumn().removeCard(cardButton));
         return delete;
@@ -81,15 +81,6 @@ public class KanbanCard extends JFrame {
 
     public int getId(){
         return id;
-    }
-
-
-    class deleteCardEvent implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-
-            // TO IMPLEMENT : card is set to null and its button is removed from the board
-        }
     }
 
 }

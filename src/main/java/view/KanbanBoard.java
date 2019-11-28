@@ -10,6 +10,7 @@ import view.frames.AddCardFrame;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.ArrayList;
 
 
 /**
@@ -24,6 +25,7 @@ import java.awt.*;
 
 public class KanbanBoard extends JFrame {
 
+    private String boardName;
     private BoardPanel board;
     private EditorPanel editorPanel;
     private static final int WIDTH = 1100;
@@ -32,10 +34,11 @@ public class KanbanBoard extends JFrame {
     // TODO (maybe): implement a card layout for boards in use
     // TODO : focus on making tests for GUI and start the model part
 
-    public KanbanBoard() {
+    public KanbanBoard(String title) {
 
         // Set up the JFrame
-        setTitle("Kanban Board");
+        boardName = title;
+        setTitle(title);
         setSize(WIDTH, HEIGHT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -77,8 +80,8 @@ public class KanbanBoard extends JFrame {
     /**
      * Opens a new KanbanBoard Window
      */
-    public static void newBoard() {
-        KanbanBoard newBoardWindow = new KanbanBoard();
+    public static void newBoard(String name) {
+        KanbanBoard newBoardWindow = new KanbanBoard(name);
     }
 
     public BoardPanel getBoard(){
@@ -89,9 +92,8 @@ public class KanbanBoard extends JFrame {
         return editorPanel;
     }
 
-
     public static void main(String[] args) {
-        KanbanBoard board = new KanbanBoard();
+        KanbanBoard board = new KanbanBoard("Our KanbanBoard");
         AddCardFrame frame = new AddCardFrame();
         frame.setVisible(true);
         board.setVisible(true);

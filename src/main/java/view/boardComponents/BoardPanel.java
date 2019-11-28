@@ -50,4 +50,8 @@ public class BoardPanel extends JPanel {
     public void clear() {
         removeAll();
     }
+
+    public ArrayList<KanbanColumn> getColumns() {
+        return columns;
+    }
 }
