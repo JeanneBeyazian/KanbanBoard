@@ -1,4 +1,4 @@
-package view.containers;
+package view.frames;
 
 import annotations.ClassAnnotation;
 import view.boardComponents.KanbanCardButton;

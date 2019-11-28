@@ -24,25 +24,19 @@ public class KanbanColumn extends JPanel {
     private static final int HEIGHT = 710;
 
     public KanbanColumn(String columnTitle, ColumnRole role) {
+
         cards = new ArrayList<>();
         this.role = role;
         ++id;
         columnPane = new ScrollContainer();
-        setPreferredSize(new Dimension(WIDTH,HEIGHT));
         initialiseColumn(columnTitle);
     }
   
     private void initialiseColumn(String nameIn) {
 
-        setBackground(new java.awt.Color(26, 58, 161));
-
-        JLabel columnName = new JLabel(nameIn);
-        columnName.setAlignmentX(Component.CENTER_ALIGNMENT);
-        columnName.setForeground(Color.lightGray);
-        add(columnName);
-
+        setPreferredSize(new Dimension(WIDTH,HEIGHT));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        add(Box.createVerticalGlue());
+        addColumnName(nameIn);
         add(columnPane);
 
         // TESTING PURPOSE : ADDS 50 CARDS TO A COLUMN
@@ -52,7 +46,20 @@ public class KanbanColumn extends JPanel {
 
     }
 
+    private void addColumnName(String nameIn) {
+
+        JLabel columnName = new JLabel(nameIn);
+        columnName.setAlignmentX(Component.CENTER_ALIGNMENT);
+        columnName.setForeground(Color.lightGray);
+        columnName.setBackground(new java.awt.Color(26, 58, 161));
+        columnName.setOpaque(true);
+        columnName.setMaximumSize(new Dimension(200,20));
+        add(columnName);
+
+    }
+
     private void addCard(KanbanCardButton card) {
+
         cards.add(card);    // Add to ArrayList
 
         card.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -63,6 +70,7 @@ public class KanbanColumn extends JPanel {
     }
 
     public void removeCard(KanbanCardButton card) {
+
     	if(card != null) {
     		cards.remove(card);
             revalidate();
@@ -70,7 +78,7 @@ public class KanbanColumn extends JPanel {
             card.setCard(null);
         }
     	else {
-    		System.out.println("No card to delete brozer");
+    		System.out.println("The card does not exist.");
     	}
     }
 

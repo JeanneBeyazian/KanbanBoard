@@ -24,14 +24,10 @@ public class ScrollContainer extends JScrollPane {
      * Create ScrollContainer and its container
      */
     private void initialiseScrollContainer() {
-        //container.setLayout(new GridLayout(8,1));
-        //JPanel pane = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        //pane.add(container);
-        //getViewport().add(pane, null);
-
-        // Trying out flow pane
+        setOpaque(false);
         JPanel pane = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+        container.setOpaque(false);
         pane.add(container);
         getViewport().add(container,null);
 

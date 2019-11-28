@@ -1,7 +1,7 @@
 package view;
 import annotations.ClassAnnotation;
 import org.junit.Test;
-import view.containers.KanbanCard;
+import view.frames.KanbanCard;
 
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
