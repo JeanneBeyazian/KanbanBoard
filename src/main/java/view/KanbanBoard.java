@@ -1,18 +1,33 @@
 package view;
 
+import annotations.ClassAnnotation;
+
 import view.KanbanMenu;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ItemEvent;
+
+
 
 /**
  * This class is the application window.
  * It contains the maine frame and a menu bar.
  */
+@ClassAnnotation(
+        classAuthors = {"Jeanne"},
+        creationDate = "08/11/2019",
+        lastEdit = "22/11/2019"
+)
+
 public class KanbanBoard extends JFrame {
 
     private BoardPanel board;
+    private EditorPanel editorPanel;
+    private static final int WIDTH = 1100;
+    private static final int HEIGHT = 800;
+
     // TODO (J) : implement button functions and set up controllers
     // TODO (maybe): implement a card layout for boards in use
     // TODO : focus on making tests for GUI and start the model part
@@ -23,19 +38,37 @@ public class KanbanBoard extends JFrame {
 
         // Set up the JFrame
         setTitle("Kanban Board");
-        setSize(1000, 700);
+        setSize(WIDTH, HEIGHT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Create the menu bar
-        createMenuBar();
-
-        // Create the editor panel
-        add(new EditorPanel(), BorderLayout.EAST);
-
         // Create board panel
         board = new BoardPanel();
-        add(board);
+        //board.setPreferredSize(new Dimension(WIDTH/4*3, HEIGHT));
+        JScrollPane boardScroll = new JScrollPane(board);
+        boardScroll.setBorder(new EmptyBorder(0,0,0,0));
+        add(boardScroll);
+
+        // Create the editor panel
+        editorPanel = new EditorPanel(board);
+        editorPanel.setPreferredSize(new Dimension(WIDTH/4,HEIGHT));
+        add(editorPanel, BorderLayout.EAST);
+
+        // Create empty box on the west border
+        JPanel westBox = new JPanel();
+        westBox.setBackground(Color.black);
+        westBox.setPreferredSize(new Dimension(10, HEIGHT));
+        add(westBox, BorderLayout.WEST);
+
+        // Create empty box on the north border
+        JPanel northBox = new JPanel();
+        northBox.setBackground(Color.black);
+        northBox.setPreferredSize(new Dimension(WIDTH, 10));
+        add(northBox, BorderLayout.NORTH);
+
+        // Create the menu bar
+        createMenuBar(this);
+
 
         // Testing purpose : create a new frame containing a 'card'
         /** TESTING
@@ -52,19 +85,21 @@ public class KanbanBoard extends JFrame {
 
     }
 
-
-    public void createMenuBar() {
-
-        KanbanMenu menu = new KanbanMenu();
+    /** Sets up the Kanban menu */
+    public void createMenuBar(KanbanBoard currentBoard) {
+        KanbanMenu menu = new KanbanMenu(currentBoard);
         setJMenuBar(menu);
-
     }
 
     //TODO (J) : methods below
     public void newBoard() {}
 
-    public void boardReset() {
-        //board.reset();
+    public BoardPanel getBoard(){
+        return board;
+    }
+
+    public EditorPanel getEditorPanel(){
+        return editorPanel;
     }
 
 

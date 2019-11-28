@@ -1,5 +1,6 @@
 package view;
 
+import annotations.ClassAnnotation;
 import controller.ColumnRole;
 
 import javax.swing.*;
@@ -11,10 +12,15 @@ import java.util.ArrayList;
  * The user should be able to add columns.
  * The columns will welcome the Kanban cards.
  */
+@ClassAnnotation(
+        classAuthors = {"Jeanne"},
+        creationDate = "09/11/2019",
+        lastEdit = "26/11/2019"
+)
 
 public class BoardPanel extends JPanel {
 
-    // TODO (J) : figure out how to remove the west border layout empty space
+    private ArrayList<KanbanColumn> columns;
 
     public BoardPanel() {
         super();
@@ -22,33 +28,26 @@ public class BoardPanel extends JPanel {
     }
 
     public void initialiseBoard() {
-
-        // TESTING PURPOSE : test columns
-        KanbanColumn first = new KanbanColumn("First", ColumnRole.BACKLOG);
-        KanbanColumn second = new KanbanColumn("Second", ColumnRole.COMPLETED);
-        KanbanColumn third = new KanbanColumn("Third", ColumnRole.IN_PROGRESS);
-
-        // Create vertical separation with JSeparator
+        columns = new ArrayList<>();
+        setBackground(Color.black);
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-        add(Box.createHorizontalGlue());
-
-        addColumn(first);
-        addColumn(second);
-        addColumn(third);
-
     }
 
-
-    // TODO : Implementation of the following methods
 
     public void addColumn(KanbanColumn column) {
+        columns.add(column);
         add(column);
-        add(Box.createRigidArea(new Dimension(10, 0)));
-
-        //add(new JSeparator(SwingConstants.VERTICAL));
+        // TODO : add the following in column class directly
+        add(Box.createRigidArea(new Dimension(5, 0)));
+        revalidate();
     }
 
-    public void removeColumn() {}
+    public void removeColumn(KanbanColumn column) {
+        remove(column);
+        revalidate();
+    }
 
-    public void reset() {}
+    public void clear() {
+        removeAll();
+    }
 }

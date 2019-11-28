@@ -1,6 +1,10 @@
 package view;
 
+import annotations.ClassAnnotation;
+
 import javax.swing.*;
+import java.awt.FlowLayout;
+import java.awt.*;
 
 import java.awt.FlowLayout;
 import java.awt.*;
@@ -71,9 +75,9 @@ public class KanbanCard extends JFrame {
         return delete;
     }
 
+
     public int getId(){
         return id;
     }
-
 
 }

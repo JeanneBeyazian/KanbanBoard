@@ -1,25 +1,25 @@
 package view;
 
+import annotations.ClassAnnotation;
 import controller.ColumnRole;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class KanbanColumn extends JPanel {
+@ClassAnnotation(
+        classAuthors = {"Ali & Jeanne"},
+        creationDate = "13/11/2019",
+        lastEdit = "26/11/2019"
+)
 
-    // TODO : give a unique ID to each column
-    // TODO : choose a proper size for column using constants below
-    // TODO (J) : the columnPane (scrollPane) should have one container in which the cards are added.
-    // TODO (J) : the container should keep a list of buttons pointing to cards
+public class KanbanColumn extends JPanel {
 
     public static final int WIDTH = 300;
     private ArrayList<KanbanCardButton> cards;
     private static int id = -1;
     private ColumnRole role;
-    //private ScrollContainer columnPane;
-    private JScrollPane columnPane;
+    private ScrollContainer columnPane;
     private int HEIGHT;
 
     public KanbanColumn(String columnTitle, ColumnRole role) {
@@ -27,13 +27,15 @@ public class KanbanColumn extends JPanel {
         cards = new ArrayList<>();
         this.role = role;
         ++id;
-        //columnPane = new ScrollContainer();
-        columnPane = new JScrollPane();
+        columnPane = new ScrollContainer();
         //setSize(WIDTH,LENGTH);
         initialiseColumn(columnTitle);
     }
-
+  
     private void initialiseColumn(String nameIn) {
+
+        JLabel ID = new JLabel(String.valueOf(id));
+        add(ID);
 
         setBackground(new java.awt.Color(86, 164, 194));
 
@@ -55,17 +57,22 @@ public class KanbanColumn extends JPanel {
         // TESTING PURPOSE : ADDS 50 CARDS TO A COLUMN
         for (int i=0; i<50; i++){
             addCard(new KanbanCardButton(this, ("Card "+ i), "Description for card", i+10));
+        // TESTING PURPOSE : ADDS A SINGLE CARD TO THE COLUMN
+        KanbanCardButton testing = new KanbanCardButton(this,"name", "description", 10);
+        addCard(testing);
+        removeCard(testing);
+
         }
 
     }
 
-    private void addCard(KanbanCardButton card) {
+    public void addCard(KanbanCardButton card) {
         card.setAlignmentX(Component.CENTER_ALIGNMENT);
         cards.add(card);    // Add to ArrayList
         add(card);
         columnPane.add(card);
     }
-    //private to public
+
     public void removeCard(KanbanCardButton card) {
     	if(card != null) {
     		cards.remove(card);
@@ -85,5 +92,6 @@ public class KanbanColumn extends JPanel {
     public int getId(){
         return id;
     }
+    
 
 }

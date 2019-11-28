@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class KanbanCardButton extends JButton {
+
     private String title;
     private String description;
 
@@ -34,6 +35,7 @@ public class KanbanCardButton extends JButton {
         return column;
     }
 
+
     class openCardEvent implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -41,3 +43,4 @@ public class KanbanCardButton extends JButton {
         }
     }
 }
+

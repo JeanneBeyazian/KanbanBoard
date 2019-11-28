@@ -1,6 +1,10 @@
 package view;
 
+import annotations.ClassAnnotation;
+
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.*;
 
@@ -8,10 +12,25 @@ import java.awt.event.*;
  * This class is responsible for the creation of the menu
  * bar at the top of the board.
  */
+@ClassAnnotation(
+        classAuthors = {"Jeanne"},
+        creationDate = "13/11/2019",
+        lastEdit = "22/11/2019"
+)
 public class KanbanMenu extends JMenuBar {
 
-    public KanbanMenu(){
+    KanbanBoard currentBoard;
+
+    public KanbanMenu(KanbanBoard currentBoard) {
+
         super();
+        this.currentBoard = currentBoard;
+
+        // Aesthetics
+        setBackground(new java.awt.Color(10, 15, 67));
+        setBorder(new EmptyBorder(0,0,0,0));
+
+        // Create all JMenuItems for the Kanban Menu
         add(createFileMenu());
         add(createEditMenu());
         add(createKanbanMenu());
@@ -19,9 +38,22 @@ public class KanbanMenu extends JMenuBar {
         add(createHelpMenu());
     }
 
-    JMenu createFileMenu(){
+    public JMenu makeMenu(String menuName){
+        JMenu menu = new JMenu(menuName);
+        menu.setForeground(new java.awt.Color(255, 255, 255));
+        return menu;
+    }
+
+    public JMenuItem makeItem(String menuItemName, ImageIcon icon){
+        JMenuItem menu = new JMenuItem(menuItemName, icon);
+        menu.setForeground(new java.awt.Color(228, 228, 228));
+        menu.setBackground(new java.awt.Color(33, 42, 101));
+        return menu;
+    }
+
+    private JMenu createFileMenu(){
         // Menu items for JMenu 'file'
-        JMenu file = new JMenu("File");
+        JMenu file = makeMenu("File");
 
         ImageIcon newIcon = new ImageIcon("src/images/newdocument.jpg");
         ImageIcon openIcon = new ImageIcon("src/images/open-folder-with-document.jpg");
@@ -32,6 +64,7 @@ public class KanbanMenu extends JMenuBar {
         JMenuItem openBoard = new JMenuItem("Open", openIcon);
         JMenuItem renameBoard = new JMenuItem("Rename", renameIcon);
         JMenuItem saveBoard = new JMenuItem("Save", saveIcon);
+
 
         file.add(newBoard);
         file.add(new JSeparator(SwingConstants.HORIZONTAL));
@@ -44,10 +77,10 @@ public class KanbanMenu extends JMenuBar {
     }
 
 
-    JMenu createEditMenu() {
+    private JMenu createEditMenu() {
 
         // Menu items for JMenu 'Edit'
-        JMenu edit = new JMenu("Edit");
+        JMenu edit = makeMenu("Edit");
 
         ImageIcon addIcon = new ImageIcon("src/images/plus-sign.jpg");
         ImageIcon deleteIcon = new ImageIcon("src/images/delete.jpg");
@@ -78,10 +111,10 @@ public class KanbanMenu extends JMenuBar {
         return edit;
     }
 
-    JMenu createKanbanMenu() {
+    private JMenu createKanbanMenu() {
 
         // Menu items for JMenu 'kanban'
-        JMenu kanban = new JMenu("Kanban");
+        JMenu kanban = makeMenu("Kanban");
         JMenuItem team = new JMenuItem("Team");
         JMenuItem settings = new JMenuItem("Settings");
         JMenuItem exitBoard = new JMenuItem("Exit Kanban");
@@ -95,16 +128,16 @@ public class KanbanMenu extends JMenuBar {
     }
 
 
-    JMenu createViewMenu() {
+    private JMenu createViewMenu() {
 
         // JMenu items for View menu
-        JMenu view = new JMenu("View");
-        JCheckBoxMenuItem showBar = new JCheckBoxMenuItem("Show bar");
+        JMenu view = makeMenu("View");
+        JCheckBoxMenuItem showBar = new JCheckBoxMenuItem("Show Editor Panel");
         showBar.setSelected(true);
 
         showBar.addItemListener((e)->{
-            if (e.getStateChange() == ItemEvent.SELECTED) setVisible(true);
-            else setVisible(false);
+            if (e.getStateChange() == ItemEvent.SELECTED) currentBoard.getEditorPanel().setVisible(true);
+            else currentBoard.getEditorPanel().setVisible(false);
         });
 
         view.add(showBar);
@@ -113,11 +146,11 @@ public class KanbanMenu extends JMenuBar {
     }
 
 
-    JMenu createHelpMenu() {
+    private JMenu createHelpMenu() {
 
         // JMenu help
-        JMenu help = new JMenu ("Help");
-        ImageIcon helpIcon = new ImageIcon("src/images/question-mark.jpg");
+        JMenu help = makeMenu("Help");
+        ImageIcon helpIcon = new ImageIcon("src/images/help.png");
         help.setIcon(helpIcon);
 
         return help;
