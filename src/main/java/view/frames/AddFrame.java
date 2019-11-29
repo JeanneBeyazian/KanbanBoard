@@ -1,5 +1,7 @@
 package view.frames;
 import annotations.ClassAnnotation;
+import view.boardComponents.BoardPanel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,8 +13,9 @@ import java.awt.event.ActionListener;
         lastEdit = "26/11/2019"
 )
 
-abstract public class AddFrame extends JFrame {
+abstract public class AddFrame extends JFrame implements ActionListener {
 
+    protected BoardPanel currentPanel;
     protected JPanel container;
     protected JButton submit;
     protected JButton cancel;
@@ -20,7 +23,8 @@ abstract public class AddFrame extends JFrame {
     protected JLabel title = new JLabel("Enter a title: ");
 
 
-    public AddFrame(String type) {
+    public AddFrame(String type, BoardPanel currentPanel) {
+        this.currentPanel = currentPanel;
         titleField = new JTextField(20);
         createButtons();
         initialise(type);
@@ -33,7 +37,7 @@ abstract public class AddFrame extends JFrame {
         constraints.insets = new Insets(10, 10, 10, 10);
         constraints.anchor = GridBagConstraints.WEST;
 
-        // add components to the panel
+        // add title and title textField to the panel
         constraints.gridx = 0;
         constraints.gridy = 0;
         container.add(title, constraints);
@@ -41,9 +45,9 @@ abstract public class AddFrame extends JFrame {
         constraints.gridx = 1;
         container.add(titleField, constraints);
 
-
+        // add buttons to the panel
         constraints.gridx = 0;
-        constraints.gridy = 2;
+        constraints.gridy = 3;
         constraints.gridwidth = 2;
         constraints.anchor = GridBagConstraints.CENTER;
         container.add(submit, constraints);
@@ -62,9 +66,15 @@ abstract public class AddFrame extends JFrame {
         cancel = new JButton("Cancel");
         submit = new JButton("Submit");
         cancel.addActionListener(e->this.dispose());
-        submit.setActionCommand("submit");
+    }
+
+    protected void showError(){
+        JOptionPane op = new JOptionPane();
+        op.showMessageDialog(null, "Command Not Found", "Error",
+                JOptionPane.ERROR_MESSAGE);
 
     }
+
 
 
 }

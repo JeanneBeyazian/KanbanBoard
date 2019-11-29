@@ -5,12 +5,10 @@ import annotations.ClassAnnotation;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.EditorPanel;
 import view.boardComponents.KanbanMenu;
-import view.frames.AddCardFrame;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.util.ArrayList;
 
 
 /**
@@ -95,6 +93,7 @@ public class KanbanBoard extends JFrame {
     public static void main(String[] args) {
         KanbanBoard board = new KanbanBoard("KanbanBoard");
         board.setVisible(true);
+
     }
 
 }

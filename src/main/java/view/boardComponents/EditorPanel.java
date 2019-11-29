@@ -1,8 +1,10 @@
 package view.boardComponents;
 
 import annotations.ClassAnnotation;
-import controller.ColumnRole;
+
 import view.containers.LogPanel;
+import view.frames.AddCardFrame;
+import view.frames.AddColumnFrame;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -26,8 +28,6 @@ import static javax.swing.GroupLayout.Alignment.*;
 
 public class EditorPanel extends JPanel {
 
-    // TODO (J) : make tabbed pane into a scroll pane
-    // TODO : make a class that contains log activity cards (panels)
     BoardPanel currentPanel;
 
     public EditorPanel(BoardPanel currentPanel) {
@@ -129,8 +129,7 @@ public class EditorPanel extends JPanel {
 
     private JButton createAddCardButton(){
         JButton addCardButton = createButton(" + ");
-        addCardButton.addActionListener(new itemInteraction());
-        addCardButton.setActionCommand("addCard");
+        addCardButton.addActionListener(e->new AddCardFrame(currentPanel).setVisible(true));
         return addCardButton;
     }
 
@@ -142,10 +141,7 @@ public class EditorPanel extends JPanel {
 
     private JButton createAddColumnButton(){
         JButton addColumnButton = createButton(" + ");
-        //addColumnButton.setActionCommand("addColumn");
-        addColumnButton.addActionListener(e->currentPanel.addColumn
-                (new KanbanColumn("Test Column", ColumnRole.IN_PROGRESS)));
-
+        addColumnButton.addActionListener(e->new AddColumnFrame(currentPanel).setVisible(true));
         return addColumnButton;
     }
 

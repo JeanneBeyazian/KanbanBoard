@@ -1,8 +1,24 @@
 package view.frames;
 
-public class AddCardFrame extends AddFrame {
+import view.boardComponents.BoardPanel;
 
-    public AddCardFrame() {
-        super("card");
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class AddCardFrame extends AddFrame implements ActionListener {
+
+    public AddCardFrame(BoardPanel currentPanel) {
+        super("card", currentPanel);
+    }
+
+    public void actionPerformed(ActionEvent event) {
+
+        if (event.getSource() == submit) {
+
+        }
+        else {
+            showError();
+        }
+
     }
 }
