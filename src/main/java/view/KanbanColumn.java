@@ -85,6 +85,11 @@ public class KanbanColumn extends JPanel {
     	}
     }
 
+    public void moveCard(KanbanColumn columnToMoveTo,KanbanCardButton card) {
+        columnToMoveTo.addCard(card);
+        removeCard(card);
+    }
+
     private void setHeight(int inHeight) {
         HEIGHT = inHeight;
     }
