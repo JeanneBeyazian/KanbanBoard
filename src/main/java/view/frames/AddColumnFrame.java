@@ -20,7 +20,6 @@ public class AddColumnFrame extends AddFrame implements ActionListener {
         submit.addActionListener(this);
         rolesBox = createRolesList();
         setUpFrame();
-        //container.add(rolesBox);
 
     }
 

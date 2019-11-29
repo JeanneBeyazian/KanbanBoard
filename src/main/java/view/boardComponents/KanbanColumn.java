@@ -18,6 +18,8 @@ public class KanbanColumn extends JPanel {
 
     private ArrayList<KanbanCardButton> cards;
     private static int id = -1;
+
+    private String columnTitle;
     private ColumnRole role;
     private ScrollContainer columnPane;
     private static final int WIDTH = 200;
@@ -27,6 +29,7 @@ public class KanbanColumn extends JPanel {
 
         cards = new ArrayList<>();
         this.role = role;
+        this.columnTitle = columnTitle;
         ++id;
         columnPane = new ScrollContainer();
         initialiseColumn(columnTitle);
@@ -58,7 +61,7 @@ public class KanbanColumn extends JPanel {
 
     }
 
-    private void addCard(KanbanCardButton card) {
+    public void addCard(KanbanCardButton card) {
 
         cards.add(card);    // Add to ArrayList
 
@@ -82,6 +85,9 @@ public class KanbanColumn extends JPanel {
     	}
     }
 
+    public String getColumnTitle() {
+        return columnTitle;
+    }
 
     public int getId(){
         return id;

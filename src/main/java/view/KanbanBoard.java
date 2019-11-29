@@ -93,7 +93,6 @@ public class KanbanBoard extends JFrame {
     public static void main(String[] args) {
         KanbanBoard board = new KanbanBoard("KanbanBoard");
         board.setVisible(true);
-
     }
 
 }
