@@ -13,26 +13,24 @@ import java.awt.event.ActionListener;
         lastEdit = "26/11/2019"
 )
 
-abstract public class AddFrame extends JFrame implements ActionListener {
+abstract public class AddFrame extends EditorFrame implements ActionListener {
 
-    protected BoardPanel currentPanel;
-    protected JPanel container;
-    protected JButton submit;
-    protected JButton cancel;
     protected JTextField titleField;
-    protected JLabel title = new JLabel("Enter a title: ");
+    protected JLabel titleLabel;
 
 
     public AddFrame(String type, BoardPanel currentPanel) {
+        super(currentPanel);
         this.currentPanel = currentPanel;
+        titleLabel = new JLabel("Enter a title:");
         titleField = new JTextField(20);
-        createButtons();
-        initialise(type);
+        setUpFrame(type);
     }
 
-    protected void initialise(String type) {
+    protected void setUpFrame(String type ) {
+        container.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
+                ("Adding a new " + type + " to the board")));
 
-        container = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(10, 10, 10, 10);
         constraints.anchor = GridBagConstraints.WEST;
@@ -40,39 +38,12 @@ abstract public class AddFrame extends JFrame implements ActionListener {
         // add title and title textField to the panel
         constraints.gridx = 0;
         constraints.gridy = 0;
-        container.add(title, constraints);
+        container.add(titleLabel, constraints);
 
         constraints.gridx = 1;
         container.add(titleField, constraints);
 
-        // add buttons to the panel
-        constraints.gridx = 0;
-        constraints.gridy = 3;
-        constraints.gridwidth = 2;
-        constraints.anchor = GridBagConstraints.CENTER;
-        container.add(submit, constraints);
-        constraints.anchor = GridBagConstraints.EAST;
-        container.add(cancel,constraints);
-
-        container.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
-                ("Adding a new " + type + " to the board")));
-        add(container);
-
         pack();
-        setLocationRelativeTo(null);
-    }
-
-    private void createButtons(){
-        cancel = new JButton("Cancel");
-        submit = new JButton("Submit");
-        cancel.addActionListener(e->this.dispose());
-    }
-
-    protected void showError(){
-        JOptionPane op = new JOptionPane();
-        op.showMessageDialog(null, "Command Not Found", "Error",
-                JOptionPane.ERROR_MESSAGE);
-
     }
 
 

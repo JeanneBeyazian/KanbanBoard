@@ -1,5 +1,6 @@
 package view.frames;
 
+import annotations.ClassAnnotation;
 import controller.ColumnRole;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanColumn;
@@ -9,6 +10,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@ClassAnnotation(
+        classAuthors = {"Jeanne"},
+        creationDate = "28/11/2019",
+        lastEdit = "29/11/2019"
+)
+
 public class AddColumnFrame extends AddFrame implements ActionListener {
 
     private String role;
@@ -17,9 +24,9 @@ public class AddColumnFrame extends AddFrame implements ActionListener {
     public AddColumnFrame(BoardPanel currentPanel) {
 
         super("column", currentPanel);
-        submit.addActionListener(this);
         rolesBox = createRolesList();
-        setUpFrame();
+        submit.addActionListener(this);
+        this.setUpFrame();
 
     }
 
@@ -36,6 +43,14 @@ public class AddColumnFrame extends AddFrame implements ActionListener {
         container.add(chooseRole, constraints);
         constraints.gridx = 1;
         container.add(rolesBox, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 3;
+        constraints.gridwidth = 2;
+        constraints.anchor = GridBagConstraints.CENTER;
+        container.add(submit, constraints);
+        constraints.anchor = GridBagConstraints.EAST;
+        container.add(cancel,constraints);
 
         pack();
 

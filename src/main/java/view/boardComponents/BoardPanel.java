@@ -44,6 +44,7 @@ public class BoardPanel extends JPanel {
     public void removeColumn(KanbanColumn column) {
         remove(column);
         revalidate();
+        repaint();
     }
 
     public void clear() {

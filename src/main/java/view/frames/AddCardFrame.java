@@ -1,5 +1,6 @@
 package view.frames;
 
+import annotations.ClassAnnotation;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanCardButton;
 import view.boardComponents.KanbanColumn;
@@ -10,6 +11,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+@ClassAnnotation(
+        classAuthors = {"Jeanne"},
+        creationDate = "28/11/2019",
+        lastEdit = "29/11/2019"
+)
+
 public class AddCardFrame extends AddFrame implements ActionListener {
 
     private JTextArea cardDescriptionArea;
@@ -19,7 +26,7 @@ public class AddCardFrame extends AddFrame implements ActionListener {
     public AddCardFrame(BoardPanel currentPanel) {
         super("card", currentPanel);
         submit.addActionListener(this);
-        setUpFrame();
+        this.setUpFrame();
     }
 
     private void setUpFrame() {
@@ -39,17 +46,8 @@ public class AddCardFrame extends AddFrame implements ActionListener {
         }
 
         // Set up columns combo box
-        columnsBox = new JComboBox<>();
+        columnsBox = createColumnsList();
         JLabel columnLabel = new JLabel("In Column:");
-        ArrayList<KanbanColumn> cols = currentPanel.getColumns();
-        if (cols.isEmpty()==true) columnsBox.setEnabled(false);
-        for (KanbanColumn column : cols) {
-            columnsBox.addItem(column.getColumnTitle());
-        }
-
-        // Remove temporarily
-        container.remove(submit);
-        container.remove(cancel);
 
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(10, 10, 10, 10);
@@ -85,17 +83,10 @@ public class AddCardFrame extends AddFrame implements ActionListener {
 
     }
 
-    private void noColumnSelectedError(){
-        JOptionPane op = new JOptionPane();
-        op.showMessageDialog(null, "There is no column in your board!", "Column Not Found",
-                JOptionPane.INFORMATION_MESSAGE);
-
-    }
 
     public void actionPerformed(ActionEvent event) {
 
         if (event.getSource() == submit) {
-            System.out.println("UUH");
 
             if(!columnsBox.isEnabled()) {
                 noColumnSelectedError();
@@ -118,7 +109,7 @@ public class AddCardFrame extends AddFrame implements ActionListener {
                     break;
                 }
             }
-            columnToAdd.addCard(new KanbanCardButton(columnToAdd,columnName, description,storyPoints));
+            columnToAdd.addCard(new KanbanCardButton(columnToAdd,cardName, description,storyPoints));
             dispose();
         }
         else {

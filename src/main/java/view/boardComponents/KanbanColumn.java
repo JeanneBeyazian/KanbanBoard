@@ -42,11 +42,6 @@ public class KanbanColumn extends JPanel {
         addColumnName(nameIn);
         add(columnPane);
 
-        // TESTING PURPOSE : ADDS 50 CARDS TO A COLUMN
-        for (int i=0; i<5; i++){
-            addCard(new KanbanCardButton(this,("Card "+ i), "Description for card", i+10));
-        }
-
     }
 
     private void addColumnName(String nameIn) {
@@ -79,6 +74,8 @@ public class KanbanColumn extends JPanel {
             revalidate();
             columnPane.remove(card);
             card.setCard(null);
+            revalidate();
+            repaint();
         }
     	else {
     		System.out.println("The card does not exist.");
@@ -92,6 +89,8 @@ public class KanbanColumn extends JPanel {
     public int getId(){
         return id;
     }
-    
 
+    public ArrayList<KanbanCardButton> getCards() {
+        return cards;
+    }
 }

@@ -5,6 +5,8 @@ import annotations.ClassAnnotation;
 import view.containers.LogPanel;
 import view.frames.AddCardFrame;
 import view.frames.AddColumnFrame;
+import view.frames.RemoveCardFrame;
+import view.frames.RemoveColumnFrame;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -17,7 +19,7 @@ import static javax.swing.GroupLayout.Alignment.*;
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
         creationDate = "15/11/2019",
-        lastEdit = "22/11/2019"
+        lastEdit = "29/11/2019"
 )
 /**
  * The editor panel is a panel which makes all the buttons and user commands directly available
@@ -135,7 +137,7 @@ public class EditorPanel extends JPanel {
 
     private JButton createRemoveCardButton(){
         JButton removeCardButton =  createButton(" - ");
-        removeCardButton.setActionCommand("removeCard");
+        removeCardButton.addActionListener(e->new RemoveCardFrame(currentPanel).setVisible(true));
         return removeCardButton;
     }
 
@@ -147,7 +149,8 @@ public class EditorPanel extends JPanel {
 
     private JButton createRemoveColumnButton(){
         JButton removeColumnButton =  createButton(" - ");
-        removeColumnButton.setActionCommand("removeColumn");
+        removeColumnButton.addActionListener(e->new RemoveColumnFrame(currentPanel).setVisible(true));
+
         return removeColumnButton;
     }
 
@@ -195,7 +198,6 @@ public class EditorPanel extends JPanel {
         button.setForeground(Color.lightGray);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setBorderPainted(false);
-        button.addActionListener(new itemInteraction());
         return button;
     }
 
@@ -217,36 +219,6 @@ public class EditorPanel extends JPanel {
 
     }
 
-
-    /**
-     * Class for button event handling.
-     * It allows addition and deletion of items (cards or columns) on the board.
-     */
-
-
-    class itemInteraction implements ActionListener {
-
-        public void actionPerformed(ActionEvent event) {
-            /*
-            if (event.getActionCommand().equals("addColumn")) {
-                currentPanel.addColumn(new KanbanColumn("Test Column", ColumnRole.IN_PROGRESS));
-            }
-            else if(event.getActionCommand().equals("removeColumn")) {
-                // implement here
-            }
-            else if(event.getActionCommand().equals("addCard")) {
-                // implement here
-            }
-            else if(event.getActionCommand().equals("removeCard")) {
-                // implement here
-            }
-            else {
-                JOptionPane.showMessageDialog(null, "Command Not Found", "Error",
-                        JOptionPane.ERROR_MESSAGE);
-            }
-            */
-        }
-    }
 }
 
 
