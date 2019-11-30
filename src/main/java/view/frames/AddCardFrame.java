@@ -94,7 +94,7 @@ public class AddCardFrame extends AddFrame implements ActionListener {
             }
 
             String cardName = "";
-            if (!titleField.getText().isBlank())  cardName = titleField.getText();
+            if (!(titleField.getText() == null))  cardName = titleField.getText();
             else cardName = "Unnamed Card";
 
             String description = cardDescriptionArea.getText();
