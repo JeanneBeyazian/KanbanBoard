@@ -85,6 +85,11 @@ public class KanbanBoard extends JFrame {
     public BoardPanel getBoard(){
         return board;
     }
+    
+    public void setBoard(BoardPanel newBoard){
+        board = newBoard;
+        
+    }
 
     public EditorPanel getEditorPanel(){
         return editorPanel;

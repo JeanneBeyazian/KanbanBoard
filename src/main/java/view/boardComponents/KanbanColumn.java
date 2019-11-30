@@ -81,8 +81,18 @@ public class KanbanColumn extends JPanel {
     		System.out.println("The card does not exist.");
     	}
     }
+    
+    
 
-    public String getColumnTitle() {
+    public ColumnRole getRole() {
+		return role;
+	}
+
+	public void setRole(ColumnRole role) {
+		this.role = role;
+	}
+
+	public String getColumnTitle() {
         return columnTitle;
     }
 

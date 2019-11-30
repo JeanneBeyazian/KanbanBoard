@@ -1,6 +1,7 @@
 package view.boardComponents;
 
 import annotations.ClassAnnotation;
+import controller.Load;
 import controller.Save;
 import view.KanbanBoard;
 
@@ -64,6 +65,11 @@ public class KanbanMenu extends JMenuBar {
 
         JMenuItem newBoard = new JMenuItem("New", newIcon);
         JMenuItem openBoard = new JMenuItem("Open", openIcon);
+        openBoard.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+            	Load.loadBoard();
+            }
+        });
         JMenuItem renameBoard = new JMenuItem("Rename", renameIcon);
         JMenuItem saveBoard = new JMenuItem("Save", saveIcon);
         saveBoard.addActionListener(new ActionListener() {
