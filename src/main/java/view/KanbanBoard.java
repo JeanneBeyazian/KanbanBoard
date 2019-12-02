@@ -1,7 +1,7 @@
 package view;
 
 import annotations.ClassAnnotation;
-
+import controller.Load;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.EditorPanel;
 import view.boardComponents.KanbanMenu;
@@ -43,6 +43,7 @@ public class KanbanBoard extends JFrame {
 
         // Create board panel
         board = new BoardPanel();
+        add(board);
         //board.setPreferredSize(new Dimension(WIDTH/4*3, HEIGHT));
         JScrollPane boardScroll = new JScrollPane(board);
         boardScroll.setBorder(new EmptyBorder(0,0,0,0));
@@ -88,6 +89,9 @@ public class KanbanBoard extends JFrame {
     
     public void setBoard(BoardPanel newBoard){
         board = newBoard;
+        board.setVisible(true);
+        revalidate();
+        repaint();
         
     }
 

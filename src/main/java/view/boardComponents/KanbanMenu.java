@@ -67,7 +67,7 @@ public class KanbanMenu extends JMenuBar {
         JMenuItem openBoard = new JMenuItem("Open", openIcon);
         openBoard.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-            	Load.loadBoard();
+            	currentBoard.setBoard(Load.loadBoard());
             }
         });
         JMenuItem renameBoard = new JMenuItem("Rename", renameIcon);

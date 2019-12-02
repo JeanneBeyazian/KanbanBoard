@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import view.KanbanBoard;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanCardButton;
 import view.boardComponents.KanbanColumn;
@@ -15,10 +16,11 @@ public class Load {
    public Load() {
    }
 
-   public static void loadBoard() {
+   public static BoardPanel loadBoard() {
 
        Load obj = new Load();
        BoardPanel board = obj.deserialise("Boards.json");
+       System.out.println(board.getColumns().isEmpty());
        
        ArrayList<KanbanColumn> cols = board.getColumns();
        
@@ -26,15 +28,16 @@ public class Load {
        
        for(int i = 0; i < cols.size(); i++) {
     	   KanbanColumn col = cols.get(i);
+    	   KanbanColumn boardCol = new KanbanColumn(col.getColumnTitle(), col.getRole());
     	   ArrayList<KanbanCardButton> cards = cols.get(i).getCards();
     	   for(int j = 0; j < cards.size(); j++) {
     		   KanbanCardButton card = cards.get(j);
-    		   KanbanColumn boardCol = new KanbanColumn(col.getColumnTitle(), col.getRole());
+    		   
     		   boardCol.addCard(card);
     	   }
-    	   board1.addColumn(col);
+    	   board1.addColumn(boardCol);
        }
-       
+       return board;
    }
 
    public BoardPanel deserialise(String fName) {
