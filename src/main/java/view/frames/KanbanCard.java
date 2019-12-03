@@ -1,10 +1,13 @@
-package view;
+package view.frames;
 
 import annotations.ClassAnnotation;
+import view.boardComponents.KanbanCardButton;
 
 import javax.swing.*;
 import java.awt.FlowLayout;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import java.awt.FlowLayout;
 import java.awt.*;
@@ -36,7 +39,7 @@ public class KanbanCard extends JFrame {
         setSize(500, 500);
         setTitle(title.getText());
         setLayout(new FlowLayout());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
         setResizable(false);
     }

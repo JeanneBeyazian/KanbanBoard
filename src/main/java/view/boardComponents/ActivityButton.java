@@ -1,4 +1,4 @@
-package view;
+package view.boardComponents;
 
 import annotations.ClassAnnotation;
 import controller.ActivityType;
