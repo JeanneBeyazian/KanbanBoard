@@ -1,5 +1,7 @@
 package model;
 
+import view.BoardPanel;
+
 /**
  * This class stores the attributes a single Change object
  * requires before it is used withing the change log.
