@@ -70,7 +70,6 @@ public class KanbanColumn extends JPanel {
     }
 
     public void removeCard(KanbanCardButton card) throws KanbanObjectNotFoundException{
-
     	if(card != null) {
     		cards.remove(card);
             revalidate();

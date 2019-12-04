@@ -1,6 +1,7 @@
 package view.frames;
 import annotations.ClassAnnotation;
 import controller.ColumnRole;
+import controller.exceptions.KanbanObjectNotFoundException;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanCardButton;
 import view.boardComponents.KanbanColumn;
@@ -66,18 +67,24 @@ public class RemoveColumnFrame extends EditorFrame implements ActionListener {
                 noColumnSelectedError();
                 return;
             }
-
-            String columnName = String.valueOf(columnsBox.getSelectedItem());
-            KanbanColumn columnToRemove = null;
-
-            for (KanbanColumn col : currentPanel.getColumns()) {
-                if (col.getColumnTitle().equals(columnName)) {
-                    columnToRemove = col;
-                    break;
-                }
+            if(!submit.isValid()){
+                return;
             }
 
-            currentPanel.removeColumn(columnToRemove);
+            String columnName = String.valueOf(columnsBox.getSelectedItem());
+
+            try {
+                currentPanel.removeColumn(currentPanel.getColumnByTitle(columnName) );
+
+            }
+            catch (KanbanObjectNotFoundException e){
+                System.out.println("Error: Column not found");
+                e.printStackTrace();
+
+                showError("Error: Column not found");
+                return;
+            }
+
             dispose();
         }
 

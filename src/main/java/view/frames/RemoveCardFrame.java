@@ -101,25 +101,21 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
 
         if (event.getSource() == submit) {
 
-            if(!columnsBox.isEnabled() || !chooseCardBox.isEnabled()) {
+            if(!columnsBox.isEnabled() || !chooseCardBox.isEnabled() || !submit.isValid()) {
                 return;
             }
 
             KanbanColumn col = getSelectedColumn();
-            KanbanCardButton toRemove = null;
-            String cardName = String.valueOf(columnsBox.getSelectedItem());
-
-            for (KanbanCardButton card : col.getCards()){
-                if (cardName.equals(card.getCardTitle())) toRemove = card;
-            }
+            String cardName = String.valueOf(chooseCardBox.getSelectedItem());
 
             try {
-                col.removeCard(toRemove);
+                col.removeCard(col.getCardByTitle(cardName));
             }
             catch (KanbanObjectNotFoundException e){
-                // TODO = ALERT USER OF CARD ERROR
                 System.out.println("Error: Card not found");
                 e.printStackTrace();
+
+                showError("Error: Card not found");
                 return;
             }
 
