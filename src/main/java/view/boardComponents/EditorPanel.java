@@ -1,8 +1,12 @@
-package view;
-
+package view.boardComponents;
 
 import annotations.ClassAnnotation;
-import controller.ColumnRole;
+
+import view.containers.LogPanel;
+import view.frames.AddCardFrame;
+import view.frames.AddColumnFrame;
+import view.frames.RemoveCardFrame;
+import view.frames.RemoveColumnFrame;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -15,7 +19,7 @@ import static javax.swing.GroupLayout.Alignment.*;
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
         creationDate = "15/11/2019",
-        lastEdit = "22/11/2019"
+        lastEdit = "29/11/2019"
 )
 /**
  * The editor panel is a panel which makes all the buttons and user commands directly available
@@ -26,8 +30,6 @@ import static javax.swing.GroupLayout.Alignment.*;
 
 public class EditorPanel extends JPanel {
 
-    // TODO (J) : make tabbed pane into a scroll pane
-    // TODO : make a class that contains log activity cards (panels)
     BoardPanel currentPanel;
 
     public EditorPanel(BoardPanel currentPanel) {
@@ -76,18 +78,19 @@ public class EditorPanel extends JPanel {
      */
     private JPanel createCommandsLayout() {
 
-        // Create buttons and labels
-        JButton addCardButton = createButton(" + ");
-        JButton removeCardButton =  createButton(" - ");
+        // Create buttons
+        JButton addCardButton = createAddCardButton();
+        JButton removeCardButton =  createRemoveCardButton();
+        JButton addColumnButton = createAddColumnButton();
+        JButton removeColumnButton =  createRemoveColumnButton();
+
+        // Create labels
         JLabel addCardLabel = createLabel("Insert card");
         JLabel removeCardLabel = createLabel("Delete card");
-
-        JButton addColumnButton = createButton(" + ");
-        addColumnButton.addActionListener(new addColumnEvent());
-        JButton removeColumnButton =  createButton(" - ");
         JLabel addColumnLabel = createLabel("Insert column");
         JLabel removeColumnLabel = createLabel("Delete column");
 
+        // Set up panel and group layout
         JPanel pane = new JPanel();
         pane.setOpaque(false);
         GroupLayout group = new GroupLayout(pane);
@@ -126,6 +129,32 @@ public class EditorPanel extends JPanel {
         return pane;
     }
 
+    private JButton createAddCardButton(){
+        JButton addCardButton = createButton(" + ");
+        addCardButton.addActionListener(e->new AddCardFrame(currentPanel).setVisible(true));
+        return addCardButton;
+    }
+
+    private JButton createRemoveCardButton(){
+        JButton removeCardButton =  createButton(" - ");
+        removeCardButton.addActionListener(e->new RemoveCardFrame(currentPanel).setVisible(true));
+        return removeCardButton;
+    }
+
+    private JButton createAddColumnButton(){
+        JButton addColumnButton = createButton(" + ");
+        addColumnButton.addActionListener(e->new AddColumnFrame(currentPanel).setVisible(true));
+        return addColumnButton;
+    }
+
+    private JButton createRemoveColumnButton(){
+        JButton removeColumnButton =  createButton(" - ");
+        removeColumnButton.addActionListener(e->new RemoveColumnFrame(currentPanel).setVisible(true));
+
+        return removeColumnButton;
+    }
+
+
     private JPanel createEditPanel(){
         JPanel editPanel = new JPanel();
         editPanel.setOpaque(false);
@@ -140,6 +169,7 @@ public class EditorPanel extends JPanel {
 
         return editPanel;
     }
+
 
     /**
      * Method for uniform labels creation.
@@ -179,8 +209,8 @@ public class EditorPanel extends JPanel {
     private JButton createExitButton() {
 
         JButton exitButton = new JButton("Exit Application");
-        exitButton.addActionListener(e->System.exit(0));
         exitButton.setToolTipText("Quit Indigo-Kanban?");
+        exitButton.addActionListener(e->System.exit(0));
         exitButton.setBackground(new java.awt.Color(250, 105, 128));
         exitButton.setBorderPainted(false);
         exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -189,32 +219,6 @@ public class EditorPanel extends JPanel {
 
     }
 
-    //TODO : make a class hierarchy that extends JButton : addButtons and removeButtons.
-    // Set their event in their class. If it's an addButton it opens up a new frame to create either a column
-    // or a card and add it to the board.
-    class addColumnEvent implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-            //if (e.getSource() instanceof JButton)
-            currentPanel.addColumn(new KanbanColumn("Test Column", ColumnRole.IN_PROGRESS));
-        }
-    }
-
-    class addCardEvent implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-        }
-    }
-
-    class removeColumnEvent implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-        }
-    }
-
-    class removeCardEvent implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-        }
-    }
 }
+
+

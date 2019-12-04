@@ -1,9 +1,9 @@
 package view;
 import annotations.ClassAnnotation;
 import controller.ActivityType;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
+import view.boardComponents.ActivityButton;
+import view.containers.ScrollContainer;
 
 import javax.swing.*;
 

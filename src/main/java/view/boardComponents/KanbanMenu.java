@@ -1,11 +1,13 @@
-package view;
+package view.boardComponents;
 
 import annotations.ClassAnnotation;
+import view.KanbanBoard;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ItemEvent;
+import java.awt.event.*;
 
 /**
  * This class is responsible for the creation of the menu
@@ -153,6 +155,13 @@ public class KanbanMenu extends JMenuBar {
         help.setIcon(helpIcon);
 
         return help;
+    }
+
+    class removeCardEvent implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+
+        }
     }
 
 }

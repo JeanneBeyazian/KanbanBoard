@@ -1,7 +1,8 @@
-package view;
+package view.containers;
 
 import annotations.ClassAnnotation;
 import controller.ActivityType;
+import view.boardComponents.ActivityButton;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -40,10 +41,7 @@ public class LogPanel extends JTabbedPane {
 
         addTab("Activity log", null, makeActivityLog(), "See recent changes");
         //SHOULD BE addTab("Activity log", null, activityLog, "See recent changes");
-        //activity.setMnemonicAt(0, KeyEvent.VK_1);
-
         addTab("Recent files", null, makeVersionsLog(), "See history");
-        //activity.setMnemonicAt(1, KeyEvent.VK_2);
     }
 
     /** TESTING PURPOSE */
@@ -66,6 +64,7 @@ public class LogPanel extends JTabbedPane {
      * @return panel with button to access history
      */
     private JPanel makeVersionsLog() {
+
         JPanel panel = new JPanel();
         JButton seeVersions = new JButton("See Full Board history");
         panel.setBorder(new EmptyBorder(50, 10, 50, 10));

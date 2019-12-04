@@ -1,11 +1,7 @@
 package view;
 import annotations.ClassAnnotation;
 import org.junit.Test;
-import com.athaydes.automaton.Swinger;
-
-import javax.swing.*;
-
-import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+import view.frames.KanbanCard;
 
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
