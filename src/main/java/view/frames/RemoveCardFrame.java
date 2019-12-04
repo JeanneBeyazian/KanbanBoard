@@ -1,6 +1,7 @@
 package view.frames;
 
 import annotations.ClassAnnotation;
+import controller.exceptions.KanbanObjectNotFoundException;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanCardButton;
 import view.boardComponents.KanbanColumn;
@@ -112,7 +113,16 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
                 if (cardName.equals(card.getCardTitle())) toRemove = card;
             }
 
-            col.removeCard(toRemove);
+            try {
+                col.removeCard(toRemove);
+            }
+            catch (KanbanObjectNotFoundException e){
+                // TODO = ALERT USER OF CARD ERROR
+                System.out.println("Error: Card not found");
+                e.printStackTrace();
+                return;
+            }
+
             currentPanel.repaint();
             dispose();
         }

@@ -16,8 +16,9 @@ public class KanbanObjectNotFoundException extends Exception {
 
     //class name of searched object
     private String objectType;
-    //if you're looking for an object by ID
-    private int objectId = -1;
+    //if you're looking for an object in a parent with ID
+    // TODO - add field for object title
+    private int parentId = -1;
 
     /**
      * Default constructor
@@ -37,23 +38,23 @@ public class KanbanObjectNotFoundException extends Exception {
 
     /**
      * Constructor for when searched object's ID is known
-     * @param objectId
+     * @param parentId
      */
-    public KanbanObjectNotFoundException(int objectId){
+    public KanbanObjectNotFoundException(int parentId){
         super();
-        this.objectId = objectId;
+        this.parentId = parentId;
 
     }
 
     /**
-     * Constructor for when searched object's class and ID are known
+     * Constructor for when searched object's class and parent's ID are known
      * @param objectType
-     * @param objectId
+     * @param parentId
      */
-    public KanbanObjectNotFoundException(Class objectType, int objectId){
+    public KanbanObjectNotFoundException(Class objectType, int parentId){
         super();
         this.objectType = objectType.getSimpleName(); //gets the name of the class
-        this.objectId = objectId;
+        this.parentId = parentId;
 
     }
 
@@ -67,10 +68,10 @@ public class KanbanObjectNotFoundException extends Exception {
 
     /**
      * Get the ID of searched object
-     * @return objectId, the ID of the searched object
+     * @return parentId, the ID of the searched object's parent
      */
-    public int getObjectId(){
-        return objectId;
+    public int getParentId(){
+        return parentId;
     }
 
 }

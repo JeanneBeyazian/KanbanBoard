@@ -2,7 +2,9 @@ package view.boardComponents;
 
 import annotations.ClassAnnotation;
 import controller.ColumnRole;
+import controller.exceptions.KanbanObjectNotFoundException;
 import view.containers.ScrollContainer;
+import view.frames.KanbanCard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -67,7 +69,7 @@ public class KanbanColumn extends JPanel {
 
     }
 
-    public void removeCard(KanbanCardButton card) {
+    public void removeCard(KanbanCardButton card) throws KanbanObjectNotFoundException{
 
     	if(card != null) {
     		cards.remove(card);
@@ -78,7 +80,7 @@ public class KanbanColumn extends JPanel {
             repaint();
         }
     	else {
-    		System.out.println("The card does not exist.");
+    	    throw new KanbanObjectNotFoundException(KanbanCardButton.class, id);
     	}
     }
 
@@ -92,5 +94,20 @@ public class KanbanColumn extends JPanel {
 
     public ArrayList<KanbanCardButton> getCards() {
         return cards;
+    }
+
+    /**
+     *  Get card having a given title
+     * @param title title of the card we're searching for
+     * @return reference to card
+     * @throws KanbanObjectNotFoundException
+     */
+    public KanbanCardButton getCardByTitle(String title) throws KanbanObjectNotFoundException {
+        for (KanbanCardButton card : cards) {
+            if (card.getCardTitle().equals(title)) {
+                return card;
+            }
+        }
+        throw new KanbanObjectNotFoundException(KanbanCardButton.class);
     }
 }

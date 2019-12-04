@@ -1,6 +1,7 @@
 package view.boardComponents;
 
 import annotations.ClassAnnotation;
+import controller.exceptions.KanbanObjectNotFoundException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  * The columns will welcome the Kanban cards.
  */
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
+        classAuthors = {"Jeanne", "Petra"},
         creationDate = "09/11/2019",
         lastEdit = "26/11/2019"
 )
@@ -53,5 +54,20 @@ public class BoardPanel extends JPanel {
 
     public ArrayList<KanbanColumn> getColumns() {
         return columns;
+    }
+
+    /**
+     *  Get column having a given title
+     * @param title title of the column we're searching for
+     * @return reference to column
+     * @throws KanbanObjectNotFoundException
+     */
+    public KanbanColumn getColumnByTitle(String title) throws KanbanObjectNotFoundException {
+        for (KanbanColumn col : columns) {
+            if (col.getColumnTitle().equals(title)) {
+                return col;
+            }
+        }
+        throw new KanbanObjectNotFoundException(KanbanColumn.class);
     }
 }
