@@ -61,6 +61,12 @@ abstract public class EditorFrame extends JFrame implements ActionListener {
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    protected void showError(String errorMessage) {
+        JOptionPane op = new JOptionPane();
+        op.showMessageDialog(null, errorMessage, "Error",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
     protected void noColumnSelectedError() {
 
         JOptionPane op = new JOptionPane();
