@@ -59,7 +59,6 @@ public class KanbanCardButton extends JPanel {
     }
 
 
-
     class openCardEvent implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             card.setVisible(true);

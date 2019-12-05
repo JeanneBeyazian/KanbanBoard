@@ -41,7 +41,7 @@ public class KanbanColumn extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         addColumnName(nameIn);
         add(columnPane);
-
+        addButtons();
     }
 
     private void addColumnName(String nameIn) {
@@ -56,13 +56,32 @@ public class KanbanColumn extends JPanel {
 
     }
 
+    private void addButtons() {
+
+        //JPanel smallPanel
+
+        JButton editButton = new JButton("Edit");
+        editButton.setToolTipText("Edit this column");
+        //editButton.addActionListener(e-> new EditColumnFrame);
+        editButton.setBackground(new java.awt.Color(110, 199, 233));
+        editButton.setBorderPainted(false);
+
+        JButton clearButton = new JButton("Clear");
+        clearButton.setToolTipText("Delete all cards from column?");
+        clearButton.addActionListener(e->this.clearColumn());
+        clearButton.setBackground(new java.awt.Color(250, 105, 128));
+        clearButton.setBorderPainted(false);
+        //clearButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(clearButton, BorderLayout.SOUTH);
+    }
+
     public void addCard(KanbanCardButton card) {
 
         cards.add(card);    // Add to ArrayList
-
         card.setAlignmentX(Component.CENTER_ALIGNMENT);
         columnPane.add(card);
         revalidate();
+        repaint();
         columnPane.add(Box.createRigidArea(new Dimension(0, 10)));
 
     }
@@ -71,7 +90,6 @@ public class KanbanColumn extends JPanel {
 
     	if(card != null) {
     		cards.remove(card);
-            revalidate();
             columnPane.remove(card);
             card.setCard(null);
             revalidate();
@@ -98,5 +116,18 @@ public class KanbanColumn extends JPanel {
 
     public ArrayList<KanbanCardButton> getCards() {
         return cards;
+    }
+
+    private void clearColumn() {
+        if (cards.isEmpty()) {
+            JOptionPane op = new JOptionPane();
+            op.showMessageDialog(null, "There are no cards in this column!", "Empty Column",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        cards.clear();
+        columnPane.removeAll();
+        revalidate();
+        repaint();
     }
 }

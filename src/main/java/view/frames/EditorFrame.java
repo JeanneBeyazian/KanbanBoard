@@ -62,7 +62,6 @@ abstract public class EditorFrame extends JFrame implements ActionListener {
     }
 
     protected void noColumnSelectedError() {
-
         JOptionPane op = new JOptionPane();
         op.showMessageDialog(null, "There is no column in your board!", "Column Not Found",
                 JOptionPane.INFORMATION_MESSAGE);

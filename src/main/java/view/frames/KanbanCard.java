@@ -1,7 +1,9 @@
 package view.frames;
 
 import annotations.ClassAnnotation;
+import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanCardButton;
+import view.boardComponents.KanbanColumn;
 
 import javax.swing.*;
 import java.awt.FlowLayout;
@@ -91,6 +93,10 @@ public class KanbanCard extends JFrame {
 
     public int getId(){
         return id;
+    }
+
+    public BoardPanel getBoard(){
+        return cardButton.getColumn().getBoard();
     }
 
 }
