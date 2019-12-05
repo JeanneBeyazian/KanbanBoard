@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @ClassAnnotation(
         classAuthors = {"Ali, Nathan & Jeanne"},
         creationDate = "13/11/2019",
-        lastEdit = "28/11/2019"
+        lastEdit = "05/11/2019"
 )
 
 public class KanbanColumn extends JPanel {
@@ -82,9 +82,15 @@ public class KanbanColumn extends JPanel {
     	}
     }
 
+    public BoardPanel getBoard() {
+        return (BoardPanel)this.getParent();
+    }
+
     public String getColumnTitle() {
         return columnTitle;
     }
+
+    public ColumnRole getRole() { return role;}
 
     public int getId(){
         return id;

@@ -29,9 +29,6 @@ public class KanbanBoard extends JFrame {
     private static final int WIDTH = 1100;
     private static final int HEIGHT = 800;
 
-    // TODO (maybe): implement a card layout for boards in use
-    // TODO : focus on making tests for GUI and start the model part
-
     public KanbanBoard(String title) {
 
         // Set up the JFrame
@@ -88,6 +85,14 @@ public class KanbanBoard extends JFrame {
 
     public EditorPanel getEditorPanel(){
         return editorPanel;
+    }
+
+    public String getBoardName(){ return boardName; }
+
+    public void setBoardName(String newName){
+        boardName = newName;
+        setTitle(boardName);
+        revalidate();
     }
 
     public static void main(String[] args) {

@@ -78,6 +78,16 @@ public class KanbanCard extends JFrame {
         return delete;
     }
 
+    public String getCardTitle(){
+        return String.valueOf(title.getText());
+    }
+    public String getCardDescription(){
+        return String.valueOf(description.getText());
+    }
+
+    public int getStoryPoints() {
+        return Integer.valueOf(storyPoints.getText());
+    }
 
     public int getId(){
         return id;

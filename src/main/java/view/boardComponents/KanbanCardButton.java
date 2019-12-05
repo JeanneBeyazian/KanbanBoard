@@ -10,14 +10,14 @@ import java.awt.event.ActionListener;
 public class KanbanCardButton extends JPanel {
 
     private JButton cardButton;
-    private String cardTitle;
+    private String buttonTitle;
     private KanbanCard card;
     private KanbanColumn column;
 
     public KanbanCardButton(KanbanColumn columnIn, String name, String description, int storyPoints) {
 
         cardButton = createButton(name);
-        cardTitle = name;
+        buttonTitle = name;
         card = new KanbanCard(this, name, description, storyPoints);
         column = columnIn;
 
@@ -41,8 +41,8 @@ public class KanbanCardButton extends JPanel {
         return button;
     }
 
-    public String getCardTitle() {
-        return cardTitle;
+    public String getCardButtonTitle() {
+        return buttonTitle;
     }
 
     public KanbanCard getCard(){
