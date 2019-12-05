@@ -116,11 +116,11 @@ public class AddCardFrame extends AddFrame implements ActionListener {
                 return;
             }
 
-            columnToAdd.addCard(new KanbanCardButton(columnToAdd,cardName, description,storyPoints), currentPanel);
+            columnToAdd.addCard(new KanbanCardButton(columnToAdd,cardName, description,storyPoints));
             dispose();
         }
         else {
-            showError();
+            showError("Command not found");
         }
 
     }

@@ -1,16 +1,12 @@
 package view.frames;
 import annotations.ClassAnnotation;
-import controller.ColumnRole;
 import controller.exceptions.KanbanObjectNotFoundException;
 import view.boardComponents.BoardPanel;
-import view.boardComponents.KanbanCardButton;
-import view.boardComponents.KanbanColumn;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
@@ -89,7 +85,7 @@ public class RemoveColumnFrame extends EditorFrame implements ActionListener {
         }
 
         else {
-            showError();
+            showError("Command not found");
         }
 
     }

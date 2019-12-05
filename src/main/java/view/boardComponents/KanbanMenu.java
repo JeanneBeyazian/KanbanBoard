@@ -81,18 +81,11 @@ public class KanbanMenu extends JMenuBar {
              	   for(int j = 0; j < cards.size(); j++) {
              		   KanbanCardButton card = cards.get(j);
              		   
-             		   boardCol.addCard(card, currentBoard.getBoard());
+             		   boardCol.addCard(card);
              	   }
              	   currentBoard.getBoard().addColumn(boardCol);
                 }
-            	
-            	
-            	
-            	
-            	
-            	
-            	
-            	
+
             }
         });
         JMenuItem renameBoard = new JMenuItem("Rename", renameIcon);

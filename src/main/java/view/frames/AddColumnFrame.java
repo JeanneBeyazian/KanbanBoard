@@ -83,7 +83,7 @@ public class AddColumnFrame extends AddFrame implements ActionListener {
             currentPanel.addColumn(new KanbanColumn(columnTitle, setRole));
         }
         else {
-            showError();
+            showError("Command not found");
         }
 
         dispose();

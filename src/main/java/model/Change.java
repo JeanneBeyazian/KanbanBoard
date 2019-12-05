@@ -1,6 +1,7 @@
 package model;
 
-import view.BoardPanel;
+
+import view.boardComponents.BoardPanel;
 
 /**
  * This class stores the attributes a single Change object
