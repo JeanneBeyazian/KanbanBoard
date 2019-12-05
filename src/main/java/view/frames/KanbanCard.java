@@ -1,6 +1,7 @@
 package view.frames;
 
 import annotations.ClassAnnotation;
+import controller.exceptions.KanbanObjectNotFoundException;
 import view.boardComponents.KanbanCardButton;
 
 import javax.swing.*;
@@ -74,7 +75,17 @@ public class KanbanCard extends JFrame {
     public JButton createDeleteButton() {
         JButton delete = new JButton("delete");
         delete.setBounds(500,500,5,5);
-        delete.addActionListener(e->cardButton.getColumn().removeCard(cardButton, null));
+        //delete.addActionListener(e->cardButton.getColumn().removeCard(cardButton, null));
+        delete.addActionListener(e-> {
+            try {
+                cardButton.getColumn().removeCard(cardButton);
+            } catch (KanbanObjectNotFoundException k) {
+                delete.setEnabled(false); // disable button if not found
+                delete.setText(delete.getText() + " (Error: Card not found)");
+                System.out.println("Error: Card not found");
+                k.printStackTrace();
+            }
+        });
         return delete;
     }
 

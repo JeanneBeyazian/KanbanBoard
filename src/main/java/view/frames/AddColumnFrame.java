@@ -67,7 +67,8 @@ public class AddColumnFrame extends AddFrame implements ActionListener {
         if (event.getSource() == submit) {
 
             String columnTitle = "";
-            if (!(titleField.getText() == null))  columnTitle = titleField.getText();
+
+            if (! (titleField.getText() == null || titleField.getText().strip().isEmpty()))  columnTitle = titleField.getText();
             else columnTitle = "Unnamed Column";
 
             role = String.valueOf(rolesBox.getSelectedItem());

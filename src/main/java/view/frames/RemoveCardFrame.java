@@ -1,6 +1,7 @@
 package view.frames;
 
 import annotations.ClassAnnotation;
+import controller.exceptions.KanbanObjectNotFoundException;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanCardButton;
 import view.boardComponents.KanbanColumn;
@@ -100,20 +101,25 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
 
         if (event.getSource() == submit) {
 
-            if(!columnsBox.isEnabled() || !chooseCardBox.isEnabled()) {
+            if(!columnsBox.isEnabled() || !chooseCardBox.isEnabled() || !submit.isValid()) {
                 return;
             }
 
             KanbanColumn col = getSelectedColumn();
-            KanbanCardButton toRemove = null;
-            String cardName = String.valueOf(columnsBox.getSelectedItem());
+            String cardName = String.valueOf(chooseCardBox.getSelectedItem());
 
-            for (KanbanCardButton card : col.getCards()){
-                if (cardName.equals(card.getCardTitle())) toRemove = card;
+            try {
+                col.removeCard(col.getCardByTitle(cardName));
+            }
+            catch (KanbanObjectNotFoundException e){
+                System.out.println("Error: Card not found");
+                e.printStackTrace();
+
+                showError("Error: Card not found");
+                return;
             }
 
-            col.removeCard(toRemove, currentPanel);
-            currentPanel.repaint();
+            //col.removeCard(toRemove, currentPanel);
             dispose();
         }
 
