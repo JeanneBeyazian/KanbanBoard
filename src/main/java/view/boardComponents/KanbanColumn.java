@@ -15,7 +15,7 @@ import java.util.ArrayList;
 @ClassAnnotation(
         classAuthors = {"Ali, Nathan & Jeanne"},
         creationDate = "13/11/2019",
-        lastEdit = "28/11/2019"
+        lastEdit = "05/11/2019"
 )
 
 public class KanbanColumn extends JPanel {
@@ -45,7 +45,7 @@ public class KanbanColumn extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         addColumnName(nameIn);
         add(columnPane);
-
+        addButtons();
     }
 
     private void addColumnName(String nameIn) {
@@ -60,28 +60,52 @@ public class KanbanColumn extends JPanel {
 
     }
 
-    public void addCard(KanbanCardButton card, BoardPanel panel) {
+
+    private void addButtons() {
+
+        JPanel smallPanel = new JPanel();
+        smallPanel.setMaximumSize(new Dimension(WIDTH, 30));
+
+        JButton editButton = new JButton("Edit");
+        editButton.setToolTipText("Edit this column");
+        //editButton.addActionListener(e-> new EditColumnFrame);
+        editButton.setBackground(new java.awt.Color(110, 199, 233));
+        editButton.setBorderPainted(false);
+
+        JButton clearButton = new JButton("Clear");
+        clearButton.setToolTipText("Delete all cards from column?");
+        clearButton.addActionListener(e->this.clearColumn());
+        clearButton.setBackground(new java.awt.Color(250, 105, 128));
+        clearButton.setBorderPainted(false);
+        //clearButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        smallPanel.add(editButton);
+        smallPanel.add(clearButton);
+
+        add(smallPanel, BorderLayout.SOUTH);
+
+    }
+
+    public void addCard(KanbanCardButton card) {
 
     	Command addNewCard = new Command("add card", card);
-    	panel.addCommand(addNewCard);
+    	getBoard().addCommand(addNewCard);
     	
         cards.add(card);    // Add to ArrayList
-
         card.setAlignmentX(Component.CENTER_ALIGNMENT);
         columnPane.add(card);
         revalidate();
+        repaint();
         columnPane.add(Box.createRigidArea(new Dimension(0, 10)));
 
     }
 
-    public void removeCard(KanbanCardButton card, BoardPanel panel) throws KanbanObjectNotFoundException{
+    public void removeCard(KanbanCardButton card) throws KanbanObjectNotFoundException{
     	
     	Command removeOldCard = new Command("remove card", card);
-    	panel.addCommand(removeOldCard);
+    	getBoard().addCommand(removeOldCard);
 
     	if(card != null) {
     		cards.remove(card);
-            revalidate();
             columnPane.remove(card);
             card.setCard(null);
             revalidate();
@@ -106,6 +130,11 @@ public class KanbanColumn extends JPanel {
         return columnTitle;
     }
 
+    public BoardPanel getBoard() {
+        return (BoardPanel)this.getParent();
+    }
+
+
     public int getId(){
         return id;
     }
@@ -122,10 +151,24 @@ public class KanbanColumn extends JPanel {
      */
     public KanbanCardButton getCardByTitle(String title) throws KanbanObjectNotFoundException {
         for (KanbanCardButton card : cards) {
-            if (card.getCardTitle().equals(title)) {
+            if (card.getCardButtonTitle().equals(title)) {
                 return card;
             }
         }
         throw new KanbanObjectNotFoundException(KanbanCardButton.class);
     }
+
+    private void clearColumn() {
+        if (cards.isEmpty()) {
+            JOptionPane op = new JOptionPane();
+            op.showMessageDialog(null, "There are no cards in this column!", "Empty Column",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        cards.clear();
+        columnPane.removeAll();
+        revalidate();
+        repaint();
+    }
+
 }

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
         creationDate = "29/11/2019",
-        lastEdit = "29/11/2019"
+        lastEdit = "05/11/2019"
 )
 public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener {
 
@@ -87,7 +87,7 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
         ArrayList<KanbanCardButton> cards = getSelectedColumn().getCards();
 
         for (KanbanCardButton cardButton : cards) {
-            chooseCardBox.addItem(cardButton.getCardTitle());
+            chooseCardBox.addItem(cardButton.getCardButtonTitle());
         }
 
         if (cards.isEmpty()==true) columnsBox.setEnabled(false);
@@ -124,7 +124,7 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
         }
 
         else {
-            showError();
+            showError("Command not found");
         }
 
     }
