@@ -16,7 +16,11 @@ import java.awt.event.ActionListener;
 
 public class RemoveColumnFrame extends EditorFrame implements ActionListener {
 
-    protected JLabel chooseColumnLabel;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	protected JLabel chooseColumnLabel;
     protected  JComboBox<String> columnsBox;
     protected String type = "column";
 

@@ -1,16 +1,9 @@
 package controller;
 
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-
-import view.KanbanBoard;
 import view.boardComponents.BoardPanel;
-import view.boardComponents.KanbanCardButton;
-import view.boardComponents.KanbanColumn;
 
 public class Load {
    public Load() {

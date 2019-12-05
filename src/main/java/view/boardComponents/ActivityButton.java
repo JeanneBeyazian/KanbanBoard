@@ -19,7 +19,11 @@ import java.awt.*;
  */
 public class ActivityButton extends JButton {
 
-    private static final int ACTIVITY_BUTTON_WIDTH = 222;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static final int ACTIVITY_BUTTON_WIDTH = 222;
     private static final int ACTIVITY_BUTTON_HEIGHT = 30;
 
     public ActivityButton(ActivityType activityType) {

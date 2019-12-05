@@ -9,7 +9,11 @@ import java.awt.event.ActionListener;
 
 public class KanbanCardButton extends JPanel {
 
-    private JButton cardButton;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JButton cardButton;
     private String buttonTitle;
     private KanbanCard card;
     private KanbanColumn column;

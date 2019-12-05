@@ -7,7 +7,6 @@ import view.KanbanBoard;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.awt.event.*;
@@ -23,7 +22,11 @@ import java.awt.event.*;
 )
 public class KanbanMenu extends JMenuBar {
 
-    KanbanBoard currentBoard;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	KanbanBoard currentBoard;
 
     public KanbanMenu(KanbanBoard currentBoard) {
 
