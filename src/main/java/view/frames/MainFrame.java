@@ -7,18 +7,20 @@ public class MainFrame extends JFrame{
 
     public MainFrame() {
         JPanel panel = new JPanel();
-        add(panel);
-        panel.setSize(500,500);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.add(Box.createRigidArea(new Dimension(0, 5)));
         JButton createNew = new JButton("Create new board");
         JButton open = new JButton("Open current board");
-
-        //createNew.addActionListener();
-
-        setResizable(true);
         panel.add(createNew);
         panel.add(open);
+        add(panel);
+//        add(makeContainerPanel());
+        panel.setSize(500,500);
 
-        add(makeContainerPanel());
+
+        //createNew.addActionListener(newProject());
+
+        setResizable(true);
         initialise();
     }
 
@@ -30,26 +32,24 @@ public class MainFrame extends JFrame{
 
     }
 
-    private JPanel makeContainerPanel() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(Box.createRigidArea(new Dimension(0, 5)));
-        return panel;
-
-    }
+//    private JPanel makeContainerPanel() {
+//        JPanel panel = new JPanel();
+//        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+//        panel.add(Box.createRigidArea(new Dimension(0, 5)));
+//
+//        return panel;
+//
+//    }
 
 
     public void newProject() {
-        ScrollPane pane = new ScrollPane();
-        JButton create = new JButton();
-        pane.add(create);
+
     }
 
 
-//    public static void main(String[] args) {
-////        KanbanBoard board = new KanbanBoard("KanbanBoard");
-////        board.setVisible(true);
-//        MainFrame frame = new MainFrame();
-//        frame.setVisible(true);
-//    }
-//}
+    public static void main(String[] args) {
+
+        MainFrame frame = new MainFrame();
+        frame.setVisible(true);
+    }
+}
