@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ItemEvent;
+import java.util.ArrayList;
 import java.awt.event.*;
 
 /**
@@ -67,7 +68,31 @@ public class KanbanMenu extends JMenuBar {
         JMenuItem openBoard = new JMenuItem("Open", openIcon);
         openBoard.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-            	currentBoard.setBoard(Load.loadBoard());
+            	BoardPanel newBoard = Load.loadBoard();
+            	
+            	
+            	ArrayList<KanbanColumn> cols = newBoard.getColumns();
+                
+                
+                for(int i = 0; i < cols.size(); i++) {
+             	   KanbanColumn col = cols.get(i);
+             	   KanbanColumn boardCol = new KanbanColumn(col.getColumnTitle(), col.getRole());
+             	   ArrayList<KanbanCardButton> cards = cols.get(i).getCards();
+             	   for(int j = 0; j < cards.size(); j++) {
+             		   KanbanCardButton card = cards.get(j);
+             		   
+             		   boardCol.addCard(card, currentBoard.getBoard());
+             	   }
+             	   currentBoard.getBoard().addColumn(boardCol);
+                }
+            	
+            	
+            	
+            	
+            	
+            	
+            	
+            	
             }
         });
         JMenuItem renameBoard = new JMenuItem("Rename", renameIcon);

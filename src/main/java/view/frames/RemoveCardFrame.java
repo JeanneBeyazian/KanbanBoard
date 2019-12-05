@@ -112,7 +112,7 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
                 if (cardName.equals(card.getCardTitle())) toRemove = card;
             }
 
-            col.removeCard(toRemove);
+            col.removeCard(toRemove, currentPanel);
             currentPanel.repaint();
             dispose();
         }

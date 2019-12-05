@@ -2,6 +2,8 @@ package view.boardComponents;
 
 import annotations.ClassAnnotation;
 import controller.ColumnRole;
+import controller.Command;
+import controller.Save;
 import view.containers.ScrollContainer;
 
 import javax.swing.*;
@@ -56,8 +58,11 @@ public class KanbanColumn extends JPanel {
 
     }
 
-    public void addCard(KanbanCardButton card) {
+    public void addCard(KanbanCardButton card, BoardPanel panel) {
 
+    	Command addNewCard = new Command("add card", card);
+    	panel.addCommand(addNewCard);
+    	
         cards.add(card);    // Add to ArrayList
 
         card.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -67,7 +72,10 @@ public class KanbanColumn extends JPanel {
 
     }
 
-    public void removeCard(KanbanCardButton card) {
+    public void removeCard(KanbanCardButton card, BoardPanel panel) {
+    	
+    	Command removeOldCard = new Command("remove card", card);
+    	panel.addCommand(removeOldCard);
 
     	if(card != null) {
     		cards.remove(card);

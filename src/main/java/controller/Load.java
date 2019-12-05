@@ -20,23 +20,7 @@ public class Load {
 
        Load obj = new Load();
        BoardPanel board = obj.deserialise("Boards.json");
-       System.out.println(board.getColumns().isEmpty());
        
-       ArrayList<KanbanColumn> cols = board.getColumns();
-       
-       BoardPanel board1 = new BoardPanel();
-       
-       for(int i = 0; i < cols.size(); i++) {
-    	   KanbanColumn col = cols.get(i);
-    	   KanbanColumn boardCol = new KanbanColumn(col.getColumnTitle(), col.getRole());
-    	   ArrayList<KanbanCardButton> cards = cols.get(i).getCards();
-    	   for(int j = 0; j < cards.size(); j++) {
-    		   KanbanCardButton card = cards.get(j);
-    		   
-    		   boardCol.addCard(card);
-    	   }
-    	   board1.addColumn(boardCol);
-       }
        return board;
    }
 

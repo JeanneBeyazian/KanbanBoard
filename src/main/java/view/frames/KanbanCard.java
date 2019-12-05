@@ -74,7 +74,7 @@ public class KanbanCard extends JFrame {
     public JButton createDeleteButton() {
         JButton delete = new JButton("delete");
         delete.setBounds(500,500,5,5);
-        delete.addActionListener(e->cardButton.getColumn().removeCard(cardButton));
+        delete.addActionListener(e->cardButton.getColumn().removeCard(cardButton, null));
         return delete;
     }
 
