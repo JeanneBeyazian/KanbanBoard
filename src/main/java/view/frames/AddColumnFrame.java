@@ -67,6 +67,7 @@ public class AddColumnFrame extends AddFrame implements ActionListener {
         if (event.getSource() == submit) {
 
             String columnTitle = "";
+
             if (! (titleField.getText() == null || titleField.getText().strip().isEmpty()))  columnTitle = titleField.getText();
             else columnTitle = "Unnamed Column";
 
@@ -82,7 +83,7 @@ public class AddColumnFrame extends AddFrame implements ActionListener {
             currentPanel.addColumn(new KanbanColumn(columnTitle, setRole));
         }
         else {
-            showError();
+            showError("Command not found");
         }
 
         dispose();

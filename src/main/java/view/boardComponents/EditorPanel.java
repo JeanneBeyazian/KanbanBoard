@@ -60,8 +60,8 @@ public class EditorPanel extends JPanel {
         add(new JSeparator());
 
         // Add edit buttons
-        add(createEditPanel());
-        add(Box.createRigidArea(new Dimension(0, 10)));
+//        add(createEditPanel());
+//        add(Box.createRigidArea(new Dimension(0, 10)));
 
         // Tabbed pane for activity log and versions history
         add(new LogPanel());
@@ -155,20 +155,20 @@ public class EditorPanel extends JPanel {
     }
 
 
-    private JPanel createEditPanel(){
-        JPanel editPanel = new JPanel();
-        editPanel.setOpaque(false);
-
-        JButton editCardButton = createButton("Edit selected card");
-        JButton editColumnButton = createButton("Edit selected column");
-        editCardButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-        editColumnButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-
-        editPanel.add(editCardButton);
-        editPanel.add(editColumnButton);
-
-        return editPanel;
-    }
+//    private JPanel createEditPanel(){
+//        JPanel editPanel = new JPanel();
+//        editPanel.setOpaque(false);
+//
+//        JButton editCardButton = createButton("Edit selected card");
+//        JButton editColumnButton = createButton("Edit selected column");
+//        editCardButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+//        editColumnButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+//
+//        editPanel.add(editCardButton);
+//        editPanel.add(editColumnButton);
+//
+//        return editPanel;
+//    }
 
 
     /**

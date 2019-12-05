@@ -1,6 +1,7 @@
 package view.frames;
 
 import annotations.ClassAnnotation;
+import controller.exceptions.KanbanObjectNotFoundException;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanCardButton;
 import view.boardComponents.KanbanColumn;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
         creationDate = "29/11/2019",
-        lastEdit = "29/11/2019"
+        lastEdit = "05/11/2019"
 )
 public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener {
 
@@ -86,7 +87,7 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
         ArrayList<KanbanCardButton> cards = getSelectedColumn().getCards();
 
         for (KanbanCardButton cardButton : cards) {
-            chooseCardBox.addItem(cardButton.getCardTitle());
+            chooseCardBox.addItem(cardButton.getCardButtonTitle());
         }
 
         if (cards.isEmpty()==true) columnsBox.setEnabled(false);
@@ -100,25 +101,30 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
 
         if (event.getSource() == submit) {
 
-            if(!columnsBox.isEnabled() || !chooseCardBox.isEnabled()) {
+            if(!columnsBox.isEnabled() || !chooseCardBox.isEnabled() || !submit.isValid()) {
                 return;
             }
 
             KanbanColumn col = getSelectedColumn();
-            KanbanCardButton toRemove = null;
-            String cardName = String.valueOf(columnsBox.getSelectedItem());
+            String cardName = String.valueOf(chooseCardBox.getSelectedItem());
 
-            for (KanbanCardButton card : col.getCards()){
-                if (cardName.equals(card.getCardTitle())) toRemove = card;
+            try {
+                col.removeCard(col.getCardByTitle(cardName));
+            }
+            catch (KanbanObjectNotFoundException e){
+                System.out.println("Error: Card not found");
+                e.printStackTrace();
+
+                showError("Error: Card not found");
+                return;
             }
 
-            col.removeCard(toRemove);
-            currentPanel.repaint();
+            //col.removeCard(toRemove, currentPanel);
             dispose();
         }
 
         else {
-            showError();
+            showError("Command not found");
         }
 
     }

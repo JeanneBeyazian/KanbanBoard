@@ -1,6 +1,10 @@
 package view;
 
-import view.KanbanMenu;
+import annotations.ClassAnnotation;
+import controller.Load;
+import view.boardComponents.BoardPanel;
+import view.boardComponents.EditorPanel;
+import view.boardComponents.KanbanMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,13 +20,7 @@ public class KanbanBoard extends JFrame {
     private static final int WIDTH = 1000;
     private static final int HEIGHT = 750;
 
-    // TODO (J) : implement button functions and set up controllers
-    // TODO (maybe): implement a card layout for boards in use
-    // TODO : focus on making tests for GUI and start the model part
-    // i.e only one board can be seen at a time, but several are open.
-    // It is possible to use JSwing tabs
-
-    public KanbanBoard() {
+    public KanbanBoard(String title) {
 
         // Set up the JFrame
         setTitle("Kanban Board");
@@ -30,8 +28,13 @@ public class KanbanBoard extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Create the menu bar
-        createMenuBar();
+        // Create board panel
+        board = new BoardPanel();
+        add(board);
+        //board.setPreferredSize(new Dimension(WIDTH/4*3, HEIGHT));
+        JScrollPane boardScroll = new JScrollPane(board);
+        boardScroll.setBorder(new EmptyBorder(0,0,0,0));
+        add(boardScroll);
 
         // Create the editor panel
         EditorPanel editorPanel = new EditorPanel();
@@ -79,13 +82,29 @@ public class KanbanBoard extends JFrame {
 
     }
 
-    //TODO (J) : methods below
-    public void newBoard() {}
+    public BoardPanel getBoard(){
+        return board;
+    }
+
+    public void setBoard(BoardPanel newBoard){
+        board = newBoard;
+        board.setVisible(true);
+        revalidate();
+        repaint();
+
+    }
 
     public void boardReset() {
         //board.reset();
     }
 
+    public String getBoardName(){ return boardName; }
+
+    public void setBoardName(String newName){
+        boardName = newName;
+        setTitle(boardName);
+        revalidate();
+    }
 
     public static void main(String[] args) {
         KanbanBoard board = new KanbanBoard();

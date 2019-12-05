@@ -1,21 +1,34 @@
 package view;
+import annotations.ClassAnnotation;
+import controller.ColumnRole;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import com.athaydes.automaton.Swinger;
+import view.boardComponents.KanbanCardButton;
+import view.boardComponents.KanbanColumn;
+import view.frames.KanbanCard;
 
 import javax.swing.*;
 
-import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
+import static org.junit.Assert.assertEquals;
 
-
+@ClassAnnotation(
+        classAuthors = {"Jeanne"},
+        creationDate = "13/11/2019",
+        lastEdit = "05/11/2019"
+)
 public class KanbanCardTest {
 
+//    @BeforeClass
+//    public void prepare(){
+//        JFrame frame = new JFrame();
+//    }
+
     @Test
-    public void testApp(){
+    public void testApp() {
+        KanbanCardButton card = new KanbanCardButton(new KanbanColumn
+                ("Name", ColumnRole.IN_PROGRESS), "Name", "Description", 50);
         JFrame frame = new JFrame();
-        frame.setSize(500, 500);
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        JPanel pane = new JPanel();
-        pane.add(new KanbanCard("Name", "Description", 50));
-        frame.getContentPane().add(pane);
+        frame.add(card);
+        assertEquals(1,frame.getComponentCount());
     }
 }
