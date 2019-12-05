@@ -2,6 +2,8 @@ package view.frames;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MainFrame extends JFrame{
 
@@ -12,6 +14,12 @@ public class MainFrame extends JFrame{
         JButton createNew = new JButton("Create new board");
         JButton open = new JButton("Open current board");
         panel.add(createNew);
+        createNew.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CreateFrame frame = new CreateFrame();
+                frame.setVisible(true);
+            }
+        });
         panel.add(open);
         add(panel);
 //        add(makeContainerPanel());
@@ -41,10 +49,6 @@ public class MainFrame extends JFrame{
 //
 //    }
 
-
-    public void newProject() {
-
-    }
 
 
     public static void main(String[] args) {
