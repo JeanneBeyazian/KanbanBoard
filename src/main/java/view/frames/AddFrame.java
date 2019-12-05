@@ -4,20 +4,21 @@ import view.boardComponents.BoardPanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
         creationDate = "26/11/2019",
-        lastEdit = "26/11/2019"
+        lastEdit = "05/11/2019"
 )
-
+/**
+ * Super class for addition of components on the board (columns or cards).
+ * Extends EditorFrame.
+ */
 abstract public class AddFrame extends EditorFrame implements ActionListener {
 
     protected JTextField titleField;
     protected JLabel titleLabel;
-
 
     public AddFrame(String type, BoardPanel currentPanel) {
         super(currentPanel);
@@ -27,6 +28,7 @@ abstract public class AddFrame extends EditorFrame implements ActionListener {
         setUpFrame(type);
     }
 
+    /** Set up of the frame : add titleField and titleLabel */
     protected void setUpFrame(String type ) {
         container.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
                 ("Adding a new " + type + " to the board")));

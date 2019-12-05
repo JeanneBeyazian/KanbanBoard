@@ -58,7 +58,8 @@ public class KanbanColumn extends JPanel {
 
     private void addButtons() {
 
-        //JPanel smallPanel
+        JPanel smallPanel = new JPanel();
+        smallPanel.setMaximumSize(new Dimension(WIDTH, 30));
 
         JButton editButton = new JButton("Edit");
         editButton.setToolTipText("Edit this column");
@@ -72,7 +73,11 @@ public class KanbanColumn extends JPanel {
         clearButton.setBackground(new java.awt.Color(250, 105, 128));
         clearButton.setBorderPainted(false);
         //clearButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(clearButton, BorderLayout.SOUTH);
+        smallPanel.add(editButton);
+        smallPanel.add(clearButton);
+
+        add(smallPanel, BorderLayout.SOUTH);
+
     }
 
     public void addCard(KanbanCardButton card) {
