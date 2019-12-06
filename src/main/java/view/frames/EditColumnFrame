@@ -25,7 +25,7 @@ public class EditColumnFrame extends AddColumnFrame implements ActionListener{
     newColName = new JLabel("Enter new title:");
     newColName.setEditable(true);
     if((newColName.getText() != null)){
-      newName = newColName.getText();
+      newName = newColName.getText(); 
     }
     else{
       newName = "Unnamed Column";
