@@ -27,8 +27,8 @@ public class KanbanCard extends JFrame {
     private JTextArea description;
     private JTextArea storyPoints;
     private static String des;
-    private static String point;
-
+    private static int point;
+    private JComboBox<Integer> storyPointsBox;
 
     public KanbanCard(KanbanCardButton button, String name, String description, int storyPoints) {
         ++id;
@@ -50,10 +50,20 @@ public class KanbanCard extends JFrame {
 
         // Create Text areas
         des = descriptionIn;
-        point = String.valueOf(storyPointsIn);
+        //point = String.valueOf(storyPointsIn);
+        point = storyPointsIn;
 
         title = new JTextArea(titleIn);
-        storyPoints = new JTextArea(point);
+        //storyPoints = new JTextArea(point);
+        storyPointsBox = new JComboBox();
+        JLabel pointsLabel = new JLabel("Story Points:");
+        int max = 150;
+        for (int i = 0; i <= max; i++) {
+            storyPointsBox.addItem(i);
+
+        }
+        storyPointsBox.setSelectedIndex(point);
+
         createDescriptionArea(des);
 
         JPanel panel = new JPanel();
@@ -63,7 +73,8 @@ public class KanbanCard extends JFrame {
         panel.add(title);
         panel.add(Box.createRigidArea(new Dimension(0, 5)));
         panel.add(description);
-        panel.add(storyPoints);
+        panel.add(pointsLabel);
+        panel.add(storyPointsBox);
         panel.add(createDeleteButton());
         panel.add(createSaveButton());
 
@@ -91,11 +102,13 @@ public class KanbanCard extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String newTitle = title.getText();
                 String newDes = description.getText();
-                String newPoint = storyPoints.getText();
+                //String newPoint = storyPoints.getText();
+                int newPoint = (int) storyPointsBox.getSelectedItem();
                 setTitle(newTitle);
                 setDescription(newDes);
                 setPoint(newPoint);
-
+                cardButton.setTitle(newTitle);
+                //        cardButton.setText(newTitle);
             }
         });
         return save;
@@ -110,7 +123,7 @@ public class KanbanCard extends JFrame {
         des = desIn;
     }
 
-    public void setPoint(String pointIn) {
+    public void setPoint(int pointIn) {
         point = pointIn;
     }
 

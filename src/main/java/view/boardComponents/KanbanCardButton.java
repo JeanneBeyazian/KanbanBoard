@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 public class KanbanCardButton extends JPanel {
 
     private JButton cardButton;
-    private String cardTitle;
+    private static String cardTitle;
     private KanbanCard card;
     private KanbanColumn column;
 
@@ -56,6 +56,11 @@ public class KanbanCardButton extends JPanel {
 
     public KanbanColumn getColumn() {
         return column;
+    }
+
+    public void setTitle(String newTitle) {
+        cardTitle = newTitle;
+
     }
 
 
