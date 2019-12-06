@@ -18,7 +18,11 @@ import java.awt.event.ActionListener;
 
 public class AddColumnFrame extends AddFrame implements ActionListener {
 
-    private String role;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String role;
     private JComboBox<String> rolesBox;
 
     public AddColumnFrame(BoardPanel currentPanel) {
@@ -67,7 +71,8 @@ public class AddColumnFrame extends AddFrame implements ActionListener {
         if (event.getSource() == submit) {
 
             String columnTitle = "";
-            if (!titleField.getText().isBlank())  columnTitle = titleField.getText();
+
+            if (! (titleField.getText() == null || titleField.getText().isEmpty()))  columnTitle = titleField.getText();
             else columnTitle = "Unnamed Column";
 
             role = String.valueOf(rolesBox.getSelectedItem());
@@ -82,7 +87,7 @@ public class AddColumnFrame extends AddFrame implements ActionListener {
             currentPanel.addColumn(new KanbanColumn(columnTitle, setRole));
         }
         else {
-            showError();
+            showError("Command not found");
         }
 
         dispose();

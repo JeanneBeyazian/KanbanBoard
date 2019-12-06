@@ -1,6 +1,7 @@
 package view.frames;
 
 import annotations.ClassAnnotation;
+import controller.exceptions.KanbanObjectNotFoundException;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanCardButton;
 import view.boardComponents.KanbanColumn;
@@ -12,14 +13,18 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
+        classAuthors = {"Jeanne", "Petra"},
         creationDate = "28/11/2019",
         lastEdit = "29/11/2019"
 )
 
 public class AddCardFrame extends AddFrame implements ActionListener {
 
-    private JTextArea cardDescriptionArea;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JTextArea cardDescriptionArea;
     private JComboBox<Integer> storyPointsBox;
     private JComboBox<String> columnsBox;
 
@@ -94,7 +99,8 @@ public class AddCardFrame extends AddFrame implements ActionListener {
             }
 
             String cardName = "";
-            if (!titleField.getText().isBlank())  cardName = titleField.getText();
+
+            if (!(titleField.getText() == null || titleField.getText().isEmpty()))  cardName = titleField.getText();
             else cardName = "Unnamed Card";
 
             String description = cardDescriptionArea.getText();
@@ -103,17 +109,22 @@ public class AddCardFrame extends AddFrame implements ActionListener {
 
             KanbanColumn columnToAdd = null;
 
-            for (KanbanColumn col : currentPanel.getColumns()) {
-                if (col.getColumnTitle().equals(columnName)) {
-                    columnToAdd = col;
-                    break;
-                }
+            try {
+                columnToAdd = currentPanel.getColumnByTitle(columnName);
             }
+
+            catch(KanbanObjectNotFoundException e){
+                // TODO = ALERT USER OF COLUMNN ERROR
+                System.out.println("Error: Column not found");
+                e.printStackTrace();
+                return;
+            }
+
             columnToAdd.addCard(new KanbanCardButton(columnToAdd,cardName, description,storyPoints));
             dispose();
         }
         else {
-            showError();
+            showError("Command not found");
         }
 
     }

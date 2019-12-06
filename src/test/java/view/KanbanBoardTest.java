@@ -12,7 +12,7 @@ public class KanbanBoardTest {
 
     @Test
     public void testApp(){
-        new KanbanBoard();
+        new KanbanBoard("Name");
         Swinger swinger = Swinger.forSwingWindow();
         swinger.pause(5000);
     }

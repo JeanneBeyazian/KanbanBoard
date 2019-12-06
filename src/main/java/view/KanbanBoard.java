@@ -1,7 +1,7 @@
 package view;
 
 import annotations.ClassAnnotation;
-
+import controller.Load;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.EditorPanel;
 import view.boardComponents.KanbanMenu;
@@ -23,14 +23,12 @@ import java.awt.*;
 
 public class KanbanBoard extends JFrame {
 
-    private String boardName;
+	private static final long serialVersionUID = 1L;
+	private String boardName;
     private BoardPanel board;
     private EditorPanel editorPanel;
     private static final int WIDTH = 1100;
     private static final int HEIGHT = 800;
-
-    // TODO (maybe): implement a card layout for boards in use
-    // TODO : focus on making tests for GUI and start the model part
 
     public KanbanBoard(String title) {
 
@@ -43,6 +41,7 @@ public class KanbanBoard extends JFrame {
 
         // Create board panel
         board = new BoardPanel();
+        add(board);
         //board.setPreferredSize(new Dimension(WIDTH/4*3, HEIGHT));
         JScrollPane boardScroll = new JScrollPane(board);
         boardScroll.setBorder(new EmptyBorder(0,0,0,0));
@@ -85,9 +84,25 @@ public class KanbanBoard extends JFrame {
     public BoardPanel getBoard(){
         return board;
     }
+    
+    public void setBoard(BoardPanel newBoard){
+        board = newBoard;
+        board.setVisible(true);
+        revalidate();
+        repaint();
+        
+    }
 
     public EditorPanel getEditorPanel(){
         return editorPanel;
+    }
+
+    public String getBoardName(){ return boardName; }
+
+    public void setBoardName(String newName){
+        boardName = newName;
+        setTitle(boardName);
+        revalidate();
     }
 
     public static void main(String[] args) {
