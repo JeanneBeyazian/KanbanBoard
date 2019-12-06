@@ -17,25 +17,34 @@ import java.awt.*;
  * If something has been added, the button appears green.
  * If something has been removed, the button appears blue.
  */
-public class ActivityButton extends JButton {
+public class ActivityButton extends JPanel {
 
-    private static final int ACTIVITY_BUTTON_WIDTH = 222;
-    private static final int ACTIVITY_BUTTON_HEIGHT = 30;
+    private JButton activityButton;
+    private static final int ACTIVITY_BUTTON_WIDTH = 240;
+    private static final int ACTIVITY_BUTTON_HEIGHT = 45;
 
     public ActivityButton(ActivityType activityType) {
 
-        setText(activityType.getDescription());
-        setBorderPainted(false);
-        setPreferredSize(new Dimension(ACTIVITY_BUTTON_WIDTH, ACTIVITY_BUTTON_HEIGHT));
+        activityButton = new JButton(activityType.getDescription());
+        setUpButton();
 
         // If element has been added to board
-        if (activityType.isAddition() == true ) {
-            setBackground(new java.awt.Color(107, 169, 115, 255));
-        }
+        if (activityType.isAddition() == true ) setBackground(new java.awt.Color(66, 133, 169, 255));
         else {
-            setBackground(new java.awt.Color(70, 123, 139, 235));
+            setBackground(new java.awt.Color(3, 21, 57, 235));
+            activityButton.setForeground(Color.lightGray);
         }
+        setMaximumSize(new Dimension(ACTIVITY_BUTTON_WIDTH,ACTIVITY_BUTTON_HEIGHT));
 
+        this.add(activityButton);
+
+    }
+
+    private void setUpButton(){
+        activityButton.setBorderPainted(false);
+        activityButton.setOpaque(false);
+        activityButton.setPreferredSize(new Dimension(ACTIVITY_BUTTON_WIDTH, ACTIVITY_BUTTON_HEIGHT));
+        activityButton.setContentAreaFilled(false);
     }
 
 }

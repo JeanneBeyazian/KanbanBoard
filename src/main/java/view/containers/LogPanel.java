@@ -20,10 +20,9 @@ import java.awt.*;
 public class LogPanel extends JTabbedPane {
 
     private static final int LOG_WIDTH = 100;
-    private static final int LOG_HEIGHT = 250;
+    private static final int LOG_HEIGHT = 330;
 
     private ScrollContainer activityLog;
-    private ScrollContainer versionsLog;
 
     public LogPanel(){
         initialiseLogPanel();
@@ -36,16 +35,18 @@ public class LogPanel extends JTabbedPane {
 
         setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         setPreferredSize(new Dimension(LOG_WIDTH,LOG_HEIGHT));
-        activityLog = new ScrollContainer();
-        versionsLog = new ScrollContainer();
+        setOpaque(false);
 
-        addTab("Activity log", null, makeActivityLog(), "See recent changes");
-        //SHOULD BE addTab("Activity log", null, activityLog, "See recent changes");
+        makeActivityLog();
+
+        addTab("Activity log", null, activityLog, "See recent changes");
         addTab("Recent files", null, makeVersionsLog(), "See history");
     }
 
     /** TESTING PURPOSE */
-    private JScrollPane makeActivityLog(){
+    private void makeActivityLog(){
+
+        activityLog = new ScrollContainer();
 
         ActivityButton button1 = new ActivityButton(ActivityType.BOARD_RESET);
         ActivityButton button2 = new ActivityButton(ActivityType.COLUMN_ADD);
@@ -55,8 +56,6 @@ public class LogPanel extends JTabbedPane {
         activityScroll.add(button1);
         activityScroll.add(button2);
         activityScroll.add(button3);
-
-        return activityScroll;
     }
 
     /**
