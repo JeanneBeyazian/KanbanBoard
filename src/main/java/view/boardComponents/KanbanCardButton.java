@@ -30,6 +30,21 @@ public class KanbanCardButton extends JPanel {
         setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
         add(cardButton);
     }
+    
+    public KanbanCardButton(KanbanCardButton other) {
+
+        cardButton = createButton(other.getCardButtonTitle());
+        buttonTitle = other.getCardButtonTitle();
+        String description = other.getCard().getCardDescription();
+        int pts = other.getCard().getStoryPoints();
+        card = new KanbanCard(this, buttonTitle, description, pts);
+        column = other.getColumn();
+
+        setMaximumSize(new Dimension(195,100));
+        setBackground(new java.awt.Color(153, 240, 168));
+        setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
+        add(cardButton);
+    }
 
     private JButton createButton(String cardName){
 
