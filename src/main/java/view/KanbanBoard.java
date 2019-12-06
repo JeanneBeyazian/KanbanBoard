@@ -7,25 +7,34 @@ import view.boardComponents.EditorPanel;
 import view.boardComponents.KanbanMenu;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ItemEvent;
+
 
 /**
  * This class is the application window.
  * It contains the maine frame and a menu bar.
  */
+@ClassAnnotation(
+        classAuthors = {"Jeanne"},
+        creationDate = "08/11/2019",
+        lastEdit = "22/11/2019"
+)
+
 public class KanbanBoard extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private String boardName;
     private BoardPanel board;
-    private static final int WIDTH = 1000;
-    private static final int HEIGHT = 750;
+    private EditorPanel editorPanel;
+    private static final int WIDTH = 1100;
+    private static final int HEIGHT = 800;
 
     public KanbanBoard(String title) {
 
         // Set up the JFrame
-        setTitle("Kanban Board");
+        boardName = title;
+        setTitle(title);
         setSize(WIDTH, HEIGHT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -39,14 +48,9 @@ public class KanbanBoard extends JFrame {
         add(boardScroll);
 
         // Create the editor panel
-        EditorPanel editorPanel = new EditorPanel();
+        editorPanel = new EditorPanel(board);
         editorPanel.setPreferredSize(new Dimension(WIDTH/4,HEIGHT));
         add(editorPanel, BorderLayout.EAST);
-
-        // Create board panel
-        board = new BoardPanel();
-        board.setPreferredSize(new Dimension(WIDTH/4*3, HEIGHT));
-        add(board);
 
         // Create empty box on the west border
         JPanel westBox = new JPanel();
@@ -60,44 +64,37 @@ public class KanbanBoard extends JFrame {
         northBox.setPreferredSize(new Dimension(WIDTH, 10));
         add(northBox, BorderLayout.NORTH);
 
-
-        // Testing purpose : create a new frame containing a 'card'
-        /** TESTING
-        JFrame frame = new JFrame();
-        frame.setSize(500, 500);
-        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        JPanel pane = new JPanel();
-        pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
-        pane.add(Box.createVerticalGlue());
-        JScrollPane scroll = new JScrollPane(new KanbanCard("Name", "Description", 50));
-        pane.add(scroll);
-        frame.getContentPane().add(pane);
-        frame.setVisible(true); */
-
+        // Create the menu bar
+        createMenuBar(this);
     }
 
-
-    public void createMenuBar() {
-
-        KanbanMenu menu = new KanbanMenu();
+    /** Sets up the Kanban menu */
+    public void createMenuBar(KanbanBoard currentBoard) {
+        KanbanMenu menu = new KanbanMenu(currentBoard);
         setJMenuBar(menu);
+    }
 
+    /**
+     * Opens a new KanbanBoard Window
+     */
+    public static void newBoard(String name) {
+        KanbanBoard newBoardWindow = new KanbanBoard(name);
     }
 
     public BoardPanel getBoard(){
         return board;
     }
-
+    
     public void setBoard(BoardPanel newBoard){
         board = newBoard;
         board.setVisible(true);
         revalidate();
         repaint();
-
+        
     }
 
-    public void boardReset() {
-        //board.reset();
+    public EditorPanel getEditorPanel(){
+        return editorPanel;
     }
 
     public String getBoardName(){ return boardName; }
@@ -109,7 +106,7 @@ public class KanbanBoard extends JFrame {
     }
 
     public static void main(String[] args) {
-        KanbanBoard board = new KanbanBoard();
+        KanbanBoard board = new KanbanBoard("KanbanBoard");
         board.setVisible(true);
     }
 
