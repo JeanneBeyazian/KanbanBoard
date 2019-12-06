@@ -15,7 +15,7 @@ import java.util.ArrayList;
 @ClassAnnotation(
         classAuthors = {"Jeanne", "Petra"},
         creationDate = "09/11/2019",
-        lastEdit = "26/11/2019"
+        lastEdit = "06/12/2019"
 )
 
 public class BoardPanel extends JPanel {
@@ -67,8 +67,17 @@ public class BoardPanel extends JPanel {
         repaint();
     }
 
-    public void clear() {
+    public void clearBoard() {
+        if (columns.isEmpty()) {
+            JOptionPane op = new JOptionPane();
+            op.showMessageDialog(null, "The board is already empty!", "Empty Board",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        columns.clear();
         removeAll();
+        revalidate();
+        repaint();
     }
 
     public ArrayList<KanbanColumn> getColumns() {
