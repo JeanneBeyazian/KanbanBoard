@@ -21,6 +21,11 @@ public class MainFrame extends JFrame{
             }
         });
         panel.add(open);
+        createNew.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
         add(panel);
 //        add(makeContainerPanel());
         panel.setSize(500,500);

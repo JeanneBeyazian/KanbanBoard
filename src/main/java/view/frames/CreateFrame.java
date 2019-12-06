@@ -13,9 +13,9 @@ public class CreateFrame extends JFrame  {
 
     public CreateFrame() {
         JPanel panel = new JPanel();
-        JLabel choose = new JLabel("Choose new file name");
+        JLabel choose = new JLabel("Choose new board name");
         JTextField tField = new JTextField(30);
-        JButton submit = new JButton("Submit");
+        JButton submit = new JButton("Enter");
 
         setSize(400,150);
         panel.add(choose);
