@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 
 public class CreateFrame extends JFrame  {
 
-    private String fileName;
+    private static String fileName;
 
     public CreateFrame() {
         JPanel panel = new JPanel();

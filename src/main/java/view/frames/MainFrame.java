@@ -21,7 +21,7 @@ public class MainFrame extends JFrame{
             }
         });
         panel.add(open);
-        createNew.addActionListener(new ActionListener() {
+        open.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
             }
@@ -57,7 +57,6 @@ public class MainFrame extends JFrame{
 
 
     public static void main(String[] args) {
-
         MainFrame frame = new MainFrame();
         frame.setVisible(true);
     }
