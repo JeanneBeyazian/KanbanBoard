@@ -20,7 +20,11 @@ import java.util.ArrayList;
 
 public class AddCardFrame extends AddFrame implements ActionListener {
 
-    private JTextArea cardDescriptionArea;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JTextArea cardDescriptionArea;
     private JComboBox<Integer> storyPointsBox;
     private JComboBox<String> columnsBox;
 
@@ -96,7 +100,7 @@ public class AddCardFrame extends AddFrame implements ActionListener {
 
             String cardName = "";
 
-            if (!(titleField.getText() == null || titleField.getText().strip().isEmpty()))  cardName = titleField.getText();
+            if (!(titleField.getText() == null || titleField.getText().isEmpty()))  cardName = titleField.getText();
             else cardName = "Unnamed Card";
 
             String description = cardDescriptionArea.getText();

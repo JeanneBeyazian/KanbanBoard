@@ -19,7 +19,11 @@ import java.util.ArrayList;
  */
 abstract public class EditorFrame extends JFrame implements ActionListener {
 
-    protected BoardPanel currentPanel;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	protected BoardPanel currentPanel;
     protected JPanel container;             // contains frame components
     protected JButton submit;
     protected JButton cancel;

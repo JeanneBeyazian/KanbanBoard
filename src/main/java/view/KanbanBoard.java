@@ -16,6 +16,8 @@ import java.awt.event.ItemEvent;
  */
 public class KanbanBoard extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+	private String boardName;
     private BoardPanel board;
     private static final int WIDTH = 1000;
     private static final int HEIGHT = 750;

@@ -22,7 +22,11 @@ import java.awt.*;
  */
 public class KanbanCard extends JFrame {
 
-    private static int id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static int id;
     private KanbanCardButton cardButton;
     private JTextArea title;
     private JTextArea description;
