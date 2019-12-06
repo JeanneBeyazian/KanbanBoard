@@ -4,10 +4,10 @@ import annotations.ClassAnnotation;
 import controller.Load;
 import controller.Save;
 import view.KanbanBoard;
+import view.frames.KanbanCard;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.awt.event.*;
@@ -23,7 +23,11 @@ import java.awt.event.*;
 )
 public class KanbanMenu extends JMenuBar {
 
-    KanbanBoard currentBoard;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	KanbanBoard currentBoard;
 
     public KanbanMenu(KanbanBoard currentBoard) {
 
@@ -78,10 +82,14 @@ public class KanbanMenu extends JMenuBar {
              	   KanbanColumn col = cols.get(i);
              	   KanbanColumn boardCol = new KanbanColumn(col.getColumnTitle(), col.getRole());
              	   ArrayList<KanbanCardButton> cards = cols.get(i).getCards();
-             	   for(int j = 0; j < cards.size(); j++) {
-             		   KanbanCardButton card = cards.get(j);
-             		   
-             		   boardCol.addCard(card);
+             	   if(cards.size() != 0) {
+             		  for(int j = 0; j < cards.size(); j++) {
+                		   //KanbanCardButton cardButton = cards.get(j);
+                		   
+                		  KanbanCardButton cardButton = new KanbanCardButton(cards.get(j));
+
+                		   boardCol.addCard(cardButton);
+                	   }
              	   }
              	   currentBoard.getBoard().addColumn(boardCol);
                 }

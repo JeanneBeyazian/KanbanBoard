@@ -19,7 +19,11 @@ import java.util.ArrayList;
 )
 public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener {
 
-    private JLabel chooseCardLabel;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JLabel chooseCardLabel;
     private JComboBox<String> chooseCardBox;
     private JButton columnChosenButton;
 

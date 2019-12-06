@@ -19,7 +19,7 @@ import static javax.swing.GroupLayout.Alignment.*;
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
         creationDate = "15/11/2019",
-        lastEdit = "29/11/2019"
+        lastEdit = "06/11/2019"
 )
 /**
  * The editor panel is a panel which makes all the buttons and user commands directly available
@@ -67,7 +67,9 @@ public class EditorPanel extends JPanel {
         add(new LogPanel());
         add(new JSeparator());
 
+        add(createClearButton());
         // Create an exit button
+        add(Box.createRigidArea(new Dimension(0, 5)));
         add(createExitButton());
     }
 
@@ -216,6 +218,20 @@ public class EditorPanel extends JPanel {
         exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         return exitButton;
+
+    }
+
+
+    private JButton createClearButton() {
+
+        JButton clear = new JButton("Clear board");
+        clear.setToolTipText("Remove everything from your board?");
+        clear.addActionListener(e->currentPanel.clearBoard());
+        clear.setBackground(new java.awt.Color(142, 140, 250));
+        clear.setBorderPainted(false);
+        clear.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        return clear;
 
     }
 

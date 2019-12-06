@@ -1,7 +1,6 @@
 package view.boardComponents;
 
 import annotations.ClassAnnotation;
-import controller.Command;
 import controller.exceptions.KanbanObjectNotFoundException;
 
 import javax.swing.*;
@@ -16,12 +15,16 @@ import java.util.ArrayList;
 @ClassAnnotation(
         classAuthors = {"Jeanne", "Petra"},
         creationDate = "09/11/2019",
-        lastEdit = "26/11/2019"
+        lastEdit = "06/12/2019"
 )
 
 public class BoardPanel extends JPanel {
 
-	private ArrayList<Command> history;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	//private ArrayList<Command> history;
     private ArrayList<KanbanColumn> columns;
 
     public BoardPanel() {
@@ -31,21 +34,22 @@ public class BoardPanel extends JPanel {
 
     public void initialiseBoard() {
         columns = new ArrayList<>();
-        history = new ArrayList<>();
+        //history = new ArrayList<>();
         setBackground(Color.black);
         //setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         setLayout(new FlowLayout());
     }
     
+    /*
     public void addCommand(Command com) {
         history.add(com);
     }
-
+	*/
 
     public void addColumn(KanbanColumn column) {
     	
     	Command addNewCol = new Command("add col", column);
-    	addCommand(addNewCol);
+    	//addCommand(addNewCol);
     	
         columns.add(column);
         add(column);
@@ -56,15 +60,24 @@ public class BoardPanel extends JPanel {
     public void removeColumn(KanbanColumn column) {
     	
     	Command removeOldCol = new Command("remove col", column);
-    	addCommand(removeOldCol);
+    	//addCommand(removeOldCol);
     	
         remove(column);
         revalidate();
         repaint();
     }
 
-    public void clear() {
+    public void clearBoard() {
+        if (columns.isEmpty()) {
+            JOptionPane op = new JOptionPane();
+            op.showMessageDialog(null, "The board is already empty!", "Empty Board",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        columns.clear();
         removeAll();
+        revalidate();
+        repaint();
     }
 
     public ArrayList<KanbanColumn> getColumns() {

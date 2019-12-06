@@ -2,7 +2,6 @@ package view.boardComponents;
 
 import annotations.ClassAnnotation;
 import controller.ColumnRole;
-import controller.Command;
 import controller.Save;
 import controller.exceptions.KanbanObjectNotFoundException;
 import view.containers.ScrollContainer;
@@ -15,12 +14,16 @@ import java.util.ArrayList;
 @ClassAnnotation(
         classAuthors = {"Ali, Nathan & Jeanne"},
         creationDate = "13/11/2019",
-        lastEdit = "05/11/2019"
+        lastEdit = "05/12/2019"
 )
 
 public class KanbanColumn extends JPanel {
 
-    private ArrayList<KanbanCardButton> cards;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private ArrayList<KanbanCardButton> cards;
     private static int id = -1;
 
     private String columnTitle;
@@ -88,7 +91,7 @@ public class KanbanColumn extends JPanel {
     public void addCard(KanbanCardButton card) {
 
     	Command addNewCard = new Command("add card", card);
-    	getBoard().addCommand(addNewCard);
+    	//getBoard().addCommand(addNewCard);
     	
         cards.add(card);    // Add to ArrayList
         card.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -102,7 +105,7 @@ public class KanbanColumn extends JPanel {
     public void removeCard(KanbanCardButton card) throws KanbanObjectNotFoundException{
     	
     	Command removeOldCard = new Command("remove card", card);
-    	getBoard().addCommand(removeOldCard);
+    	//getBoard().addCommand(removeOldCard);
 
     	if(card != null) {
     		cards.remove(card);

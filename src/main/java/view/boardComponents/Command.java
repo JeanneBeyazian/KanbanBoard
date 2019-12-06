@@ -1,19 +1,16 @@
-package controller;
+package view.boardComponents;
 
-import java.time.format.DateTimeFormatter;
-
-import view.boardComponents.KanbanCardButton;
-import view.boardComponents.KanbanColumn;
-
+//import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime; 
 
 public class Command {    
 	
-   //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+	//DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
    LocalDateTime now;
    String action;
    KanbanColumn col;
    KanbanCardButton card;
+   
    
    public Command(String cmd, KanbanColumn newCol){
 	   now = LocalDateTime.now();  

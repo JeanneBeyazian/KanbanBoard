@@ -23,7 +23,8 @@ import java.awt.*;
 
 public class KanbanBoard extends JFrame {
 
-    private String boardName;
+	private static final long serialVersionUID = 1L;
+	private String boardName;
     private BoardPanel board;
     private EditorPanel editorPanel;
     private static final int WIDTH = 1100;
