@@ -75,6 +75,8 @@ public class KanbanCard extends JFrame {
         //storyPoints = new JTextArea(point);
         storyPointsBox = new JComboBox();
         JLabel pointsLabel = new JLabel("Story Points:");
+        pointsLabel.setForeground(Color.WHITE);
+        pointsLabel.setFont(new Font("Serif", Font.PLAIN, 16));
         int max = 150;
         for (int i = 0; i <= max; i++) {
             storyPointsBox.addItem(i);
