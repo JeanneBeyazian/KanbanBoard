@@ -1,4 +1,4 @@
-package view.frames;
+package view.frames.editBoardFrames;
 
 import annotations.ClassAnnotation;
 import controller.exceptions.KanbanObjectNotFoundException;
@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 @ClassAnnotation(
         classAuthors = {"Jeanne", "Petra"},

@@ -4,13 +4,10 @@ import annotations.ClassAnnotation;
 import controller.exceptions.KanbanObjectNotFoundException;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanCardButton;
+import view.frames.editBoardFrames.MoveCardFrame;
 
 import javax.swing.*;
-import java.awt.FlowLayout;
 import java.awt.*;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
 @ClassAnnotation(

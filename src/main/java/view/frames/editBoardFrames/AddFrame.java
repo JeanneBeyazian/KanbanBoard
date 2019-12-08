@@ -1,4 +1,4 @@
-package view.frames;
+package view.frames.editBoardFrames;
 import annotations.ClassAnnotation;
 import view.boardComponents.BoardPanel;
 

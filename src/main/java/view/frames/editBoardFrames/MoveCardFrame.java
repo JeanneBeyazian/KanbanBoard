@@ -1,4 +1,4 @@
-package view.frames;
+package view.frames.editBoardFrames;
 
 import controller.exceptions.KanbanObjectNotFoundException;
 import view.boardComponents.BoardPanel;

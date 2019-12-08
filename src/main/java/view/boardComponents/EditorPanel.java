@@ -3,16 +3,14 @@ package view.boardComponents;
 import annotations.ClassAnnotation;
 
 import view.containers.LogPanel;
-import view.frames.AddCardFrame;
-import view.frames.AddColumnFrame;
-import view.frames.RemoveCardFrame;
-import view.frames.RemoveColumnFrame;
+import view.frames.editBoardFrames.AddCardFrame;
+import view.frames.editBoardFrames.AddColumnFrame;
+import view.frames.editBoardFrames.RemoveCardFrame;
+import view.frames.editBoardFrames.RemoveColumnFrame;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import static javax.swing.GroupLayout.Alignment.*;
 
