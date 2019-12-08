@@ -1,5 +1,6 @@
 package view.boardComponents;
 
+import annotations.ClassAnnotation;
 import view.frames.KanbanCard;
 
 import javax.swing.*;
@@ -7,18 +8,24 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@ClassAnnotation(
+        classAuthors = {"Jeanne & Nathan"},
+        creationDate = "13/11/2019",
+        lastEdit = "08/11/2019"
+)
+
 public class KanbanCardButton extends JPanel {
 
 
     private JButton cardButton;
-    private static String cardTitle;
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     private String buttonTitle;
-
+    private JLabel storyPoints;
     private KanbanCard card;
     private KanbanColumn column;
+
 
     public KanbanCardButton(KanbanColumn columnIn, String name, String description, int storyPoints) {
 
@@ -26,13 +33,15 @@ public class KanbanCardButton extends JPanel {
         buttonTitle = name;
         card = new KanbanCard(this, name, description, storyPoints);
         column = columnIn;
+        this.storyPoints = new JLabel(String.valueOf(storyPoints));
 
-        setMaximumSize(new Dimension(195,100));
-        setBackground(new java.awt.Color(153, 240, 168));
-        setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
-        add(cardButton);
+        initialise(cardButton);
     }
-    
+
+    /**
+     * Copy constructor
+     * @param other KanbanCardButton to be copied
+     */
     public KanbanCardButton(KanbanCardButton other) {
 
         cardButton = createButton(other.getCardButtonTitle());
@@ -42,10 +51,17 @@ public class KanbanCardButton extends JPanel {
         card = new KanbanCard(this, buttonTitle, description, pts);
         column = other.getColumn();
 
+        initialise(cardButton);
+    }
+
+    private void initialise(JButton cardButton) {
+
         setMaximumSize(new Dimension(195,100));
-        setBackground(new java.awt.Color(153, 240, 168));
-        setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
+        setBackground(new java.awt.Color(165, 218, 240));
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
         add(cardButton);
+        add(storyPoints);
     }
 
     private JButton createButton(String cardName){
@@ -70,7 +86,7 @@ public class KanbanCardButton extends JPanel {
         return card;
     }
 
-    public void setCard(KanbanCard cardValue){
+    public void setCard(KanbanCard cardValue) {
         if (cardValue == null) card.setVisible(false);
         this.card = cardValue;
     }
@@ -80,8 +96,9 @@ public class KanbanCardButton extends JPanel {
     }
 
     public void setTitle(String newTitle) {
-        cardTitle = newTitle;
-
+        cardButton.setText(newTitle);
+        revalidate();
+        repaint();
     }
 
 
@@ -91,4 +108,6 @@ public class KanbanCardButton extends JPanel {
         }
     }
 }
+
+
 
