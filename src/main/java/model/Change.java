@@ -1,7 +1,10 @@
 package model;
 
 
-import view.boardComponents.BoardPanel;
+import controller.exceptions.ChangeTypeNotImplementedException;
+import controller.exceptions.UnknownKanbanObjectException;
+import view.boardComponents.*;
+
 
 /**
  * This class stores the attributes a single Change object
@@ -10,32 +13,126 @@ import view.boardComponents.BoardPanel;
 
 public class Change{
 
-    private String objID;
+    private String objTitle;
     private ChangeType changeType;
     private String className;
+
+    // updates
+    private String updatedField = "";
+    private String updatedValue = "";
+
+    //moves
+    private String newParentTitle = "";
+
+
 
     /**
      * Enums are public, static and final values, here specifying the type
      * of a change which is possible.
      */
-    enum ChangeType{
-        ADD, REMOVE, UPDATE
+    public enum ChangeType{
+        ADD, REMOVE, UPDATE, MOVE
     }
 
-    public Change(ChangeType changeType, String objID, Class<?> classType) {
+    /**
+     * Constructor for first-time entry
+     * @param changeType
+     * @param objTitle
+     * @param classType
+     * @throws UnknownKanbanObjectException
+     */
+    public Change(ChangeType changeType, String objTitle, Class<?> classType) throws UnknownKanbanObjectException {
         this.changeType = changeType;
-        this.objID = objID;
-        if (classType == BoardPanel.class) { //check for the class names passed TODO: add all types of objects that we use
-            className = "BoardPanel";
+        this.objTitle = objTitle;
+
+        if (classType == BoardPanel.class) {
+            className = "Board";
+        } else if (classType == KanbanColumn.class) {
+            className = "Column";
+        } else if (classType == KanbanCardButton.class) {
+            className = "Card";
+        } else {
+            throw new UnknownKanbanObjectException(classType);
         }
-        //else if (cls == int.class) { ... }
     }
 
-    //if change is add/update this will acc create a new obj with the relevant change
-    //public Object createObject(){
-        // if classname e.g. BoardPanel
-        // create new BoardPanel with stored values and return
-    //}
+    /**
+     * Constructor for updated entry
+     * @param changeType
+     * @param objTitle
+     * @param classType
+     * @param updatedField
+     * @param updatedValue
+     * @throws UnknownKanbanObjectException
+     */
+    public Change(ChangeType changeType, String objTitle, Class<?> classType, String updatedField, String updatedValue) throws UnknownKanbanObjectException {
+        this(changeType, objTitle, classType);
+        this.updatedField = updatedField;
+        this.updatedValue = updatedValue;
 
+        // truncate if length is too long
+        // eg. description
+        if(updatedValue.length() >= 25){
+            this.updatedValue = updatedValue.substring(0,24) + "...";
+        }
+
+    }
+
+    /**
+     * Constructor for moved object
+     * @param changeType
+     * @param objTitle
+     * @param classType
+     * @param newParentTitle
+     * @throws UnknownKanbanObjectException
+     */
+    public Change(ChangeType changeType, String objTitle, Class<?> classType, String newParentTitle) throws UnknownKanbanObjectException {
+        this(changeType, objTitle, classType);
+        this.newParentTitle = newParentTitle;
+
+    }
+
+    /**
+     * 'Pretty print' the log entries for each change variant
+     * @return the 'pretty format' log change
+     * @throws ChangeTypeNotImplementedException
+     */
+        public String formatAsString() throws ChangeTypeNotImplementedException {
+        if (changeType == ChangeType.ADD){
+            return "Inserted new " + className +" called \"" + objTitle + "\"";
+        }
+        if (changeType == ChangeType.REMOVE){
+            return "Removed the " + className +" called \"" + objTitle + "\"";
+        }
+        if (changeType == ChangeType.UPDATE){
+            return "Updated the " + updatedField +" of " + className +" \"" + objTitle + "\" to " + updatedValue;
+        }
+        if (changeType == ChangeType.MOVE){
+            return "Moved \"" + objTitle +"\" to \"" + newParentTitle + "\"";
+        }
+        throw new ChangeTypeNotImplementedException(changeType);
+    }
+
+    /**
+     * Returns the object's title
+     * @return objTitle
+     */
+    public String getobjTitle(){
+        return objTitle;
+    }
+    /**
+     * Returns the object's change type
+     * @return changeType
+     */
+    public ChangeType getChangeType(){
+        return changeType;
+    }
+    /**
+     * Returns the object class' name
+     * @return className
+     */
+    public String getClassName(){
+        return className;
+    }
 
 }
