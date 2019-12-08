@@ -5,8 +5,7 @@ import view.frames.KanbanCard;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 @ClassAnnotation(
         classAuthors = {"Jeanne & Nathan"},
@@ -60,6 +59,12 @@ public class KanbanCardButton extends JPanel {
         setBackground(new java.awt.Color(165, 218, 240));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
+        storyPoints.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                card.setVisible(true);
+            }
+        });
+
         add(cardButton);
         add(storyPoints);
     }
@@ -68,8 +73,7 @@ public class KanbanCardButton extends JPanel {
 
         JButton button = new JButton(cardName);
         button.setPreferredSize(new Dimension(185,90));
-
-        button.addActionListener(new openCardEvent());
+        button.addActionListener(e->card.setVisible(true));
         button.setBorderPainted(false);
         button.setContentAreaFilled(false);
         //button.setFocusPainted(false);
@@ -101,12 +105,6 @@ public class KanbanCardButton extends JPanel {
         repaint();
     }
 
-
-    class openCardEvent implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            card.setVisible(true);
-        }
-    }
 }
 
 
