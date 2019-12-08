@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 @ClassAnnotation(
         classAuthors = {"Jeanne & Nathan"},
         creationDate = "13/11/2019",
-        lastEdit = "05/11/2019"
+        lastEdit = "08/11/2019"
 )
 /**
  * This class is responsible for the creation of kanban cards.
@@ -25,17 +25,15 @@ import java.awt.event.ActionListener;
  */
 public class KanbanCard extends JFrame {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+
 	private static int id;
+
     private KanbanCardButton cardButton;
-    private JTextArea title;
+    private JTextField title;
     private JTextArea description;
     private JTextArea storyPoints;
-    private static String des;
-    private static int point;
+
     private JComboBox<Integer> storyPointsBox;
 
     public KanbanCard(KanbanCardButton button, String name, String description, int storyPoints) {
@@ -49,12 +47,12 @@ public class KanbanCard extends JFrame {
      * Set up the card frame
      */
     private void initialise() {
-        setSize(500, 500);
+
+        setSize(700, 500);
         setTitle(title.getText());
-        setLayout(new FlowLayout());
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         pack();
-        setResizable(false);
     }
 
     /**
@@ -67,39 +65,47 @@ public class KanbanCard extends JFrame {
     private JPanel makeContainerPanel(String titleIn, String descriptionIn, int storyPointsIn) {
 
         // Create Text areas
-        des = descriptionIn;
-        //point = String.valueOf(storyPointsIn);
-        point = storyPointsIn;
+        title = new JTextField(titleIn);
+        createStoryPointsBox(storyPointsIn);
+        createDescriptionArea(descriptionIn);
 
-        title = new JTextArea(titleIn);
-        //storyPoints = new JTextArea(point);
-        storyPointsBox = new JComboBox();
-        JLabel pointsLabel = new JLabel("Story Points:");
-        pointsLabel.setForeground(Color.WHITE);
-        pointsLabel.setFont(new Font("Serif", Font.PLAIN, 16));
-        int max = 150;
-        for (int i = 0; i <= max; i++) {
-            storyPointsBox.addItem(i);
+        JPanel containerPanel = new JPanel();
+        containerPanel.setLayout(new BoxLayout(containerPanel, BoxLayout.Y_AXIS));
+        containerPanel.setBackground(new java.awt.Color(142, 140, 250));
 
-        }
-        storyPointsBox.setSelectedIndex(point);
+        containerPanel.add(makeTopPane());
+        containerPanel.add(makeBottomPane());
 
-        createDescriptionArea(des);
+        return containerPanel;
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBackground(Color.BLUE);
-        //panel.setSize(600,550);
-        panel.add(title);
-        panel.add(Box.createRigidArea(new Dimension(0, 5)));
-        panel.add(description);
-        panel.add(pointsLabel);
-        panel.add(storyPointsBox);
-        panel.add(createDeleteButton());
-        panel.add(createSaveButton());
+    }
 
-        return panel;
+    private JPanel makeTopPane(){
 
+        JPanel topPane = new JPanel();
+        topPane.setLayout(new BoxLayout(topPane, BoxLayout.PAGE_AXIS));
+        topPane.add(title);
+        topPane.add(Box.createRigidArea(new Dimension(0,5)));
+        topPane.add(description);
+        topPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+
+        return topPane;
+
+    }
+
+    private JPanel makeBottomPane() {
+
+        JPanel bottomPane = new JPanel();
+        bottomPane.setLayout(new BoxLayout(bottomPane, BoxLayout.LINE_AXIS));
+        bottomPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+        bottomPane.add(Box.createHorizontalGlue());
+        bottomPane.add(storyPointsBox);
+        bottomPane.add(Box.createRigidArea(new Dimension(30, 0)));
+        bottomPane.add(createDeleteButton());
+        bottomPane.add(Box.createRigidArea(new Dimension(10, 0)));
+        bottomPane.add(createSaveButton());
+
+        return bottomPane;
     }
 
     /**
@@ -112,11 +118,27 @@ public class KanbanCard extends JFrame {
         description.setColumns(30);
     }
 
+    private void createStoryPointsBox(int selectedPoints) {
+
+        storyPointsBox = new JComboBox();
+
+        JLabel pointsLabel = new JLabel("Story Points:");
+        pointsLabel.setForeground(Color.WHITE);
+        pointsLabel.setFont(new Font("Serif", Font.PLAIN, 16));
+        int max = 150;
+        for (int i = 0; i <= max; i++) {
+            storyPointsBox.addItem(i);
+
+        }
+        storyPointsBox.setSelectedIndex(selectedPoints);
+
+    }
+
     /**
      * @return button to delete card
      */
     public JButton createDeleteButton() {
-        JButton delete = new JButton("delete");
+        JButton delete = new JButton("Delete card");
         delete.setBounds(500,500,5,5);
         //delete.addActionListener(e->cardButton.getColumn().removeCard(cardButton, null));
         delete.addActionListener(e-> {
@@ -132,23 +154,29 @@ public class KanbanCard extends JFrame {
         return delete;
     }
 
+    /**
+     * @return button for saving changes
+     */
     public JButton createSaveButton() {
-        JButton save = new JButton("save");
+
+        JButton save = new JButton("Save changes");
         save.setBounds(500,500,5,5);
-        save.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String newTitle = title.getText();
-                String newDes = description.getText();
-                //String newPoint = storyPoints.getText();
-                int newPoint = (int) storyPointsBox.getSelectedItem();
-                setTitle(newTitle);
-                setDescription(newDes);
-                setPoint(newPoint);
-                cardButton.setTitle(newTitle);
-                //        cardButton.setText(newTitle);
-            }
-        });
+        save.addActionListener(e->update());
         return save;
+    }
+
+    private void update() {
+        // Get input values
+        String newTitle = title.getText();
+        String newDescription = description.getText();
+        int newPoint = (int) storyPointsBox.getSelectedItem();
+
+        // Update
+        setTitle(newTitle);
+        description.setText(newDescription);
+        storyPointsBox.setSelectedItem(newPoint);
+        cardButton.setTitle(newTitle);
+
     }
 
 
@@ -180,16 +208,6 @@ public class KanbanCard extends JFrame {
     public int getId(){
         return id;
     }
-
-
-    public void setDescription(String desIn) {
-        des = desIn;
-    }
-
-    public void setPoint(int pointIn) {
-        point = pointIn;
-    }
-
 
 
     /**
