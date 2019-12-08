@@ -98,10 +98,16 @@ public class KanbanCard extends JFrame {
         JPanel bottomPane = new JPanel();
         bottomPane.setLayout(new BoxLayout(bottomPane, BoxLayout.LINE_AXIS));
         bottomPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+
         bottomPane.add(Box.createHorizontalGlue());
         bottomPane.add(storyPointsBox);
+
+        bottomPane.add(Box.createRigidArea(new Dimension(30, 0)));
+        bottomPane.add(createMoveButton());
+
         bottomPane.add(Box.createRigidArea(new Dimension(30, 0)));
         bottomPane.add(createDeleteButton());
+
         bottomPane.add(Box.createRigidArea(new Dimension(10, 0)));
         bottomPane.add(createSaveButton());
 
@@ -163,6 +169,14 @@ public class KanbanCard extends JFrame {
         save.setBounds(500,500,5,5);
         save.addActionListener(e->update());
         return save;
+    }
+
+    public JButton createMoveButton() {
+
+        JButton move = new JButton("Change column");
+        move.setBounds(500,500,5,5);
+        move.addActionListener(e->new MoveCardFrame(getBoard(),cardButton).setVisible(true));
+        return move;
     }
 
     private void update() {
