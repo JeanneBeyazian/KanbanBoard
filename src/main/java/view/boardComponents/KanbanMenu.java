@@ -5,6 +5,10 @@ import controller.Load;
 import controller.Save;
 import view.KanbanBoard;
 import view.frames.*;
+import view.frames.editBoardFrames.AddCardFrame;
+import view.frames.editBoardFrames.AddColumnFrame;
+import view.frames.editBoardFrames.RemoveCardFrame;
+import view.frames.editBoardFrames.RemoveColumnFrame;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
