@@ -16,9 +16,6 @@ import java.awt.event.ActionListener;
 
 public class RemoveColumnFrame extends EditorFrame implements ActionListener {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	protected JLabel chooseColumnLabel;
     protected  JComboBox<String> columnsBox;
@@ -50,7 +47,7 @@ public class RemoveColumnFrame extends EditorFrame implements ActionListener {
         constraints.gridx = 0;
         constraints.gridy = 3;
         constraints.gridwidth = 2;
-        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.anchor = GridBagConstraints.WEST;
         container.add(submit, constraints);
         constraints.anchor = GridBagConstraints.EAST;
         container.add(cancel,constraints);
