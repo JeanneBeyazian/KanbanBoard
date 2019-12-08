@@ -12,15 +12,17 @@ import annotations.ClassAnnotation;
  */
 
 public enum ColumnRole {
-    INFORMATIVE("Informative"),
-    BACKLOG("Backlog"),
-    IN_PROGRESS("In progress"),
-    COMPLETED("Completed");
+    INFORMATIVE("Informative", new java.awt.Color(69, 175, 233)),
+    BACKLOG("Backlog", new java.awt.Color(157, 112, 161)),
+    IN_PROGRESS("In progress", new java.awt.Color(161, 116, 69)),
+    COMPLETED("Completed", new java.awt.Color(88, 161, 79));
 
     private final String role;
+    private final java.awt.Color columnColour;
 
-    ColumnRole(String role){
+    ColumnRole(String role, java.awt.Color columnColour){
         this.role=role;
+        this.columnColour = columnColour;
     }
 
     /**
@@ -30,6 +32,10 @@ public enum ColumnRole {
 
     public String getColumnRole(){
         return role;
+    }
+
+    public java.awt.Color getColumnColour(){
+        return columnColour;
     }
 
     public static String[] getRoles() {
