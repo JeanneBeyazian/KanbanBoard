@@ -4,7 +4,7 @@ import annotations.ClassAnnotation;
 @ClassAnnotation(
         classAuthors = {"Petra"},
         creationDate = "22/11/2019",
-        lastEdit = "22/11/2019"
+        lastEdit = "08/12/2019"
 )
 
 /**

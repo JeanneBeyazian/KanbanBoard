@@ -4,6 +4,13 @@ package model;
 import controller.exceptions.ChangeTypeNotImplementedException;
 import controller.exceptions.UnknownKanbanObjectException;
 import view.boardComponents.*;
+import annotations.ClassAnnotation;
+
+@ClassAnnotation(
+        classAuthors = {"Petra"},
+        creationDate = "22/11/2019",
+        lastEdit = "08/12/2019"
+)
 
 
 /**
