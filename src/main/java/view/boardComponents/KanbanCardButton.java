@@ -15,12 +15,9 @@ import java.awt.event.*;
 
 public class KanbanCardButton extends JPanel {
 
-
-    private JButton cardButton;
-
     private static final long serialVersionUID = 1L;
 
-    private String buttonTitle;
+    private JLabel buttonTitle;
     private JLabel storyPoints;
     private KanbanCard card;
     private KanbanColumn column;
@@ -28,13 +25,12 @@ public class KanbanCardButton extends JPanel {
 
     public KanbanCardButton(KanbanColumn columnIn, String name, String description, int storyPoints) {
 
-        cardButton = createButton(name);
-        buttonTitle = name;
+        buttonTitle = new JLabel(name);
         card = new KanbanCard(this, name, description, storyPoints);
         column = columnIn;
         this.storyPoints = new JLabel(String.valueOf(storyPoints));
 
-        initialise(cardButton);
+        initialise();
     }
 
     /**
@@ -43,48 +39,38 @@ public class KanbanCardButton extends JPanel {
      */
     public KanbanCardButton(KanbanCardButton other) {
 
-        cardButton = createButton(other.getCardButtonTitle());
-        buttonTitle = other.getCardButtonTitle();
+        buttonTitle = new JLabel(other.getCardButtonTitle());
         String description = other.getCard().getCardDescription();
-        int pts = other.getCard().getStoryPoints();
-        card = new KanbanCard(this, buttonTitle, description, pts);
+        int points = other.getCard().getStoryPoints();
+        card = new KanbanCard(this, getCardButtonTitle(), description, points);
         column = other.getColumn();
+        storyPoints = new JLabel(String.valueOf(points));
 
-        initialise(cardButton);
+        initialise();
     }
 
-    private void initialise(JButton cardButton) {
+    private void initialise() {
 
         setMaximumSize(new Dimension(195,100));
         setBackground(new java.awt.Color(165, 218, 240));
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        //setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new BorderLayout());
+
         setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
-        storyPoints.addMouseListener(new MouseAdapter() {
+
+        storyPoints.setSize(new Dimension(195,10));
+        addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 card.setVisible(true);
             }
         });
 
-        add(cardButton);
-        add(storyPoints);
+        add(buttonTitle, BorderLayout.CENTER);
+        add(storyPoints, BorderLayout.SOUTH);
+
+
     }
 
-    private JButton createButton(String cardName){
-
-        JButton button = new JButton(cardName);
-        button.setPreferredSize(new Dimension(185,90));
-        button.addActionListener(e->card.setVisible(true));
-        button.setBorderPainted(false);
-        button.setContentAreaFilled(false);
-        //button.setFocusPainted(false);
-        button.setOpaque(false);
-
-        return button;
-    }
-
-    public String getCardButtonTitle() {
-        return buttonTitle;
-    }
 
     public KanbanCard getCard(){
         return card;
@@ -99,13 +85,19 @@ public class KanbanCardButton extends JPanel {
         return column;
     }
 
+    public String getCardButtonTitle() {
+        return buttonTitle.getText();
+    }
+
     public void setTitle(String newTitle) {
-        cardButton.setText(newTitle);
+        //cardButton.setText(newTitle);
+        buttonTitle.setText(newTitle);
         revalidate();
         repaint();
     }
 
 }
+
 
 
 
