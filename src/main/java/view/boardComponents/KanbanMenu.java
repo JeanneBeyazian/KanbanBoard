@@ -4,7 +4,7 @@ import annotations.ClassAnnotation;
 import controller.Load;
 import controller.Save;
 import view.KanbanBoard;
-import view.frames.KanbanCard;
+import view.frames.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -23,9 +23,7 @@ import java.awt.event.*;
 )
 public class KanbanMenu extends JMenuBar {
 
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	KanbanBoard currentBoard;
 
@@ -69,6 +67,7 @@ public class KanbanMenu extends JMenuBar {
         ImageIcon saveIcon = new ImageIcon("src/images/save.jpg");
 
         JMenuItem newBoard = new JMenuItem("New", newIcon);
+        newBoard.addActionListener(e->new CreateFrame().setVisible(true));
         JMenuItem openBoard = new JMenuItem("Open", openIcon);
         openBoard.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
@@ -96,7 +95,8 @@ public class KanbanMenu extends JMenuBar {
 
             }
         });
-        JMenuItem renameBoard = new JMenuItem("Rename", renameIcon);
+
+
         JMenuItem saveBoard = new JMenuItem("Save", saveIcon);
         saveBoard.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
@@ -110,7 +110,6 @@ public class KanbanMenu extends JMenuBar {
         file.add(new JSeparator(SwingConstants.HORIZONTAL));
         file.add(openBoard);
         file.add(new JSeparator(SwingConstants.HORIZONTAL));
-        file.add(renameBoard);
         file.add(saveBoard);
 
         return file;
@@ -129,18 +128,23 @@ public class KanbanMenu extends JMenuBar {
         JMenu insertMenu = new JMenu("Add");
         insertMenu.setIcon(addIcon);
         JMenuItem insertColumn = new JMenuItem("Insert new column");
+        insertColumn.addActionListener(e->new AddColumnFrame(currentBoard.getBoard()).setVisible(true));
         JMenuItem insertCard = new JMenuItem("Insert new card");
+        insertCard.addActionListener(e->new AddCardFrame(currentBoard.getBoard()).setVisible(true));
         insertMenu.add(insertColumn);
         insertMenu.add(insertCard);
 
         JMenu deleteMenu = new JMenu("Delete");
         deleteMenu.setIcon(deleteIcon);
         JMenuItem deleteColumn = new JMenuItem("Remove a column");
+        deleteColumn.addActionListener(e->new RemoveColumnFrame(currentBoard.getBoard()).setVisible(true));
         JMenuItem deleteCard = new JMenuItem("Remove a card");
+        deleteCard.addActionListener(e->new RemoveCardFrame(currentBoard.getBoard()).setVisible(true));
         deleteMenu.add(deleteColumn);
         deleteMenu.add(deleteCard);
 
         JMenuItem clearBoard = new JMenuItem("Clear board", clearIcon);
+        clearBoard.addActionListener(e->currentBoard.getBoard().clearBoard());
 
         edit.add(insertMenu);
         edit.add(new JSeparator(SwingConstants.HORIZONTAL));
@@ -156,8 +160,13 @@ public class KanbanMenu extends JMenuBar {
         // Menu items for JMenu 'kanban'
         JMenu kanban = makeMenu("Kanban");
         JMenuItem team = new JMenuItem("Team");
+        String teamMsg = "Jeanne Beyazian,\nTrey Collier,\nNathan Kuansataporn,\nAli Mohamed,\nand Petra Scutaru.";
+        team.addActionListener(e-> new JOptionPane()
+                .showMessageDialog(null, teamMsg, "Our Team (Indigo) !",
+                JOptionPane.INFORMATION_MESSAGE));
         JMenuItem settings = new JMenuItem("Settings");
         JMenuItem exitBoard = new JMenuItem("Exit Kanban");
+        exitBoard.addActionListener(e->System.exit(0));
 
         kanban.add(team);
         kanban.add(settings);
@@ -190,17 +199,12 @@ public class KanbanMenu extends JMenuBar {
 
         // JMenu help
         JMenu help = makeMenu("Help");
+        //help.addActionListener(e->new HelpFrame().setVisible(true));
         ImageIcon helpIcon = new ImageIcon("src/images/help.png");
         help.setIcon(helpIcon);
 
         return help;
     }
 
-    class removeCardEvent implements ActionListener {
-
-        public void actionPerformed(ActionEvent e) {
-
-        }
-    }
 
 }
