@@ -12,16 +12,13 @@ import java.awt.*;
 import java.util.ArrayList;
 
 @ClassAnnotation(
-        classAuthors = {"Ali, Nathan & Jeanne"},
+        classAuthors = {"Jeanne, (Ali, Nathan)"},
         creationDate = "13/11/2019",
         lastEdit = "05/12/2019"
 )
 
 public class KanbanColumn extends JPanel {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private ArrayList<KanbanCardButton> cards;
     private static int id = -1;
@@ -56,9 +53,9 @@ public class KanbanColumn extends JPanel {
         JLabel columnName = new JLabel(nameIn);
         columnName.setAlignmentX(Component.CENTER_ALIGNMENT);
         columnName.setForeground(Color.lightGray);
-        columnName.setBackground(new java.awt.Color(26, 58, 161));
+        columnName.setBackground(role.getColumnColour());
         columnName.setOpaque(true);
-        columnName.setMaximumSize(new Dimension(200,20));
+        columnName.setMaximumSize(new Dimension(200,30));
         add(columnName);
 
     }
