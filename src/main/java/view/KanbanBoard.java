@@ -34,7 +34,7 @@ public class KanbanBoard extends JFrame {
 
         // Set up the JFrame
         boardName = title;
-        setTitle(title);
+        this.setTitle(title);
         setSize(WIDTH, HEIGHT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -90,7 +90,6 @@ public class KanbanBoard extends JFrame {
         board.setVisible(true);
         revalidate();
         repaint();
-        
     }
 
     public EditorPanel getEditorPanel(){

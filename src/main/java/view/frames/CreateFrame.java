@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class CreateFrame extends JFrame  {
+public class CreateFrame extends JFrame  implements ActionListener{
 
     private static String fileName;
 
@@ -20,26 +20,15 @@ public class CreateFrame extends JFrame  {
         setSize(400,150);
         panel.add(choose);
         panel.add(tField);
-        tField.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e) {
-                fileName = tField.getText();
-            }
-        });
+        tField.addActionListener(e->fileName = tField.getText());
         panel.add(submit);
-        submit.addActionListener(new ActionListener() {
-             public void actionPerformed(ActionEvent e) {
-                 KanbanBoard board = new KanbanBoard(fileName);
-                 board.setVisible(true);
-             }
-        });
+        submit.addActionListener(this);
         add(panel);
     }
 
-//    public static void main(String[] args) {
-//
-//        CreateFrame frame = new CreateFrame();
-//        frame.setVisible(true);
-//    }
+    public void actionPerformed(ActionEvent event) {
+        new KanbanBoard(fileName).setVisible(true);
+        this.dispose();
+    }
 
 }

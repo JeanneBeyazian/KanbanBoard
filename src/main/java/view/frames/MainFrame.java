@@ -6,54 +6,52 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class MainFrame extends JFrame{
+    private JPanel container;
 
     public MainFrame() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(Box.createRigidArea(new Dimension(0, 5)));
-        JButton createNew = new JButton("Create new board");
+        setTitle("KanbanBoard App");
+        setLocationRelativeTo(null);
+        //setLayout(new FlowLayout());
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        initialise();
+        pack();
+    }
+
+    private void initialise() {
+
+        container = new JPanel();
+        container.setPreferredSize(new Dimension(500, 500));
+
+        JLabel welcomeLabel = new JLabel("Welcome to the Kanban Board Indigo App !");
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
+
+        JButton newBoard = new JButton("Create new board");
+        newBoard.addActionListener(e-> new CreateFrame().setVisible(true));
+        buttonPanel.add(newBoard);
+
+        buttonPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+
         JButton open = new JButton("Open current board");
-        panel.add(createNew);
-        createNew.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                CreateFrame frame = new CreateFrame();
-                frame.setVisible(true);
-            }
-        });
-        panel.add(open);
+        buttonPanel.add(open);
+
+        container.add(welcomeLabel, BorderLayout.NORTH);
+        container.add(buttonPanel, BorderLayout.CENTER);
         open.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
             }
         });
-        add(panel);
+        add(container);
 //        add(makeContainerPanel());
-        panel.setSize(500,500);
 
 
         //createNew.addActionListener(newProject());
 
         setResizable(true);
-        initialise();
-    }
-
-    private void initialise() {
-        setSize(500, 500);
-        setLayout(new FlowLayout());
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        pack();
 
     }
-
-//    private JPanel makeContainerPanel() {
-//        JPanel panel = new JPanel();
-//        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-//        panel.add(Box.createRigidArea(new Dimension(0, 5)));
-//
-//        return panel;
-//
-//    }
-
 
 
     public static void main(String[] args) {
