@@ -123,8 +123,7 @@ public class KanbanCard extends JFrame {
 
     private void createStoryPointsBox(int selectedPoints) {
 
-        storyPointsBox = new JComboBox();
-
+        storyPointsBox = new JComboBox<Integer>();
         JLabel pointsLabel = new JLabel("Story Points:");
         pointsLabel.setForeground(Color.WHITE);
         pointsLabel.setFont(new Font("Serif", Font.PLAIN, 16));
