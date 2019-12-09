@@ -199,15 +199,23 @@ public class KanbanMenu extends JMenuBar {
     }
 
 
+    /**
+     * @return Help Menu - displays a Help Frame
+     */
     private JMenu createHelpMenu() {
 
         // JMenu help
-        JMenu help = makeMenu("Help");
-        //help.addActionListener(e->new HelpFrame().setVisible(true));
+        JMenu helpMenu = makeMenu("Help");
+        // Icon
         ImageIcon helpIcon = new ImageIcon("src/images/help.png");
-        help.setIcon(helpIcon);
 
-        return help;
+        JMenuItem helpPopUp = new JMenuItem("How to use Indigo Kanban Board");
+        helpPopUp.addActionListener(e->new HelpFrame().setVisible(true));
+
+        helpMenu.setIcon(helpIcon);
+        helpMenu.add(helpPopUp);
+
+        return helpMenu;
     }
 
 
