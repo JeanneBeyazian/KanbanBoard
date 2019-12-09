@@ -73,33 +73,7 @@ public class KanbanMenu extends JMenuBar {
         JMenuItem newBoard = new JMenuItem("New", newIcon);
         newBoard.addActionListener(e->new CreateFrame().setVisible(true));
         JMenuItem openBoard = new JMenuItem("Open", openIcon);
-        openBoard.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-            	BoardPanel newBoard = Load.loadBoard();
-            	
-            	
-            	ArrayList<KanbanColumn> cols = newBoard.getColumns();
-                
-                
-                for(int i = 0; i < cols.size(); i++) {
-             	   KanbanColumn col = cols.get(i);
-             	   KanbanColumn boardCol = new KanbanColumn(col.getColumnTitle(), col.getRole());
-             	   ArrayList<KanbanCardButton> cards = cols.get(i).getCards();
-             	   if(cards.size() != 0) {
-             		  for(int j = 0; j < cards.size(); j++) {
-                		   //KanbanCardButton cardButton = cards.get(j);
-                		   
-                		  KanbanCardButton cardButton = new KanbanCardButton(cards.get(j));
-
-                		   boardCol.addCard(cardButton);
-                	   }
-             	   }
-             	   currentBoard.getBoard().addColumn(boardCol);
-                }
-
-            }
-        });
-
+        openBoard.addActionListener(e->new LoadWarningFrame(currentBoard).setVisible(true));
 
         JMenuItem saveBoard = new JMenuItem("Save", saveIcon);
         saveBoard.addActionListener(new ActionListener() {

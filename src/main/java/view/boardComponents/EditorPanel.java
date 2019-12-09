@@ -57,10 +57,6 @@ public class EditorPanel extends JPanel {
         add(createCommandsLayout());
         add(new JSeparator());
 
-        // Add edit buttons
-//        add(createEditPanel());
-//        add(Box.createRigidArea(new Dimension(0, 10)));
-
         // Tabbed pane for activity log and versions history
         add(new LogPanel());
         add(new JSeparator());
@@ -153,22 +149,6 @@ public class EditorPanel extends JPanel {
 
         return removeColumnButton;
     }
-
-
-//    private JPanel createEditPanel(){
-//        JPanel editPanel = new JPanel();
-//        editPanel.setOpaque(false);
-//
-//        JButton editCardButton = createButton("Edit selected card");
-//        JButton editColumnButton = createButton("Edit selected column");
-//        editCardButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-//        editColumnButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-//
-//        editPanel.add(editCardButton);
-//        editPanel.add(editColumnButton);
-//
-//        return editPanel;
-//    }
 
 
     /**

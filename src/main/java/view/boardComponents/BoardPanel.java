@@ -68,7 +68,7 @@ public class BoardPanel extends JPanel {
     }
 
     public void clearBoard() {
-        if (columns.isEmpty()) {
+        if (isEmpty()) {
             JOptionPane op = new JOptionPane();
             op.showMessageDialog(null, "The board is already empty!", "Empty Board",
                     JOptionPane.INFORMATION_MESSAGE);
@@ -78,6 +78,10 @@ public class BoardPanel extends JPanel {
         removeAll();
         revalidate();
         repaint();
+    }
+
+    public boolean isEmpty() {
+        return (columns.isEmpty());
     }
 
     public ArrayList<KanbanColumn> getColumns() {
