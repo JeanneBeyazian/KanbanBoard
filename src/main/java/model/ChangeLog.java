@@ -54,6 +54,13 @@ public class ChangeLog {
      */
     public void addChange(Change change){
         changes.add(change);
+
+        //TODO remove
+        try {
+            System.out.println(change.formatAsString());
+        } catch (Exception e){
+            System.out.println("Failed to convert log entry");
+        }
     }
 
 }

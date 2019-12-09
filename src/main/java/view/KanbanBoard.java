@@ -2,8 +2,12 @@ package view;
 
 import annotations.ClassAnnotation;
 import controller.Load;
+import controller.exceptions.UnknownKanbanObjectException;
+import model.Change;
+import model.ChangeLog;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.EditorPanel;
+import view.boardComponents.KanbanColumn;
 import view.boardComponents.KanbanMenu;
 
 import javax.swing.*;
@@ -66,6 +70,15 @@ public class KanbanBoard extends JFrame {
 
         // Create the menu bar
         createMenuBar(this);
+
+        // track change
+        try {
+            Change change = new Change(Change.ChangeType.ADD, title, KanbanBoard.class);
+            ChangeLog.getInstance().addChange(change);
+        } catch (UnknownKanbanObjectException u){
+            System.out.println("Failed to log.");
+            u.printStackTrace();
+        }
     }
 
     /** Sets up the Kanban menu */

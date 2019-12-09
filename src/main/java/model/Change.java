@@ -3,8 +3,10 @@ package model;
 
 import controller.exceptions.ChangeTypeNotImplementedException;
 import controller.exceptions.UnknownKanbanObjectException;
+import view.KanbanBoard;
 import view.boardComponents.*;
 import annotations.ClassAnnotation;
+import view.frames.KanbanCard;
 
 @ClassAnnotation(
         classAuthors = {"Petra"},
@@ -52,11 +54,11 @@ public class Change{
         this.changeType = changeType;
         this.objTitle = objTitle;
 
-        if (classType == BoardPanel.class) {
+        if (classType == KanbanBoard.class) {
             className = "Board";
         } else if (classType == KanbanColumn.class) {
             className = "Column";
-        } else if (classType == KanbanCardButton.class) {
+        } else if (classType == KanbanCard.class) {
             className = "Card";
         } else {
             throw new UnknownKanbanObjectException(classType);
@@ -112,7 +114,7 @@ public class Change{
             return "Removed the " + className +" called \"" + objTitle + "\"";
         }
         if (changeType == ChangeType.UPDATE){
-            return "Updated the " + updatedField +" of " + className +" \"" + objTitle + "\" to " + updatedValue;
+            return "Updated the " + updatedField +" of " + className +" \"" + objTitle + "\" to \"" + updatedValue + "\"";
         }
         if (changeType == ChangeType.MOVE){
             return "Moved \"" + objTitle +"\" to \"" + newParentTitle + "\"";

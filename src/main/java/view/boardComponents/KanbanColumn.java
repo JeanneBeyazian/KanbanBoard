@@ -4,6 +4,9 @@ import annotations.ClassAnnotation;
 import controller.ColumnRole;
 import controller.Save;
 import controller.exceptions.KanbanObjectNotFoundException;
+import controller.exceptions.UnknownKanbanObjectException;
+import model.Change;
+import model.ChangeLog;
 import view.containers.ScrollContainer;
 import view.frames.KanbanCard;
 
@@ -30,6 +33,14 @@ public class KanbanColumn extends JPanel {
     private static final int HEIGHT = 710;
 
     public KanbanColumn(String columnTitle, ColumnRole role) {
+        // track change
+        try {
+            Change change = new Change(Change.ChangeType.ADD, columnTitle, KanbanColumn.class);
+            ChangeLog.getInstance().addChange(change);
+        } catch (UnknownKanbanObjectException u){
+            System.out.println("Failed to log.");
+            u.printStackTrace();
+        }
 
         cards = new ArrayList<>();
         this.role = role;
@@ -124,7 +135,29 @@ public class KanbanColumn extends JPanel {
 
 	public void setRole(ColumnRole role) {
 		this.role = role;
+
+        // track change
+        try {
+            Change change = new Change(Change.ChangeType.UPDATE, columnTitle, KanbanColumn.class, "role", role.name());
+            ChangeLog.getInstance().addChange(change);
+        } catch (UnknownKanbanObjectException u){
+            System.out.println("Failed to log.");
+            u.printStackTrace();
+        }
 	}
+
+	public void setColumnTitle(String title){
+        this.columnTitle = title;
+
+        // track change
+        try {
+            Change change = new Change(Change.ChangeType.UPDATE, columnTitle, KanbanColumn.class, "title", title);
+            ChangeLog.getInstance().addChange(change);
+        } catch (UnknownKanbanObjectException u){
+            System.out.println("Failed to log.");
+            u.printStackTrace();
+        }
+    }
 
 	public String getColumnTitle() {
         return columnTitle;

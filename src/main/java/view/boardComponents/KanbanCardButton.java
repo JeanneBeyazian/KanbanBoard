@@ -1,6 +1,9 @@
 package view.boardComponents;
 
 import annotations.ClassAnnotation;
+import controller.exceptions.UnknownKanbanObjectException;
+import model.Change;
+import model.ChangeLog;
 import view.frames.KanbanCard;
 
 import javax.swing.*;
@@ -24,7 +27,6 @@ public class KanbanCardButton extends JPanel {
 
 
     public KanbanCardButton(KanbanColumn columnIn, String name, String description, int storyPoints) {
-
         buttonTitle = new JLabel(name);
         card = new KanbanCard(this, name, description, storyPoints);
         column = columnIn;
