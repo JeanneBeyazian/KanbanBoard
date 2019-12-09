@@ -1,7 +1,6 @@
 package view.frames;
 
 import controller.Load;
-import controller.exceptions.KanbanObjectNotFoundException;
 import view.KanbanBoard;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanCardButton;
@@ -49,7 +48,6 @@ public class LoadWarningFrame extends PopUpFrames implements ActionListener {
 
         JButton proceed = new JButton("Proceed");
         proceed.addActionListener(this);
-        //proceed.setBackground(new java.awt.Color(110, 199, 233));
         proceed.setBorderPainted(false);
 
         return proceed;
@@ -64,20 +62,17 @@ public class LoadWarningFrame extends PopUpFrames implements ActionListener {
             BoardPanel newBoard = Load.loadBoard();
             ArrayList<KanbanColumn> cols = newBoard.getColumns();
 
-            for(int i = 0; i < cols.size(); i++) {
-                KanbanColumn col = cols.get(i);
-                KanbanColumn boardCol = new KanbanColumn(col.getColumnTitle(), col.getRole());
-                ArrayList<KanbanCardButton> cards = cols.get(i).getCards();
+            for(KanbanColumn col : cols) {
+                KanbanColumn newBoardCol = new KanbanColumn(col.getColumnTitle(), col.getRole());
+                ArrayList<KanbanCardButton> cards = col.getCards();
                 if(cards.size() != 0) {
-                    for(int j = 0; j < cards.size(); j++) {
-                        //KanbanCardButton cardButton = cards.get(j);
-                        KanbanCardButton cardButton = new KanbanCardButton(cards.get(j));
-
-                        boardCol.addCard(cardButton);
+                    for (KanbanCardButton card : cards) {
+                        KanbanCardButton newCardButton = new KanbanCardButton(card);
+                        newBoardCol.addCard(newCardButton);
                     }
-                }
-                currentBoard.getBoard().addColumn(boardCol);
             }
+            currentBoard.getBoard().addColumn(newBoardCol);
+        }
 
 
     }
