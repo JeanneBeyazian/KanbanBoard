@@ -15,9 +15,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne, (Ali, Nathan)"},
+        classAuthors = {"Jeanne, (Ali, Nathan)", "Petra"},
         creationDate = "13/11/2019",
-        lastEdit = "05/12/2019"
+        lastEdit = "08/12/2019"
 )
 
 public class KanbanColumn extends JPanel {

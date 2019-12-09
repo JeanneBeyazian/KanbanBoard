@@ -15,9 +15,9 @@ import java.awt.*;
 
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne & Nathan"},
+        classAuthors = {"Jeanne & Nathan", "Petra"},
         creationDate = "13/11/2019",
-        lastEdit = "08/11/2019"
+        lastEdit = "08/12/2019"
 )
 /**
  * This class is responsible for the creation of kanban cards.
@@ -169,6 +169,16 @@ public class KanbanCard extends JFrame {
         delete.addActionListener(e-> {
             try {
                 cardButton.getColumn().removeCard(cardButton);
+
+                //log change
+                try {
+                    Change change = new Change(Change.ChangeType.REMOVE, cardTitle, KanbanCard.class);
+                    ChangeLog.getInstance().addChange(change);
+                } catch (UnknownKanbanObjectException u){
+                    System.out.println("Failed to log.");
+                    u.printStackTrace();
+                }
+
             } catch (KanbanObjectNotFoundException k) {
                 delete.setEnabled(false); // disable button if not found
                 delete.setText(delete.getText() + " (Error: Card not found)");

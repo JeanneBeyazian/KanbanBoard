@@ -17,9 +17,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
+        classAuthors = {"Jeanne", "Petra"},
         creationDate = "29/11/2019",
-        lastEdit = "05/11/2019"
+        lastEdit = "08/12/2019"
 )
 public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener {
 

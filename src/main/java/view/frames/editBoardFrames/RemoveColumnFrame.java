@@ -14,9 +14,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
+        classAuthors = {"Jeanne", "Petra"},
         creationDate = "29/11/2019",
-        lastEdit = "29/11/2019"
+        lastEdit = "08/12/2019"
 )
 
 public class RemoveColumnFrame extends EditorFrame implements ActionListener {

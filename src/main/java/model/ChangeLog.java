@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import annotations.ClassAnnotation;
+import view.containers.LogPanel;
 
 @ClassAnnotation(
         classAuthors = {"Petra"},
@@ -20,6 +21,7 @@ import annotations.ClassAnnotation;
 public class ChangeLog {
     private List<Change> changes;
     private static ChangeLog instance = null; // store the single instance of this class
+    private List<LogPanel> listeners; // store the log panel(s) listening for log changes
 
     /**
      * Private constructor so that other code cannot create new instances of
@@ -27,13 +29,33 @@ public class ChangeLog {
      */
     private ChangeLog(){
         changes = new ArrayList<>();
+        listeners = new ArrayList<>();
+    }
+
+    /**
+     * Observer design pattern.
+     * Add a log panel to listen for updates.
+     * @param panel
+     */
+    public void addListener(LogPanel panel){
+        listeners.add(panel);
+    }
+
+    /**
+     * Observer design pattern.
+     * Trigger listener log panel updates.
+     */
+    public void updateLogListeners(){
+        for (LogPanel l : listeners){
+            l.updateLog();
+        }
     }
 
     /**
      * Get the list of changes stored.
      * @return changes
      */
-    public List getChanges(){
+    public List<Change> getChanges(){
         return changes;
     }
 
@@ -54,13 +76,8 @@ public class ChangeLog {
      */
     public void addChange(Change change){
         changes.add(change);
+        updateLogListeners();
 
-        //TODO remove
-        try {
-            System.out.println(change.formatAsString());
-        } catch (Exception e){
-            System.out.println("Failed to convert log entry");
-        }
     }
 
 }

@@ -20,9 +20,9 @@ import java.awt.*;
  * It contains the maine frame and a menu bar.
  */
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
+        classAuthors = {"Jeanne", "Petra"},
         creationDate = "08/11/2019",
-        lastEdit = "22/11/2019"
+        lastEdit = "08/12/2019"
 )
 
 public class KanbanBoard extends JFrame {
