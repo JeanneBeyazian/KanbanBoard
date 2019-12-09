@@ -2,9 +2,13 @@ package view.frames.editBoardFrames;
 
 import annotations.ClassAnnotation;
 import controller.exceptions.KanbanObjectNotFoundException;
+import controller.exceptions.UnknownKanbanObjectException;
+import model.Change;
+import model.ChangeLog;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanCardButton;
 import view.boardComponents.KanbanColumn;
+import view.frames.KanbanCard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -123,7 +127,15 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
                 return;
             }
 
-            //col.removeCard(toRemove, currentPanel);
+            //log change
+            try {
+                Change change = new Change(Change.ChangeType.REMOVE, cardName, KanbanCard.class);
+                ChangeLog.getInstance().addChange(change);
+            } catch (UnknownKanbanObjectException u){
+                System.out.println("Failed to log.");
+                u.printStackTrace();
+            }
+
             dispose();
         }
 
