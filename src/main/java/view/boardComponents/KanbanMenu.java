@@ -86,7 +86,7 @@ public class KanbanMenu extends JMenuBar {
         JMenuItem newBoard = new JMenuItem("New", newIcon);
         newBoard.addActionListener(e->new CreateFrame().setVisible(true));
         JMenuItem openBoard = new JMenuItem("Open", openIcon);
-        openBoard.addActionListener(e->new LoadWarningFrame(currentBoard).setVisible(true));
+        openBoard.addActionListener(e->new LoadWarningFrame().setVisible(true));
 
         JMenuItem saveBoard = new JMenuItem("Save", saveIcon);
         saveBoard.addActionListener(new ActionListener() {

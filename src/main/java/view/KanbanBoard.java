@@ -57,6 +57,8 @@ public class KanbanBoard extends JFrame {
         }
 
         initialseKanbanBoard();
+        setVisible(true);
+
     }
 
     /**
@@ -127,26 +129,26 @@ public class KanbanBoard extends JFrame {
 
     public static void main(String[] args) {
         KanbanBoard board = new KanbanBoard("KanbanBoard");
-        board.setVisible(true);
     }
-    
-    public static void openBoard(BoardPanel newBoard) {
-    	ArrayList<KanbanColumn> cols = newBoard.getColumns();
-        
-        for(int i = 0; i < cols.size(); i++) {
-     	   KanbanColumn col = cols.get(i);
-     	   KanbanColumn boardCol = new KanbanColumn(col.getColumnTitle(), col.getRole());
-     	   ArrayList<KanbanCardButton> cards = cols.get(i).getCards();
-     	   if(cards.size() != 0) {
-     		  for(int j = 0; j < cards.size(); j++) {
-        		   //KanbanCardButton cardButton = cards.get(j);
-        		   
-        		  KanbanCardButton cardButton = new KanbanCardButton(cards.get(j));
 
-        		   boardCol.addCard(cardButton);
-        	   }
-     	   }
-     	   board.addColumn(boardCol);
+    /**
+     * Open an existing saved Kanban Board
+     * @param newBoard
+     */
+    public static void openBoard(BoardPanel newBoard) {
+
+        ArrayList<KanbanColumn> cols = newBoard.getColumns();
+
+        for(KanbanColumn col : cols) {
+            KanbanColumn newBoardCol = new KanbanColumn(col.getColumnTitle(), col.getRole());
+            ArrayList<KanbanCardButton> cards = col.getCards();
+            if (cards.size() != 0) {
+                for (KanbanCardButton card : cards) {
+                    KanbanCardButton newCardButton = new KanbanCardButton(card);
+                    newBoardCol.addCard(newCardButton);
+                }
+            }
+     	   board.addColumn(newBoardCol);
         }
     }
 

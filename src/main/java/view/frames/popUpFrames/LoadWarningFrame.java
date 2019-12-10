@@ -6,6 +6,7 @@ import view.KanbanBoard;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanCardButton;
 import view.boardComponents.KanbanColumn;
+import view.frames.OpenFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,16 +19,16 @@ import java.util.ArrayList;
         creationDate = "09/12/2019",
         lastEdit = "10/12/2019"
 )
-public class LoadWarningFrame extends PopUpFrames implements ActionListener {
+public class LoadWarningFrame extends PopUpFrames {
 
-    private KanbanBoard currentBoard;
     /**
      * Constructor - help frame set up.
      */
-    public LoadWarningFrame(KanbanBoard board){
+    public LoadWarningFrame() {
+
         super("Loading Board Warning");
-        currentBoard = board;
         buttonPanel.add(createSubmitButton());
+
     }
 
     /**
@@ -53,35 +54,13 @@ public class LoadWarningFrame extends PopUpFrames implements ActionListener {
     private JButton createSubmitButton() {
 
         JButton proceed = new JButton("Proceed");
-        proceed.addActionListener(this);
+        proceed.addActionListener(e-> new OpenFrame().setVisible(true));
         proceed.setBorderPainted(false);
 
         return proceed;
     }
 
 
-    public void actionPerformed(ActionEvent event) {
-
-            this.dispose();
-            if (!currentBoard.getBoard().isEmpty()) currentBoard.getBoard().clearBoard();
-
-            BoardPanel newBoard = Load.loadBoard();
-            ArrayList<KanbanColumn> cols = newBoard.getColumns();
-
-            for(KanbanColumn col : cols) {
-                KanbanColumn newBoardCol = new KanbanColumn(col.getColumnTitle(), col.getRole());
-                ArrayList<KanbanCardButton> cards = col.getCards();
-                if(cards.size() != 0) {
-                    for (KanbanCardButton card : cards) {
-                        KanbanCardButton newCardButton = new KanbanCardButton(card);
-                        newBoardCol.addCard(newCardButton);
-                    }
-            }
-            currentBoard.getBoard().addColumn(newBoardCol);
-        }
-
-
-    }
 
 
 }
