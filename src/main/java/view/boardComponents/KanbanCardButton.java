@@ -98,6 +98,10 @@ public class KanbanCardButton extends JPanel {
         repaint();
     }
 
+    public void setStoryPoints(String newPoints) {
+        storyPoints.setText(newPoints);
+    }
+
 }
 
 
