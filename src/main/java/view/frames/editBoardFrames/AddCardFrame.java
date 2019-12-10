@@ -19,9 +19,6 @@ import java.awt.event.ActionListener;
 
 public class AddCardFrame extends AddFrame implements ActionListener {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JTextArea cardDescriptionArea;
     private JComboBox<Integer> storyPointsBox;

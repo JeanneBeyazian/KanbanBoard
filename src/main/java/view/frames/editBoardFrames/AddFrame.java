@@ -1,5 +1,6 @@
 package view.frames.editBoardFrames;
 import annotations.ClassAnnotation;
+import controller.ColumnRole;
 import view.boardComponents.BoardPanel;
 
 import javax.swing.*;
@@ -29,7 +30,7 @@ abstract public class AddFrame extends EditorFrame implements ActionListener {
     }
 
     /** Set up of the frame : add titleField and titleLabel */
-    protected void setUpFrame(String type ) {
+    protected void setUpFrame(String type) {
         container.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
                 ("Adding a new " + type + " to the board")));
 
@@ -46,6 +47,11 @@ abstract public class AddFrame extends EditorFrame implements ActionListener {
         container.add(titleField, constraints);
 
         pack();
+    }
+
+    protected JComboBox<String> createRolesList(){
+        JComboBox<String> box = new JComboBox<>(ColumnRole.getRoles());
+        return box;
     }
 
 

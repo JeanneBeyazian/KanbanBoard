@@ -8,6 +8,7 @@ import controller.exceptions.UnknownKanbanObjectException;
 import model.Change;
 import model.ChangeLog;
 import view.containers.ScrollContainer;
+import view.frames.editBoardFrames.UpdateColumnFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +28,7 @@ public class KanbanColumn extends JPanel {
     private static int id = -1;                     // Unique ID
 
     // Column components
-    private String columnTitle;
+    private JLabel titleLabel;
     private ColumnRole role;
     private ScrollContainer columnPane;
 
@@ -46,7 +47,7 @@ public class KanbanColumn extends JPanel {
 
         cards = new ArrayList<>();
         this.role = role;
-        this.columnTitle = columnTitle;
+        titleLabel = new JLabel();
         ++id;
         columnPane = new ScrollContainer();
         initialiseColumn(columnTitle);
@@ -56,20 +57,29 @@ public class KanbanColumn extends JPanel {
 
         setPreferredSize(new Dimension(WIDTH,HEIGHT));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        addColumnName(nameIn);
+        setColumnTitle(nameIn);
+        add(titleLabel);
         add(columnPane);
         addButtons();
     }
 
-    private void addColumnName(String nameIn) {
+    public void setColumnTitle(String nameIn) {
 
-        JLabel columnName = new JLabel(nameIn);
-        columnName.setAlignmentX(Component.CENTER_ALIGNMENT);
-        columnName.setForeground(Color.lightGray);
-        columnName.setBackground(role.getColumnColour());
-        columnName.setOpaque(true);
-        columnName.setMaximumSize(new Dimension(200,30));
-        add(columnName);
+        titleLabel.setText(nameIn);
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        titleLabel.setForeground(Color.lightGray);
+        titleLabel.setBackground(role.getColumnColour());
+        titleLabel.setOpaque(true);
+        titleLabel.setMaximumSize(new Dimension(200,30));
+
+        try {
+            Change change = new Change(Change.ChangeType.UPDATE, nameIn, KanbanColumn.class,
+                    "title", nameIn);
+            ChangeLog.getInstance().addChange(change);
+        } catch (UnknownKanbanObjectException u){
+            System.out.println("Failed to log.");
+            u.printStackTrace();
+        }
 
     }
 
@@ -78,12 +88,14 @@ public class KanbanColumn extends JPanel {
         JPanel smallPanel = new JPanel();
         smallPanel.setMaximumSize(new Dimension(WIDTH, 30));
 
+        // Edit button : opens an EditColumnFrame
         JButton editButton = new JButton("Edit");
         editButton.setToolTipText("Edit this column");
-        //editButton.addActionListener(e-> new EditColumnFrame().setVisible(true));
+        editButton.addActionListener(e-> new UpdateColumnFrame(getBoard(), this).setVisible(true));
         editButton.setBackground(new java.awt.Color(110, 199, 233));
         editButton.setBorderPainted(false);
 
+        // Clear button : removes all card from this column
         JButton clearButton = new JButton("Clear");
         clearButton.setToolTipText("Delete all cards from column?");
         clearButton.addActionListener(e->this.clearColumn());
@@ -146,7 +158,7 @@ public class KanbanColumn extends JPanel {
 
         // track change
         try {
-            Change change = new Change(Change.ChangeType.UPDATE, columnTitle, KanbanColumn.class,
+            Change change = new Change(Change.ChangeType.UPDATE, getColumnTitle(), KanbanColumn.class,
                     "role", role.name());
             ChangeLog.getInstance().addChange(change);
         } catch (UnknownKanbanObjectException u){
@@ -156,22 +168,8 @@ public class KanbanColumn extends JPanel {
 	}
 
 
-	public void setColumnTitle(String title) {
-
-        this.columnTitle = title;
-
-        // track change
-        try {
-            Change change = new Change(Change.ChangeType.UPDATE, columnTitle, KanbanColumn.class, "title", title);
-            ChangeLog.getInstance().addChange(change);
-        } catch (UnknownKanbanObjectException u){
-            System.out.println("Failed to log.");
-            u.printStackTrace();
-        }
-    }
-
 	public String getColumnTitle() {
-        return columnTitle;
+        return titleLabel.getText();
     }
 
     public BoardPanel getBoard() {
@@ -199,6 +197,10 @@ public class KanbanColumn extends JPanel {
             }
         }
         throw new KanbanObjectNotFoundException(KanbanCardButton.class);
+    }
+
+    public void updateColumn(){
+
     }
 
     /**
