@@ -3,6 +3,7 @@ package view.boardComponents;
 import annotations.ClassAnnotation;
 
 import controller.ColumnRole;
+import controller.OptionPanes;
 import controller.exceptions.KanbanObjectNotFoundException;
 import controller.exceptions.UnknownKanbanObjectException;
 import model.Change;
@@ -167,7 +168,7 @@ public class KanbanColumn extends JPanel {
         // Check if IN_PROGRESS column, and make sure it doesn't exceed WIP limit
         if (role == ColumnRole.IN_PROGRESS &&
                 (board.getWIPcount()+card.getCard().getStoryPoints() > board.getWIPlimit())) {
-            showWIPLimitReachedError();
+            OptionPanes.showWIPLimitReachedError(getBoard());
             return;
         }
         if (role == ColumnRole.IN_PROGRESS) board.incrementWIPCount(card.getCard().getStoryPoints());
@@ -209,8 +210,7 @@ public class KanbanColumn extends JPanel {
 
         // If called on empty column
         if (cards.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "There are no cards in this column!", "Empty Column",
-                    JOptionPane.INFORMATION_MESSAGE);
+
             return;
         }
 
@@ -218,18 +218,6 @@ public class KanbanColumn extends JPanel {
         columnPane.removeAll();
         revalidate();
         repaint();
-    }
-
-    /**
-     * Dialog displayed when the WIP limit is reached, and no more cards can be added to an 'In progress' column.
-     */
-    private void showWIPLimitReachedError() {
-        JOptionPane op = new JOptionPane();
-        op.showMessageDialog(null,
-                "You have reached the Work In Progress limit, set to " + getBoard().getWIPlimit() + ".",
-                "WIP Limit Reached",
-                JOptionPane.WARNING_MESSAGE);
-
     }
 
 

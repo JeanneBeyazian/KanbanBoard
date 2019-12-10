@@ -2,6 +2,7 @@ package view.frames.editBoardFrames;
 
 import annotations.ClassAnnotation;
 import controller.ColumnRole;
+import controller.OptionPanes;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanColumn;
 
@@ -82,7 +83,7 @@ public class AddColumnFrame extends AddFrame implements ActionListener {
             currentPanel.addColumn(new KanbanColumn(columnTitle, setRole));
         }
         else {
-            showError("Command not found");
+            OptionPanes.commandNotFoundError("Command not found");
         }
 
         dispose();

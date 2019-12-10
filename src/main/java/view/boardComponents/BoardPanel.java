@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static controller.OptionPanes.boardEmptyError;
+
 
 @ClassAnnotation(
         classAuthors = {"Jeanne, (Petra)"},
@@ -56,9 +58,7 @@ public class BoardPanel extends JPanel {
 
     public void clearBoard() {
         if (isEmpty()) {
-            JOptionPane op = new JOptionPane();
-            op.showMessageDialog(null, "The board is already empty!", "Empty Board",
-                    JOptionPane.INFORMATION_MESSAGE);
+            boardEmptyError();
             return;
         }
         columns.clear();

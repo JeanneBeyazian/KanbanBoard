@@ -13,6 +13,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static controller.OptionPanes.commandNotFoundError;
+import static controller.OptionPanes.noColumnSelectedError;
+
 @ClassAnnotation(
         classAuthors = {"Jeanne", "Petra"},
         creationDate = "29/11/2019",
@@ -82,8 +85,6 @@ public class RemoveColumnFrame extends EditorFrame implements ActionListener {
             catch (KanbanObjectNotFoundException e){
                 System.out.println("Error: Column not found");
                 e.printStackTrace();
-
-                showError("Error: Column not found");
                 return;
             }
 
@@ -100,7 +101,7 @@ public class RemoveColumnFrame extends EditorFrame implements ActionListener {
         }
 
         else {
-            showError("Command not found");
+            commandNotFoundError("Command not found");
         }
 
     }

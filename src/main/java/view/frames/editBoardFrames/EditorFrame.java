@@ -62,19 +62,5 @@ abstract public class EditorFrame extends JFrame implements ActionListener {
         return columnsBox;
     }
 
-    /** Response to an unknown command : shows an error JOptionPane */
-
-    protected void showError(String errorMessage) {
-        JOptionPane op = new JOptionPane();
-        op.showMessageDialog(null, errorMessage, "Error",
-                JOptionPane.ERROR_MESSAGE);
-    }
-
-    /** Response to failed selection of column from the combo box : shows an error JOptionPane */
-    protected void noColumnSelectedError() {
-        JOptionPane op = new JOptionPane();
-        op.showMessageDialog(null, "There is no column in your board!", "Column Not Found",
-                JOptionPane.INFORMATION_MESSAGE);
-    }
 
 }

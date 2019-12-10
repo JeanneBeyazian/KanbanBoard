@@ -12,6 +12,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static controller.OptionPanes.commandNotFoundError;
+
 public class UpdateColumnFrame extends AddFrame implements ActionListener{
 
     private JComboBox<String> rolesAvailable;
@@ -84,7 +86,7 @@ public class UpdateColumnFrame extends AddFrame implements ActionListener{
             dispose();
 
         } else {
-            showError("Command not found");
+            commandNotFoundError("Command not found");
         }
 
     }

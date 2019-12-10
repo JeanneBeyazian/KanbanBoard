@@ -11,6 +11,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static controller.OptionPanes.*;
+
 @ClassAnnotation(
         classAuthors = {"Jeanne", "Petra"},
         creationDate = "28/11/2019",
@@ -120,7 +122,7 @@ public class AddCardFrame extends AddFrame implements ActionListener {
             dispose();
         }
         else {
-            showError("Command not found");
+            commandNotFoundError("Command not found");
         }
 
     }

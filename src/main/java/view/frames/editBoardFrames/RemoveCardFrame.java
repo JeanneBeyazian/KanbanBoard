@@ -16,6 +16,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import static controller.OptionPanes.*;
+
 @ClassAnnotation(
         classAuthors = {"Jeanne", "Petra"},
         creationDate = "29/11/2019",
@@ -122,8 +124,6 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
             catch (KanbanObjectNotFoundException e){
                 System.out.println("Error: Card not found");
                 e.printStackTrace();
-
-                showError("Error: Card not found");
                 return;
             }
 
@@ -140,7 +140,7 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
         }
 
         else {
-            showError("Command not found");
+            commandNotFoundError("Command not found");
         }
 
     }

@@ -173,6 +173,15 @@ public class EditorPanel extends JPanel {
         // Components for wipPanel
         JLabel wipLabel = createLabel( "Work In Progress Limit: ");
         JComboBox<Integer> wipBox = new JComboBox<Integer>();
+        ActionListener wipAction = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+
+                int selectedLimit = (int)wipBox.getSelectedIndex();
+
+                currentPanel.setWIPlimit(selectedLimit);
+            }
+        };
         wipBox.addActionListener(e->currentPanel.setWIPlimit((int)wipBox.getSelectedItem()));
 
         // Making of wipBox

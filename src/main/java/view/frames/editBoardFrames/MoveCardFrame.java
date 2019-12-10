@@ -9,6 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+import static controller.OptionPanes.*;
+
+
 public class MoveCardFrame extends EditorFrame {
 
     private JComboBox<String> columnsBox;
@@ -105,7 +108,7 @@ public class MoveCardFrame extends EditorFrame {
             dispose();
         }
         else {
-            showError("Command not found");
+            commandNotFoundError("Command not found");
         }
 
     }
