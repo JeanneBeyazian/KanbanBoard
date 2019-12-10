@@ -7,36 +7,37 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+
+@ClassAnnotation(
+        classAuthors = {"Jeanne, (Petra)"},
+        creationDate = "09/11/2019",
+        lastEdit = "06/12/2019"
+)
 /**
  * This class creates the panel that will contain the columns
  * The user should be able to add columns.
  * The columns will welcome the Kanban cards.
  */
-@ClassAnnotation(
-        classAuthors = {"Jeanne", "Petra"},
-        creationDate = "09/11/2019",
-        lastEdit = "06/12/2019"
-)
-
 public class BoardPanel extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	//private ArrayList<Command> history;
     private ArrayList<KanbanColumn> columns;
 
+    private int WIPlimit;
+    private int WIPcount;
+
     public BoardPanel() {
         super();
         initialiseBoard();
+        WIPcount = 0;
+        WIPlimit = 0;
     }
 
     public void initialiseBoard() {
         columns = new ArrayList<>();
         //history = new ArrayList<>();
         setBackground(Color.black);
-        //setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         setLayout(new FlowLayout());
     }
     
@@ -86,6 +87,26 @@ public class BoardPanel extends JPanel {
 
     public ArrayList<KanbanColumn> getColumns() {
         return columns;
+    }
+
+    public void incrementWIPCount(){
+        ++WIPcount;
+    }
+
+    public void decrementWIPCount(){
+        --WIPcount;
+    }
+
+    public void setWIPlimit(int WIPlimit) {
+        this.WIPlimit = WIPlimit;
+    }
+
+    public int getWIPcount() {
+        return WIPcount;
+    }
+
+    public int getWIPlimit() {
+        return WIPlimit;
     }
 
     /**

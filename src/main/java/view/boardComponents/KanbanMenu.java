@@ -16,17 +16,18 @@ import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.awt.event.*;
 
-/**
- * This class is responsible for the creation of the menu
- * bar at the top of the board.
- */
+
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
         creationDate = "13/11/2019",
-        lastEdit = "22/11/2019"
+        lastEdit = "10/12/2019"
 )
+/**
+ * This class is responsible for the creation of the menu bar at the top of the board.
+ * It contains useful user commands separated into five JMenus :
+ * File Menu, Edit Menu, Kanban Menu, View Menu, Help Menu.
+ */
 public class KanbanMenu extends JMenuBar {
-
 
 	private static final long serialVersionUID = 1L;
 	KanbanBoard currentBoard;
@@ -49,23 +50,30 @@ public class KanbanMenu extends JMenuBar {
     }
 
     /** Set up menu colour */
-    public JMenu makeMenu(String menuName){
+    public JMenu makeMenu(String menuName) {
+
         JMenu menu = new JMenu(menuName);
         menu.setForeground(new java.awt.Color(255, 255, 255));
         return menu;
+
     }
 
-    public JMenuItem makeItem(String menuItemName, ImageIcon icon){
+
+    public JMenuItem makeItem(String menuItemName, ImageIcon icon) {
+
         JMenuItem menu = new JMenuItem(menuItemName, icon);
         menu.setForeground(new java.awt.Color(228, 228, 228));
         menu.setBackground(new java.awt.Color(33, 42, 101));
         return menu;
+
     }
+
 
     /**
      * File menu : New board, Open board, Save board
      */
-    private JMenu createFileMenu(){
+    private JMenu createFileMenu() {
+
         // Menu items for JMenu 'file'
         JMenu file = makeMenu("File");
 
@@ -95,7 +103,9 @@ public class KanbanMenu extends JMenuBar {
         file.add(saveBoard);
 
         return file;
+
     }
+
 
     /**
      * Edit Menu : Add (column, card), Delete (column, card), Clear board
@@ -111,6 +121,7 @@ public class KanbanMenu extends JMenuBar {
         ImageIcon deleteIcon = new ImageIcon("src/images/delete.jpg");
         ImageIcon clearIcon = new ImageIcon("src/images/delete-symbol.jpg");
 
+
         // Add component JMenu
         JMenu insertMenu = new JMenu("Add");
         insertMenu.setIcon(addIcon);
@@ -120,6 +131,7 @@ public class KanbanMenu extends JMenuBar {
             // Add card
         JMenuItem insertCard = new JMenuItem("Insert new card");
         insertCard.addActionListener(e->new AddCardFrame(currentBoard.getBoard()).setVisible(true));
+
 
         // Delete component JMenu
         JMenu deleteMenu = new JMenu("Delete");
@@ -131,10 +143,12 @@ public class KanbanMenu extends JMenuBar {
         JMenuItem deleteCard = new JMenuItem("Remove a card");
         deleteCard.addActionListener(e->new RemoveCardFrame(currentBoard.getBoard()).setVisible(true));
 
+
         insertMenu.add(insertColumn);
         insertMenu.add(insertCard);
         deleteMenu.add(deleteColumn);
         deleteMenu.add(deleteCard);
+
 
         // Clear board
         JMenuItem clearBoard = new JMenuItem("Clear board", clearIcon);
@@ -147,7 +161,9 @@ public class KanbanMenu extends JMenuBar {
         edit.add(clearBoard);
 
         return edit;
+
     }
+
 
     /**
      * Kan Menu : Team info, Settings, Exit Kanban
@@ -174,7 +190,9 @@ public class KanbanMenu extends JMenuBar {
         kanban.add(exitBoard);
 
         return kanban;
+
     }
+
 
     /**
      * View Menu : show or hide editor Panel
@@ -194,6 +212,7 @@ public class KanbanMenu extends JMenuBar {
         view.add(showBar);
 
         return view;
+
     }
 
 
@@ -213,6 +232,7 @@ public class KanbanMenu extends JMenuBar {
         helpMenu.add(helpPopUp);
 
         return helpMenu;
+
     }
 
 
