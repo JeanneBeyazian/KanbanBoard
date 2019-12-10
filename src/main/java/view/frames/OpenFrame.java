@@ -1,19 +1,44 @@
 package view.frames;
 
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import view.KanbanBoard;
 
-public class OpenFrame extends JScrollPane {
+import javax.swing.*;
+
+import controller.Load;
+
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class OpenFrame extends JFrame  implements ActionListener{
+
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	String fileName;
+	JTextField tField = new JTextField(30);
 
     public OpenFrame() {
-        setSize(500,500);
-//        add.
+        JPanel panel = new JPanel();
+        JLabel choose = new JLabel("Enter Board Name");
+        JButton submit = new JButton("Enter");
+
+        setSize(400,150);
+        panel.add(choose);
+        panel.add(tField);
+        panel.add(submit);
+        submit.addActionListener(this);
+        add(panel);
+    }
+    
+    public void actionPerformed(ActionEvent event) {
+    	new KanbanBoard(tField.getText()).setVisible(true);
+    	KanbanBoard.openBoard(Load.loadBoard(tField.getText()));
+        this.dispose();
     }
 
-    public static void main(String[] args) {
-        OpenFrame frame = new OpenFrame();
-        frame.setVisible(true);
-    }
 }
+
+
+

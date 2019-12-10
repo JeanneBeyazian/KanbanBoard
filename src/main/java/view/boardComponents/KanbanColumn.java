@@ -1,11 +1,10 @@
 package view.boardComponents;
 
 import annotations.ClassAnnotation;
+
 import controller.ColumnRole;
-import controller.Save;
 import controller.exceptions.KanbanObjectNotFoundException;
 import view.containers.ScrollContainer;
-import view.frames.KanbanCard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -87,9 +86,6 @@ public class KanbanColumn extends JPanel {
 
     public void addCard(KanbanCardButton card) {
 
-    	Command addNewCard = new Command("add card", card);
-    	//getBoard().addCommand(addNewCard);
-    	
         cards.add(card);    // Add to ArrayList
         card.setAlignmentX(Component.CENTER_ALIGNMENT);
         columnPane.add(card);
@@ -101,9 +97,6 @@ public class KanbanColumn extends JPanel {
 
     public void removeCard(KanbanCardButton card) throws KanbanObjectNotFoundException{
     	
-    	Command removeOldCard = new Command("remove card", card);
-    	//getBoard().addCommand(removeOldCard);
-
     	if(card != null) {
     		cards.remove(card);
             columnPane.remove(card);
@@ -160,8 +153,7 @@ public class KanbanColumn extends JPanel {
 
     private void clearColumn() {
         if (cards.isEmpty()) {
-            JOptionPane op = new JOptionPane();
-            op.showMessageDialog(null, "There are no cards in this column!", "Empty Column",
+            JOptionPane.showMessageDialog(null, "There are no cards in this column!", "Empty Column",
                     JOptionPane.INFORMATION_MESSAGE);
             return;
         }

@@ -12,7 +12,7 @@ import view.frames.editBoardFrames.RemoveColumnFrame;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.event.ItemEvent;
+
 import java.util.ArrayList;
 import java.awt.event.*;
 
@@ -73,30 +73,12 @@ public class KanbanMenu extends JMenuBar {
         JMenuItem newBoard = new JMenuItem("New", newIcon);
         newBoard.addActionListener(e->new CreateFrame().setVisible(true));
         JMenuItem openBoard = new JMenuItem("Open", openIcon);
+        //openBoard.addActionListener(e-> new OpenFrame().setVisible(true));
+        
         openBoard.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-            	BoardPanel newBoard = Load.loadBoard();
-            	
-            	
-            	ArrayList<KanbanColumn> cols = newBoard.getColumns();
-                
-                
-                for(int i = 0; i < cols.size(); i++) {
-             	   KanbanColumn col = cols.get(i);
-             	   KanbanColumn boardCol = new KanbanColumn(col.getColumnTitle(), col.getRole());
-             	   ArrayList<KanbanCardButton> cards = cols.get(i).getCards();
-             	   if(cards.size() != 0) {
-             		  for(int j = 0; j < cards.size(); j++) {
-                		   //KanbanCardButton cardButton = cards.get(j);
-                		   
-                		  KanbanCardButton cardButton = new KanbanCardButton(cards.get(j));
-
-                		   boardCol.addCard(cardButton);
-                	   }
-             	   }
-             	   currentBoard.getBoard().addColumn(boardCol);
-                }
-
+            	new OpenFrame().setVisible(true);
+                currentBoard.dispose();
             }
         });
 
@@ -105,7 +87,7 @@ public class KanbanMenu extends JMenuBar {
         saveBoard.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 BoardPanel board = currentBoard.getBoard();
-                Save.saveBoard(board);
+                Save.saveBoard(board, currentBoard.getBoardName());
             }
         });
 
@@ -209,6 +191,8 @@ public class KanbanMenu extends JMenuBar {
 
         return help;
     }
+    
+    
 
 
 }

@@ -9,18 +9,20 @@ public class Save {
    public Save() {
    }
 
-   public static void saveBoard(BoardPanel board) {
+   public static void saveBoard(BoardPanel board, String name) {
 
        Save obj = new Save();
-       obj.serialise(board);
+       obj.serialise(board, name);
    }
 
-   public void serialise(BoardPanel board1) {
+   public void serialise(BoardPanel board1, String boardName) {
+	   
+	   String fName = boardName + ".json";
        FileOutputStream fileName = null;
        ObjectOutputStream output = null;
 
        try {
-           fileName = new FileOutputStream("Boards.json");
+           fileName = new FileOutputStream(fName);
            output = new ObjectOutputStream(fileName);
            output.writeObject(board1);
        } catch (Exception var17) {

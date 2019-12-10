@@ -10,11 +10,11 @@ import java.awt.event.ActionEvent;
 public class CreateFrame extends JFrame  implements ActionListener{
 
     private static String fileName;
+    JTextField tField = new JTextField(30);
 
     public CreateFrame() {
         JPanel panel = new JPanel();
         JLabel choose = new JLabel("Choose new board name");
-        JTextField tField = new JTextField(30);
         JButton submit = new JButton("Enter");
 
         setSize(400,150);
@@ -27,7 +27,7 @@ public class CreateFrame extends JFrame  implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent event) {
-        new KanbanBoard(fileName).setVisible(true);
+        new KanbanBoard(tField.getText()).setVisible(true);
         this.dispose();
     }
 
