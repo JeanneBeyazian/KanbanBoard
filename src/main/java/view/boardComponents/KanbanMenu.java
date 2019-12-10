@@ -1,7 +1,6 @@
 package view.boardComponents;
 
 import annotations.ClassAnnotation;
-import controller.Load;
 import controller.Save;
 import view.KanbanBoard;
 import view.frames.*;
@@ -9,11 +8,13 @@ import view.frames.editBoardFrames.AddCardFrame;
 import view.frames.editBoardFrames.AddColumnFrame;
 import view.frames.editBoardFrames.RemoveCardFrame;
 import view.frames.editBoardFrames.RemoveColumnFrame;
+import view.frames.popUpFrames.HelpFrame;
+import view.frames.popUpFrames.LoadWarningFrame;
+import view.frames.popUpFrames.WIPGraphFrame;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ItemEvent;
-import java.util.ArrayList;
 import java.awt.event.*;
 
 
@@ -173,10 +174,13 @@ public class KanbanMenu extends JMenuBar {
         // Menu items for JMenu 'kanban'
         JMenu kanban = makeMenu("Kanban");
 
+        JMenuItem wipProgress = new JMenuItem("Work In Progress");
+        wipProgress.addActionListener(e->new WIPGraphFrame(currentBoard).setVisible(true));
+
         JMenuItem team = new JMenuItem("Team");
         String teamMsg = "Jeanne Beyazian,\nTrey Collier,\nNathan Kuansataporn,\nAli Mohamed,\nand Petra Scutaru.";
-        team.addActionListener(e-> new JOptionPane()
-                .showMessageDialog(null, teamMsg, "Our Team (Indigo) !",
+        team.addActionListener(e->
+                new JOptionPane().showMessageDialog(null, teamMsg, "Our Team (Indigo) !",
                 JOptionPane.INFORMATION_MESSAGE));
 
         JMenuItem settings = new JMenuItem("Settings");
@@ -184,6 +188,7 @@ public class KanbanMenu extends JMenuBar {
         JMenuItem exitBoard = new JMenuItem("Exit Kanban");
         exitBoard.addActionListener(e->System.exit(0));
 
+        kanban.add(wipProgress);
         kanban.add(team);
         kanban.add(settings);
         kanban.add(new JSeparator(SwingConstants.HORIZONTAL));
