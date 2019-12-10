@@ -1,5 +1,6 @@
-package view.frames;
+package view.frames.popUpFrames;
 
+import annotations.ClassAnnotation;
 import controller.Load;
 import view.KanbanBoard;
 import view.boardComponents.BoardPanel;
@@ -12,6 +13,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+@ClassAnnotation(
+        classAuthors = {"Jeanne"},
+        creationDate = "09/12/2019",
+        lastEdit = "10/12/2019"
+)
 public class LoadWarningFrame extends PopUpFrames implements ActionListener {
 
     private KanbanBoard currentBoard;

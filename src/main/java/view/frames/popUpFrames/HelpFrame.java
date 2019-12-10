@@ -1,4 +1,4 @@
-package view.frames;
+package view.frames.popUpFrames;
 
 import annotations.ClassAnnotation;
 
@@ -7,7 +7,7 @@ import java.awt.*;
 
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
-        creationDate = "22/11/2019",
+        creationDate = "08/12/2019",
         lastEdit = "08/12/2019"
 )
 /**

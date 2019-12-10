@@ -1,4 +1,4 @@
-package view.frames;
+package view.frames.popUpFrames;
 
 import annotations.ClassAnnotation;
 
@@ -7,7 +7,7 @@ import java.awt.*;
 
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
-        creationDate = "22/11/2019",
+        creationDate = "09/12/2019",
         lastEdit = "09/12/2019"
 )
 
@@ -16,7 +16,9 @@ import java.awt.*;
  */
 public abstract class PopUpFrames extends JFrame {
 
+    protected JPanel containerPanel;
     protected JPanel buttonPanel;
+
     private static final int WIDTH = 650;
     private static final int HEIGHT = 300;
 
@@ -27,8 +29,12 @@ public abstract class PopUpFrames extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-        add(createText());
 
+        containerPanel = new JPanel();
+        containerPanel.setLayout(new BoxLayout(containerPanel, BoxLayout.Y_AXIS));
+        containerPanel.add(createText());
+
+        add(containerPanel);
         iniatilise();
     }
 
