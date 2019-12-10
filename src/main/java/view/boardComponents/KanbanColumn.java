@@ -19,7 +19,9 @@ import java.util.ArrayList;
         creationDate = "13/11/2019",
         lastEdit = "08/12/2019"
 )
-
+/**
+ *
+ */
 public class KanbanColumn extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -34,6 +36,7 @@ public class KanbanColumn extends JPanel {
 
     private static final int WIDTH = 200;
     private static final int HEIGHT = 710;
+
 
     public KanbanColumn(String columnTitle, ColumnRole role) {
         // track change
@@ -52,25 +55,44 @@ public class KanbanColumn extends JPanel {
         columnPane = new ScrollContainer();
         initialiseColumn(columnTitle);
     }
-  
+
+    /**
+     * Set up column layout and components
+     * @param nameIn column name used
+     */
     private void initialiseColumn(String nameIn) {
 
         setPreferredSize(new Dimension(WIDTH,HEIGHT));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setColumnTitle(nameIn);
+        createColumnTitle(nameIn);
         add(titleLabel);
         add(columnPane);
         addButtons();
+
     }
 
+    /**
+     * Initial set up of the column title label
+     * @param nameIn initial name input
+     */
+    private void createColumnTitle(String nameIn) {
+
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        titleLabel.setForeground(Color.lightGray);
+        titleLabel.setMaximumSize(new Dimension(200,30));
+        titleLabel.setOpaque(true);
+        setColumnTitle(nameIn);
+
+    }
+
+    /**
+     * Set up of the name label for the column. Used for updating after a column is edited.
+     * @param nameIn name input
+     */
     public void setColumnTitle(String nameIn) {
 
         titleLabel.setText(nameIn);
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titleLabel.setForeground(Color.lightGray);
         titleLabel.setBackground(role.getColumnColour());
-        titleLabel.setOpaque(true);
-        titleLabel.setMaximumSize(new Dimension(200,30));
 
         try {
             Change change = new Change(Change.ChangeType.UPDATE, nameIn, KanbanColumn.class,
@@ -83,6 +105,29 @@ public class KanbanColumn extends JPanel {
 
     }
 
+    /**
+     * Set up column role, from a choice of ColumnRoles
+     * @param role
+     */
+    public void setRole(ColumnRole role) {
+
+        this.role = role;
+
+        // track change
+        try {
+            Change change = new Change(Change.ChangeType.UPDATE, getColumnTitle(), KanbanColumn.class,
+                    "role", role.name());
+            ChangeLog.getInstance().addChange(change);
+        } catch (UnknownKanbanObjectException u){
+            System.out.println("Failed to log.");
+            u.printStackTrace();
+        }
+    }
+
+
+    /**
+     * Add button panel at the bottom of the column : edit and clear.
+     */
     private void addButtons() {
 
         JPanel smallPanel = new JPanel();
@@ -108,29 +153,40 @@ public class KanbanColumn extends JPanel {
 
     }
 
+    /**
+     * Add KanbanCardButton to the column.
+     * The button is added to the main container in the column : columnPane (ScrollContainer).
+     */
     public void addCard(KanbanCardButton card) {
-
-        BoardPanel board = getBoard();
 
     	Command addNewCard = new Command("add card", card);
     	//getBoard().addCommand(addNewCard);
 
+        BoardPanel board = getBoard();
+
+        // Check if IN_PROGRESS column, and make sure it doesn't exceed WIP limit
         if (role == ColumnRole.IN_PROGRESS &&
                 (board.getWIPcount()+card.getCard().getStoryPoints() > board.getWIPlimit())) {
             showWIPLimitReachedError();
             return;
         }
-
         if (role == ColumnRole.IN_PROGRESS) board.incrementWIPCount(card.getCard().getStoryPoints());
-        cards.add(card);    // Add to ArrayList
-        card.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        cards.add(card);                                                // Add to ArrayList
+
+        card.setAlignmentX(Component.CENTER_ALIGNMENT);                 // Add to columnPane
         columnPane.add(card);
         revalidate();
         repaint();
-        columnPane.add(Box.createRigidArea(new Dimension(0, 10)));
+        //columnPane.add(Box.createRigidArea(new Dimension(0, 10)));
 
     }
 
+    /**
+     * Remove a selected KanbanCardButton from the column.
+     * @param card to insert
+     * @throws KanbanObjectNotFoundException
+     */
     public void removeCard(KanbanCardButton card) throws KanbanObjectNotFoundException{
     	
     	if(card != null) {
@@ -145,26 +201,42 @@ public class KanbanColumn extends JPanel {
     	    throw new KanbanObjectNotFoundException(KanbanCardButton.class, id);
     	}
     }
-    
-    
+
+    /**
+     * Remove all cards form a column at once
+     */
+    private void clearColumn() {
+
+        // If called on empty column
+        if (cards.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "There are no cards in this column!", "Empty Column",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        cards.clear();
+        columnPane.removeAll();
+        revalidate();
+        repaint();
+    }
+
+    /**
+     * Dialog displayed when the WIP limit is reached, and no more cards can be added to an 'In progress' column.
+     */
+    private void showWIPLimitReachedError() {
+        JOptionPane op = new JOptionPane();
+        op.showMessageDialog(null,
+                "You have reached the Work In Progress limit, set to " + getBoard().getWIPlimit() + ".",
+                "WIP Limit Reached",
+                JOptionPane.WARNING_MESSAGE);
+
+    }
+
+
+    /** GETTERS */
 
     public ColumnRole getRole() {
 		return role;
-	}
-
-	public void setRole(ColumnRole role) {
-
-		this.role = role;
-
-        // track change
-        try {
-            Change change = new Change(Change.ChangeType.UPDATE, getColumnTitle(), KanbanColumn.class,
-                    "role", role.name());
-            ChangeLog.getInstance().addChange(change);
-        } catch (UnknownKanbanObjectException u){
-            System.out.println("Failed to log.");
-            u.printStackTrace();
-        }
 	}
 
 
@@ -199,38 +271,5 @@ public class KanbanColumn extends JPanel {
         throw new KanbanObjectNotFoundException(KanbanCardButton.class);
     }
 
-    public void updateColumn(){
-
-    }
-
-    /**
-     * Remove all cards form a column at once
-     */
-    private void clearColumn() {
-
-        // If called on empty column
-        if (cards.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "There are no cards in this column!", "Empty Column",
-                    JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-
-        cards.clear();
-        columnPane.removeAll();
-        revalidate();
-        repaint();
-    }
-
-    /**
-     * Dialog displayed when the WIP limit is reached, and no more cards can be added to an 'In progress' column.
-     */
-    private void showWIPLimitReachedError() {
-        JOptionPane op = new JOptionPane();
-        op.showMessageDialog(null,
-                "You have reached the Work In Progress limit, set to " + getBoard().getWIPlimit() + ".",
-                "WIP Limit Reached",
-                JOptionPane.WARNING_MESSAGE);
-
-    }
 
 }
