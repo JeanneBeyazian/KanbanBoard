@@ -1,7 +1,6 @@
 package view.boardComponents;
 
 import annotations.ClassAnnotation;
-import controller.Load;
 import controller.Save;
 import view.KanbanBoard;
 import view.frames.*;
@@ -9,24 +8,27 @@ import view.frames.editBoardFrames.AddCardFrame;
 import view.frames.editBoardFrames.AddColumnFrame;
 import view.frames.editBoardFrames.RemoveCardFrame;
 import view.frames.editBoardFrames.RemoveColumnFrame;
+import view.frames.popUpFrames.HelpFrame;
+import view.frames.popUpFrames.LoadWarningFrame;
+import view.frames.popUpFrames.WIPGraphFrame;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
-import java.util.ArrayList;
+import java.awt.event.ItemEvent;
 import java.awt.event.*;
 
-/**
- * This class is responsible for the creation of the menu
- * bar at the top of the board.
- */
+
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
         creationDate = "13/11/2019",
-        lastEdit = "22/11/2019"
+        lastEdit = "10/12/2019"
 )
+/**
+ * This class is responsible for the creation of the menu bar at the top of the board.
+ * It contains useful user commands separated into five JMenus :
+ * File Menu, Edit Menu, Kanban Menu, View Menu, Help Menu.
+ */
 public class KanbanMenu extends JMenuBar {
-
 
 	private static final long serialVersionUID = 1L;
 	KanbanBoard currentBoard;
@@ -48,40 +50,43 @@ public class KanbanMenu extends JMenuBar {
         add(createHelpMenu());
     }
 
-    public JMenu makeMenu(String menuName){
+    /** Set up menu colour */
+    public JMenu makeMenu(String menuName) {
+
         JMenu menu = new JMenu(menuName);
         menu.setForeground(new java.awt.Color(255, 255, 255));
         return menu;
+
     }
 
-    public JMenuItem makeItem(String menuItemName, ImageIcon icon){
+
+    public JMenuItem makeItem(String menuItemName, ImageIcon icon) {
+
         JMenuItem menu = new JMenuItem(menuItemName, icon);
         menu.setForeground(new java.awt.Color(228, 228, 228));
         menu.setBackground(new java.awt.Color(33, 42, 101));
         return menu;
+
     }
 
-    private JMenu createFileMenu(){
+
+    /**
+     * File menu : New board, Open board, Save board
+     */
+    private JMenu createFileMenu() {
+
         // Menu items for JMenu 'file'
         JMenu file = makeMenu("File");
 
+        // Icons
         ImageIcon newIcon = new ImageIcon("src/images/newdocument.jpg");
         ImageIcon openIcon = new ImageIcon("src/images/open-folder-with-document.jpg");
-        ImageIcon renameIcon = new ImageIcon("src/images/rename.jpg");
         ImageIcon saveIcon = new ImageIcon("src/images/save.jpg");
 
         JMenuItem newBoard = new JMenuItem("New", newIcon);
         newBoard.addActionListener(e->new CreateFrame().setVisible(true));
         JMenuItem openBoard = new JMenuItem("Open", openIcon);
-        //openBoard.addActionListener(e-> new OpenFrame().setVisible(true));
-        
-        openBoard.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-            	new OpenFrame().setVisible(true);
-                currentBoard.dispose();
-            }
-        });
-
+        openBoard.addActionListener(e->new LoadWarningFrame(currentBoard).setVisible(true));
 
         JMenuItem saveBoard = new JMenuItem("Save", saveIcon);
         saveBoard.addActionListener(new ActionListener() {
@@ -99,36 +104,54 @@ public class KanbanMenu extends JMenuBar {
         file.add(saveBoard);
 
         return file;
+
     }
 
 
+    /**
+     * Edit Menu : Add (column, card), Delete (column, card), Clear board
+     * @return
+     */
     private JMenu createEditMenu() {
 
         // Menu items for JMenu 'Edit'
         JMenu edit = makeMenu("Edit");
 
+        // Icons
         ImageIcon addIcon = new ImageIcon("src/images/plus-sign.jpg");
         ImageIcon deleteIcon = new ImageIcon("src/images/delete.jpg");
         ImageIcon clearIcon = new ImageIcon("src/images/delete-symbol.jpg");
 
+
+        // Add component JMenu
         JMenu insertMenu = new JMenu("Add");
         insertMenu.setIcon(addIcon);
+            // Add column
         JMenuItem insertColumn = new JMenuItem("Insert new column");
         insertColumn.addActionListener(e->new AddColumnFrame(currentBoard.getBoard()).setVisible(true));
+            // Add card
         JMenuItem insertCard = new JMenuItem("Insert new card");
         insertCard.addActionListener(e->new AddCardFrame(currentBoard.getBoard()).setVisible(true));
-        insertMenu.add(insertColumn);
-        insertMenu.add(insertCard);
 
+
+        // Delete component JMenu
         JMenu deleteMenu = new JMenu("Delete");
         deleteMenu.setIcon(deleteIcon);
+            // Delete column
         JMenuItem deleteColumn = new JMenuItem("Remove a column");
         deleteColumn.addActionListener(e->new RemoveColumnFrame(currentBoard.getBoard()).setVisible(true));
+            // Delete card
         JMenuItem deleteCard = new JMenuItem("Remove a card");
         deleteCard.addActionListener(e->new RemoveCardFrame(currentBoard.getBoard()).setVisible(true));
+
+
+        insertMenu.add(insertColumn);
+        insertMenu.add(insertCard);
         deleteMenu.add(deleteColumn);
         deleteMenu.add(deleteCard);
 
+
+        // Clear board
         JMenuItem clearBoard = new JMenuItem("Clear board", clearIcon);
         clearBoard.addActionListener(e->currentBoard.getBoard().clearBoard());
 
@@ -139,30 +162,46 @@ public class KanbanMenu extends JMenuBar {
         edit.add(clearBoard);
 
         return edit;
+
     }
 
+
+    /**
+     * Kan Menu : Team info, Settings, Exit Kanban
+     */
     private JMenu createKanbanMenu() {
 
         // Menu items for JMenu 'kanban'
         JMenu kanban = makeMenu("Kanban");
+
+        JMenuItem wipProgress = new JMenuItem("Work In Progress");
+        wipProgress.addActionListener(e->new WIPGraphFrame(currentBoard).setVisible(true));
+
         JMenuItem team = new JMenuItem("Team");
         String teamMsg = "Jeanne Beyazian,\nTrey Collier,\nNathan Kuansataporn,\nAli Mohamed,\nand Petra Scutaru.";
-        team.addActionListener(e-> new JOptionPane()
-                .showMessageDialog(null, teamMsg, "Our Team (Indigo) !",
+        team.addActionListener(e->
+                new JOptionPane().showMessageDialog(null, teamMsg, "Our Team (Indigo) !",
                 JOptionPane.INFORMATION_MESSAGE));
+
         JMenuItem settings = new JMenuItem("Settings");
+        
         JMenuItem exitBoard = new JMenuItem("Exit Kanban");
         exitBoard.addActionListener(e->System.exit(0));
 
+        kanban.add(wipProgress);
         kanban.add(team);
         kanban.add(settings);
         kanban.add(new JSeparator(SwingConstants.HORIZONTAL));
         kanban.add(exitBoard);
 
         return kanban;
+
     }
 
 
+    /**
+     * View Menu : show or hide editor Panel
+     */
     private JMenu createViewMenu() {
 
         // JMenu items for View menu
@@ -178,18 +217,27 @@ public class KanbanMenu extends JMenuBar {
         view.add(showBar);
 
         return view;
+
     }
 
 
+    /**
+     * @return Help Menu - displays a Help Frame */
     private JMenu createHelpMenu() {
 
         // JMenu help
-        JMenu help = makeMenu("Help");
-        //help.addActionListener(e->new HelpFrame().setVisible(true));
+        JMenu helpMenu = makeMenu("Help");
+        // Icon
         ImageIcon helpIcon = new ImageIcon("src/images/help.png");
-        help.setIcon(helpIcon);
 
-        return help;
+        JMenuItem helpPopUp = new JMenuItem("How to use Indigo Kanban Board");
+        helpPopUp.addActionListener(e->new HelpFrame().setVisible(true));
+
+        helpMenu.setIcon(helpIcon);
+        helpMenu.add(helpPopUp);
+
+        return helpMenu;
+
     }
     
     

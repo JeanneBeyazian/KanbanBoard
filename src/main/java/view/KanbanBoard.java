@@ -1,6 +1,9 @@
 package view;
 
 import annotations.ClassAnnotation;
+import controller.exceptions.UnknownKanbanObjectException;
+import model.Change;
+import model.ChangeLog;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.EditorPanel;
 import view.boardComponents.KanbanCardButton;
@@ -13,22 +16,25 @@ import java.awt.*;
 import java.util.ArrayList;
 
 
-/**
- * This class is the application window.
- * It contains the maine frame and a menu bar.
- */
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
         creationDate = "08/11/2019",
-        lastEdit = "22/11/2019"
+        lastEdit = "08/12/2019, by Petra"
 )
-
+/**
+ * This class sets up the application frame.
+ * It contains the main frame (Board Panel) containing all the columns and cards,
+ * a menu bar, and an editor panel to quickly and easily access user commands.
+ */
 public class KanbanBoard extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+
+	// KanbanBoard frame components
 	private String boardName;
     private static BoardPanel board;
     private EditorPanel editorPanel;
+
     private static final int WIDTH = 1100;
     private static final int HEIGHT = 800;
 
@@ -41,9 +47,27 @@ public class KanbanBoard extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
+        // track change
+        try {
+            Change change = new Change(Change.ChangeType.ADD, title, KanbanBoard.class);
+            ChangeLog.getInstance().addChange(change);
+        } catch (UnknownKanbanObjectException u){
+            System.out.println("Failed to log.");
+            u.printStackTrace();
+        }
+
+        initialseKanbanBoard();
+    }
+
+    /**
+     * Create each components for the frame : Board panel, Editor panel, Kaban Menu bar
+     */
+    private void initialseKanbanBoard() {
+
         // Create board panel
         board = new BoardPanel();
         add(board);
+
         //board.setPreferredSize(new Dimension(WIDTH/4*3, HEIGHT));
         JScrollPane boardScroll = new JScrollPane(board);
         boardScroll.setBorder(new EmptyBorder(0,0,0,0));
@@ -68,6 +92,7 @@ public class KanbanBoard extends JFrame {
 
         // Create the menu bar
         createMenuBar(this);
+
     }
 
     /** Sets up the Kanban menu */
@@ -76,12 +101,6 @@ public class KanbanBoard extends JFrame {
         setJMenuBar(menu);
     }
 
-    /**
-     * Opens a new KanbanBoard Window
-     */
-    public static void newBoard(String name) {
-        KanbanBoard newBoardWindow = new KanbanBoard(name);
-    }
 
     public BoardPanel getBoard(){
         return board;

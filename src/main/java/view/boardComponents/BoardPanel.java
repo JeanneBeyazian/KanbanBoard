@@ -7,34 +7,35 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+
+@ClassAnnotation(
+        classAuthors = {"Jeanne, (Petra)"},
+        creationDate = "09/11/2019",
+        lastEdit = "06/12/2019"
+)
 /**
  * This class creates the panel that will contain the columns
  * The user should be able to add columns.
  * The columns will welcome the Kanban cards.
  */
-@ClassAnnotation(
-        classAuthors = {"Jeanne", "Petra"},
-        creationDate = "09/11/2019",
-        lastEdit = "06/12/2019"
-)
-
 public class BoardPanel extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
     private ArrayList<KanbanColumn> columns;
+
+    private int WIPlimit;
+    private int WIPcount;
 
     public BoardPanel() {
         super();
         initialiseBoard();
+        WIPcount = 0;
+        WIPlimit = 0;
     }
 
     public void initialiseBoard() {
         columns = new ArrayList<>();
         setBackground(Color.black);
-        //setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         setLayout(new FlowLayout());
     }
     
@@ -54,8 +55,9 @@ public class BoardPanel extends JPanel {
     }
 
     public void clearBoard() {
-        if (columns.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "The board is already empty!", "Empty Board",
+        if (isEmpty()) {
+            JOptionPane op = new JOptionPane();
+            op.showMessageDialog(null, "The board is already empty!", "Empty Board",
                     JOptionPane.INFORMATION_MESSAGE);
             return;
         }
@@ -65,8 +67,32 @@ public class BoardPanel extends JPanel {
         repaint();
     }
 
+    public boolean isEmpty() {
+        return (columns.isEmpty());
+    }
+
     public ArrayList<KanbanColumn> getColumns() {
         return columns;
+    }
+
+    public void incrementWIPCount(int points){
+        WIPcount += points;
+    }
+
+    public void decrementWIPCount(int points){
+        WIPcount -= points;
+    }
+
+    public void setWIPlimit(int WIPlimit) {
+        this.WIPlimit = WIPlimit;
+    }
+
+    public int getWIPcount() {
+        return WIPcount;
+    }
+
+    public int getWIPlimit() {
+        return WIPlimit;
     }
 
     /**

@@ -1,7 +1,12 @@
 package view.frames.editBoardFrames;
 import annotations.ClassAnnotation;
 import controller.exceptions.KanbanObjectNotFoundException;
+import controller.exceptions.UnknownKanbanObjectException;
+import model.Change;
+import model.ChangeLog;
 import view.boardComponents.BoardPanel;
+import view.boardComponents.KanbanColumn;
+import view.frames.KanbanCard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,9 +14,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
+        classAuthors = {"Jeanne", "Petra"},
         creationDate = "29/11/2019",
-        lastEdit = "29/11/2019"
+        lastEdit = "08/12/2019"
 )
 
 public class RemoveColumnFrame extends EditorFrame implements ActionListener {
@@ -71,7 +76,7 @@ public class RemoveColumnFrame extends EditorFrame implements ActionListener {
             String columnName = String.valueOf(columnsBox.getSelectedItem());
 
             try {
-                currentPanel.removeColumn(currentPanel.getColumnByTitle(columnName) );
+                currentPanel.removeColumn(currentPanel.getColumnByTitle(columnName));
 
             }
             catch (KanbanObjectNotFoundException e){
@@ -80,6 +85,15 @@ public class RemoveColumnFrame extends EditorFrame implements ActionListener {
 
                 showError("Error: Column not found");
                 return;
+            }
+
+            //log change
+            try {
+                Change change = new Change(Change.ChangeType.REMOVE, columnName, KanbanColumn.class);
+                ChangeLog.getInstance().addChange(change);
+            } catch (UnknownKanbanObjectException u){
+                System.out.println("Failed to log.");
+                u.printStackTrace();
             }
 
             dispose();

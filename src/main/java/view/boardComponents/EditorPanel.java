@@ -11,13 +11,15 @@ import view.frames.editBoardFrames.RemoveColumnFrame;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import static javax.swing.GroupLayout.Alignment.*;
 
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
         creationDate = "15/11/2019",
-        lastEdit = "06/11/2019"
+        lastEdit = "10/12/2019"
 )
 /**
  * The editor panel is a panel which makes all the buttons and user commands directly available
@@ -25,7 +27,6 @@ import static javax.swing.GroupLayout.Alignment.*;
  * From the editor panel, we can add and remove columns and cards, as well as see the recent activities log
  * and the board versions history log.
  */
-
 public class EditorPanel extends JPanel {
 
     BoardPanel currentPanel;
@@ -57,9 +58,9 @@ public class EditorPanel extends JPanel {
         add(createCommandsLayout());
         add(new JSeparator());
 
-        // Add edit buttons
-//        add(createEditPanel());
-//        add(Box.createRigidArea(new Dimension(0, 10)));
+        // WIP limit
+        add(createWIPLimitBox());
+        add(new JSeparator());
 
         // Tabbed pane for activity log and versions history
         add(new LogPanel());
@@ -79,10 +80,17 @@ public class EditorPanel extends JPanel {
     private JPanel createCommandsLayout() {
 
         // Create buttons
-        JButton addCardButton = createAddCardButton();
-        JButton removeCardButton =  createRemoveCardButton();
-        JButton addColumnButton = createAddColumnButton();
-        JButton removeColumnButton =  createRemoveColumnButton();
+        JButton addCardButton = createButton(" + ");
+        addCardButton.addActionListener(e->new AddCardFrame(currentPanel).setVisible(true));
+
+        JButton removeCardButton =  createButton(" - ");
+        removeCardButton.addActionListener(e->new RemoveCardFrame(currentPanel).setVisible(true));
+
+        JButton addColumnButton = createButton(" + ");
+        addColumnButton.addActionListener(e->new AddColumnFrame(currentPanel).setVisible(true));
+
+        JButton removeColumnButton =  createButton(" - ");
+        removeColumnButton.addActionListener(e->new RemoveColumnFrame(currentPanel).setVisible(true));
 
         // Create labels
         JLabel addCardLabel = createLabel("Insert card");
@@ -109,7 +117,6 @@ public class EditorPanel extends JPanel {
                                 .addComponent(addColumnLabel).addComponent(removeColumnLabel))
         );
 
-
         // Second, vertical grouping
         group.setVerticalGroup(
                 group.createSequentialGroup()
@@ -129,51 +136,9 @@ public class EditorPanel extends JPanel {
         return pane;
     }
 
-    private JButton createAddCardButton(){
-        JButton addCardButton = createButton(" + ");
-        addCardButton.addActionListener(e->new AddCardFrame(currentPanel).setVisible(true));
-        return addCardButton;
-    }
-
-    private JButton createRemoveCardButton(){
-        JButton removeCardButton =  createButton(" - ");
-        removeCardButton.addActionListener(e->new RemoveCardFrame(currentPanel).setVisible(true));
-        return removeCardButton;
-    }
-
-    private JButton createAddColumnButton(){
-        JButton addColumnButton = createButton(" + ");
-        addColumnButton.addActionListener(e->new AddColumnFrame(currentPanel).setVisible(true));
-        return addColumnButton;
-    }
-
-    private JButton createRemoveColumnButton(){
-        JButton removeColumnButton =  createButton(" - ");
-        removeColumnButton.addActionListener(e->new RemoveColumnFrame(currentPanel).setVisible(true));
-
-        return removeColumnButton;
-    }
-
-
-//    private JPanel createEditPanel(){
-//        JPanel editPanel = new JPanel();
-//        editPanel.setOpaque(false);
-//
-//        JButton editCardButton = createButton("Edit selected card");
-//        JButton editColumnButton = createButton("Edit selected column");
-//        editCardButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-//        editColumnButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-//
-//        editPanel.add(editCardButton);
-//        editPanel.add(editColumnButton);
-//
-//        return editPanel;
-//    }
-
 
     /**
-     * Method for uniform labels creation.
-     * Set a defined font colour.
+     * Method for uniform labels creation. Set a defined font colour.
      * @param labelName text on label
      * @return label
      */
@@ -185,8 +150,7 @@ public class EditorPanel extends JPanel {
     }
 
     /**
-     * Method for uniform buttons creation.
-     * Set a defined colour for font and background.
+     * Method for uniform buttons creation. Set a defined colour for font and background.
      * @param buttonName Text on button
      * @return button
      */
@@ -201,10 +165,29 @@ public class EditorPanel extends JPanel {
         return button;
     }
 
+    private JPanel createWIPLimitBox() {
+
+        JPanel wipPanel = new JPanel();
+        wipPanel.setOpaque(false);
+
+        // Components for wipPanel
+        JLabel wipLabel = createLabel( "Work In Progress Limit: ");
+        JComboBox<Integer> wipBox = new JComboBox<Integer>();
+        wipBox.addActionListener(e->currentPanel.setWIPlimit((int)wipBox.getSelectedItem()));
+
+        // Making of wipBox
+        int max = 500;
+        for (int i = 0; i <= max; i++) wipBox.addItem(i);
+        wipBox.setSelectedIndex(150); // Default
+
+        wipPanel.add(wipLabel);
+        wipPanel.add(wipBox);
+
+        return wipPanel;
+    }
+
     /**
-     * Create a red exit button added at the bottom of the editor panel.
-     * If clicked, the application is closed.
-     * @return exit button
+     * @return button to close the application
      */
     private JButton createExitButton() {
 
@@ -220,6 +203,9 @@ public class EditorPanel extends JPanel {
     }
 
 
+    /**
+     * @return button to clear the board : remove all columns
+     */
     private JButton createClearButton() {
 
         JButton clear = new JButton("Clear board");

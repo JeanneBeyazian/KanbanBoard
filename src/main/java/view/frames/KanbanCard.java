@@ -2,8 +2,12 @@ package view.frames;
 
 import annotations.ClassAnnotation;
 import controller.exceptions.KanbanObjectNotFoundException;
+import controller.exceptions.UnknownKanbanObjectException;
+import model.Change;
+import model.ChangeLog;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanCardButton;
+import view.boardComponents.KanbanColumn;
 import view.frames.editBoardFrames.MoveCardFrame;
 
 import javax.swing.*;
@@ -11,9 +15,9 @@ import java.awt.*;
 
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne & Nathan"},
+        classAuthors = {"Jeanne & Nathan", "Petra"},
         creationDate = "13/11/2019",
-        lastEdit = "08/11/2019"
+        lastEdit = "08/12/2019"
 )
 /**
  * This class is responsible for the creation of kanban cards.
@@ -31,10 +35,28 @@ public class KanbanCard extends JFrame {
     private JTextArea description;
     private JTextArea storyPoints;
 
+    private String cardTitle;
+    private String cardDescription;
+    private Integer cardStoryPoints;
+
     private JComboBox<Integer> storyPointsBox;
 
     public KanbanCard(KanbanCardButton button, String name, String description, int storyPoints) {
         ++id;
+
+        cardTitle = name;
+        cardDescription = description;
+        cardStoryPoints = storyPoints;
+
+        // track change
+        try {
+            Change change = new Change(Change.ChangeType.ADD, name, KanbanCard.class);
+            ChangeLog.getInstance().addChange(change);
+        } catch (UnknownKanbanObjectException u){
+            System.out.println("Failed to log.");
+            u.printStackTrace();
+        }
+
         this.cardButton = button;
         add(makeContainerPanel(name,description,storyPoints));
         initialise();
@@ -123,8 +145,7 @@ public class KanbanCard extends JFrame {
 
     private void createStoryPointsBox(int selectedPoints) {
 
-        storyPointsBox = new JComboBox();
-
+        storyPointsBox = new JComboBox<Integer>();
         JLabel pointsLabel = new JLabel("Story Points:");
         pointsLabel.setForeground(Color.WHITE);
         pointsLabel.setFont(new Font("Serif", Font.PLAIN, 16));
@@ -147,6 +168,16 @@ public class KanbanCard extends JFrame {
         delete.addActionListener(e-> {
             try {
                 cardButton.getColumn().removeCard(cardButton);
+
+                //log change
+                try {
+                    Change change = new Change(Change.ChangeType.REMOVE, cardTitle, KanbanCard.class);
+                    ChangeLog.getInstance().addChange(change);
+                } catch (UnknownKanbanObjectException u){
+                    System.out.println("Failed to log.");
+                    u.printStackTrace();
+                }
+
             } catch (KanbanObjectNotFoundException k) {
                 delete.setEnabled(false); // disable button if not found
                 delete.setText(delete.getText() + " (Error: Card not found)");
@@ -188,6 +219,43 @@ public class KanbanCard extends JFrame {
         storyPointsBox.setSelectedItem(newPoint);
         cardButton.setTitle(newTitle);
 
+        //only log if values have changed
+        // track change
+        if(!cardTitle.equals(newTitle)) {
+            try {
+                Change change = new Change(Change.ChangeType.UPDATE, cardTitle, KanbanCard.class, "title", newTitle);
+                ChangeLog.getInstance().addChange(change);
+            } catch (UnknownKanbanObjectException u) {
+                System.out.println("Failed to log.");
+                u.printStackTrace();
+            }
+        }
+
+        if(!cardDescription.equals(newDescription)) {
+            try {
+                Change change = new Change(Change.ChangeType.UPDATE, cardTitle, KanbanCard.class, "description", newDescription);
+                ChangeLog.getInstance().addChange(change);
+            } catch (UnknownKanbanObjectException u) {
+                System.out.println("Failed to log.");
+                u.printStackTrace();
+            }
+        }
+
+        if(cardStoryPoints != newPoint) {
+            try {
+                Change change = new Change(Change.ChangeType.UPDATE, cardTitle, KanbanCard.class, "story points", (""+newPoint));
+                ChangeLog.getInstance().addChange(change);
+            } catch (UnknownKanbanObjectException u) {
+                System.out.println("Failed to log.");
+                u.printStackTrace();
+            }
+        }
+
+        // update internal object fields
+        cardTitle = newTitle;
+        cardDescription = newDescription;
+        cardStoryPoints = newPoint;
+
     }
 
 
@@ -209,7 +277,7 @@ public class KanbanCard extends JFrame {
      * @return card points (Integer)
      */
     public int getStoryPoints() {
-        return (int)storyPointsBox.getSelectedItem();
+        return Integer.valueOf(storyPointsBox.getSelectedItem().toString());
     }
 
 

@@ -4,6 +4,9 @@ import annotations.ClassAnnotation;
 
 import controller.ColumnRole;
 import controller.exceptions.KanbanObjectNotFoundException;
+import controller.exceptions.UnknownKanbanObjectException;
+import model.Change;
+import model.ChangeLog;
 import view.containers.ScrollContainer;
 
 import javax.swing.*;
@@ -11,24 +14,35 @@ import java.awt.*;
 import java.util.ArrayList;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne, (Ali, Nathan)"},
+        classAuthors = {"Jeanne, (Ali, Nathan, Petra)"},
         creationDate = "13/11/2019",
-        lastEdit = "05/12/2019"
+        lastEdit = "08/12/2019"
 )
 
 public class KanbanColumn extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private ArrayList<KanbanCardButton> cards;
-    private static int id = -1;
 
+	private ArrayList<KanbanCardButton> cards;      // List of cards in column
+    private static int id = -1;                     // Unique ID
+
+    // Column components
     private String columnTitle;
     private ColumnRole role;
     private ScrollContainer columnPane;
+
     private static final int WIDTH = 200;
     private static final int HEIGHT = 710;
 
     public KanbanColumn(String columnTitle, ColumnRole role) {
+        // track change
+        try {
+            Change change = new Change(Change.ChangeType.ADD, columnTitle, KanbanColumn.class);
+            ChangeLog.getInstance().addChange(change);
+        } catch (UnknownKanbanObjectException u){
+            System.out.println("Failed to log.");
+            u.printStackTrace();
+        }
 
         cards = new ArrayList<>();
         this.role = role;
@@ -59,7 +73,6 @@ public class KanbanColumn extends JPanel {
 
     }
 
-
     private void addButtons() {
 
         JPanel smallPanel = new JPanel();
@@ -67,7 +80,7 @@ public class KanbanColumn extends JPanel {
 
         JButton editButton = new JButton("Edit");
         editButton.setToolTipText("Edit this column");
-        //editButton.addActionListener(e-> new EditColumnFrame);
+        //editButton.addActionListener(e-> new EditColumnFrame().setVisible(true));
         editButton.setBackground(new java.awt.Color(110, 199, 233));
         editButton.setBorderPainted(false);
 
@@ -76,7 +89,6 @@ public class KanbanColumn extends JPanel {
         clearButton.addActionListener(e->this.clearColumn());
         clearButton.setBackground(new java.awt.Color(250, 105, 128));
         clearButton.setBorderPainted(false);
-        //clearButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         smallPanel.add(editButton);
         smallPanel.add(clearButton);
 
@@ -86,6 +98,18 @@ public class KanbanColumn extends JPanel {
 
     public void addCard(KanbanCardButton card) {
 
+        BoardPanel board = getBoard();
+
+    	Command addNewCard = new Command("add card", card);
+    	//getBoard().addCommand(addNewCard);
+
+        if (role == ColumnRole.IN_PROGRESS &&
+                (board.getWIPcount()+card.getCard().getStoryPoints() > board.getWIPlimit())) {
+            showWIPLimitReachedError();
+            return;
+        }
+
+        if (role == ColumnRole.IN_PROGRESS) board.incrementWIPCount(card.getCard().getStoryPoints());
         cards.add(card);    // Add to ArrayList
         card.setAlignmentX(Component.CENTER_ALIGNMENT);
         columnPane.add(card);
@@ -98,7 +122,8 @@ public class KanbanColumn extends JPanel {
     public void removeCard(KanbanCardButton card) throws KanbanObjectNotFoundException{
     	
     	if(card != null) {
-    		cards.remove(card);
+            if (role == ColumnRole.IN_PROGRESS) getBoard().decrementWIPCount(card.getCard().getStoryPoints());
+            cards.remove(card);
             columnPane.remove(card);
             card.setCard(null);
             revalidate();
@@ -116,8 +141,34 @@ public class KanbanColumn extends JPanel {
 	}
 
 	public void setRole(ColumnRole role) {
+
 		this.role = role;
+
+        // track change
+        try {
+            Change change = new Change(Change.ChangeType.UPDATE, columnTitle, KanbanColumn.class,
+                    "role", role.name());
+            ChangeLog.getInstance().addChange(change);
+        } catch (UnknownKanbanObjectException u){
+            System.out.println("Failed to log.");
+            u.printStackTrace();
+        }
 	}
+
+
+	public void setColumnTitle(String title) {
+
+        this.columnTitle = title;
+
+        // track change
+        try {
+            Change change = new Change(Change.ChangeType.UPDATE, columnTitle, KanbanColumn.class, "title", title);
+            ChangeLog.getInstance().addChange(change);
+        } catch (UnknownKanbanObjectException u){
+            System.out.println("Failed to log.");
+            u.printStackTrace();
+        }
+    }
 
 	public String getColumnTitle() {
         return columnTitle;
@@ -126,7 +177,6 @@ public class KanbanColumn extends JPanel {
     public BoardPanel getBoard() {
         return (BoardPanel)this.getParent();
     }
-
 
     public int getId(){
         return id;
@@ -151,16 +201,34 @@ public class KanbanColumn extends JPanel {
         throw new KanbanObjectNotFoundException(KanbanCardButton.class);
     }
 
+    /**
+     * Remove all cards form a column at once
+     */
     private void clearColumn() {
+
+        // If called on empty column
         if (cards.isEmpty()) {
             JOptionPane.showMessageDialog(null, "There are no cards in this column!", "Empty Column",
                     JOptionPane.INFORMATION_MESSAGE);
             return;
         }
+
         cards.clear();
         columnPane.removeAll();
         revalidate();
         repaint();
+    }
+
+    /**
+     * Dialog displayed when the WIP limit is reached, and no more cards can be added to an 'In progress' column.
+     */
+    private void showWIPLimitReachedError() {
+        JOptionPane op = new JOptionPane();
+        op.showMessageDialog(null,
+                "You have reached the Work In Progress limit, set to " + getBoard().getWIPlimit() + ".",
+                "WIP Limit Reached",
+                JOptionPane.WARNING_MESSAGE);
+
     }
 
 }
