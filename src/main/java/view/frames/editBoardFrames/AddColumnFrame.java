@@ -60,11 +60,6 @@ public class AddColumnFrame extends AddFrame implements ActionListener {
 
     }
 
-    private JComboBox<String> createRolesList(){
-        JComboBox<String> box = new JComboBox<>(ColumnRole.getRoles());
-        return box;
-    }
-
 
     public void actionPerformed(ActionEvent event) {
 

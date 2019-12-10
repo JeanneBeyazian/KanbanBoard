@@ -8,6 +8,7 @@ import controller.exceptions.UnknownKanbanObjectException;
 import model.Change;
 import model.ChangeLog;
 import view.containers.ScrollContainer;
+import view.frames.editBoardFrames.UpdateColumnFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +19,9 @@ import java.util.ArrayList;
         creationDate = "13/11/2019",
         lastEdit = "08/12/2019"
 )
-
+/**
+ *
+ */
 public class KanbanColumn extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -27,12 +30,13 @@ public class KanbanColumn extends JPanel {
     private static int id = -1;                     // Unique ID
 
     // Column components
-    private String columnTitle;
+    private JLabel titleLabel;
     private ColumnRole role;
     private ScrollContainer columnPane;
 
     private static final int WIDTH = 200;
     private static final int HEIGHT = 710;
+
 
     public KanbanColumn(String columnTitle, ColumnRole role) {
         // track change
@@ -46,44 +50,97 @@ public class KanbanColumn extends JPanel {
 
         cards = new ArrayList<>();
         this.role = role;
-        this.columnTitle = columnTitle;
+        titleLabel = new JLabel();
         ++id;
         columnPane = new ScrollContainer();
         initialiseColumn(columnTitle);
     }
-  
+
+    /**
+     * Set up column layout and components
+     * @param nameIn column name used
+     */
     private void initialiseColumn(String nameIn) {
 
         setPreferredSize(new Dimension(WIDTH,HEIGHT));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        addColumnName(nameIn);
+        createColumnTitle(nameIn);
+        add(titleLabel);
         add(columnPane);
         addButtons();
-    }
-
-    private void addColumnName(String nameIn) {
-
-        JLabel columnName = new JLabel(nameIn);
-        columnName.setAlignmentX(Component.CENTER_ALIGNMENT);
-        columnName.setForeground(Color.lightGray);
-        columnName.setBackground(role.getColumnColour());
-        columnName.setOpaque(true);
-        columnName.setMaximumSize(new Dimension(200,30));
-        add(columnName);
 
     }
 
+    /**
+     * Initial set up of the column title label
+     * @param nameIn initial name input
+     */
+    private void createColumnTitle(String nameIn) {
+
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        titleLabel.setForeground(Color.lightGray);
+        titleLabel.setMaximumSize(new Dimension(200,30));
+        titleLabel.setOpaque(true);
+        setColumnTitle(nameIn);
+
+    }
+
+    /**
+     * Set up of the name label for the column. Used for updating after a column is edited.
+     * @param nameIn name input
+     */
+    public void setColumnTitle(String nameIn) {
+
+        titleLabel.setText(nameIn);
+        titleLabel.setBackground(role.getColumnColour());
+
+        try {
+            Change change = new Change(Change.ChangeType.UPDATE, nameIn, KanbanColumn.class,
+                    "title", nameIn);
+            ChangeLog.getInstance().addChange(change);
+        } catch (UnknownKanbanObjectException u){
+            System.out.println("Failed to log.");
+            u.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Set up column role, from a choice of ColumnRoles
+     * @param role
+     */
+    public void setRole(ColumnRole role) {
+
+        this.role = role;
+
+        // track change
+        try {
+            Change change = new Change(Change.ChangeType.UPDATE, getColumnTitle(), KanbanColumn.class,
+                    "role", role.name());
+            ChangeLog.getInstance().addChange(change);
+        } catch (UnknownKanbanObjectException u){
+            System.out.println("Failed to log.");
+            u.printStackTrace();
+        }
+    }
+
+
+    /**
+     * Add button panel at the bottom of the column : edit and clear.
+     */
     private void addButtons() {
 
         JPanel smallPanel = new JPanel();
         smallPanel.setMaximumSize(new Dimension(WIDTH, 30));
 
+        // Edit button : opens an EditColumnFrame
         JButton editButton = new JButton("Edit");
         editButton.setToolTipText("Edit this column");
-        //editButton.addActionListener(e-> new EditColumnFrame().setVisible(true));
+        editButton.addActionListener(e-> new UpdateColumnFrame(getBoard(), this).setVisible(true));
         editButton.setBackground(new java.awt.Color(110, 199, 233));
         editButton.setBorderPainted(false);
 
+        // Clear button : removes all card from this column
         JButton clearButton = new JButton("Clear");
         clearButton.setToolTipText("Delete all cards from column?");
         clearButton.addActionListener(e->this.clearColumn());
@@ -96,29 +153,40 @@ public class KanbanColumn extends JPanel {
 
     }
 
+    /**
+     * Add KanbanCardButton to the column.
+     * The button is added to the main container in the column : columnPane (ScrollContainer).
+     */
     public void addCard(KanbanCardButton card) {
-
-        BoardPanel board = getBoard();
 
     	Command addNewCard = new Command("add card", card);
     	//getBoard().addCommand(addNewCard);
 
+        BoardPanel board = getBoard();
+
+        // Check if IN_PROGRESS column, and make sure it doesn't exceed WIP limit
         if (role == ColumnRole.IN_PROGRESS &&
                 (board.getWIPcount()+card.getCard().getStoryPoints() > board.getWIPlimit())) {
             showWIPLimitReachedError();
             return;
         }
-
         if (role == ColumnRole.IN_PROGRESS) board.incrementWIPCount(card.getCard().getStoryPoints());
-        cards.add(card);    // Add to ArrayList
-        card.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        cards.add(card);                                                // Add to ArrayList
+
+        card.setAlignmentX(Component.CENTER_ALIGNMENT);                 // Add to columnPane
         columnPane.add(card);
         revalidate();
         repaint();
-        columnPane.add(Box.createRigidArea(new Dimension(0, 10)));
+        //columnPane.add(Box.createRigidArea(new Dimension(0, 10)));
 
     }
 
+    /**
+     * Remove a selected KanbanCardButton from the column.
+     * @param card to insert
+     * @throws KanbanObjectNotFoundException
+     */
     public void removeCard(KanbanCardButton card) throws KanbanObjectNotFoundException{
     	
     	if(card != null) {
@@ -132,73 +200,6 @@ public class KanbanColumn extends JPanel {
     	else {
     	    throw new KanbanObjectNotFoundException(KanbanCardButton.class, id);
     	}
-    }
-    
-    
-
-    public ColumnRole getRole() {
-		return role;
-	}
-
-	public void setRole(ColumnRole role) {
-
-		this.role = role;
-
-        // track change
-        try {
-            Change change = new Change(Change.ChangeType.UPDATE, columnTitle, KanbanColumn.class,
-                    "role", role.name());
-            ChangeLog.getInstance().addChange(change);
-        } catch (UnknownKanbanObjectException u){
-            System.out.println("Failed to log.");
-            u.printStackTrace();
-        }
-	}
-
-
-	public void setColumnTitle(String title) {
-
-        this.columnTitle = title;
-
-        // track change
-        try {
-            Change change = new Change(Change.ChangeType.UPDATE, columnTitle, KanbanColumn.class, "title", title);
-            ChangeLog.getInstance().addChange(change);
-        } catch (UnknownKanbanObjectException u){
-            System.out.println("Failed to log.");
-            u.printStackTrace();
-        }
-    }
-
-	public String getColumnTitle() {
-        return columnTitle;
-    }
-
-    public BoardPanel getBoard() {
-        return (BoardPanel)this.getParent();
-    }
-
-    public int getId(){
-        return id;
-    }
-
-    public ArrayList<KanbanCardButton> getCards() {
-        return cards;
-    }
-
-    /**
-     *  Get card having a given title
-     * @param title title of the card we're searching for
-     * @return reference to card
-     * @throws KanbanObjectNotFoundException
-     */
-    public KanbanCardButton getCardByTitle(String title) throws KanbanObjectNotFoundException {
-        for (KanbanCardButton card : cards) {
-            if (card.getCardButtonTitle().equals(title)) {
-                return card;
-            }
-        }
-        throw new KanbanObjectNotFoundException(KanbanCardButton.class);
     }
 
     /**
@@ -230,5 +231,45 @@ public class KanbanColumn extends JPanel {
                 JOptionPane.WARNING_MESSAGE);
 
     }
+
+
+    /** GETTERS */
+
+    public ColumnRole getRole() {
+		return role;
+	}
+
+
+	public String getColumnTitle() {
+        return titleLabel.getText();
+    }
+
+    public BoardPanel getBoard() {
+        return (BoardPanel)this.getParent();
+    }
+
+    public int getId(){
+        return id;
+    }
+
+    public ArrayList<KanbanCardButton> getCards() {
+        return cards;
+    }
+
+    /**
+     *  Get card having a given title
+     * @param title title of the card we're searching for
+     * @return reference to card
+     * @throws KanbanObjectNotFoundException
+     */
+    public KanbanCardButton getCardByTitle(String title) throws KanbanObjectNotFoundException {
+        for (KanbanCardButton card : cards) {
+            if (card.getCardButtonTitle().equals(title)) {
+                return card;
+            }
+        }
+        throw new KanbanObjectNotFoundException(KanbanCardButton.class);
+    }
+
 
 }
