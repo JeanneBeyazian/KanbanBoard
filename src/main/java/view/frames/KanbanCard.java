@@ -209,7 +209,7 @@ public class KanbanCard extends JFrame {
      * @return card points (Integer)
      */
     public int getStoryPoints() {
-        return Integer.valueOf(storyPoints.getText());
+        return (int)storyPointsBox.getSelectedItem();
     }
 
 
