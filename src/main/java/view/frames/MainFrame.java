@@ -33,7 +33,8 @@ public class MainFrame extends JFrame{
 
         buttonPanel.add(Box.createRigidArea(new Dimension(20, 0)));
 
-        JButton open = new JButton("Open current board");
+        JButton open = new JButton("Open existing board");
+        open.addActionListener(e-> new OpenFrame().setVisible(true));
         buttonPanel.add(open);
 
         container.add(welcomeLabel, BorderLayout.NORTH);

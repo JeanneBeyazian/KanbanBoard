@@ -1,6 +1,7 @@
 package view.boardComponents;
 
 import annotations.ClassAnnotation;
+
 import controller.ColumnRole;
 import controller.exceptions.KanbanObjectNotFoundException;
 import controller.exceptions.UnknownKanbanObjectException;
@@ -120,9 +121,6 @@ public class KanbanColumn extends JPanel {
 
     public void removeCard(KanbanCardButton card) throws KanbanObjectNotFoundException{
     	
-    	Command removeOldCard = new Command("remove card", card);
-    	//getBoard().addCommand(removeOldCard);
-
     	if(card != null) {
             if (role == ColumnRole.IN_PROGRESS) getBoard().decrementWIPCount(card.getCard().getStoryPoints());
             cards.remove(card);
@@ -210,8 +208,7 @@ public class KanbanColumn extends JPanel {
 
         // If called on empty column
         if (cards.isEmpty()) {
-            JOptionPane op = new JOptionPane();
-            op.showMessageDialog(null, "There are no cards in this column!", "Empty Column",
+            JOptionPane.showMessageDialog(null, "There are no cards in this column!", "Empty Column",
                     JOptionPane.INFORMATION_MESSAGE);
             return;
         }

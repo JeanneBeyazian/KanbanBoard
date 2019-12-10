@@ -9,10 +9,10 @@ public class Load {
    public Load() {
    }
 
-   public static BoardPanel loadBoard() {
-
+   public static BoardPanel loadBoard(String boardName) {
        Load obj = new Load();
-       BoardPanel board = obj.deserialise("Boards.json");
+       String filename = boardName + ".json";
+       BoardPanel board = obj.deserialise(filename);
        
        return board;
    }
@@ -25,7 +25,6 @@ public class Load {
 		ObjectInputStream input = null;
 
 		try {
-
 			fileName = new FileInputStream(fName);
 			input = new ObjectInputStream(fileName);
 			board = (BoardPanel) input.readObject();
@@ -51,7 +50,6 @@ public class Load {
 			}
 
 		}
-
 		return board;
 
    }

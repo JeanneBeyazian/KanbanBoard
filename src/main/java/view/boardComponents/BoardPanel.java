@@ -21,7 +21,6 @@ import java.util.ArrayList;
 public class BoardPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	//private ArrayList<Command> history;
     private ArrayList<KanbanColumn> columns;
 
     private int WIPlimit;
@@ -36,22 +35,12 @@ public class BoardPanel extends JPanel {
 
     public void initialiseBoard() {
         columns = new ArrayList<>();
-        //history = new ArrayList<>();
         setBackground(Color.black);
         setLayout(new FlowLayout());
     }
     
-    /*
-    public void addCommand(Command com) {
-        history.add(com);
-    }
-	*/
 
     public void addColumn(KanbanColumn column) {
-    	
-    	Command addNewCol = new Command("add col", column);
-    	//addCommand(addNewCol);
-    	
         columns.add(column);
         add(column);
         add(Box.createRigidArea(new Dimension(5, 0)));
@@ -59,10 +48,7 @@ public class BoardPanel extends JPanel {
     }
 
     public void removeColumn(KanbanColumn column) {
-    	
-    	Command removeOldCol = new Command("remove col", column);
-    	//addCommand(removeOldCol);
-    	
+    	columns.remove(column);
         remove(column);
         revalidate();
         repaint();

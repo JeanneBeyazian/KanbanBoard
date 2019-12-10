@@ -6,11 +6,14 @@ import model.Change;
 import model.ChangeLog;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.EditorPanel;
+import view.boardComponents.KanbanCardButton;
+import view.boardComponents.KanbanColumn;
 import view.boardComponents.KanbanMenu;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.ArrayList;
 
 
 @ClassAnnotation(
@@ -29,7 +32,7 @@ public class KanbanBoard extends JFrame {
 
 	// KanbanBoard frame components
 	private String boardName;
-    private BoardPanel board;
+    private static BoardPanel board;
     private EditorPanel editorPanel;
 
     private static final int WIDTH = 1100;
@@ -125,6 +128,26 @@ public class KanbanBoard extends JFrame {
     public static void main(String[] args) {
         KanbanBoard board = new KanbanBoard("KanbanBoard");
         board.setVisible(true);
+    }
+    
+    public static void openBoard(BoardPanel newBoard) {
+    	ArrayList<KanbanColumn> cols = newBoard.getColumns();
+        
+        for(int i = 0; i < cols.size(); i++) {
+     	   KanbanColumn col = cols.get(i);
+     	   KanbanColumn boardCol = new KanbanColumn(col.getColumnTitle(), col.getRole());
+     	   ArrayList<KanbanCardButton> cards = cols.get(i).getCards();
+     	   if(cards.size() != 0) {
+     		  for(int j = 0; j < cards.size(); j++) {
+        		   //KanbanCardButton cardButton = cards.get(j);
+        		   
+        		  KanbanCardButton cardButton = new KanbanCardButton(cards.get(j));
+
+        		   boardCol.addCard(cardButton);
+        	   }
+     	   }
+     	   board.addColumn(boardCol);
+        }
     }
 
 }

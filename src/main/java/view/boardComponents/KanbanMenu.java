@@ -92,7 +92,7 @@ public class KanbanMenu extends JMenuBar {
         saveBoard.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 BoardPanel board = currentBoard.getBoard();
-                Save.saveBoard(board);
+                Save.saveBoard(board, currentBoard.getBoardName());
             }
         });
 
@@ -239,6 +239,8 @@ public class KanbanMenu extends JMenuBar {
         return helpMenu;
 
     }
+    
+    
 
 
 }
