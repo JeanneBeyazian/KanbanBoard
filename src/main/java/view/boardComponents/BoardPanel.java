@@ -89,12 +89,12 @@ public class BoardPanel extends JPanel {
         return columns;
     }
 
-    public void incrementWIPCount(){
-        ++WIPcount;
+    public void incrementWIPCount(int points){
+        WIPcount += points;
     }
 
-    public void decrementWIPCount(){
-        --WIPcount;
+    public void decrementWIPCount(int points){
+        WIPcount -= points;
     }
 
     public void setWIPlimit(int WIPlimit) {

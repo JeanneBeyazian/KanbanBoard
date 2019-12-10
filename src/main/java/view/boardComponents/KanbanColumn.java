@@ -102,13 +102,13 @@ public class KanbanColumn extends JPanel {
     	Command addNewCard = new Command("add card", card);
     	//getBoard().addCommand(addNewCard);
 
-        if (role == ColumnRole.IN_PROGRESS && (board.getWIPcount()+1 > board.getWIPlimit())) {
-            System.out.println("YES");
+        if (role == ColumnRole.IN_PROGRESS &&
+                (board.getWIPcount()+card.getCard().getStoryPoints() > board.getWIPlimit())) {
             showWIPLimitReachedError();
             return;
         }
 
-        if (role == ColumnRole.IN_PROGRESS) board.incrementWIPCount();
+        if (role == ColumnRole.IN_PROGRESS) board.incrementWIPCount(card.getCard().getStoryPoints());
         cards.add(card);    // Add to ArrayList
         card.setAlignmentX(Component.CENTER_ALIGNMENT);
         columnPane.add(card);
@@ -124,7 +124,7 @@ public class KanbanColumn extends JPanel {
     	//getBoard().addCommand(removeOldCard);
 
     	if(card != null) {
-            if (role == ColumnRole.IN_PROGRESS) getBoard().decrementWIPCount();
+            if (role == ColumnRole.IN_PROGRESS) getBoard().decrementWIPCount(card.getCard().getStoryPoints());
             cards.remove(card);
             columnPane.remove(card);
             card.setCard(null);
@@ -148,7 +148,8 @@ public class KanbanColumn extends JPanel {
 
         // track change
         try {
-            Change change = new Change(Change.ChangeType.UPDATE, columnTitle, KanbanColumn.class, "role", role.name());
+            Change change = new Change(Change.ChangeType.UPDATE, columnTitle, KanbanColumn.class,
+                    "role", role.name());
             ChangeLog.getInstance().addChange(change);
         } catch (UnknownKanbanObjectException u){
             System.out.println("Failed to log.");

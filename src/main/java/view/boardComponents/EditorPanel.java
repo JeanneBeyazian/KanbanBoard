@@ -176,9 +176,9 @@ public class EditorPanel extends JPanel {
         wipBox.addActionListener(e->currentPanel.setWIPlimit((int)wipBox.getSelectedItem()));
 
         // Making of wipBox
-        int max = 70;
+        int max = 500;
         for (int i = 0; i <= max; i++) wipBox.addItem(i);
-        wipBox.setSelectedIndex(8); // Default
+        wipBox.setSelectedIndex(150); // Default
 
         wipPanel.add(wipLabel);
         wipPanel.add(wipBox);
