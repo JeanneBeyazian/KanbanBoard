@@ -84,8 +84,8 @@ public class KanbanColumn extends JPanel {
         titleLabel.setForeground(Color.lightGray);
         titleLabel.setMaximumSize(new Dimension(200,30));
         titleLabel.setOpaque(true);
-        setColumnTitle(nameIn);
-
+        titleLabel.setText(nameIn);
+        titleLabel.setBackground(role.getColumnColour());
     }
 
     /**
