@@ -45,8 +45,11 @@ abstract public class EditorFrame extends JFrame implements ActionListener {
     /** Create the buttons for submission and closing the frame */
     private void createButtons() {
         cancel = new JButton("Cancel");
-        submit = new JButton("Submit");
         cancel.addActionListener(e -> this.dispose());
+        cancel.setName("cancelButton");
+
+        submit = new JButton("Submit");
+        submit.setName("submitButton");
     }
 
     /**
@@ -59,6 +62,8 @@ abstract public class EditorFrame extends JFrame implements ActionListener {
         ArrayList<KanbanColumn> cols = currentPanel.getColumns();
         for (KanbanColumn column : cols) columnsBox.addItem(column.getColumnTitle());
         if (cols.isEmpty()==true) columnsBox.setEnabled(false); // If no columns on board, can't choose from combobox
+
+        columnsBox.setName("columnsBox");
         return columnsBox;
     }
 

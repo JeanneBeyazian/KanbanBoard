@@ -1,7 +1,9 @@
 package view;
 import annotations.ClassAnnotation;
+import org.junit.Before;
 import org.junit.Test;
 import com.athaydes.automaton.Swinger;
+import view.frames.KanbanCard;
 
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
@@ -10,10 +12,22 @@ import com.athaydes.automaton.Swinger;
 )
 public class KanbanBoardTest {
 
-    @Test
-    public void testApp(){
-        new KanbanBoard("Name");
-        Swinger swinger = Swinger.forSwingWindow();
-        swinger.pause(5000);
+    @Before
+    public void prepare(){
+        new KanbanBoard("KanbanBoardName");
     }
+
+
+
+    @Test
+    public void addComponentsToBoard() {
+        Swinger swinger = Swinger.forSwingWindow();
+
+        swinger.clickOn("addColumnButton")
+                .moveTo("name:addColumnFrame")
+                .clickOn("titleField")
+                .type("Column One");
+
+    }
+
 }

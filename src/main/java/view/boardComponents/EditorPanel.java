@@ -83,15 +83,19 @@ public class EditorPanel extends JPanel {
         // Create buttons
         JButton addCardButton = createButton(" + ");
         addCardButton.addActionListener(e->new AddCardFrame(currentPanel).setVisible(true));
+        addCardButton.setName("addCardButton");
 
         JButton removeCardButton =  createButton(" - ");
         removeCardButton.addActionListener(e->new RemoveCardFrame(currentPanel).setVisible(true));
+        removeCardButton.setName("removeCardButton");
 
         JButton addColumnButton = createButton(" + ");
         addColumnButton.addActionListener(e->new AddColumnFrame(currentPanel).setVisible(true));
+        addColumnButton.setName("addColumnButton");
 
         JButton removeColumnButton =  createButton(" - ");
         removeColumnButton.addActionListener(e->new RemoveColumnFrame(currentPanel).setVisible(true));
+        removeColumnButton.setName("removeColumnButton");
 
         // Create labels
         JLabel addCardLabel = createLabel("Insert card");
@@ -205,6 +209,7 @@ public class EditorPanel extends JPanel {
     private JButton createExitButton() {
 
         JButton exitButton = new JButton("Exit Application");
+        exitButton.setName("exitButton");
         exitButton.setToolTipText("Quit Indigo-Kanban?");
         exitButton.addActionListener(e->System.exit(0));
         exitButton.setBackground(new java.awt.Color(250, 105, 128));
@@ -222,6 +227,7 @@ public class EditorPanel extends JPanel {
     private JButton createClearButton() {
 
         JButton clear = new JButton("Clear board");
+        clear.setName("clearButton");
         clear.setToolTipText("Remove everything from your board?");
         clear.addActionListener(e->currentPanel.clearBoard());
         clear.setBackground(new java.awt.Color(142, 140, 250));

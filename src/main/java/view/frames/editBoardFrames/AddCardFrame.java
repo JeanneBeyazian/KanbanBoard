@@ -1,6 +1,7 @@
 package view.frames.editBoardFrames;
 
 import annotations.ClassAnnotation;
+import controller.OptionPanes;
 import controller.exceptions.KanbanObjectNotFoundException;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanCardButton;
@@ -29,6 +30,7 @@ public class AddCardFrame extends AddFrame implements ActionListener {
     public AddCardFrame(BoardPanel currentPanel) {
         super("card", currentPanel);
         submit.addActionListener(this);
+        setName("addCardFrame");
         this.setUpFrame();
     }
 
@@ -36,7 +38,11 @@ public class AddCardFrame extends AddFrame implements ActionListener {
 
         // Set up description area
         cardDescriptionArea = new JTextArea();
+        cardDescriptionArea.setName("cardDescriptionArea");
+
         JLabel descriptionLabel = new JLabel("Description:");
+        descriptionLabel.setName("descriptionLabel");
+
         cardDescriptionArea.setRows(5);
         cardDescriptionArea.setColumns(30);
 
@@ -47,10 +53,12 @@ public class AddCardFrame extends AddFrame implements ActionListener {
         for (int i = 0; i <= max; i++) {
             storyPointsBox.addItem(i);
         }
+        storyPointsBox.setName("storyPointsBox");
 
         // Set up columns combo box
         columnsBox = createColumnsList();
         JLabel columnLabel = new JLabel("In Column:");
+        columnLabel.setName("chooseColumnLabel");
 
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(10, 10, 10, 10);
@@ -112,7 +120,7 @@ public class AddCardFrame extends AddFrame implements ActionListener {
             }
 
             catch(KanbanObjectNotFoundException e){
-                // TODO = ALERT USER OF COLUMNN ERROR
+                OptionPanes.commandNotFoundError("The column could not be found");
                 System.out.println("Error: Column not found");
                 e.printStackTrace();
                 return;

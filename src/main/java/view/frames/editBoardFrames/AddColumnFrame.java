@@ -31,6 +31,7 @@ public class AddColumnFrame extends AddFrame implements ActionListener {
         super("column", currentPanel);
         rolesBox = createRolesList();
         submit.addActionListener(this);
+        setName("addColumnFrame");
         this.setUpFrame();
 
     }
