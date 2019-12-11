@@ -65,7 +65,7 @@ public class LoadWarningFrame extends PopUpFrames implements ActionListener {
             this.dispose();
             if (!currentBoard.getBoard().isEmpty()) currentBoard.getBoard().clearBoard();
 
-            BoardPanel newBoard = Load.loadBoard();
+            BoardPanel newBoard = Load.loadBoard("test");
             ArrayList<KanbanColumn> cols = newBoard.getColumns();
 
             for(KanbanColumn col : cols) {

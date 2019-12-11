@@ -33,6 +33,7 @@ public class LogPanel extends JTabbedPane {
 
         //observer design pattern
         log.addListener(this); // add this panel to ChangeLog listener list
+        updateLog();
     }
 
     /**
