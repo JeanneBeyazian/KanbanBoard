@@ -32,10 +32,9 @@ public class LogPanel extends JTabbedPane {
         ChangeLog log = ChangeLog.getInstance();
         initialiseLogPanel();
 //        logText.setEditable(false);
-
-
         //observer design pattern
         log.addListener(this); // add this panel to ChangeLog listener list
+        updateLog();
     }
 
     /**
@@ -78,6 +77,7 @@ public class LogPanel extends JTabbedPane {
 //        panel.add(scr);
 
         panel.add(activityLog);
+
         return panel;
     }
 
