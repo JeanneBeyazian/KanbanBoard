@@ -1,7 +1,6 @@
 package view.containers;
 
 import annotations.ClassAnnotation;
-import controller.ActivityType;
 import model.Change;
 import model.ChangeLog;
 import view.boardComponents.ActivityButton;
@@ -9,7 +8,6 @@ import view.boardComponents.ActivityButton;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.util.ArrayList;
 
 @ClassAnnotation(
         classAuthors = {"Jeanne", "Petra"},
@@ -26,13 +24,11 @@ public class LogPanel extends JTabbedPane {
     private static final int LOG_HEIGHT = 330;
 
     private ScrollContainer activityLog;
-    private JTextArea logText;
 
     public LogPanel(){
         ChangeLog log = ChangeLog.getInstance();
         initialiseLogPanel();
-//        logText.setEditable(false);
-        //observer design pattern
+
         log.addListener(this); // add this panel to ChangeLog listener list
         updateLog();
     }
@@ -69,13 +65,6 @@ public class LogPanel extends JTabbedPane {
     private JPanel makeChangeLog(){
 
         JPanel panel = new JPanel(new BorderLayout());
-
-//        logText = new JTextArea();
-//        logText.setLineWrap(true);
-//        logText.setWrapStyleWord(true);
-//        JScrollPane scr = new JScrollPane(logText);
-//        panel.add(scr);
-
         panel.add(activityLog);
 
         return panel;
@@ -85,28 +74,18 @@ public class LogPanel extends JTabbedPane {
      * Triggered by ChangeLog (observer design pattern).
      * Update the list of log entries.
      */
-    public void updateLog(){
+    public void updateLog() {
+
         ChangeLog log = ChangeLog.getInstance();
-//        String logEntries = "";
-//        for(Change c : log.getChanges()){
-//            try {
-//                logEntries += "> " + c.formatAsString() + "\n";
-//            } catch (Exception e){
-//                System.out.println("Failed to convert log entry");
-//            }
-//        }
-//        logText.setText(logEntries);
-
-
-        String u = "";
+        String logEntry = "";
         Change c = log.getLastChange();
         try {
-            u = c.formatAsString();
+            logEntry = c.formatAsString();
         } catch (Exception e) {
             System.out.println("Failed to convert log entry");
         }
 
-        ActivityButton button = new ActivityButton(u, c.getChangeType());
+        ActivityButton button = new ActivityButton(logEntry, c.getChangeType());
         activityLog.add(button);
 
         revalidate();

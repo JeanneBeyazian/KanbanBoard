@@ -1,9 +1,7 @@
 package view.boardComponents;
 
 import annotations.ClassAnnotation;
-import controller.ActivityType;
 import model.Change;
-import model.ChangeLog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,10 +34,13 @@ public class ActivityButton extends JPanel {
     }
 
     private void initialiseButton() {
+
         activityButton.setBorderPainted(false);
         activityButton.setOpaque(false);
         activityButton.setPreferredSize(new Dimension(ACTIVITY_BUTTON_WIDTH, ACTIVITY_BUTTON_HEIGHT));
         activityButton.setContentAreaFilled(false);
+        activityButton.setHorizontalAlignment(SwingConstants.LEFT);
+
     }
 
 
