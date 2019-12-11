@@ -2,6 +2,8 @@ package view.boardComponents;
 
 import annotations.ClassAnnotation;
 import controller.ActivityType;
+import model.Change;
+import model.ChangeLog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,44 +11,60 @@ import java.awt.*;
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
         creationDate = "22/11/2019",
-        lastEdit = "22/11/2019"
+        lastEdit = "11/12/2019"
 )
 
 /**
  * Activity buttons are added into the log panel. They describe the last change made on the board.
- * If something has been added, the button appears green.
- * If something has been removed, the button appears blue.
  */
 public class ActivityButton extends JPanel {
 
 
 	private static final long serialVersionUID = 1L;
     private JButton activityButton;
-    private static final int ACTIVITY_BUTTON_WIDTH = 240;
-    private static final int ACTIVITY_BUTTON_HEIGHT = 45;
+    private static final int ACTIVITY_BUTTON_WIDTH = 280;
+    private static final int ACTIVITY_BUTTON_HEIGHT = 40;
 
-    public ActivityButton(ActivityType activityType) {
+    public ActivityButton(String str, Change.ChangeType changeType) {
 
-        activityButton = new JButton(activityType.getDescription());
-        setUpButton();
-
-        // If element has been added to board
-        if (activityType.isAddition() == true ) setBackground(new java.awt.Color(66, 133, 169, 255));
-        else {
-            setBackground(new java.awt.Color(3, 21, 57, 235));
-            activityButton.setForeground(Color.lightGray);
-        }
-        setMaximumSize(new Dimension(ACTIVITY_BUTTON_WIDTH,ACTIVITY_BUTTON_HEIGHT));
-
+        activityButton = new JButton(str);
+        initialiseButton();
         this.add(activityButton);
+        setBackground(changeType);
+        setMaximumSize(new Dimension(ACTIVITY_BUTTON_WIDTH,ACTIVITY_BUTTON_HEIGHT));
 
     }
 
-    private void setUpButton(){
+    private void initialiseButton() {
         activityButton.setBorderPainted(false);
         activityButton.setOpaque(false);
         activityButton.setPreferredSize(new Dimension(ACTIVITY_BUTTON_WIDTH, ACTIVITY_BUTTON_HEIGHT));
         activityButton.setContentAreaFilled(false);
     }
+
+
+    private void setBackground(Change.ChangeType changeType) {
+
+        if (changeType == Change.ChangeType.ADD) {
+            setBackground(new java.awt.Color(78, 169, 112, 255));
+        }
+        else if (changeType == Change.ChangeType.REMOVE) {
+            setBackground(new java.awt.Color(168, 47, 38, 235));
+            //activityButton.setForeground(Color.lightGray);
+        }
+        else if (changeType == Change.ChangeType.UPDATE) {
+            setBackground(new java.awt.Color(112, 77, 163, 235));
+            //activityButton.setForeground(Color.lightGray);
+        }
+        else if (changeType== Change.ChangeType.MOVE) {
+            setBackground(new java.awt.Color(46, 129, 164, 235));
+            //activityButton.setForeground(Color.lightGray);
+        }
+        else {
+            setBackground(new java.awt.Color(67, 65, 68, 235));
+        }
+
+    }
+
 
 }

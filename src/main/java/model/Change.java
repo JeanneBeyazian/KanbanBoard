@@ -20,7 +20,7 @@ import view.frames.KanbanCard;
  * requires before it is used withing the change log.
  */
 
-public class Change{
+public class Change {
 
     private String objTitle;
     private ChangeType changeType;
@@ -32,7 +32,6 @@ public class Change{
 
     //moves
     private String newParentTitle = "";
-
 
 
     /**
@@ -74,7 +73,8 @@ public class Change{
      * @param updatedValue
      * @throws UnknownKanbanObjectException
      */
-    public Change(ChangeType changeType, String objTitle, Class<?> classType, String updatedField, String updatedValue) throws UnknownKanbanObjectException {
+    public Change(ChangeType changeType, String objTitle, Class<?> classType, String updatedField, String updatedValue)
+            throws UnknownKanbanObjectException {
         this(changeType, objTitle, classType);
         this.updatedField = updatedField;
         this.updatedValue = updatedValue;
@@ -95,7 +95,8 @@ public class Change{
      * @param newParentTitle
      * @throws UnknownKanbanObjectException
      */
-    public Change(ChangeType changeType, String objTitle, Class<?> classType, String newParentTitle) throws UnknownKanbanObjectException {
+    public Change(ChangeType changeType, String objTitle, Class<?> classType, String newParentTitle)
+            throws UnknownKanbanObjectException {
         this(changeType, objTitle, classType);
         this.newParentTitle = newParentTitle;
 
@@ -114,7 +115,8 @@ public class Change{
             return "Removed the " + className +" called \"" + objTitle + "\"";
         }
         if (changeType == ChangeType.UPDATE){
-            return "Updated the " + updatedField +" of " + className +" \"" + objTitle + "\" to \"" + updatedValue + "\"";
+            return "Updated the " + updatedField +" of " + className +" \"" + objTitle + "\" to \"" +
+                    updatedValue + "\"";
         }
         if (changeType == ChangeType.MOVE){
             return "Moved \"" + objTitle +"\" to \"" + newParentTitle + "\"";

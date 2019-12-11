@@ -9,6 +9,7 @@ import view.boardComponents.ActivityButton;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.ArrayList;
 
 @ClassAnnotation(
         classAuthors = {"Jeanne", "Petra"},
@@ -30,6 +31,8 @@ public class LogPanel extends JTabbedPane {
     public LogPanel(){
         ChangeLog log = ChangeLog.getInstance();
         initialiseLogPanel();
+//        logText.setEditable(false);
+
 
         //observer design pattern
         log.addListener(this); // add this panel to ChangeLog listener list
@@ -40,31 +43,16 @@ public class LogPanel extends JTabbedPane {
      */
     public void initialiseLogPanel() {
 
-
         setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         setPreferredSize(new Dimension(LOG_WIDTH,LOG_HEIGHT));
         setOpaque(false);
 
-        makeActivityLog();
+        activityLog = new ScrollContainer();
 
         addTab("Activity log", null, makeChangeLog() ,"See recent changes");
         addTab("Recent files", null, makeVersionsLog(), "See history");
     }
 
-    /** TESTING PURPOSE */
-    private void makeActivityLog(){
-
-        activityLog = new ScrollContainer();
-
-        ActivityButton button1 = new ActivityButton(ActivityType.BOARD_RESET);
-        ActivityButton button2 = new ActivityButton(ActivityType.COLUMN_ADD);
-        ActivityButton button3 = new ActivityButton(ActivityType.CARD_REMOVE);
-
-        ScrollContainer activityScroll = new ScrollContainer();
-        activityScroll.add(button1);
-        activityScroll.add(button2);
-        activityScroll.add(button3);
-    }
 
     /**
      * Create the versions history panel - second panel of the tabbed panels.
@@ -80,10 +68,16 @@ public class LogPanel extends JTabbedPane {
     }
 
     private JPanel makeChangeLog(){
-        JPanel panel = new JPanel();
-        logText = new JTextArea();
-        panel.setBorder(new EmptyBorder(50, 10, 50, 10));
-        panel.add(logText);
+
+        JPanel panel = new JPanel(new BorderLayout());
+
+//        logText = new JTextArea();
+//        logText.setLineWrap(true);
+//        logText.setWrapStyleWord(true);
+//        JScrollPane scr = new JScrollPane(logText);
+//        panel.add(scr);
+
+        panel.add(activityLog);
         return panel;
     }
 
@@ -93,16 +87,32 @@ public class LogPanel extends JTabbedPane {
      */
     public void updateLog(){
         ChangeLog log = ChangeLog.getInstance();
+//        String logEntries = "";
+//        for(Change c : log.getChanges()){
+//            try {
+//                logEntries += "> " + c.formatAsString() + "\n";
+//            } catch (Exception e){
+//                System.out.println("Failed to convert log entry");
+//            }
+//        }
+//        logText.setText(logEntries);
 
-        String logEntries = "";
-        for(Change c : log.getChanges()){
-            try {
-                logEntries += ">" + c.formatAsString() + "\n";
-            } catch (Exception e){
-                System.out.println("Failed to convert log entry");
-            }
+
+        String u = "";
+        Change c = log.getLastChange();
+        try {
+            u = c.formatAsString();
+        } catch (Exception e) {
+            System.out.println("Failed to convert log entry");
         }
-        logText.setText(logEntries);
+
+        ActivityButton button = new ActivityButton(u, c.getChangeType());
+        activityLog.add(button);
+
+        revalidate();
+        repaint();
+
+
     }
 
 }
