@@ -14,6 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static controller.OptionPanes.showWIPLimitTooLowError;
 import static javax.swing.GroupLayout.Alignment.*;
 
 @ClassAnnotation(
@@ -177,8 +178,11 @@ public class EditorPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent event) {
 
-                int selectedLimit = (int)wipBox.getSelectedIndex();
-
+                int selectedLimit = wipBox.getSelectedIndex();
+                if (selectedLimit < currentPanel.getWIPcount()) {
+                    showWIPLimitTooLowError(currentPanel);
+                    return;
+                }
                 currentPanel.setWIPlimit(selectedLimit);
             }
         };
@@ -187,7 +191,7 @@ public class EditorPanel extends JPanel {
         // Making of wipBox
         int max = 500;
         for (int i = 0; i <= max; i++) wipBox.addItem(i);
-        wipBox.setSelectedIndex(150); // Default
+        wipBox.setSelectedIndex(50); // Default
 
         wipPanel.add(wipLabel);
         wipPanel.add(wipBox);

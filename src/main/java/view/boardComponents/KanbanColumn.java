@@ -15,6 +15,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static controller.OptionPanes.roleChangeImpossibleWIPTooLowError;
+
 @ClassAnnotation(
         classAuthors = {"Jeanne, (Ali, Nathan, Petra)"},
         creationDate = "13/11/2019",
@@ -112,6 +114,14 @@ public class KanbanColumn extends JPanel {
      */
     public void setRole(ColumnRole role) {
 
+        BoardPanel board = getBoard();
+
+        if (role == ColumnRole.IN_PROGRESS && (getColumnStoryPointsTotal()+board.getWIPcount() > board.getWIPlimit())){
+            roleChangeImpossibleWIPTooLowError(board);
+            return;
+        }
+
+
         this.role = role;
 
         // track change
@@ -179,7 +189,6 @@ public class KanbanColumn extends JPanel {
         columnPane.add(card);
         revalidate();
         repaint();
-        //columnPane.add(Box.createRigidArea(new Dimension(0, 10)));
 
     }
 
@@ -227,6 +236,15 @@ public class KanbanColumn extends JPanel {
 		return role;
 	}
 
+    /**
+     * @return the addition total of all story points for this column (int)
+     */
+    private int getColumnStoryPointsTotal() {
+
+        int total = 0;
+        for (KanbanCardButton card : cards) total += card.getCard().getStoryPoints();
+        return total;
+    }
 
 	public String getColumnTitle() {
         return titleLabel.getText();

@@ -20,6 +20,23 @@ public class OptionPanes {
 
     }
 
+    public static void showWIPLimitTooLowError(BoardPanel board) {
+        JOptionPane op = new JOptionPane();
+        op.showMessageDialog(null,
+                "The entered WIP limit is lower than the current WIP count : " + board.getWIPcount() + ".",
+                "WIP Limit Too Low", JOptionPane.ERROR_MESSAGE);
+
+    }
+
+    public static void roleChangeImpossibleWIPTooLowError(BoardPanel board) {
+        JOptionPane op = new JOptionPane();
+        op.showMessageDialog(null,
+                "Setting the role of this column to 'In Progress' would exceed your maximum WIP Limit, of "
+                        + board.getWIPlimit() + ".",
+                "WIP Limit Reached", JOptionPane.ERROR_MESSAGE);
+
+    }
+
     /** Response to an unknown command : shows an error JOptionPane */
     public static void commandNotFoundError(String errorMessage) {
         JOptionPane op = new JOptionPane();
