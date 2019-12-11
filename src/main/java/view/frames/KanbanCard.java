@@ -261,6 +261,8 @@ public class KanbanCard extends JFrame {
         cardDescription = newDescription;
         cardStoryPoints = newPoint;
 
+        dispose();
+
     }
 
 

@@ -11,12 +11,12 @@ import java.awt.*;
         creationDate = "10/12/2019",
         lastEdit = "10/12/2019"
 )
-public class WIPGraphFrame extends PopUpFrames {
+public class WIPProgressFrame extends PopUpFrames {
 
     private KanbanBoard currentBoard;
     private JProgressBar bar;
 
-    public WIPGraphFrame(KanbanBoard currentBoard) {
+    public WIPProgressFrame(KanbanBoard currentBoard) {
 
         super("Current Work In Progress");
         this.currentBoard = currentBoard;

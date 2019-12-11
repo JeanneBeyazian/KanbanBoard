@@ -10,7 +10,7 @@ import view.frames.editBoardFrames.RemoveCardFrame;
 import view.frames.editBoardFrames.RemoveColumnFrame;
 import view.frames.popUpFrames.HelpFrame;
 import view.frames.popUpFrames.LoadWarningFrame;
-import view.frames.popUpFrames.WIPGraphFrame;
+import view.frames.popUpFrames.WIPProgressFrame;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -175,7 +175,7 @@ public class KanbanMenu extends JMenuBar {
         JMenu kanban = makeMenu("Kanban");
 
         JMenuItem wipProgress = new JMenuItem("Work In Progress");
-        wipProgress.addActionListener(e->new WIPGraphFrame(currentBoard).setVisible(true));
+        wipProgress.addActionListener(e->new WIPProgressFrame(currentBoard).setVisible(true));
 
         JMenuItem team = new JMenuItem("Team");
         String teamMsg = "Jeanne Beyazian,\nTrey Collier,\nNathan Kuansataporn,\nAli Mohamed,\nand Petra Scutaru.";
