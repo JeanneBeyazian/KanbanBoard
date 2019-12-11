@@ -8,6 +8,9 @@ import view.boardComponents.*;
 import annotations.ClassAnnotation;
 import view.frames.KanbanCard;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @ClassAnnotation(
         classAuthors = {"Petra"},
         creationDate = "22/11/2019",
@@ -25,6 +28,7 @@ public class Change{
     private String objTitle;
     private ChangeType changeType;
     private String className;
+    private LocalDateTime date;
 
     // updates
     private String updatedField = "";
@@ -53,6 +57,7 @@ public class Change{
     public Change(ChangeType changeType, String objTitle, Class<?> classType) throws UnknownKanbanObjectException {
         this.changeType = changeType;
         this.objTitle = objTitle;
+        this.date = LocalDateTime.now();
 
         if (classType == KanbanBoard.class) {
             className = "Board";
@@ -129,6 +134,7 @@ public class Change{
     public String getobjTitle(){
         return objTitle;
     }
+
     /**
      * Returns the object's change type
      * @return changeType
@@ -136,12 +142,21 @@ public class Change{
     public ChangeType getChangeType(){
         return changeType;
     }
+
     /**
      * Returns the object class' name
      * @return className
      */
     public String getClassName(){
         return className;
+    }
+
+    /**
+     * Returns the current date and time of when the change was made
+     * @return date
+     */
+    public LocalDateTime getTimestamp(){
+        return date;
     }
 
 }

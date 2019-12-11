@@ -30,9 +30,11 @@ public class LogPanel extends JTabbedPane {
     public LogPanel(){
         ChangeLog log = ChangeLog.getInstance();
         initialiseLogPanel();
+        logText.setEditable(false);
 
         //observer design pattern
         log.addListener(this); // add this panel to ChangeLog listener list
+        updateLog();
     }
 
     /**
@@ -80,10 +82,16 @@ public class LogPanel extends JTabbedPane {
     }
 
     private JPanel makeChangeLog(){
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(new BorderLayout());
+
         logText = new JTextArea();
-        panel.setBorder(new EmptyBorder(50, 10, 50, 10));
-        panel.add(logText);
+        logText.setLineWrap(true);
+        logText.setWrapStyleWord(true);
+
+        JScrollPane scr = new JScrollPane(logText);
+
+        panel.add(scr);
+
         return panel;
     }
 
