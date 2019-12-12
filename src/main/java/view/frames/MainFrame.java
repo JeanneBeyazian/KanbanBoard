@@ -1,9 +1,13 @@
 package view.frames;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import view.KanbanBoard;
+import controller.Load;
 
 public class MainFrame extends JFrame {
 
@@ -33,7 +37,7 @@ public class MainFrame extends JFrame {
         //buttonPanel.add(Box.createRigidArea(new Dimension(20, 0)));
 
         JButton open = new JButton("Open existing board");
-        open.addActionListener(e-> new OpenFrame().setVisible(true));
+        open.addActionListener(e-> showChooser());
         //buttonPanel.add(open);
 
         container.add(new JLabel(new ImageIcon("src/images/kanban_logo.png")));
@@ -45,11 +49,8 @@ public class MainFrame extends JFrame {
         panel.add(open);
         container.add(new JSeparator());
         container.add(panel);
-        open.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
 
-            }
-        });
+
         add(container);
 
         pack();
@@ -58,6 +59,25 @@ public class MainFrame extends JFrame {
 
     }
 
+    public void showChooser() {
+        JFileChooser chooser = new JFileChooser();
+
+        chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("json file (*.json)","json"));
+        chooser.setAcceptAllFileFilterUsed(true);
+
+        int response = chooser.showOpenDialog(this);
+        String openBoardName = "";
+        if(response == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            openBoardName = file.getName().substring(0, file.getName().length() - 5);
+        }
+
+
+        new KanbanBoard(openBoardName).setVisible(true);
+        KanbanBoard.openBoard(Load.loadBoard(openBoardName));
+    }
 
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
