@@ -1,5 +1,6 @@
 package view.frames.editBoardFrames;
 import annotations.ClassAnnotation;
+
 import javafx.util.Pair;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanColumn;
