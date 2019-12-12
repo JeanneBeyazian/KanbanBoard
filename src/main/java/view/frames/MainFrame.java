@@ -75,8 +75,10 @@ public class MainFrame extends JFrame {
         }
 
 
-        new KanbanBoard(openBoardName).setVisible(true);
-        KanbanBoard.openBoard(Load.loadBoard(openBoardName));
+        if(!openBoardName.equals("")) {
+            new KanbanBoard(openBoardName).setVisible(true);
+            KanbanBoard.openBoard(Load.loadBoard(openBoardName));
+        }
     }
 
     public static void main(String[] args) {
