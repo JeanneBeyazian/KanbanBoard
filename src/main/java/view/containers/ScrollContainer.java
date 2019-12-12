@@ -8,11 +8,12 @@ import java.awt.*;
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
         creationDate = "21/11/2019",
-        lastEdit = "22/11/2019"
+        lastEdit = "12/12/2019"
 )
 public class ScrollContainer extends JScrollPane {
 
     private JPanel container;
+
 
     public ScrollContainer(){
         container = new JPanel();
@@ -25,11 +26,12 @@ public class ScrollContainer extends JScrollPane {
      */
     private void initialiseScrollContainer() {
         setOpaque(false);
-        JPanel pane = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+
         container.setOpaque(false);
-        pane.add(container);
+        getViewport().setOpaque(false);
         getViewport().add(container,null);
+
 
     }
 

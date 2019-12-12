@@ -48,10 +48,8 @@ public class EditorPanel extends JPanel {
         this.setBorder(new EmptyBorder(new Insets(10,10,10,10)));
 
         // Editor title
-        JLabel title = createLabel("EDITOR PANEL");
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(Box.createRigidArea(new Dimension(0, 5)));
-        add(title);
+        add(createLabel("EDITOR PANEL"));
         add(Box.createRigidArea(new Dimension(0, 5)));
         add(new JSeparator());
 
@@ -63,7 +61,8 @@ public class EditorPanel extends JPanel {
         add(createWIPLimitBox());
         add(new JSeparator());
 
-        // Tabbed pane for activity log and versions history
+        // Activity log
+        add(createLabel("Activity Log"));
         add(new LogPanel());
         add(new JSeparator());
 

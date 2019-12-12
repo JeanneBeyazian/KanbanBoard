@@ -18,7 +18,7 @@ import java.awt.*;
  * Log Panel is a tabbed pane made of two JPanels for activity log and versions history.
  * The Log Panel is located inside the Editor Panel.
  */
-public class LogPanel extends JTabbedPane {
+public class LogPanel extends JPanel {
 
     private static final int LOG_WIDTH = 100;
     private static final int LOG_HEIGHT = 330;
@@ -38,35 +38,17 @@ public class LogPanel extends JTabbedPane {
      */
     public void initialiseLogPanel() {
 
-        setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         setPreferredSize(new Dimension(LOG_WIDTH,LOG_HEIGHT));
         setOpaque(false);
-
         activityLog = new ScrollContainer();
-
-        addTab("Activity log", null, makeChangeLog() ,"See recent changes");
-        addTab("Recent files", null, makeVersionsLog(), "See history");
+        add(makeChangeLog());
     }
 
-
-    /**
-     * Create the versions history panel - second panel of the tabbed panels.
-     * @return panel with button to access history
-     */
-    private JPanel makeVersionsLog() {
-
-        JPanel panel = new JPanel();
-        JButton seeVersions = new JButton("See Full Board history");
-        panel.setBorder(new EmptyBorder(50, 10, 50, 10));
-        panel.add(seeVersions);
-        return panel;
-    }
 
     private JPanel makeChangeLog(){
 
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(activityLog);
-
         return panel;
     }
 

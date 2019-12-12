@@ -38,7 +38,8 @@ public class KanbanColumn extends JPanel {
     private ColumnRole role;
     private ScrollContainer columnPane;
 
-    private static final int WIDTH = 200;
+
+    private static final int WIDTH = 220;
     private static final int HEIGHT = 710;
 
 
@@ -56,7 +57,7 @@ public class KanbanColumn extends JPanel {
         this.role = role;
         titleLabel = new JLabel();
         ++id;
-        columnPane = new ScrollContainer();
+
         initialiseColumn(columnTitle);
     }
 
@@ -68,6 +69,7 @@ public class KanbanColumn extends JPanel {
 
         setPreferredSize(new Dimension(WIDTH,HEIGHT));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        columnPane = new ScrollContainer();
         createColumnTitle(nameIn);
         add(titleLabel);
         add(columnPane);
