@@ -3,6 +3,7 @@ package view.frames;
 import view.KanbanBoard;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import controller.Load;
 import view.boardComponents.BoardPanel;
@@ -19,31 +20,32 @@ public class OpenFrame extends JFrame  implements ActionListener{
 
     public OpenFrame() {
 
-//        JPanel panel = new JPanel();
-//        JLabel choose = new JLabel("Enter Board Name");
+        JPanel panel = new JPanel();
+        JLabel choose = new JLabel("Enter Board Name");
+        JButton submit = new JButton("Enter");
 
-
-//          JButton submit = new JButton("Enter");
-//          JFileChooser chooser = new JFileChooser();
-//          chooser.setCurrentDirectory(new java.io.File("/load.java"));
-//          chooser.setDialogTitle("Choose a file");
-//          chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
-        JTextField tf = new JTextField();
         JFileChooser chooser = new JFileChooser();
-        chooser.showOpenDialog(null);
+        int response = chooser.showOpenDialog(null);
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("json file (*.json)", "json"));
+
         File f = chooser.getSelectedFile();
+
         String fileName = f.getAbsolutePath();
-        tf.setText(fileName);
 
+        if(response == JFileChooser.APPROVE_OPTION) {
+            File file = f;
+            String result = file.getName().substring(0, file.getName().length() - 5);
+            nameField.setText(result);
+        }
 
+        setSize(400,150);
 
-          //        setSize(400,150);
-//        panel.add(choose);
-//        panel.add(nameField);
-//        panel.add(submit);
-//        submit.addActionListener(this);
-//        add(panel);
+        panel.add(choose);
+        panel.add(nameField);
+        panel.add(submit);
+        submit.addActionListener(this);
+        add(panel);
+
     }
 
     /**
