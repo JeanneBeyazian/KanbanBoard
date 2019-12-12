@@ -37,7 +37,7 @@ public class KanbanColumn extends JPanel {
     public KanbanColumn(String columnTitle, ColumnRole role) {
         // track change
         try {
-            Change change = new Change(Change.ChangeType.ADD, columnTitle, KanbanColumn.class);
+            Change change = new Change(Change.ChangeType.ADD, columnTitle, this);
             ChangeLog.getInstance().addChange(change);
         } catch (UnknownKanbanObjectException u){
             System.out.println("Failed to log.");

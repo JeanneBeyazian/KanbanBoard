@@ -50,7 +50,7 @@ public class KanbanCard extends JFrame {
 
         // track change
         try {
-            Change change = new Change(Change.ChangeType.ADD, name, KanbanCard.class);
+            Change change = new Change(Change.ChangeType.ADD, name, this);
             ChangeLog.getInstance().addChange(change);
         } catch (UnknownKanbanObjectException u){
             System.out.println("Failed to log.");
@@ -171,7 +171,7 @@ public class KanbanCard extends JFrame {
 
                 //log change
                 try {
-                    Change change = new Change(Change.ChangeType.REMOVE, cardTitle, KanbanCard.class);
+                    Change change = new Change(Change.ChangeType.REMOVE, cardTitle, this);
                     ChangeLog.getInstance().addChange(change);
                 } catch (UnknownKanbanObjectException u){
                     System.out.println("Failed to log.");

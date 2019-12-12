@@ -89,7 +89,7 @@ public class RemoveColumnFrame extends EditorFrame implements ActionListener {
 
             //log change
             try {
-                Change change = new Change(Change.ChangeType.REMOVE, columnName, KanbanColumn.class);
+                Change change = new Change(Change.ChangeType.REMOVE, columnName, this);
                 ChangeLog.getInstance().addChange(change);
             } catch (UnknownKanbanObjectException u){
                 System.out.println("Failed to log.");

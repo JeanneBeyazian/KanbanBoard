@@ -30,6 +30,8 @@ public class Change{
     private String className;
     private LocalDateTime date;
 
+    private Object obj;
+
     // updates
     private String updatedField = "";
     private String updatedValue = "";
@@ -51,13 +53,15 @@ public class Change{
      * Constructor for first-time entry
      * @param changeType
      * @param objTitle
-     * @param classType
+     * @param obj
      * @throws UnknownKanbanObjectException
      */
-    public Change(ChangeType changeType, String objTitle, Class<?> classType) throws UnknownKanbanObjectException {
+    public Change(ChangeType changeType, String objTitle, Object obj) throws UnknownKanbanObjectException {
         this.changeType = changeType;
         this.objTitle = objTitle;
         this.date = LocalDateTime.now();
+
+        Class<?> classType = obj.getClass();
 
         if (classType == KanbanBoard.class) {
             className = "Board";
@@ -66,7 +70,7 @@ public class Change{
         } else if (classType == KanbanCard.class) {
             className = "Card";
         } else {
-            throw new UnknownKanbanObjectException(classType);
+            throw new UnknownKanbanObjectException(obj.getClass());
         }
     }
 
@@ -74,13 +78,13 @@ public class Change{
      * Constructor for updated entry
      * @param changeType
      * @param objTitle
-     * @param classType
+     * @param obj
      * @param updatedField
      * @param updatedValue
      * @throws UnknownKanbanObjectException
      */
-    public Change(ChangeType changeType, String objTitle, Class<?> classType, String updatedField, String updatedValue) throws UnknownKanbanObjectException {
-        this(changeType, objTitle, classType);
+    public Change(ChangeType changeType, String objTitle, Object obj, String updatedField, String updatedValue) throws UnknownKanbanObjectException {
+        this(changeType, objTitle, obj);
         this.updatedField = updatedField;
         this.updatedValue = updatedValue;
 
@@ -96,12 +100,12 @@ public class Change{
      * Constructor for moved object
      * @param changeType
      * @param objTitle
-     * @param classType
+     * @param obj
      * @param newParentTitle
      * @throws UnknownKanbanObjectException
      */
-    public Change(ChangeType changeType, String objTitle, Class<?> classType, String newParentTitle) throws UnknownKanbanObjectException {
-        this(changeType, objTitle, classType);
+    public Change(ChangeType changeType, String objTitle, Object obj, String newParentTitle) throws UnknownKanbanObjectException {
+        this(changeType, objTitle, obj);
         this.newParentTitle = newParentTitle;
 
     }
@@ -158,5 +162,12 @@ public class Change{
     public LocalDateTime getTimestamp(){
         return date;
     }
+
+    /**
+     * Returns the reference to the Object this Change is about.
+     * Object will need to be cast to e.g. KanbanCard before being used.
+     * @return the Object
+     */
+    public Object getObject() { return obj; }
 
 }
