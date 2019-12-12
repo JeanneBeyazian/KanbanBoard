@@ -122,7 +122,7 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
 
             //log change
             try {
-                Change change = new Change(Change.ChangeType.REMOVE, cardName, KanbanCard.class);
+                Change change = new Change(Change.ChangeType.REMOVE, cardName, this);
                 ChangeLog.getInstance().addChange(change);
             } catch (UnknownKanbanObjectException u){
                 System.out.println("Failed to log.");
