@@ -2,6 +2,7 @@ package view.frames.editBoardFrames;
 
 import annotations.ClassAnnotation;
 import controller.exceptions.KanbanObjectNotFoundException;
+import javafx.util.Pair;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanCardButton;
 import view.boardComponents.KanbanColumn;
@@ -10,13 +11,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.AbstractMap;
+import java.util.HashMap;
+import java.util.Map;
 
 import static controller.OptionPanes.*;
 
 @ClassAnnotation(
         classAuthors = {"Jeanne", "Petra"},
         creationDate = "28/11/2019",
-        lastEdit = "29/11/2019"
+        lastEdit = "12/12/2019"
 )
 
 public class AddCardFrame extends AddFrame implements ActionListener {
@@ -44,45 +48,24 @@ public class AddCardFrame extends AddFrame implements ActionListener {
         storyPointsBox = new JComboBox<>();
         JLabel pointsLabel = new JLabel("Story Points:");
         int max = 150;
-        for (int i = 0; i <= max; i++) {
-            storyPointsBox.addItem(i);
-        }
+        for (int i = 0; i <= max; i++) storyPointsBox.addItem(i);
 
         // Set up columns combo box
         columnsBox = createColumnsList();
         JLabel columnLabel = new JLabel("In Column:");
 
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(10, 10, 10, 10);
-        constraints.anchor = GridBagConstraints.WEST;
+        Map<JComponent, Pair<Integer,Integer>> map = Map.ofEntries(
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(titleLabel, new Pair<>(0,0)),
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(titleField, new Pair<>(1,0)),
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(descriptionLabel, new Pair<>(0,2)),
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(cardDescriptionArea, new Pair<>(1,2)),
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(pointsLabel, new Pair<>(0,5)),
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(storyPointsBox, new Pair<>(1,5)),
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(columnLabel, new Pair<>(0,6)),
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(columnsBox, new Pair<>(1,6))
+        );
 
-        constraints.gridx = 0;
-        constraints.gridy = 2;
-        container.add(descriptionLabel, constraints);
-        constraints.gridx = 1;
-        container.add(cardDescriptionArea, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 5;
-        container.add(pointsLabel, constraints);
-        constraints.gridx = 1;
-        container.add(storyPointsBox, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 6;
-        container.add(columnLabel, constraints);
-        constraints.gridx = 1;
-        container.add(columnsBox, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 7;
-        constraints.gridwidth = 2;
-        constraints.anchor = GridBagConstraints.CENTER;
-        container.add(submit, constraints);
-        constraints.anchor = GridBagConstraints.EAST;
-        container.add(cancel,constraints);
-
-        pack();
+        placeComponents(map, 7);
 
     }
 
@@ -92,7 +75,7 @@ public class AddCardFrame extends AddFrame implements ActionListener {
         if (event.getSource() == submit) {
 
             if(!columnsBox.isEnabled()) {
-                noColumnSelectedError();
+                missingComponentError("Column");
                 return;
             }
 
@@ -122,7 +105,7 @@ public class AddCardFrame extends AddFrame implements ActionListener {
             dispose();
         }
         else {
-            commandNotFoundError("Command not found");
+            commandNotFoundError();
         }
 
     }

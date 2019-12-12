@@ -14,7 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static controller.OptionPanes.showWIPLimitTooLowError;
+import static controller.OptionPanes.errorPane;
 import static javax.swing.GroupLayout.Alignment.*;
 
 @ClassAnnotation(
@@ -180,7 +180,8 @@ public class EditorPanel extends JPanel {
 
                 int selectedLimit = wipBox.getSelectedIndex();
                 if (selectedLimit < currentPanel.getWIPcount()) {
-                    showWIPLimitTooLowError(currentPanel);
+                    errorPane("The entered WIP limit is lower than the current WIP count : " +
+                                    currentPanel.getWIPcount() + ".", "WIP Limit Too Low");
                     return;
                 }
                 currentPanel.setWIPlimit(selectedLimit);

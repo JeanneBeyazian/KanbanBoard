@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static controller.OptionPanes.boardEmptyError;
+import static controller.OptionPanes.missingComponentError;
 
 
 @ClassAnnotation(
@@ -58,7 +58,7 @@ public class BoardPanel extends JPanel {
 
     public void clearBoard() {
         if (isEmpty()) {
-            boardEmptyError();
+            missingComponentError("Column");
             return;
         }
         columns.clear();

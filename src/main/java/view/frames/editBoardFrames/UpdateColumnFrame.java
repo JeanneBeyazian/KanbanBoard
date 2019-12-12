@@ -3,6 +3,7 @@ package view.frames.editBoardFrames;
 import annotations.ClassAnnotation;
 import controller.ColumnRole;
 import controller.exceptions.KanbanObjectNotFoundException;
+import javafx.util.Pair;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanCardButton;
 import view.boardComponents.KanbanColumn;
@@ -11,6 +12,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.AbstractMap;
+import java.util.Map;
 
 import static controller.OptionPanes.commandNotFoundError;
 
@@ -37,25 +40,14 @@ public class UpdateColumnFrame extends AddFrame implements ActionListener{
         rolesAvailable = createRolesList();
         rolesAvailable.setSelectedItem(column.getRole().getColumnRole());
 
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(10, 10, 10, 10);
-        constraints.anchor = GridBagConstraints.WEST;
+        Map<JComponent, Pair<Integer,Integer>> map = Map.ofEntries(
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(titleLabel, new Pair<>(0,0)),
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(titleField, new Pair<>(1,0)),
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(rolesLabel, new Pair<>(0,1)),
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(rolesAvailable, new Pair<>(1,1))
+        );
 
-        constraints.gridx = 0;
-        constraints.gridy = 1;
-        container.add(rolesLabel, constraints);
-        constraints.gridx = 1;
-        container.add(rolesAvailable, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 2;
-        constraints.gridwidth = 2;
-        constraints.anchor = GridBagConstraints.CENTER;
-        container.add(submit, constraints);
-        constraints.anchor = GridBagConstraints.EAST;
-        container.add(cancel,constraints);
-
-        pack();
+        placeComponents(map, 2);
 
 
     }
@@ -86,7 +78,7 @@ public class UpdateColumnFrame extends AddFrame implements ActionListener{
             dispose();
 
         } else {
-            commandNotFoundError("Command not found");
+            commandNotFoundError();
         }
 
     }

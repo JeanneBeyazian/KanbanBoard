@@ -3,6 +3,7 @@ package view.frames.editBoardFrames;
 import annotations.ClassAnnotation;
 import controller.exceptions.KanbanObjectNotFoundException;
 import controller.exceptions.UnknownKanbanObjectException;
+import javafx.util.Pair;
 import model.Change;
 import model.ChangeLog;
 import view.boardComponents.BoardPanel;
@@ -14,7 +15,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.Map;
 
 import static controller.OptionPanes.*;
 
@@ -51,23 +54,13 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
         container.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
                 ("Removing a card from the board")));
 
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(10, 10, 10, 10);
-        constraints.anchor = GridBagConstraints.WEST;
+        Map<JComponent, Pair<Integer,Integer>> map = Map.ofEntries(
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(chooseCardLabel, new Pair<>(0,2)),
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(chooseCardBox, new Pair<>(1,2)),
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(columnChosenButton, new Pair<>(3,0))
+        );
 
-        constraints.gridx = 0;
-        constraints.gridy = 2;
-        container.add(chooseCardLabel, constraints);
-        constraints.gridx = 1;
-        container.add(chooseCardBox, constraints);
-        constraints.gridy = 0;
-        constraints.gridx = 3;
-        container.add(columnChosenButton, constraints);
-        container.remove(cancel);
-        constraints.gridy = 3;
-        container.add(cancel, constraints);
-
-        pack();
+        placeComponents(map, 3);
     }
 
     private KanbanColumn getSelectedColumn() {
@@ -89,7 +82,7 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
     private void createCardList() {
 
         if (getSelectedColumn() == null) {
-            noColumnSelectedError();
+            missingComponentError("Column");
             chooseCardBox.setEnabled(false);
             return;
         }
@@ -121,7 +114,7 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
             try {
                 col.removeCard(col.getCardByTitle(cardName));
             }
-            catch (KanbanObjectNotFoundException e){
+            catch (KanbanObjectNotFoundException e) {
                 System.out.println("Error: Card not found");
                 e.printStackTrace();
                 return;
@@ -140,7 +133,7 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
         }
 
         else {
-            commandNotFoundError("Command not found");
+            commandNotFoundError();
         }
 
     }

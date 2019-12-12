@@ -2,6 +2,7 @@ package view.frames.editBoardFrames;
 import annotations.ClassAnnotation;
 import controller.exceptions.KanbanObjectNotFoundException;
 import controller.exceptions.UnknownKanbanObjectException;
+import javafx.util.Pair;
 import model.Change;
 import model.ChangeLog;
 import view.boardComponents.BoardPanel;
@@ -12,14 +13,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.AbstractMap;
+import java.util.Map;
 
 import static controller.OptionPanes.commandNotFoundError;
-import static controller.OptionPanes.noColumnSelectedError;
+import static controller.OptionPanes.missingComponentError;
 
 @ClassAnnotation(
         classAuthors = {"Jeanne", "Petra"},
         creationDate = "29/11/2019",
-        lastEdit = "08/12/2019"
+        lastEdit = "12/12/2019"
 )
 
 public class RemoveColumnFrame extends EditorFrame implements ActionListener {
@@ -39,28 +42,17 @@ public class RemoveColumnFrame extends EditorFrame implements ActionListener {
     }
 
     private void setUpFrame() {
+
         container.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
                 ("Removing a column from the board")));
 
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(10, 10, 10, 10);
-        constraints.anchor = GridBagConstraints.WEST;
+        Map<JComponent, Pair<Integer,Integer>> map = Map.ofEntries(
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(chooseColumnLabel, new Pair<>(0,2)),
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(columnsBox, new Pair<>(1,2))
+        );
 
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        container.add(chooseColumnLabel, constraints);
-        constraints.gridx = 1;
-        container.add(columnsBox, constraints);
+        placeComponents(map, 3);
 
-        constraints.gridx = 0;
-        constraints.gridy = 3;
-        constraints.gridwidth = 2;
-        constraints.anchor = GridBagConstraints.WEST;
-        container.add(submit, constraints);
-        constraints.anchor = GridBagConstraints.EAST;
-        container.add(cancel,constraints);
-
-        pack();
     }
 
 
@@ -69,7 +61,7 @@ public class RemoveColumnFrame extends EditorFrame implements ActionListener {
         if (event.getSource() == submit) {
 
             if(!columnsBox.isEnabled()) {
-                noColumnSelectedError();
+                missingComponentError("Column");
                 return;
             }
             if(!submit.isValid()){
@@ -101,7 +93,7 @@ public class RemoveColumnFrame extends EditorFrame implements ActionListener {
         }
 
         else {
-            commandNotFoundError("Command not found");
+            commandNotFoundError();
         }
 
     }

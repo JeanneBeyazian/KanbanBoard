@@ -1,7 +1,5 @@
 package controller;
 
-import view.boardComponents.BoardPanel;
-
 import javax.swing.*;
 
 /**
@@ -9,57 +7,25 @@ import javax.swing.*;
  */
 public class OptionPanes {
 
-    /**
-     * Response displayed when WIP limit is reached, and no more cards can be added to 'In progress' columns.
+    /** Custom error pane
+     * @param errorMessage
+     * @param errorTitle
      */
-    public static void showWIPLimitReachedError(BoardPanel board) {
-        JOptionPane op = new JOptionPane();
-        op.showMessageDialog(null,
-                "You have reached the Work In Progress limit, set to " + board.getWIPlimit() + ".",
-                "WIP Limit Reached", JOptionPane.WARNING_MESSAGE);
-
+    public static void errorPane(String errorMessage, String errorTitle){
+        JOptionPane.showMessageDialog(null, errorMessage, errorTitle, JOptionPane.ERROR_MESSAGE);
     }
 
-    public static void showWIPLimitTooLowError(BoardPanel board) {
-        JOptionPane op = new JOptionPane();
-        op.showMessageDialog(null,
-                "The entered WIP limit is lower than the current WIP count : " + board.getWIPcount() + ".",
-                "WIP Limit Too Low", JOptionPane.ERROR_MESSAGE);
-
+    /** Response to an unknown command : error pane */
+    public static void commandNotFoundError() {
+        JOptionPane.showMessageDialog(null, "Command Not Found", "Error",
+                JOptionPane.ERROR_MESSAGE);
     }
 
-    public static void roleChangeImpossibleWIPTooLowError(BoardPanel board) {
-        JOptionPane op = new JOptionPane();
-        op.showMessageDialog(null,
-                "Setting the role of this column to 'In Progress' would exceed your maximum WIP Limit, of "
-                        + board.getWIPlimit() + ".",
-                "WIP Limit Reached", JOptionPane.ERROR_MESSAGE);
-
+    /** Response to a command ran on a missing component : info pane */
+    public static void missingComponentError(String component){
+        JOptionPane.showMessageDialog(null,"There are no " + component.toLowerCase() +
+                        "s in your board! Please add a " + component.toLowerCase() + " to your board",
+                component+ " Not Found", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    /** Response to an unknown command : shows an error JOptionPane */
-    public static void commandNotFoundError(String errorMessage) {
-        JOptionPane op = new JOptionPane();
-        op.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
-    }
-
-    /** Response to failed selection of column from the combo box : shows an error JOptionPane */
-    public static void noColumnSelectedError() {
-        JOptionPane op = new JOptionPane();
-        op.showMessageDialog(null, "There is no column in your board!",
-                "Column Not Found", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    /** Response to already empty board when trying to clear */
-    public static void boardEmptyError(){
-        JOptionPane op = new JOptionPane();
-        op.showMessageDialog(null, "The board is already empty!", "Empty Board",
-                JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    /** Response to already empty column when trying to clear */
-    public static void columnEmptyError(){
-        JOptionPane.showMessageDialog(null, "There are no cards in this column!",
-                "Empty Column", JOptionPane.INFORMATION_MESSAGE);
-    }
 }
