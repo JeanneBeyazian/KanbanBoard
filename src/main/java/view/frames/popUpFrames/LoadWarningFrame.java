@@ -1,7 +1,7 @@
 package view.frames.popUpFrames;
 
 import annotations.ClassAnnotation;
-import view.frames.OpenFrame;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -44,7 +44,7 @@ public class LoadWarningFrame extends PopUpFrames {
     private JButton createSubmitButton() {
 
         JButton proceed = new JButton("Proceed");
-        proceed.addActionListener(e -> new OpenFrame().setVisible(true));
+        //proceed.addActionListener(e -> new OpenFrame().setVisible(true));
         proceed.setBorderPainted(false);
 
         return proceed;
