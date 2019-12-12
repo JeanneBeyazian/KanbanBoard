@@ -10,7 +10,8 @@ import java.io.File;
 
 public class MainFrame extends JFrame {
 
-    private JPanel container;
+    private JPanel mainContainer;
+    private JPanel bottomContainer;
 
     public MainFrame() {
 
@@ -31,35 +32,18 @@ public class MainFrame extends JFrame {
 
     private void initialise() {
 
-        container = new JPanel();
-        container.setBackground(Color.black);
+        mainContainer = new JPanel();
+        mainContainer.setLayout(new BoxLayout(mainContainer, BoxLayout.Y_AXIS));
+        mainContainer.setBackground(Color.black);
 
-        // Buttons
-        JButton newBoard = createButton("Create new board");
-        JButton open = createButton("Open existing board");
-        // Buttons action listeners
-        newBoard.addActionListener(e-> new CreateFrame().setVisible(true));
-        open.addActionListener(e-> showChooser());
 
-        // Right side
-        JPanel rightPanel = new JPanel();
-        rightPanel.setOpaque(false);
-        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
-        rightPanel.add(newBoard);
-        rightPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        rightPanel.add(open);
+        bottomContainer = makeBottomPanel();
+        bottomContainer.setVisible(false);
+        JPanel topContainer = makeTopPanel();
 
-        JSeparator sep = new JSeparator(SwingConstants.VERTICAL);
-        sep.setBackground(Color.white);
-        sep.setPreferredSize(new Dimension(1,120));
-
-        container.add(new JLabel(new ImageIcon("src/images/kanban_logo.png")));
-        container.add(sep);
-        container.add(Box.createRigidArea(new Dimension(10, 0)));;
-        container.add(rightPanel);
-
-        add(container);
-        //pack();
+        mainContainer.add(topContainer);
+        mainContainer.add(bottomContainer);
+        add(mainContainer);
 
     }
 
@@ -83,6 +67,69 @@ public class MainFrame extends JFrame {
                 dispose();
             }
         }
+    }
+
+    private JPanel makeBottomPanel() {
+
+        JPanel bottomContainer = new JPanel(new GridBagLayout());
+        bottomContainer.setOpaque(false);
+
+        JTextField nameField = new JTextField(30);
+        JLabel nameLabel = new JLabel("Enter a name for your board : ");
+        nameLabel.setForeground(Color.lightGray);
+        JButton submit = createButton("Create");
+        submit.setBackground(new java.awt.Color(133, 113, 240));
+        submit.addActionListener(e->new KanbanBoard(nameField.getText()).setVisible(true));
+
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.insets = new Insets(10, 10, 10, 10);
+        constraints.anchor = GridBagConstraints.WEST;
+
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        bottomContainer.add(nameLabel, constraints);
+        constraints.gridy = 1;
+        bottomContainer.add(nameField,constraints);
+
+        constraints.gridx = 2;
+        constraints.gridy = 1;
+        constraints.anchor = GridBagConstraints.EAST;
+        bottomContainer.add(submit,constraints);
+
+        return bottomContainer;
+    }
+
+    private JPanel makeTopPanel(){
+
+        JPanel topContainer = new JPanel();
+        topContainer.setOpaque(false);
+
+        // Buttons
+        JButton newBoard = createButton("Create new board");
+        JButton open = createButton("Open existing board");
+        // Buttons action listeners
+        newBoard.addActionListener(e->bottomContainer.setVisible(true));
+        open.addActionListener(e-> showChooser());
+
+        // Right side
+        JPanel rightPanel = new JPanel();
+        rightPanel.setOpaque(false);
+        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+        rightPanel.add(newBoard);
+        rightPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        rightPanel.add(open);
+
+        JSeparator sep = new JSeparator(SwingConstants.VERTICAL);
+        sep.setBackground(Color.white);
+        sep.setPreferredSize(new Dimension(1,120));
+
+        topContainer.add(new JLabel(new ImageIcon("src/images/kanban_logo.png")));
+        topContainer.add(sep);
+        topContainer.add(Box.createRigidArea(new Dimension(10, 0)));;
+        topContainer.add(rightPanel);
+
+
+        return topContainer;
     }
 
     private JButton createButton(String buttonName) {
