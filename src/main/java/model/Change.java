@@ -8,7 +8,9 @@ import view.boardComponents.*;
 import annotations.ClassAnnotation;
 import view.frames.KanbanCard;
 
+import java.lang.Class;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @ClassAnnotation(
@@ -113,20 +115,23 @@ public class Change {
      * @throws ChangeTypeNotImplementedException
      */
         public String formatAsString() throws ChangeTypeNotImplementedException {
-        if (changeType == ChangeType.ADD){
-            return "Inserted new " + className +" called \"" + objTitle + "\"";
-        }
-        if (changeType == ChangeType.REMOVE){
-            return "Removed the " + className +" called \"" + objTitle + "\"";
-        }
-        if (changeType == ChangeType.UPDATE){
-            return "Updated the " + updatedField +" of " + className +" \"" + objTitle + "\" to \"" +
-                    updatedValue + "\"";
-        }
-        if (changeType == ChangeType.MOVE){
-            return "Moved \"" + objTitle +"\" to \"" + newParentTitle + "\"";
-        }
-        throw new ChangeTypeNotImplementedException(changeType);
+            DateTimeFormatter format =  DateTimeFormatter.ofPattern("HH:mm");
+            String time = "At " + getTimestamp().format(format) + " : ";
+
+            if (changeType == ChangeType.ADD){
+                return time + "Inserted new " + className +" called \"" + objTitle + "\"";
+            }
+            if (changeType == ChangeType.REMOVE){
+                return time + "Removed the " + className +" called \"" + objTitle + "\"";
+            }
+            if (changeType == ChangeType.UPDATE){
+                return time + "Updated the " + updatedField +" of " + className +" \"" + objTitle + "\" to \"" +
+                        updatedValue + "\"";
+            }
+            if (changeType == ChangeType.MOVE){
+                return time + "Moved \"" + objTitle +"\" to \"" + newParentTitle + "\"";
+            }
+            throw new ChangeTypeNotImplementedException(changeType);
     }
 
     /**

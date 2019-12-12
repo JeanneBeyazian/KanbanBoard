@@ -39,7 +39,7 @@ public class KanbanColumn extends JPanel {
     private ScrollContainer columnPane;
 
 
-    private static final int WIDTH = 220;
+    private static final int WIDTH = 200;
     private static final int HEIGHT = 710;
 
 

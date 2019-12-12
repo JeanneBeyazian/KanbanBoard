@@ -157,11 +157,11 @@ public class EditorPanel extends JPanel {
     private JButton createButton(String buttonName) {
 
         JButton button = new JButton(buttonName);
-        // Modify font : button.setFont(Font.getFont("arial"));
         button.setBackground(new java.awt.Color(21, 34, 59));
         button.setForeground(Color.lightGray);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setBorderPainted(false);
+
         return button;
     }
 
@@ -186,8 +186,8 @@ public class EditorPanel extends JPanel {
                 currentPanel.setWIPlimit(selectedLimit);
             }
         };
-        wipBox.addActionListener(e->currentPanel.setWIPlimit((int)wipBox.getSelectedItem()));
-
+        //wipBox.addActionListener(e->currentPanel.setWIPlimit((int)wipBox.getSelectedItem()));
+        wipBox.addActionListener(wipAction);
         // Making of wipBox
         int max = 500;
         for (int i = 0; i <= max; i++) wipBox.addItem(i);
@@ -204,12 +204,10 @@ public class EditorPanel extends JPanel {
      */
     private JButton createExitButton() {
 
-        JButton exitButton = new JButton("Exit Application");
+        JButton exitButton = createButton("Exit Application");
         exitButton.setToolTipText("Quit Indigo-Kanban?");
         exitButton.addActionListener(e->System.exit(0));
         exitButton.setBackground(new java.awt.Color(250, 105, 128));
-        exitButton.setBorderPainted(false);
-        exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         return exitButton;
 
@@ -221,12 +219,10 @@ public class EditorPanel extends JPanel {
      */
     private JButton createClearButton() {
 
-        JButton clear = new JButton("Clear board");
+        JButton clear = createButton("Clear board");
         clear.setToolTipText("Remove everything from your board?");
         clear.addActionListener(e->currentPanel.clearBoard());
         clear.setBackground(new java.awt.Color(142, 140, 250));
-        clear.setBorderPainted(false);
-        clear.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         return clear;
 

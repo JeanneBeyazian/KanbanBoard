@@ -28,6 +28,11 @@ public class ScrollContainer extends JScrollPane {
         setOpaque(false);
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
+        JViewport viewport = new JViewport();
+        viewport.setView(new JPanel());
+        viewport.setOpaque(false);
+        setViewport(viewport);
+
         container.setOpaque(false);
         getViewport().setOpaque(false);
         getViewport().add(container,null);
