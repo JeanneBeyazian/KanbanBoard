@@ -20,6 +20,7 @@ public class MainFrame extends JFrame {
 //            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 //        } catch (Exception e) {
 //        }
+
         setTitle("Welcome to Kanban Board Indigo");
         setLocationRelativeTo(null);
         setResizable(false);

@@ -112,19 +112,17 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
             String cardName = String.valueOf(chooseCardBox.getSelectedItem());
 
             try {
-                col.removeCard(col.getCardByTitle(cardName));
+                KanbanCardButton card = col.getCardByTitle(cardName);
+                col.removeCard(card);
+                Change change = new Change(Change.ChangeType.REMOVE, cardName, card);
+                ChangeLog.getInstance().addChange(change);
             }
             catch (KanbanObjectNotFoundException e) {
                 System.out.println("Error: Card not found");
                 e.printStackTrace();
                 return;
             }
-
-            //log change
-            try {
-                Change change = new Change(Change.ChangeType.REMOVE, cardName, KanbanCard.class);
-                ChangeLog.getInstance().addChange(change);
-            } catch (UnknownKanbanObjectException u){
+            catch (UnknownKanbanObjectException u){
                 System.out.println("Failed to log.");
                 u.printStackTrace();
             }
