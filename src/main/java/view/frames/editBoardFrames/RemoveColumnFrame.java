@@ -2,6 +2,7 @@ package view.frames.editBoardFrames;
 import annotations.ClassAnnotation;
 import controller.exceptions.KanbanObjectNotFoundException;
 import controller.exceptions.UnknownKanbanObjectException;
+
 import javafx.util.Pair;
 import model.Change;
 import model.ChangeLog;
@@ -71,7 +72,13 @@ public class RemoveColumnFrame extends EditorFrame implements ActionListener {
             String columnName = String.valueOf(columnsBox.getSelectedItem());
 
             try {
-                currentPanel.removeColumn(currentPanel.getColumnByTitle(columnName));
+                KanbanColumn col = currentPanel.getColumnByTitle(columnName);
+                currentPanel.removeColumn(col);
+                //log change
+
+                Change change = new Change(Change.ChangeType.REMOVE, columnName, col);
+                ChangeLog.getInstance().addChange(change);
+
 
             }
             catch (KanbanObjectNotFoundException e){
@@ -79,12 +86,7 @@ public class RemoveColumnFrame extends EditorFrame implements ActionListener {
                 e.printStackTrace();
                 return;
             }
-
-            //log change
-            try {
-                Change change = new Change(Change.ChangeType.REMOVE, columnName, this);
-                ChangeLog.getInstance().addChange(change);
-            } catch (UnknownKanbanObjectException u){
+            catch (UnknownKanbanObjectException u){
                 System.out.println("Failed to log.");
                 u.printStackTrace();
             }
