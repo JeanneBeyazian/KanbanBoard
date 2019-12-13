@@ -73,10 +73,11 @@ public class MoveCardFrame extends EditorFrame {
 
             try {
                 columnToAdd = currentPanel.getColumnByTitle(columnName);
+                columnToAdd.addCard(currentCard);
             }
 
             catch (KanbanObjectNotFoundException e){
-                // TODO = ALERT USER OF COLUMNN ERROR
+                // TODO = ALERT USER OF COLUMN ERROR
                 System.out.println("Error: Column not found");
                 e.printStackTrace();
                 return;
@@ -91,7 +92,6 @@ public class MoveCardFrame extends EditorFrame {
                 return;
             }
 
-            columnToAdd.addCard(currentCard);
             dispose();
         }
         else {

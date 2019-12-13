@@ -1,6 +1,8 @@
 package model;
 
 import annotations.ClassAnnotation;
+import controller.ColumnRole;
+import view.boardComponents.KanbanColumn;
 import view.frames.KanbanCard;
 
 import java.text.SimpleDateFormat;
@@ -18,19 +20,15 @@ import java.util.List;
 )
 public class WeeklyStats {
 
-    private  ChangeLog log;
     private static ArrayList<ArrayList<Change>> weeklyChanges;
-
-    public WeeklyStats() {
-        log = ChangeLog.getInstance();
-        weeklyChanges = getWeeklyChanges();
-    }
 
     /**
      * Generate a 2D list of weekly changes lists
      * @return
      */
-    private ArrayList<ArrayList<Change>> getWeeklyChanges() {
+    private static ArrayList<ArrayList<Change>> getWeeklyChanges() {
+
+        ChangeLog log = ChangeLog.getInstance();
 
         List<Change> changes = log.getChanges();
         LocalDateTime firstDay = changes.get(0).getTimestamp();
@@ -40,13 +38,15 @@ public class WeeklyStats {
         int daysSinceBoardCreation = lastDay.compareTo(firstDay);
 
         // Number of weeks the board has been existing for
-        ArrayList<ArrayList<Change>> listOfWeeks = new ArrayList();
+        ArrayList<ArrayList<Change>> listOfWeeks = new ArrayList<ArrayList<Change>>();
 
         for (int i=0; i<daysSinceBoardCreation/7; i++) {
             listOfWeeks.add(new ArrayList<Change>());
         }
 
         // Add all the changes in each week
+        if (listOfWeeks.isEmpty()) return listOfWeeks;
+
         for (Change change : changes ) {
             double date = change.getTimestamp().getDayOfYear();
             int week = (int)Math.ceil(7/date);
@@ -57,10 +57,19 @@ public class WeeklyStats {
     }
 
 
-    // Todo - VELOCITY : StoryPoints COMPLETED per week (expressed in SP/week)
+
+    /**
+     * Calculate overall velocity: average number of story points completed per week.
+     * @return overall velocity (expressed in SP/week)
+     */
     public static int getAverageVelocityPerWeek() {
 
-        ArrayList<Integer> velocityList = new ArrayList<>();
+        weeklyChanges = getWeeklyChanges();
+
+        if (weeklyChanges.isEmpty()) return 0;
+
+        // List to add up all weekly velocities
+        ArrayList<Integer> velocityList = new ArrayList<Integer>();
 
         for (ArrayList<Change> changes : weeklyChanges) {
 
@@ -75,9 +84,16 @@ public class WeeklyStats {
                 Class<?> classType = obj.getClass();
 
                 if(type == Change.ChangeType.MOVE && classType == KanbanCard.class) {
-                    // TODO : CHECK IF NEW PARENT .getRole()==ColumnRole.COMPLETED
-                    // if yes : KanbanCard movedCard = (KanbanCard)obj;
-                    // storyPoints+= movedCard.getStoryPoints();
+                    KanbanColumn newParentColumn = (KanbanColumn) change.getNewParentType();
+                    KanbanColumn oldParentColumn = (KanbanColumn) change.getOldParentType();
+
+                    // Check if new parent column is of type completed, and old parent column wasn't completed
+                    if (newParentColumn.getRole() == ColumnRole.COMPLETED
+                            && oldParentColumn.getRole() != ColumnRole.COMPLETED) {
+                        KanbanCard movedCard = (KanbanCard)obj;
+                        storyPoints+= movedCard.getStoryPoints();
+
+                    }
 
                 }
 
@@ -90,6 +106,7 @@ public class WeeklyStats {
         for(int i = 0; i < velocityList.size(); i++) {
             avgVelocity += velocityList.get(i);
         }
+        avgVelocity /= weeklyChanges.size();
 
         return avgVelocity;
 
@@ -97,6 +114,7 @@ public class WeeklyStats {
 
     // Todo - LEAD TIME : time it takes for an item to get COMPLETED (expressed in weeks)
     public static int getAverageLeadTimePerWeek() {
+        // Maybe look at all cards in completed columns, and get their creation date ?
         return 0;
     }
 

@@ -44,6 +44,7 @@ abstract public class EditorFrame extends JFrame implements ActionListener {
         add(container);
         pack();
         setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     /** Create the buttons for submission and closing the frame */

@@ -10,6 +10,7 @@ import view.frames.editBoardFrames.RemoveCardFrame;
 import view.frames.editBoardFrames.RemoveColumnFrame;
 import view.frames.popUpFrames.HelpFrame;
 import view.frames.popUpFrames.LoadWarningFrame;
+import view.frames.popUpFrames.StatsFrame;
 import view.frames.popUpFrames.WIPProgressFrame;
 
 import javax.swing.*;
@@ -89,7 +90,7 @@ public class KanbanMenu extends JMenuBar {
             frame.getButtonsPanel().setVisible(false);
         });
         JMenuItem openBoard = new JMenuItem("Open", openIcon);
-        openBoard.addActionListener(e->new LoadWarningFrame().setVisible(true));
+        openBoard.addActionListener(e->new LoadWarningFrame());
 
         JMenuItem saveBoard = new JMenuItem("Save", saveIcon);
         saveBoard.addActionListener(e->{
@@ -130,10 +131,10 @@ public class KanbanMenu extends JMenuBar {
         insertMenu.setIcon(addIcon);
             // Add column
         JMenuItem insertColumn = new JMenuItem("Insert new column");
-        insertColumn.addActionListener(e->new AddColumnFrame(currentBoard.getBoard()).setVisible(true));
+        insertColumn.addActionListener(e->new AddColumnFrame(currentBoard.getBoard()));
             // Add card
         JMenuItem insertCard = new JMenuItem("Insert new card");
-        insertCard.addActionListener(e->new AddCardFrame(currentBoard.getBoard()).setVisible(true));
+        insertCard.addActionListener(e->new AddCardFrame(currentBoard.getBoard()));
 
 
         // Delete component JMenu
@@ -141,10 +142,10 @@ public class KanbanMenu extends JMenuBar {
         deleteMenu.setIcon(deleteIcon);
             // Delete column
         JMenuItem deleteColumn = new JMenuItem("Remove a column");
-        deleteColumn.addActionListener(e->new RemoveColumnFrame(currentBoard.getBoard()).setVisible(true));
+        deleteColumn.addActionListener(e->new RemoveColumnFrame(currentBoard.getBoard()));
             // Delete card
         JMenuItem deleteCard = new JMenuItem("Remove a card");
-        deleteCard.addActionListener(e->new RemoveCardFrame(currentBoard.getBoard()).setVisible(true));
+        deleteCard.addActionListener(e->new RemoveCardFrame(currentBoard.getBoard()));
 
 
         insertMenu.add(insertColumn);
@@ -176,8 +177,11 @@ public class KanbanMenu extends JMenuBar {
         // Menu items for JMenu 'kanban'
         JMenu kanban = makeMenu("Kanban");
 
+        JMenuItem kanbanStats = new JMenuItem("Board Statistics");
+        kanbanStats.addActionListener(e->new StatsFrame(currentBoard));
+
         JMenuItem wipProgress = new JMenuItem("Work In Progress");
-        wipProgress.addActionListener(e->new WIPProgressFrame(currentBoard).setVisible(true));
+        wipProgress.addActionListener(e->new WIPProgressFrame(currentBoard));
 
         JMenuItem team = new JMenuItem("Team");
         String teamMsg = "Jeanne Beyazian,\nTrey Collier,\nNathan Kuansataporn,\nAli Mohamed,\nand Petra Scutaru.";
@@ -190,6 +194,7 @@ public class KanbanMenu extends JMenuBar {
         JMenuItem exitBoard = new JMenuItem("Exit Kanban");
         exitBoard.addActionListener(e->System.exit(0));
 
+        kanban.add(kanbanStats);
         kanban.add(wipProgress);
         kanban.add(team);
         kanban.add(settings);

@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @ClassAnnotation(
-        classAuthors = {"Petra"},
+        classAuthors = {"Petra, edited by Jeanne"},
         creationDate = "22/11/2019",
         lastEdit = "08/12/2019"
 )
@@ -40,6 +40,8 @@ public class Change {
 
     //moves
     private String newParentTitle = "";
+    private Object oldParentType = null;
+    private Object newParentType = null;
 
 
     /**
@@ -106,11 +108,12 @@ public class Change {
      * @param newParentTitle
      * @throws UnknownKanbanObjectException
      */
-    public Change(ChangeType changeType, String objTitle, Object obj, String newParentTitle)
-            throws UnknownKanbanObjectException {
+    public Change(ChangeType changeType, String objTitle, Object obj, String newParentTitle, Object newParentType,
+                  Object oldParentType) throws UnknownKanbanObjectException {
         this(changeType, objTitle, obj);
         this.newParentTitle = newParentTitle;
-
+        this.newParentType = newParentType;
+        this.oldParentType = oldParentType;
     }
 
     /**
@@ -176,5 +179,17 @@ public class Change {
      * @return the Object
      */
     public Object getObject() { return obj; }
+
+
+    /**
+     * @return reference to new parent Object of moved Object
+     */
+    public Object getNewParentType(){return newParentType;}
+
+    /**
+     * @return reference to old parent Object of moved Object
+     */
+    public Object getOldParentType(){return newParentType;}
+
 
 }
