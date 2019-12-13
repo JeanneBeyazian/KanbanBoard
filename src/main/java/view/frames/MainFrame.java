@@ -3,6 +3,7 @@ package view.frames;
 import annotations.ClassAnnotation;
 import controller.Load;
 import view.KanbanBoard;
+import view.containers.OpenFileChooser;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -36,6 +37,7 @@ public class MainFrame extends JFrame {
         initialise();
     }
 
+
     /**
      * Setting up of the mainContainer which assembles each part of the frame
      */
@@ -55,30 +57,6 @@ public class MainFrame extends JFrame {
 
     }
 
-    /**
-     * Displays a JChooseFile when the user wants to open an existing board
-     */
-    private void showChooser() {
-
-        JFileChooser chooser = new JFileChooser();
-
-        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        chooser.addChoosableFileFilter(new FileNameExtensionFilter("json file (*.json)", "json"));
-        chooser.setAcceptAllFileFilterUsed(true);
-
-        int response = chooser.showOpenDialog(this);
-
-        if(response == JFileChooser.APPROVE_OPTION) {
-            File file = chooser.getSelectedFile();
-
-            if (file != null) {
-                String openBoard = file.getName().substring(0, file.getName().length() - 5);
-                new KanbanBoard(openBoard).setVisible(true);
-                KanbanBoard.openBoard(Load.loadBoard(openBoard));
-                dispose();
-            }
-        }
-    }
 
     /**
      * Bottom container appears when the user wants to create a new board.
@@ -134,7 +112,10 @@ public class MainFrame extends JFrame {
         JButton open = createButton("Open existing board");
         // Buttons action listeners
         newBoard.addActionListener(e->bottomContainer.setVisible(true));
-        open.addActionListener(e-> showChooser());
+        open.addActionListener(e->{
+            new OpenFileChooser();
+            if(Frame.getFrames().length>2)dispose();
+        });
 
         // Right side : Buttons
         JPanel rightPanel = new JPanel();
@@ -157,6 +138,7 @@ public class MainFrame extends JFrame {
 
         return topContainer;
     }
+    
 
     /**
      * Create and set up uniform buttons

@@ -14,13 +14,12 @@ import view.frames.popUpFrames.WIPProgressFrame;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ItemEvent;
-import java.awt.event.*;
 
 
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
         creationDate = "13/11/2019",
-        lastEdit = "10/12/2019"
+        lastEdit = "12/12/2019"
 )
 /**
  * This class is responsible for the creation of the menu bar at the top of the board.
@@ -88,11 +87,10 @@ public class KanbanMenu extends JMenuBar {
         openBoard.addActionListener(e->new LoadWarningFrame().setVisible(true));
 
         JMenuItem saveBoard = new JMenuItem("Save", saveIcon);
-        saveBoard.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
+        saveBoard.addActionListener(e->{
                 BoardPanel board = currentBoard.getBoard();
                 Save.saveBoard(board, currentBoard.getBoardName());
-            }
+
         });
 
 
