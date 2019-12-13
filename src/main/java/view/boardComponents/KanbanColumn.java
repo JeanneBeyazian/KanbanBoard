@@ -101,7 +101,7 @@ public class KanbanColumn extends JPanel {
         titleLabel.setBackground(role.getColumnColour());
 
         try {
-            Change change = new Change(Change.ChangeType.UPDATE, nameIn, KanbanColumn.class,
+            Change change = new Change(Change.ChangeType.UPDATE, nameIn, this,
                     "title", nameIn);
             ChangeLog.getInstance().addChange(change);
         } catch (UnknownKanbanObjectException u){
@@ -130,7 +130,7 @@ public class KanbanColumn extends JPanel {
 
         // track change
         try {
-            Change change = new Change(Change.ChangeType.UPDATE, getColumnTitle(), KanbanColumn.class,
+            Change change = new Change(Change.ChangeType.UPDATE, getColumnTitle(), this,
                     "role", role.name());
             ChangeLog.getInstance().addChange(change);
         } catch (UnknownKanbanObjectException u){
