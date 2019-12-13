@@ -3,6 +3,7 @@ package view.frames;
 import annotations.ClassAnnotation;
 import controller.Load;
 import view.KanbanBoard;
+import view.containers.OpenFileChooser;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -18,6 +19,7 @@ public class MainFrame extends JFrame {
 
     private JPanel mainContainer;
     private JPanel bottomContainer;
+    private JPanel buttonsPanel;
 
     public MainFrame() {
 
@@ -36,6 +38,7 @@ public class MainFrame extends JFrame {
         initialise();
     }
 
+
     /**
      * Setting up of the mainContainer which assembles each part of the frame
      */
@@ -53,32 +56,10 @@ public class MainFrame extends JFrame {
         mainContainer.add(bottomContainer);
         add(mainContainer);
 
+        setVisible(true);
+
     }
 
-    /**
-     * Displays a JChooseFile when the user wants to open an existing board
-     */
-    private void showChooser() {
-
-        JFileChooser chooser = new JFileChooser();
-
-        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        chooser.addChoosableFileFilter(new FileNameExtensionFilter("json file (*.json)", "json"));
-        chooser.setAcceptAllFileFilterUsed(true);
-
-        int response = chooser.showOpenDialog(this);
-
-        if(response == JFileChooser.APPROVE_OPTION) {
-            File file = chooser.getSelectedFile();
-
-            if (file != null) {
-                String openBoard = file.getName().substring(0, file.getName().length() - 5);
-                new KanbanBoard(openBoard).setVisible(true);
-                KanbanBoard.openBoard(Load.loadBoard(openBoard));
-                dispose();
-            }
-        }
-    }
 
     /**
      * Bottom container appears when the user wants to create a new board.
@@ -97,7 +78,10 @@ public class MainFrame extends JFrame {
 
         JButton submit = createButton("Create");
         submit.setBackground(new java.awt.Color(133, 113, 240));
-        submit.addActionListener(e->new KanbanBoard(nameField.getText()).setVisible(true));
+        submit.addActionListener(e->{
+            new KanbanBoard(nameField.getText()).setVisible(true);
+            dispose();
+        });
 
 
         // Set up Layout and ad components
@@ -134,29 +118,33 @@ public class MainFrame extends JFrame {
         JButton open = createButton("Open existing board");
         // Buttons action listeners
         newBoard.addActionListener(e->bottomContainer.setVisible(true));
-        open.addActionListener(e-> showChooser());
+        open.addActionListener(e->{
+            new OpenFileChooser();
+            if(Frame.getFrames().length>2)dispose();
+        });
 
         // Right side : Buttons
-        JPanel rightPanel = new JPanel();
-        rightPanel.setOpaque(false);
-        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
-        rightPanel.add(newBoard);
-        rightPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        rightPanel.add(open);
+        buttonsPanel= new JPanel();
+        buttonsPanel.setOpaque(false);
+        buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS));
+        buttonsPanel.add(newBoard);
+        buttonsPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        buttonsPanel.add(open);
 
         // Decorative separator
         JSeparator sep = new JSeparator(SwingConstants.VERTICAL);
         sep.setBackground(Color.white);
         sep.setPreferredSize(new Dimension(1,120));
 
-        // Add left side (logo) and right side to container
+        // Add left side (logo) and right side (buttons) to container
         topContainer.add(new JLabel(new ImageIcon("src/images/kanban_logo.png")));
         topContainer.add(sep);
         topContainer.add(Box.createRigidArea(new Dimension(10, 0)));;
-        topContainer.add(rightPanel);
+        topContainer.add(buttonsPanel);
 
         return topContainer;
     }
+
 
     /**
      * Create and set up uniform buttons
@@ -175,6 +163,17 @@ public class MainFrame extends JFrame {
         return button;
     }
 
+    /**
+     * @return bottom container
+     */
+    public JPanel getBottomContainer(){return bottomContainer;}
+
+    /**
+     * @return buttons panel (right side)
+     */
+    public JPanel getButtonsPanel() {
+        return buttonsPanel;
+    }
 
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();

@@ -1,6 +1,7 @@
 package view.frames.popUpFrames;
 
 import annotations.ClassAnnotation;
+import view.containers.OpenFileChooser;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,7 +31,7 @@ public class LoadWarningFrame extends PopUpFrames {
     protected JTextArea createText() {
 
         JTextArea warningText = new JTextArea();
-        String text = "WARNING.\n\nAre you sure you want to load an existing board?\n"
+        String text = "WARNING.\n\nAre you sure you want to load an existing board?\n\n"
                 + "If you haven't saved your current progress, the board you're currently working on"
                 + " will be erased.\nThis action cannot be undone, and the data cannot be retrieved.\n\n"
                 + "Do you want to proceed with this action?";
@@ -44,7 +45,10 @@ public class LoadWarningFrame extends PopUpFrames {
     private JButton createSubmitButton() {
 
         JButton proceed = new JButton("Proceed");
-        //proceed.addActionListener(e -> new OpenFrame().setVisible(true));
+        proceed.addActionListener(e->{
+            new OpenFileChooser();
+            if(Frame.getFrames().length>2)dispose();
+        });
         proceed.setBorderPainted(false);
 
         return proceed;

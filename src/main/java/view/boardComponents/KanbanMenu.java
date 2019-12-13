@@ -3,6 +3,7 @@ package view.boardComponents;
 import annotations.ClassAnnotation;
 import controller.Save;
 import view.KanbanBoard;
+import view.frames.MainFrame;
 import view.frames.editBoardFrames.AddCardFrame;
 import view.frames.editBoardFrames.AddColumnFrame;
 import view.frames.editBoardFrames.RemoveCardFrame;
@@ -14,13 +15,12 @@ import view.frames.popUpFrames.WIPProgressFrame;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.ItemEvent;
-import java.awt.event.*;
 
 
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
         creationDate = "13/11/2019",
-        lastEdit = "10/12/2019"
+        lastEdit = "12/12/2019"
 )
 /**
  * This class is responsible for the creation of the menu bar at the top of the board.
@@ -83,16 +83,19 @@ public class KanbanMenu extends JMenuBar {
         ImageIcon saveIcon = new ImageIcon("src/images/save.jpg");
 
         JMenuItem newBoard = new JMenuItem("New", newIcon);
-        //newBoard.addActionListener(e->new CreateFrame().setVisible(true));
+        newBoard.addActionListener(e->{
+            MainFrame frame = new MainFrame();
+            frame.getBottomContainer().setVisible(true);
+            frame.getButtonsPanel().setVisible(false);
+        });
         JMenuItem openBoard = new JMenuItem("Open", openIcon);
         openBoard.addActionListener(e->new LoadWarningFrame().setVisible(true));
 
         JMenuItem saveBoard = new JMenuItem("Save", saveIcon);
-        saveBoard.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
+        saveBoard.addActionListener(e->{
                 BoardPanel board = currentBoard.getBoard();
                 Save.saveBoard(board, currentBoard.getBoardName());
-            }
+
         });
 
 
