@@ -54,30 +54,4 @@ public class LoadWarningFrame extends PopUpFrames {
         return proceed;
     }
 
-
-
-    public void actionPerformed(ActionEvent event) {
-
-            this.dispose();
-            if (!currentBoard.getBoard().isEmpty()) currentBoard.getBoard().clearBoard();
-
-            BoardPanel newBoard = Load.loadBoard("test");
-            ArrayList<KanbanColumn> cols = newBoard.getColumns();
-
-            for(KanbanColumn col : cols) {
-                KanbanColumn newBoardCol = new KanbanColumn(col.getColumnTitle(), col.getRole());
-                ArrayList<KanbanCardButton> cards = col.getCards();
-                if(cards.size() != 0) {
-                    for (KanbanCardButton card : cards) {
-                        KanbanCardButton newCardButton = new KanbanCardButton(card);
-                        newBoardCol.addCard(newCardButton);
-                    }
-            }
-            currentBoard.getBoard().addColumn(newBoardCol);
-        }
-
-
-    }
-
-
 }

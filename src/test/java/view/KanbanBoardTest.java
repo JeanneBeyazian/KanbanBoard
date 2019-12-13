@@ -4,6 +4,13 @@ import org.junit.Before;
 import org.junit.Test;
 import com.athaydes.automaton.Swinger;
 import view.frames.KanbanCard;
+import view.frames.editBoardFrames.AddColumnFrame;
+
+import javax.swing.*;
+import java.awt.*;
+
+import static com.athaydes.automaton.assertion.AutomatonMatcher.hasText;
+import static org.junit.Assert.assertThat;
 
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
@@ -12,19 +19,24 @@ import view.frames.KanbanCard;
 )
 public class KanbanBoardTest {
 
+    KanbanBoard board;
+    Swinger swinger;
+
     @Before
     public void prepare(){
-        new KanbanBoard("KanbanBoardName");
-    }
 
+        board = new KanbanBoard("KanbanBoardName");
+        swinger = Swinger.getUserWith(board);
+    }
 
 
     @Test
     public void addComponentsToBoard() {
         Swinger swinger = Swinger.forSwingWindow();
         swinger.clickOn("addColumnButton")
-                .moveTo("name:addColumnFrame")
-                .type("titleField");
+                .type("Column name");
+//        board.getWindows().get("addColumnFrame");
+//        swinger.clickOn(submitButton);
     }
 
 }

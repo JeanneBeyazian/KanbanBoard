@@ -42,6 +42,7 @@ public class KanbanBoard extends JFrame {
 
         // Set up the JFrame
         boardName = title;
+        setName("KanbanBoardFrame");
         this.setTitle(title);
         setSize(WIDTH, HEIGHT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);

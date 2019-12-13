@@ -84,7 +84,8 @@ public class Change {
      * @param updatedValue
      * @throws UnknownKanbanObjectException
      */
-    public Change(ChangeType changeType, String objTitle, Object obj, String updatedField, String updatedValue) throws UnknownKanbanObjectException {
+    public Change(ChangeType changeType, String objTitle, Object obj, String updatedField, String updatedValue)
+            throws UnknownKanbanObjectException {
         this(changeType, objTitle, obj);
         this.updatedField = updatedField;
         this.updatedValue = updatedValue;
@@ -105,7 +106,8 @@ public class Change {
      * @param newParentTitle
      * @throws UnknownKanbanObjectException
      */
-    public Change(ChangeType changeType, String objTitle, Object obj, String newParentTitle) throws UnknownKanbanObjectException {
+    public Change(ChangeType changeType, String objTitle, Object obj, String newParentTitle)
+            throws UnknownKanbanObjectException {
         this(changeType, objTitle, obj);
         this.newParentTitle = newParentTitle;
 
