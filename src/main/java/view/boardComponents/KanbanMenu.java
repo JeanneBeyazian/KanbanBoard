@@ -3,6 +3,7 @@ package view.boardComponents;
 import annotations.ClassAnnotation;
 import controller.Save;
 import view.KanbanBoard;
+import view.frames.MainFrame;
 import view.frames.editBoardFrames.AddCardFrame;
 import view.frames.editBoardFrames.AddColumnFrame;
 import view.frames.editBoardFrames.RemoveCardFrame;
@@ -82,7 +83,11 @@ public class KanbanMenu extends JMenuBar {
         ImageIcon saveIcon = new ImageIcon("src/images/save.jpg");
 
         JMenuItem newBoard = new JMenuItem("New", newIcon);
-        //newBoard.addActionListener(e->new CreateFrame().setVisible(true));
+        newBoard.addActionListener(e->{
+            MainFrame frame = new MainFrame();
+            frame.getBottomContainer().setVisible(true);
+            frame.getButtonsPanel().setVisible(false);
+        });
         JMenuItem openBoard = new JMenuItem("Open", openIcon);
         openBoard.addActionListener(e->new LoadWarningFrame().setVisible(true));
 

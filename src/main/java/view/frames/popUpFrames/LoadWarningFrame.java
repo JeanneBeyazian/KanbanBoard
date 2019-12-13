@@ -31,7 +31,7 @@ public class LoadWarningFrame extends PopUpFrames {
     protected JTextArea createText() {
 
         JTextArea warningText = new JTextArea();
-        String text = "WARNING.\n\nAre you sure you want to load an existing board?\n"
+        String text = "WARNING.\n\nAre you sure you want to load an existing board?\n\n"
                 + "If you haven't saved your current progress, the board you're currently working on"
                 + " will be erased.\nThis action cannot be undone, and the data cannot be retrieved.\n\n"
                 + "Do you want to proceed with this action?";
