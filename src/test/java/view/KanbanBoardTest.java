@@ -22,12 +22,9 @@ public class KanbanBoardTest {
     @Test
     public void addComponentsToBoard() {
         Swinger swinger = Swinger.forSwingWindow();
-
         swinger.clickOn("addColumnButton")
                 .moveTo("name:addColumnFrame")
-                .clickOn("titleField")
-                .type("Column One");
-
+                .type("titleField");
     }
 
 }

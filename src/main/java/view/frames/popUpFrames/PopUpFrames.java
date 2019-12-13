@@ -35,11 +35,11 @@ public abstract class PopUpFrames extends JDialog {
         containerPanel.add(createText());
 
         add(containerPanel);
-        iniatilise();
+        initialise();
     }
 
 
-    private void iniatilise() {
+    private void initialise() {
 
         buttonPanel = new JPanel();
 
