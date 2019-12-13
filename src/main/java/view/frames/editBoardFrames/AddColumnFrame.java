@@ -75,7 +75,7 @@ public class AddColumnFrame extends AddFrame implements ActionListener {
                     break;
                 }
             }
-            currentPanel.addColumn(new KanbanColumn(columnTitle, setRole));
+            currentPanel.addColumn(new KanbanColumn(columnTitle, setRole, currentPanel));
         }
         else {
             commandNotFoundError();

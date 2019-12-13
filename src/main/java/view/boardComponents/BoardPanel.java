@@ -2,6 +2,7 @@ package view.boardComponents;
 
 import annotations.ClassAnnotation;
 import controller.exceptions.KanbanObjectNotFoundException;
+import view.KanbanBoard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,7 @@ import static controller.OptionPanes.missingComponentError;
 
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne, (Petra)"},
+        classAuthors = {"Jeanne", "Petra"},
         creationDate = "09/11/2019",
         lastEdit = "06/12/2019"
 )
@@ -44,6 +45,7 @@ public class BoardPanel extends JPanel {
 
     public void addColumn(KanbanColumn column) {
         columns.add(column);
+        column.setColumnParent(this);
         add(column);
         add(Box.createRigidArea(new Dimension(5, 0)));
         revalidate();
@@ -63,6 +65,21 @@ public class BoardPanel extends JPanel {
         }
         columns.clear();
         removeAll();
+        revalidate();
+        repaint();
+    }
+
+    public void redraw(){
+        System.out.println(columns.size());
+        ArrayList<KanbanColumn> columnsBackup = new ArrayList<>(columns);
+
+        columns.clear();
+        this.removeAll();
+
+        for (KanbanColumn col : columnsBackup){
+            addColumn(col);
+        }
+
         revalidate();
         repaint();
     }

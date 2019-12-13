@@ -73,7 +73,7 @@ public class UpdateColumnFrame extends AddFrame implements ActionListener{
             }
 
             if (setRole != null) column.setRole(setRole);
-            column.setColumnTitle(newColumnName);
+            if (getTitle() != null && getTitle() != "") column.setColumnTitle(newColumnName);
 
             dispose();
 

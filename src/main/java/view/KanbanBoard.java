@@ -152,4 +152,30 @@ public class KanbanBoard extends JFrame {
         }
     }
 
+    public static void redrawBoard(BoardPanel board){
+        ArrayList<KanbanColumn> cols = new ArrayList<KanbanColumn>(board.getColumns());
+
+        board.getColumns().clear();
+        Component[] componentList = board.getComponents();
+
+        for(Component c : componentList){
+            if(c instanceof JCheckBox){
+                board.remove(c);
+            }
+        }
+
+        for(KanbanColumn col : cols) {
+            KanbanColumn newBoardCol = new KanbanColumn(col.getColumnTitle(), col.getRole());
+            ArrayList<KanbanCardButton> cards = col.getCards();
+            if (cards.size() != 0) {
+                for (KanbanCardButton card : cards) {
+                    KanbanCardButton newCardButton = new KanbanCardButton(card);
+                    newBoardCol.addCard(newCardButton);
+                }
+            }
+            board.addColumn(newBoardCol);
+        }
+
+    }
+
 }

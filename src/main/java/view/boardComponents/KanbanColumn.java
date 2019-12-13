@@ -8,18 +8,24 @@ import controller.exceptions.KanbanObjectNotFoundException;
 import controller.exceptions.UnknownKanbanObjectException;
 import model.Change;
 import model.ChangeLog;
+import model.DragGestureHandler;
+import model.DropHandler;
 import view.containers.ScrollContainer;
 import view.frames.editBoardFrames.UpdateColumnFrame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DragGestureRecognizer;
+import java.awt.dnd.DragSource;
+import java.awt.dnd.DropTarget;
 import java.util.ArrayList;
 
 import static controller.OptionPanes.errorPane;
 
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne, (Ali, Nathan, Petra)"},
+        classAuthors = {"Jeanne", "Ali", "Nathan", "Petra"},
         creationDate = "13/11/2019",
         lastEdit = "08/12/2019"
 )
@@ -38,11 +44,23 @@ public class KanbanColumn extends JPanel {
     private ColumnRole role;
     private ScrollContainer columnPane;
 
+    private DragGestureRecognizer dgr;
+    private DragGestureHandler dragGestureHandler;
+
 
     private static final int WIDTH = 200;
     private static final int HEIGHT = 710;
 
+    private DropTarget dropTarget;
+    private DropHandler dropHandler;
 
+    private BoardPanel columnParent;
+
+    /**
+     * General constructor for the KanbanColumn class.
+     * @param columnTitle
+     * @param role
+     */
     public KanbanColumn(String columnTitle, ColumnRole role) {
         // track change
         try {
@@ -55,6 +73,31 @@ public class KanbanColumn extends JPanel {
 
         cards = new ArrayList<>();
         this.role = role;
+        titleLabel = new JLabel();
+        ++id;
+
+        initialiseColumn(columnTitle);
+    }
+
+    /**
+     * Second constructor to account for the column needing a parent.
+     * @param columnTitle
+     * @param role
+     * @param columnParent
+     */
+    public KanbanColumn(String columnTitle, ColumnRole role, BoardPanel columnParent) {
+        // track change
+        try {
+            Change change = new Change(Change.ChangeType.ADD, columnTitle, this);
+            ChangeLog.getInstance().addChange(change);
+        } catch (UnknownKanbanObjectException u){
+            System.out.println("Failed to log.");
+            u.printStackTrace();
+        }
+
+        cards = new ArrayList<>();
+        this.role = role;
+        this.columnParent = columnParent;
         titleLabel = new JLabel();
         ++id;
 
@@ -76,6 +119,53 @@ public class KanbanColumn extends JPanel {
         addButtons();
 
     }
+
+    /**
+     * Tells a column if something is being dragged above it.
+     */
+    @Override
+    public void addNotify() {
+
+        super.addNotify();
+        dropHandler = new DropHandler(this);
+        dropTarget = new DropTarget(this, DnDConstants.ACTION_MOVE, dropHandler, true);
+        System.out.println("adding notify");
+        if (dgr == null) {
+
+            dragGestureHandler = new DragGestureHandler(this);
+            dgr = DragSource.getDefaultDragSource().createDefaultDragGestureRecognizer(
+                    this,
+                    DnDConstants.ACTION_MOVE,
+                    dragGestureHandler);
+
+        }
+
+
+    }
+
+
+    /**
+     * Tells a column if something has stopped being dragged above it.
+     */
+    @Override
+    public void removeNotify() {
+        System.out.println("removing notify");
+        dropTarget.removeDropTargetListener(dropHandler);
+
+        if (dgr != null) {
+
+            dgr.removeDragGestureListener(dragGestureHandler);
+            dragGestureHandler = null;
+
+        }
+
+        dgr = null;
+
+        super.removeNotify();
+
+    }
+
+
 
     /**
      * Initial set up of the column title label
@@ -192,6 +282,7 @@ public class KanbanColumn extends JPanel {
 
         card.setAlignmentX(Component.CENTER_ALIGNMENT);                 // Add to columnPane
         columnPane.add(card);
+
         revalidate();
         repaint();
 
@@ -267,6 +358,9 @@ public class KanbanColumn extends JPanel {
         return cards;
     }
 
+    public BoardPanel getColumnParent() { return columnParent; }
+
+    public void setColumnParent(BoardPanel columnParentBoard) { columnParent = columnParentBoard; }
     /**
      *  Get card having a given title
      * @param title title of the card we're searching for
