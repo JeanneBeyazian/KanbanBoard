@@ -11,15 +11,21 @@ import java.awt.*;
         creationDate = "10/12/2019",
         lastEdit = "10/12/2019"
 )
-public class WIPGraphFrame extends PopUpFrames {
+public class WIPProgressFrame extends PopUpFrames {
 
     private KanbanBoard currentBoard;
     private JProgressBar bar;
+    private JLabel progress;
 
-    public WIPGraphFrame(KanbanBoard currentBoard) {
+    public WIPProgressFrame(KanbanBoard currentBoard) {
 
-        super("Current Work In Progress");
+        super("Current Work In Progress...");
         this.currentBoard = currentBoard;
+
+        progress = new JLabel();
+        progress.setFont(new Font("Arial", Font.BOLD, 12));
+
+        containerPanel.add(progress);
         containerPanel.add(createBar());
         buttonPanel.add(createRefreshButton());
 
@@ -56,6 +62,7 @@ public class WIPGraphFrame extends PopUpFrames {
         bar = new JProgressBar();
         bar.setMinimum(0);
         bar.setMaximumSize(new Dimension(250,75));
+        bar.setStringPainted(true);
 
         updateBar();
 
@@ -64,8 +71,13 @@ public class WIPGraphFrame extends PopUpFrames {
     }
 
     private void updateBar() {
-        bar.setMaximum(currentBoard.getBoard().getWIPlimit());
-        bar.setValue(currentBoard.getBoard().getWIPcount());
+        int max = currentBoard.getBoard().getWIPlimit();
+        int current = currentBoard.getBoard().getWIPcount();
+
+        progress.setText("Current Progress: " + current + " story points in progress out of " + max);
+        bar.setMaximum(max);
+        bar.setValue(current);
+
         revalidate();
         repaint();
     }

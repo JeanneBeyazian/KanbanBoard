@@ -1,6 +1,7 @@
 package view.frames.editBoardFrames;
 
 import controller.exceptions.KanbanObjectNotFoundException;
+import javafx.util.Pair;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanCardButton;
 import view.boardComponents.KanbanColumn;
@@ -8,6 +9,8 @@ import view.boardComponents.KanbanColumn;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.AbstractMap;
+import java.util.Map;
 
 import static controller.OptionPanes.*;
 
@@ -19,6 +22,7 @@ public class MoveCardFrame extends EditorFrame {
     private KanbanCardButton currentCard;
 
     public MoveCardFrame(BoardPanel currentPanel, KanbanCardButton currentCard) {
+
         super(currentPanel);
         submit.addActionListener(this);
         this.currentCard = currentCard;
@@ -40,31 +44,14 @@ public class MoveCardFrame extends EditorFrame {
         columnsBox.removeItem(String.valueOf(thisColumnBox.getSelectedItem()));
         JLabel columnsLabel = new JLabel("To column:");
 
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(10, 10, 10, 10);
-        constraints.anchor = GridBagConstraints.WEST;
+        Map<JComponent, Pair<Integer,Integer>> map = Map.ofEntries(
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(thisColumnLabel, new Pair<>(0,2)),
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(thisColumnBox, new Pair<>(1,2)),
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(columnsLabel, new Pair<>(0,3)),
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(columnsBox, new Pair<>(1,3))
+        );
 
-        constraints.gridx = 0;
-        constraints.gridy = 2;
-        container.add(thisColumnLabel, constraints);
-        constraints.gridx = 1;
-        container.add(thisColumnBox, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 3;
-        container.add(columnsLabel, constraints);
-        constraints.gridx = 1;
-        container.add(columnsBox, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 4;
-        constraints.gridwidth = 2;
-        constraints.anchor = GridBagConstraints.CENTER;
-        container.add(submit, constraints);
-        constraints.anchor = GridBagConstraints.EAST;
-        container.add(cancel,constraints);
-
-        pack();
+        placeComponents(map, 4);
 
     }
 
@@ -74,7 +61,7 @@ public class MoveCardFrame extends EditorFrame {
         if (event.getSource() == submit) {
 
             if(!columnsBox.isEnabled()) {
-                noColumnSelectedError();
+                missingComponentError("Column");
                 return;
             }
 
@@ -108,7 +95,7 @@ public class MoveCardFrame extends EditorFrame {
             dispose();
         }
         else {
-            commandNotFoundError("Command not found");
+            commandNotFoundError();
         }
 
     }

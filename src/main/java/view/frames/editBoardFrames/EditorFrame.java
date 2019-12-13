@@ -1,5 +1,7 @@
 package view.frames.editBoardFrames;
 import annotations.ClassAnnotation;
+
+import javafx.util.Pair;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanColumn;
 
@@ -7,6 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
@@ -50,6 +54,32 @@ abstract public class EditorFrame extends JFrame implements ActionListener {
 
         submit = new JButton("Submit");
         submit.setName("submitButton");
+    }
+
+    protected void placeComponents(Map<JComponent, Pair<Integer,Integer>> compCoordinates, int submitY) {
+
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.insets = new Insets(10, 10, 10, 10);
+        constraints.anchor = GridBagConstraints.WEST;
+
+
+        for (JComponent comp : compCoordinates.keySet()) {
+            Pair<Integer, Integer> coo = compCoordinates.get(comp);
+            constraints.gridx = coo.getKey();
+            constraints.gridy = coo.getValue();
+            container.add(comp, constraints);
+        }
+
+        constraints.gridwidth = 2;
+        constraints.gridx = 0;
+        constraints.gridy = submitY;
+        constraints.anchor = GridBagConstraints.CENTER;
+        container.add(submit, constraints);
+        constraints.anchor = GridBagConstraints.EAST;
+        container.add(cancel,constraints);
+
+        pack();
+
     }
 
     /**

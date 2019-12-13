@@ -1,20 +1,15 @@
 package view.frames.popUpFrames;
 
 import annotations.ClassAnnotation;
-import controller.Load;
-import view.KanbanBoard;
-import view.boardComponents.BoardPanel;
-import view.boardComponents.KanbanCardButton;
-import view.boardComponents.KanbanColumn;
-import view.frames.OpenFrame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
-@ClassAnnotation(classAuthors = { "Jeanne" }, creationDate = "09/12/2019", lastEdit = "10/12/2019")
+@ClassAnnotation(
+        classAuthors = { "Jeanne" },
+        creationDate = "09/12/2019",
+        lastEdit = "10/12/2019"
+)
 public class LoadWarningFrame extends PopUpFrames {
 
     /**
@@ -49,7 +44,7 @@ public class LoadWarningFrame extends PopUpFrames {
     private JButton createSubmitButton() {
 
         JButton proceed = new JButton("Proceed");
-        proceed.addActionListener(e -> new OpenFrame().setVisible(true));
+        //proceed.addActionListener(e -> new OpenFrame().setVisible(true));
         proceed.setBorderPainted(false);
 
         return proceed;

@@ -1,6 +1,5 @@
 package view;
 import annotations.ClassAnnotation;
-import controller.ActivityType;
 import org.junit.Test;
 import view.boardComponents.ActivityButton;
 import view.containers.ScrollContainer;

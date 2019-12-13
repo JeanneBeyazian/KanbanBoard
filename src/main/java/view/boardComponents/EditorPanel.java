@@ -14,7 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static controller.OptionPanes.showWIPLimitTooLowError;
+import static controller.OptionPanes.errorPane;
 import static javax.swing.GroupLayout.Alignment.*;
 
 @ClassAnnotation(
@@ -48,10 +48,8 @@ public class EditorPanel extends JPanel {
         this.setBorder(new EmptyBorder(new Insets(10,10,10,10)));
 
         // Editor title
-        JLabel title = createLabel("EDITOR PANEL");
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(Box.createRigidArea(new Dimension(0, 5)));
-        add(title);
+        add(createLabel("EDITOR PANEL"));
         add(Box.createRigidArea(new Dimension(0, 5)));
         add(new JSeparator());
 
@@ -63,7 +61,8 @@ public class EditorPanel extends JPanel {
         add(createWIPLimitBox());
         add(new JSeparator());
 
-        // Tabbed pane for activity log and versions history
+        // Activity log
+        add(createLabel("Activity Log"));
         add(new LogPanel());
         add(new JSeparator());
 
@@ -162,11 +161,11 @@ public class EditorPanel extends JPanel {
     private JButton createButton(String buttonName) {
 
         JButton button = new JButton(buttonName);
-        // Modify font : button.setFont(Font.getFont("arial"));
         button.setBackground(new java.awt.Color(21, 34, 59));
         button.setForeground(Color.lightGray);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setBorderPainted(false);
+
         return button;
     }
 
@@ -178,19 +177,15 @@ public class EditorPanel extends JPanel {
         // Components for wipPanel
         JLabel wipLabel = createLabel( "Work In Progress Limit: ");
         JComboBox<Integer> wipBox = new JComboBox<Integer>();
-        ActionListener wipAction = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-
+        ActionListener wipAction = (e-> {
                 int selectedLimit = wipBox.getSelectedIndex();
                 if (selectedLimit < currentPanel.getWIPcount()) {
-                    showWIPLimitTooLowError(currentPanel);
+                    errorPane("The entered WIP limit is lower than the current WIP count : " +
+                                    currentPanel.getWIPcount() + ".", "WIP Limit Too Low");
                     return;
                 }
-                currentPanel.setWIPlimit(selectedLimit);
-            }
-        };
-        wipBox.addActionListener(e->currentPanel.setWIPlimit((int)wipBox.getSelectedItem()));
+                currentPanel.setWIPlimit(selectedLimit); });
+        wipBox.addActionListener(wipAction);
 
         // Making of wipBox
         int max = 500;
@@ -208,13 +203,12 @@ public class EditorPanel extends JPanel {
      */
     private JButton createExitButton() {
 
-        JButton exitButton = new JButton("Exit Application");
+        JButton exitButton = createButton("Exit Application");
         exitButton.setName("exitButton");
+
         exitButton.setToolTipText("Quit Indigo-Kanban?");
         exitButton.addActionListener(e->System.exit(0));
         exitButton.setBackground(new java.awt.Color(250, 105, 128));
-        exitButton.setBorderPainted(false);
-        exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         return exitButton;
 
@@ -226,13 +220,12 @@ public class EditorPanel extends JPanel {
      */
     private JButton createClearButton() {
 
-        JButton clear = new JButton("Clear board");
+
+        JButton clear = createButton("Clear board");
         clear.setName("clearButton");
         clear.setToolTipText("Remove everything from your board?");
         clear.addActionListener(e->currentPanel.clearBoard());
         clear.setBackground(new java.awt.Color(142, 140, 250));
-        clear.setBorderPainted(false);
-        clear.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         return clear;
 

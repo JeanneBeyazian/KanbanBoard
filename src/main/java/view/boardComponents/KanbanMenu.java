@@ -3,14 +3,13 @@ package view.boardComponents;
 import annotations.ClassAnnotation;
 import controller.Save;
 import view.KanbanBoard;
-import view.frames.*;
 import view.frames.editBoardFrames.AddCardFrame;
 import view.frames.editBoardFrames.AddColumnFrame;
 import view.frames.editBoardFrames.RemoveCardFrame;
 import view.frames.editBoardFrames.RemoveColumnFrame;
 import view.frames.popUpFrames.HelpFrame;
 import view.frames.popUpFrames.LoadWarningFrame;
-import view.frames.popUpFrames.WIPGraphFrame;
+import view.frames.popUpFrames.WIPProgressFrame;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -84,7 +83,7 @@ public class KanbanMenu extends JMenuBar {
         ImageIcon saveIcon = new ImageIcon("src/images/save.jpg");
 
         JMenuItem newBoard = new JMenuItem("New", newIcon);
-        newBoard.addActionListener(e->new CreateFrame().setVisible(true));
+        //newBoard.addActionListener(e->new CreateFrame().setVisible(true));
         JMenuItem openBoard = new JMenuItem("Open", openIcon);
         openBoard.addActionListener(e->new LoadWarningFrame().setVisible(true));
 
@@ -175,7 +174,7 @@ public class KanbanMenu extends JMenuBar {
         JMenu kanban = makeMenu("Kanban");
 
         JMenuItem wipProgress = new JMenuItem("Work In Progress");
-        wipProgress.addActionListener(e->new WIPGraphFrame(currentBoard).setVisible(true));
+        wipProgress.addActionListener(e->new WIPProgressFrame(currentBoard).setVisible(true));
 
         JMenuItem team = new JMenuItem("Team");
         String teamMsg = "Jeanne Beyazian,\nTrey Collier,\nNathan Kuansataporn,\nAli Mohamed,\nand Petra Scutaru.";

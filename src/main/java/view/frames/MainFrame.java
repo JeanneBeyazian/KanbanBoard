@@ -1,57 +1,178 @@
 package view.frames;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import annotations.ClassAnnotation;
+import controller.Load;
+import view.KanbanBoard;
 
-public class MainFrame extends JFrame{
-    private JPanel container;
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
+import java.io.File;
+
+@ClassAnnotation(
+        classAuthors = {"Nathan, Jeanne"},
+        creationDate = "08/12/2019",
+        lastEdit = "12/12/2019"
+)
+public class MainFrame extends JFrame {
+
+    private JPanel mainContainer;
+    private JPanel bottomContainer;
 
     public MainFrame() {
-        setTitle("KanbanBoard App");
+
+        // PLEASE KEEP THIS.
+
+//        try {
+//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//        } catch (Exception e) {
+//        }
+
+        setTitle("Welcome to Kanban Board Indigo");
         setLocationRelativeTo(null);
-        //setLayout(new FlowLayout());
+        setResizable(false);
+        setSize(600,400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         initialise();
-        pack();
     }
 
+    /**
+     * Setting up of the mainContainer which assembles each part of the frame
+     */
     private void initialise() {
 
-        container = new JPanel();
-        container.setPreferredSize(new Dimension(500, 500));
+        mainContainer = new JPanel();
+        mainContainer.setLayout(new BoxLayout(mainContainer, BoxLayout.Y_AXIS));
+        mainContainer.setBackground(Color.black);
 
-        JLabel welcomeLabel = new JLabel("Welcome to the Kanban Board Indigo App !");
+        bottomContainer = makeBottomPanel();
+        bottomContainer.setVisible(false);
+        JPanel topContainer = makeTopPanel();
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.LINE_AXIS));
+        mainContainer.add(topContainer);
+        mainContainer.add(bottomContainer);
+        add(mainContainer);
 
-        JButton newBoard = new JButton("Create new board");
-        newBoard.addActionListener(e-> new CreateFrame().setVisible(true));
-        buttonPanel.add(newBoard);
+    }
 
-        buttonPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+    /**
+     * Displays a JChooseFile when the user wants to open an existing board
+     */
+    private void showChooser() {
 
-        JButton open = new JButton("Open existing board");
-        open.addActionListener(e-> new OpenFrame().setVisible(true));
-        buttonPanel.add(open);
+        JFileChooser chooser = new JFileChooser();
 
-        container.add(welcomeLabel, BorderLayout.NORTH);
-        container.add(buttonPanel, BorderLayout.CENTER);
-        open.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.addChoosableFileFilter(new FileNameExtensionFilter("json file (*.json)", "json"));
+        chooser.setAcceptAllFileFilterUsed(true);
 
+        int response = chooser.showOpenDialog(this);
+
+        if(response == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+
+            if (file != null) {
+                String openBoard = file.getName().substring(0, file.getName().length() - 5);
+                new KanbanBoard(openBoard).setVisible(true);
+                KanbanBoard.openBoard(Load.loadBoard(openBoard));
+                dispose();
             }
-        });
-        add(container);
-//        add(makeContainerPanel());
+        }
+    }
+
+    /**
+     * Bottom container appears when the user wants to create a new board.
+     * Asks for an input name.
+     * @return bottomContainer
+     */
+    private JPanel makeBottomPanel() {
+
+        JPanel bottomContainer = new JPanel(new GridBagLayout());
+        bottomContainer.setOpaque(false);
+
+        // Create components for bottom container
+        JTextField nameField = new JTextField(30);
+        JLabel nameLabel = new JLabel("Enter a name for your board : ");
+        nameLabel.setForeground(Color.lightGray);
+
+        JButton submit = createButton("Create");
+        submit.setBackground(new java.awt.Color(133, 113, 240));
+        submit.addActionListener(e->new KanbanBoard(nameField.getText()).setVisible(true));
 
 
-        //createNew.addActionListener(newProject());
+        // Set up Layout and ad components
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.insets = new Insets(10, 10, 10, 10);
+        constraints.anchor = GridBagConstraints.WEST;
 
-        setResizable(true);
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        bottomContainer.add(nameLabel, constraints);
+        constraints.gridy = 1;
+        bottomContainer.add(nameField,constraints);
 
+        constraints.gridx = 2;
+        constraints.gridy = 1;
+        constraints.anchor = GridBagConstraints.EAST;
+        bottomContainer.add(submit,constraints);
+
+
+        return bottomContainer;
+    }
+
+    /**
+     * The top container contains the logo, and the buttons to create or open a file.
+     * @return topContainer
+     */
+    private JPanel makeTopPanel(){
+
+        JPanel topContainer = new JPanel();
+        topContainer.setOpaque(false);
+
+        // Buttons
+        JButton newBoard = createButton("Create new board");
+        JButton open = createButton("Open existing board");
+        // Buttons action listeners
+        newBoard.addActionListener(e->bottomContainer.setVisible(true));
+        open.addActionListener(e-> showChooser());
+
+        // Right side : Buttons
+        JPanel rightPanel = new JPanel();
+        rightPanel.setOpaque(false);
+        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
+        rightPanel.add(newBoard);
+        rightPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        rightPanel.add(open);
+
+        // Decorative separator
+        JSeparator sep = new JSeparator(SwingConstants.VERTICAL);
+        sep.setBackground(Color.white);
+        sep.setPreferredSize(new Dimension(1,120));
+
+        // Add left side (logo) and right side to container
+        topContainer.add(new JLabel(new ImageIcon("src/images/kanban_logo.png")));
+        topContainer.add(sep);
+        topContainer.add(Box.createRigidArea(new Dimension(10, 0)));;
+        topContainer.add(rightPanel);
+
+        return topContainer;
+    }
+
+    /**
+     * Create and set up uniform buttons
+     * @param buttonName (String)
+     * @return button
+     */
+    private JButton createButton(String buttonName) {
+
+        JButton button = new JButton(buttonName);
+        button.setBackground(new java.awt.Color(21, 34, 59));
+        button.setForeground(Color.lightGray);
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.setMaximumSize(new Dimension(210,30));
+        button.setBorderPainted(false);
+
+        return button;
     }
 
 

@@ -14,7 +14,7 @@ import java.awt.*;
 /**
  * Abstract class for pop up frames used in the application : warnings, help frames.
  */
-public abstract class PopUpFrames extends JFrame {
+public abstract class PopUpFrames extends JDialog {
 
     protected JPanel containerPanel;
     protected JPanel buttonPanel;

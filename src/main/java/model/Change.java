@@ -8,7 +8,9 @@ import view.boardComponents.*;
 import annotations.ClassAnnotation;
 import view.frames.KanbanCard;
 
+import java.lang.Class;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @ClassAnnotation(
@@ -23,12 +25,14 @@ import java.util.Date;
  * requires before it is used withing the change log.
  */
 
-public class Change{
+public class Change {
 
     private String objTitle;
     private ChangeType changeType;
     private String className;
     private LocalDateTime date;
+
+    private Object obj;
 
     // updates
     private String updatedField = "";
@@ -36,7 +40,6 @@ public class Change{
 
     //moves
     private String newParentTitle = "";
-
 
 
     /**
@@ -51,13 +54,15 @@ public class Change{
      * Constructor for first-time entry
      * @param changeType
      * @param objTitle
-     * @param classType
+     * @param obj
      * @throws UnknownKanbanObjectException
      */
-    public Change(ChangeType changeType, String objTitle, Class<?> classType) throws UnknownKanbanObjectException {
+    public Change(ChangeType changeType, String objTitle, Object obj) throws UnknownKanbanObjectException {
         this.changeType = changeType;
         this.objTitle = objTitle;
         this.date = LocalDateTime.now();
+
+        Class<?> classType = obj.getClass();
 
         if (classType == KanbanBoard.class) {
             className = "Board";
@@ -66,7 +71,7 @@ public class Change{
         } else if (classType == KanbanCard.class) {
             className = "Card";
         } else {
-            throw new UnknownKanbanObjectException(classType);
+            throw new UnknownKanbanObjectException(obj.getClass());
         }
     }
 
@@ -74,13 +79,13 @@ public class Change{
      * Constructor for updated entry
      * @param changeType
      * @param objTitle
-     * @param classType
+     * @param obj
      * @param updatedField
      * @param updatedValue
      * @throws UnknownKanbanObjectException
      */
-    public Change(ChangeType changeType, String objTitle, Class<?> classType, String updatedField, String updatedValue) throws UnknownKanbanObjectException {
-        this(changeType, objTitle, classType);
+    public Change(ChangeType changeType, String objTitle, Object obj, String updatedField, String updatedValue) throws UnknownKanbanObjectException {
+        this(changeType, objTitle, obj);
         this.updatedField = updatedField;
         this.updatedValue = updatedValue;
 
@@ -96,12 +101,12 @@ public class Change{
      * Constructor for moved object
      * @param changeType
      * @param objTitle
-     * @param classType
+     * @param obj
      * @param newParentTitle
      * @throws UnknownKanbanObjectException
      */
-    public Change(ChangeType changeType, String objTitle, Class<?> classType, String newParentTitle) throws UnknownKanbanObjectException {
-        this(changeType, objTitle, classType);
+    public Change(ChangeType changeType, String objTitle, Object obj, String newParentTitle) throws UnknownKanbanObjectException {
+        this(changeType, objTitle, obj);
         this.newParentTitle = newParentTitle;
 
     }
@@ -112,19 +117,23 @@ public class Change{
      * @throws ChangeTypeNotImplementedException
      */
         public String formatAsString() throws ChangeTypeNotImplementedException {
-        if (changeType == ChangeType.ADD){
-            return "Inserted new " + className +" called \"" + objTitle + "\"";
-        }
-        if (changeType == ChangeType.REMOVE){
-            return "Removed the " + className +" called \"" + objTitle + "\"";
-        }
-        if (changeType == ChangeType.UPDATE){
-            return "Updated the " + updatedField +" of " + className +" \"" + objTitle + "\" to \"" + updatedValue + "\"";
-        }
-        if (changeType == ChangeType.MOVE){
-            return "Moved \"" + objTitle +"\" to \"" + newParentTitle + "\"";
-        }
-        throw new ChangeTypeNotImplementedException(changeType);
+            DateTimeFormatter format =  DateTimeFormatter.ofPattern("HH:mm");
+            String time = "At " + getTimestamp().format(format) + " : ";
+
+            if (changeType == ChangeType.ADD){
+                return time + "Inserted new " + className +" called \"" + objTitle + "\"";
+            }
+            if (changeType == ChangeType.REMOVE){
+                return time + "Removed the " + className +" called \"" + objTitle + "\"";
+            }
+            if (changeType == ChangeType.UPDATE){
+                return time + "Updated the " + updatedField +" of " + className +" \"" + objTitle + "\" to \"" +
+                        updatedValue + "\"";
+            }
+            if (changeType == ChangeType.MOVE){
+                return time + "Moved \"" + objTitle +"\" to \"" + newParentTitle + "\"";
+            }
+            throw new ChangeTypeNotImplementedException(changeType);
     }
 
     /**
@@ -158,5 +167,12 @@ public class Change{
     public LocalDateTime getTimestamp(){
         return date;
     }
+
+    /**
+     * Returns the reference to the Object this Change is about.
+     * Object will need to be cast to e.g. KanbanCard before being used.
+     * @return the Object
+     */
+    public Object getObject() { return obj; }
 
 }

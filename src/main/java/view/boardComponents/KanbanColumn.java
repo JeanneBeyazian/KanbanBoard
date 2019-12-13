@@ -15,7 +15,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static controller.OptionPanes.roleChangeImpossibleWIPTooLowError;
+import static controller.OptionPanes.errorPane;
+
 
 @ClassAnnotation(
         classAuthors = {"Jeanne, (Ali, Nathan, Petra)"},
@@ -37,6 +38,7 @@ public class KanbanColumn extends JPanel {
     private ColumnRole role;
     private ScrollContainer columnPane;
 
+
     private static final int WIDTH = 200;
     private static final int HEIGHT = 710;
 
@@ -44,7 +46,7 @@ public class KanbanColumn extends JPanel {
     public KanbanColumn(String columnTitle, ColumnRole role) {
         // track change
         try {
-            Change change = new Change(Change.ChangeType.ADD, columnTitle, KanbanColumn.class);
+            Change change = new Change(Change.ChangeType.ADD, columnTitle, this);
             ChangeLog.getInstance().addChange(change);
         } catch (UnknownKanbanObjectException u){
             System.out.println("Failed to log.");
@@ -55,7 +57,7 @@ public class KanbanColumn extends JPanel {
         this.role = role;
         titleLabel = new JLabel();
         ++id;
-        columnPane = new ScrollContainer();
+
         initialiseColumn(columnTitle);
     }
 
@@ -67,6 +69,7 @@ public class KanbanColumn extends JPanel {
 
         setPreferredSize(new Dimension(WIDTH,HEIGHT));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        columnPane = new ScrollContainer();
         createColumnTitle(nameIn);
         add(titleLabel);
         add(columnPane);
@@ -117,7 +120,8 @@ public class KanbanColumn extends JPanel {
         BoardPanel board = getBoard();
 
         if (role == ColumnRole.IN_PROGRESS && (getColumnStoryPointsTotal()+board.getWIPcount() > board.getWIPlimit())){
-            roleChangeImpossibleWIPTooLowError(board);
+            errorPane("Setting the role of this column to 'In Progress' would exceed your maximum WIP Limit, of "
+                        + board.getWIPlimit() + ".",  "WIP Limit Reached");
             return;
         }
 
@@ -178,8 +182,9 @@ public class KanbanColumn extends JPanel {
         // Check if IN_PROGRESS column, and make sure it doesn't exceed WIP limit
         if (role == ColumnRole.IN_PROGRESS &&
                 (board.getWIPcount()+card.getCard().getStoryPoints() > board.getWIPlimit())) {
-            OptionPanes.showWIPLimitReachedError(getBoard());
-            return;
+                    errorPane("The entered WIP limit is lower than the current WIP count : " +
+                                    board.getWIPcount() + ".", "WIP Limit Too Low");
+                    return;
         }
         if (role == ColumnRole.IN_PROGRESS) board.incrementWIPCount(card.getCard().getStoryPoints());
 

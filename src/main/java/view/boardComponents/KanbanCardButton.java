@@ -53,9 +53,11 @@ public class KanbanCardButton extends JPanel {
 
     private void initialise() {
 
-        setMaximumSize(new Dimension(195,100));
+        setMinimumSize(new Dimension(195,100));
+        setMaximumSize(getMinimumSize());
+        setPreferredSize(getMinimumSize());
+
         setBackground(new java.awt.Color(165, 218, 240));
-        //setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setLayout(new BorderLayout());
 
         setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.WHITE));
@@ -69,7 +71,6 @@ public class KanbanCardButton extends JPanel {
 
         add(buttonTitle, BorderLayout.CENTER);
         add(storyPoints, BorderLayout.SOUTH);
-
 
     }
 

@@ -3,6 +3,7 @@ package view.frames.editBoardFrames;
 import annotations.ClassAnnotation;
 import controller.ColumnRole;
 import controller.OptionPanes;
+import javafx.util.Pair;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanColumn;
 
@@ -10,6 +11,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.AbstractMap;
+import java.util.Map;
+
+import static controller.OptionPanes.commandNotFoundError;
 
 @ClassAnnotation(
         classAuthors = {"Jeanne"},
@@ -40,25 +45,15 @@ public class AddColumnFrame extends AddFrame implements ActionListener {
 
         JLabel chooseRole = new JLabel("Choose a role:");
 
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.insets = new Insets(10, 10, 10, 10);
-        constraints.anchor = GridBagConstraints.WEST;
+        Map<JComponent, Pair<Integer,Integer>> map = Map.ofEntries(
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(titleLabel, new Pair<>(0,0)),
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(titleField, new Pair<>(1,0)),
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(chooseRole, new Pair<>(0,2)),
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(rolesBox, new Pair<>(1,2))
+        );
 
-        constraints.gridx = 0;
-        constraints.gridy = 2;
-        container.add(chooseRole, constraints);
-        constraints.gridx = 1;
-        container.add(rolesBox, constraints);
+        placeComponents(map, 3);
 
-        constraints.gridx = 0;
-        constraints.gridy = 3;
-        constraints.gridwidth = 2;
-        constraints.anchor = GridBagConstraints.CENTER;
-        container.add(submit, constraints);
-        constraints.anchor = GridBagConstraints.EAST;
-        container.add(cancel,constraints);
-
-        pack();
 
     }
 
@@ -84,7 +79,7 @@ public class AddColumnFrame extends AddFrame implements ActionListener {
             currentPanel.addColumn(new KanbanColumn(columnTitle, setRole));
         }
         else {
-            OptionPanes.commandNotFoundError("Command not found");
+            commandNotFoundError();
         }
 
         dispose();

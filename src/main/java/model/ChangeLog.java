@@ -60,6 +60,14 @@ public class ChangeLog {
     }
 
     /**
+     * Get the last change that happened on the board.
+     * @return Change object
+     */
+    public Change getLastChange() {
+        return changes.get(changes.size()-1);
+    }
+
+    /**
      * Get the single instance of this class and create it if it doesn't exist.
      * @return instance
      */
