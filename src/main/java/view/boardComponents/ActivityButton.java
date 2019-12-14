@@ -2,6 +2,8 @@ package view.boardComponents;
 
 import annotations.ClassAnnotation;
 import model.Change;
+import model.ChangeLog;
+import model.LogTranslater;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,11 +25,12 @@ public class ActivityButton extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
     private JButton activityButton;
+    private int changeID;
     private static final int ACTIVITY_BUTTON_WIDTH = 280;
     private static final int ACTIVITY_BUTTON_HEIGHT = 40;
 
-    public ActivityButton(String str, Change.ChangeType changeType) {
-
+    public ActivityButton(String str, Change.ChangeType changeType, int changeID) {
+        this.changeID = changeID;
         activityButton = new JButton(str);
         initialiseButton();
         this.add(activityButton);
@@ -38,6 +41,7 @@ public class ActivityButton extends JPanel implements ActionListener {
 
     private void initialiseButton() {
 
+        activityButton.addActionListener(this);
         activityButton.setBorderPainted(false);
         activityButton.setOpaque(false);
         activityButton.setPreferredSize(new Dimension(ACTIVITY_BUTTON_WIDTH, ACTIVITY_BUTTON_HEIGHT));
@@ -51,30 +55,19 @@ public class ActivityButton extends JPanel implements ActionListener {
 
     private void setBackground(Change.ChangeType changeType) {
 
-        if (changeType == Change.ChangeType.ADD) {
-            setBackground(new java.awt.Color(130, 191, 150, 255));
-        }
-        else if (changeType == Change.ChangeType.REMOVE) {
-            setBackground(new java.awt.Color(168, 47, 38, 235));
-            //activityButton.setForeground(Color.lightGray);
-        }
-        else if (changeType == Change.ChangeType.UPDATE) {
-            setBackground(new java.awt.Color(112, 77, 163, 235));
-            //activityButton.setForeground(Color.lightGray);
-        }
-        else if (changeType== Change.ChangeType.MOVE) {
-            setBackground(new java.awt.Color(46, 129, 164, 235));
-            //activityButton.setForeground(Color.lightGray);
-        }
-        else {
-            setBackground(new java.awt.Color(67, 65, 68, 235));
-        }
+        if (changeType == Change.ChangeType.ADD) setBackground(new java.awt.Color(130, 191, 150, 255));
+        else if (changeType == Change.ChangeType.REMOVE) setBackground(new java.awt.Color(168, 47, 38, 235));
+        else if (changeType == Change.ChangeType.UPDATE) setBackground(new java.awt.Color(112, 77, 163, 235));
+        else if (changeType== Change.ChangeType.MOVE) setBackground(new java.awt.Color(46, 129, 164, 235));
+        else setBackground(new java.awt.Color(67, 65, 68, 235));
 
     }
 
     @Override
     public void actionPerformed(ActionEvent event) {
         // Once you click on log panel, go back to one state of the board
+            ChangeLog log = ChangeLog.getInstance();
+            LogTranslater trl = new LogTranslater(log.getChanges().subList(0, log.findByID(changeID)));
 
     }
 

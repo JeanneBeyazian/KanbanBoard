@@ -32,7 +32,6 @@ public class KanbanBoard extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	// KanbanBoard frame components
-	private String boardName;
     private static BoardPanel board;
     private EditorPanel editorPanel;
 
@@ -42,7 +41,6 @@ public class KanbanBoard extends JFrame {
     public KanbanBoard(String title) {
 
         // Set up the JFrame
-        boardName = title;
         setName("KanbanBoardFrame");
         this.setTitle(title);
         setSize(WIDTH, HEIGHT);
@@ -52,6 +50,27 @@ public class KanbanBoard extends JFrame {
         // track change
         try {
             Change change = new Change(Change.ChangeType.ADD, title, this);
+            ChangeLog.getInstance().addChange(change);
+        } catch (UnknownKanbanObjectException u){
+            System.out.println("Failed to log.");
+            u.printStackTrace();
+        }
+
+        initialseKanbanBoard();
+        setVisible(true);
+
+    }
+
+    public KanbanBoard() {
+
+        // Set up the JFrame
+        setSize(WIDTH, HEIGHT);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        // track change
+        try {
+            Change change = new Change(Change.ChangeType.ADD, "", this);
             ChangeLog.getInstance().addChange(change);
         } catch (UnknownKanbanObjectException u){
             System.out.println("Failed to log.");
@@ -121,13 +140,13 @@ public class KanbanBoard extends JFrame {
         return editorPanel;
     }
 
-    public String getBoardName(){ return boardName; }
+    public String getBoardName(){ return this.getTitle(); }
 
     public void setBoardName(String newName){
-        boardName = newName;
-        setTitle(boardName);
+        setTitle(newName);
         revalidate();
     }
+
 
     public static void main(String[] args) {
         KanbanBoard board = new KanbanBoard("KanbanBoard");
@@ -154,15 +173,5 @@ public class KanbanBoard extends JFrame {
         }
     }
 
-    public void loadBoardVersion(int changeID) {
-
-        ChangeLog log = ChangeLog.getInstance();
-        int toLoad = log.findByID(changeID);
-
-        KanbanBoard oldBoard = new KanbanBoard("[LOG VERSION] " + this.getTitle());
-
-
-
-    }
 
 }

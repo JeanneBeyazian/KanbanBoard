@@ -222,7 +222,7 @@ public class KanbanColumn extends JPanel {
     /**
      * Remove all cards form a column at once
      */
-    private void clearColumn() {
+    public void clearColumn() {
 
         // If called on empty column
         if (cards.isEmpty()) {

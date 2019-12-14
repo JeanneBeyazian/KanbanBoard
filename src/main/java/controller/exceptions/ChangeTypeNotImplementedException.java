@@ -4,7 +4,7 @@ import model.Change;
 
 @ClassAnnotation(
         classAuthors = "Petra",
-        classEditors = "",
+        classEditors = "Jeanne",
         creationDate = "22/11/2019",
         lastEdit = "08/12/2019"
 )
@@ -17,6 +17,7 @@ public class ChangeTypeNotImplementedException extends Exception {
 
     //class name of change type enum
     private String changeType;
+    private String objectType = null;
 
     /**
      * Default constructor
@@ -32,6 +33,12 @@ public class ChangeTypeNotImplementedException extends Exception {
     public ChangeTypeNotImplementedException(Change.ChangeType changeType){
         super();
         this.changeType = changeType.name(); //gets the name of the enum
+    }
+
+    public ChangeTypeNotImplementedException(Change.ChangeType changeType, Object object){
+        super();
+        this.changeType = changeType.name(); //gets the name of the enum
+        this.objectType = object.getClass().toString();
     }
 
 

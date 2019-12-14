@@ -41,6 +41,7 @@ public class LogPanel extends JPanel {
 
         setPreferredSize(new Dimension(LOG_WIDTH,LOG_HEIGHT));
         setOpaque(false);
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         activityLog = new ScrollContainer();
         add(makeChangeLog());
     }
@@ -68,7 +69,7 @@ public class LogPanel extends JPanel {
             System.out.println("Failed to convert log entry");
         }
 
-        ActivityButton button = new ActivityButton(logEntry, c.getChangeType());
+        ActivityButton button = new ActivityButton(logEntry, c.getChangeType(), c.getId());
         activityLog.add(button);
 
         revalidate();

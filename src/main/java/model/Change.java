@@ -45,7 +45,7 @@ public class Change {
     //moves
     private String newParentTitle = "";
     private Object oldParentType = null;
-    private Object newParentType = null;
+    private Object newParentObject = null;
 
 
     /**
@@ -64,6 +64,7 @@ public class Change {
      * @throws UnknownKanbanObjectException
      */
     public Change(ChangeType changeType, String objTitle, Object obj) throws UnknownKanbanObjectException {
+        ++id;
         this.changeType = changeType;
         this.objTitle = objTitle;
         this.date = LocalDateTime.now();
@@ -118,7 +119,7 @@ public class Change {
                   Object oldParentType) throws UnknownKanbanObjectException {
         this(changeType, objTitle, obj);
         this.newParentTitle = newParentTitle;
-        this.newParentType = newParentType;
+        this.newParentObject = newParentType;
         this.oldParentType = oldParentType;
     }
 
@@ -189,16 +190,19 @@ public class Change {
      */
     public Object getObject() { return obj; }
 
+    public String getNewParentTitle() {
+        return newParentTitle;
+    }
 
     /**
      * @return reference to new parent Object of moved Object
      */
-    public Object getNewParentType(){return newParentType;}
+    public Object getNewParentType(){return newParentObject;}
 
     /**
      * @return reference to old parent Object of moved Object
      */
-    public Object getOldParentType(){return newParentType;}
+    public Object getOldParentType(){return newParentObject;}
 
 
     public static int getId() {
