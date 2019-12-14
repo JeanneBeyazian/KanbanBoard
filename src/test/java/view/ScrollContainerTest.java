@@ -1,5 +1,6 @@
 package view;
 import annotations.ClassAnnotation;
+import model.Change;
 import org.junit.Test;
 import view.boardComponents.ActivityButton;
 import view.containers.ScrollContainer;
@@ -30,26 +31,12 @@ public class ScrollContainerTest {
     public void addToScrollContainer() {
         ScrollContainer scrollContainer = new ScrollContainer();
 
-        scrollContainer.add(new ActivityButton(ActivityType.BOARD_RESET));
-        scrollContainer.add(new ActivityButton(ActivityType.COLUMN_ADD));
-        scrollContainer.add(new ActivityButton(ActivityType.CARD_REMOVE));
-        scrollContainer.add(new ActivityButton(ActivityType.COLUMN_REMOVE));
-        scrollContainer.add(new ActivityButton(ActivityType.CARD_ADD));
-        scrollContainer.add(new ActivityButton(ActivityType.CARD_ADD));
-        scrollContainer.add(new ActivityButton(ActivityType.BOARD_RESET));
-        scrollContainer.add(new ActivityButton(ActivityType.COLUMN_REMOVE));
-        scrollContainer.add(new ActivityButton(ActivityType.CARD_REMOVE));
-    }
+        scrollContainer.add(new ActivityButton("Edit", Change.ChangeType.MOVE));
+        scrollContainer.add(new ActivityButton("Edit", Change.ChangeType.MOVE));
+        scrollContainer.add(new ActivityButton("Edit", Change.ChangeType.MOVE));
+        scrollContainer.add(new ActivityButton("Edit", Change.ChangeType.MOVE));
+        scrollContainer.add(new ActivityButton("Edit", Change.ChangeType.MOVE));
 
-    @Test
-    public void testScrollContainer(){
-        ScrollContainer scrollContainer = new ScrollContainer();
-
-        scrollContainer.add(new ActivityButton(ActivityType.BOARD_RESET));
-        scrollContainer.add(new ActivityButton(ActivityType.COLUMN_ADD));
-        scrollContainer.add(new ActivityButton(ActivityType.CARD_REMOVE));
-        scrollContainer.add(new ActivityButton(ActivityType.COLUMN_REMOVE));
-        scrollContainer.add(new ActivityButton(ActivityType.CARD_ADD));
 
         assertEquals(5,scrollContainer.getActivityButtons());
     }

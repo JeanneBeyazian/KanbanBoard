@@ -24,14 +24,25 @@ abstract public class AddFrame extends EditorFrame implements ActionListener {
     public AddFrame(String type, BoardPanel currentPanel) {
         super(currentPanel);
         this.currentPanel = currentPanel;
+
         titleLabel = new JLabel("Enter a title:");
+        titleLabel.setName("titleLabel");
+
         titleField = new JTextField(20);
+        titleField.setName("titleField");
+
+        setUpFrame(type);
+    }
+
+    /** Set up of the frame : add titleField and titleLabel */
+    protected void setUpFrame(String type) {
         container.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
                 ("Adding a new " + type + " to the board")));
     }
 
     protected JComboBox<String> createRolesList(){
         JComboBox<String> box = new JComboBox<>(ColumnRole.getRoles());
+        box.setName("columnRolesBox");
         return box;
     }
 

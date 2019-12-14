@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @ClassAnnotation(
-        classAuthors = {"Petra"},
+        classAuthors = {"Petra, edited by Jeanne"},
         creationDate = "22/11/2019",
         lastEdit = "14/12/2019"
 )
@@ -27,6 +27,8 @@ import java.util.Date;
  */
 
 public class Change {
+
+    private static int id = -1;   // Unique ID
 
     private String objTitle;
     private ChangeType changeType;
@@ -41,6 +43,8 @@ public class Change {
 
     //moves
     private String newParentTitle = "";
+    private Object oldParentType = null;
+    private Object newParentType = null;
 
 
     /**
@@ -85,7 +89,8 @@ public class Change {
      * @param updatedValue
      * @throws UnknownKanbanObjectException
      */
-    public Change(ChangeType changeType, String objTitle, Object obj, String updatedField, String updatedValue) throws UnknownKanbanObjectException {
+    public Change(ChangeType changeType, String objTitle, Object obj, String updatedField, String updatedValue)
+            throws UnknownKanbanObjectException {
         this(changeType, objTitle, obj);
         this.updatedField = updatedField;
         this.updatedValue = updatedValue;
@@ -108,10 +113,12 @@ public class Change {
      * @param newParentTitle
      * @throws UnknownKanbanObjectException
      */
-    public Change(ChangeType changeType, String objTitle, Object obj, String newParentTitle) throws UnknownKanbanObjectException {
+    public Change(ChangeType changeType, String objTitle, Object obj, String newParentTitle, Object newParentType,
+                  Object oldParentType) throws UnknownKanbanObjectException {
         this(changeType, objTitle, obj);
         this.newParentTitle = newParentTitle;
-
+        this.newParentType = newParentType;
+        this.oldParentType = oldParentType;
     }
 
     /**
@@ -178,4 +185,19 @@ public class Change {
      */
     public Object getObject() { return obj; }
 
+
+    /**
+     * @return reference to new parent Object of moved Object
+     */
+    public Object getNewParentType(){return newParentType;}
+
+    /**
+     * @return reference to old parent Object of moved Object
+     */
+    public Object getOldParentType(){return newParentType;}
+
+
+    public static int getId() {
+        return id;
+    }
 }

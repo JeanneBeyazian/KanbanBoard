@@ -88,4 +88,18 @@ public class ChangeLog {
 
     }
 
+    /**
+     * Find a specific change and its position in teh changes list using its ID
+     * @param changeID unique id of change to find
+     * @return index of this change in log list
+     */
+    public int findByID(int changeID) {
+
+        int index = -1;
+        for (Change change : changes) {
+            if (change.getId() == changeID) index = changes.indexOf(change);
+        }
+        return index;
+    }
+
 }

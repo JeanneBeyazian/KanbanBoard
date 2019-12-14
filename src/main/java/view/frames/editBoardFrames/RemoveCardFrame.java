@@ -24,7 +24,7 @@ import static controller.OptionPanes.*;
 @ClassAnnotation(
         classAuthors = {"Jeanne", "Petra"},
         creationDate = "29/11/2019",
-        lastEdit = "08/12/2019"
+        lastEdit = "13/12/2019"
 )
 public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener {
 
@@ -36,7 +36,6 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
     private JComboBox<String> chooseCardBox;
     private JButton columnChosenButton;
 
-
     public RemoveCardFrame(BoardPanel currentPanel) {
 
         super(currentPanel);
@@ -44,6 +43,9 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
         addCardBox();
     }
 
+    /**
+     * Setting up : add a label and combo box to choose card to be removed
+     */
     private void addCardBox() {
 
         chooseCardBox = new JComboBox<String>();
@@ -57,7 +59,7 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
         Map<JComponent, Pair<Integer,Integer>> map = Map.ofEntries(
                 new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(chooseCardLabel, new Pair<>(0,2)),
                 new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(chooseCardBox, new Pair<>(1,2)),
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(columnChosenButton, new Pair<>(3,0))
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(columnChosenButton, new Pair<>(3,1))
         );
 
         placeComponents(map, 3);
@@ -78,21 +80,24 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
     }
 
 
-
+    /**
+     *  Set up the cards list combo box : add all cards from selected column to the box
+     */
     private void createCardList() {
 
+        // Check if no column selected
         if (getSelectedColumn() == null) {
             missingComponentError("Column");
             chooseCardBox.setEnabled(false);
             return;
         }
 
+        // List of all cards in selected column
         ArrayList<KanbanCardButton> cards = getSelectedColumn().getCards();
 
-        for (KanbanCardButton cardButton : cards) {
-            chooseCardBox.addItem(cardButton.getCardButtonTitle());
-        }
+        for (KanbanCardButton cardButton : cards) chooseCardBox.addItem(cardButton.getCardButtonTitle());
 
+        // If empty column, disable combobox
         if (cards.isEmpty()==true) columnsBox.setEnabled(false);
 
         revalidate();

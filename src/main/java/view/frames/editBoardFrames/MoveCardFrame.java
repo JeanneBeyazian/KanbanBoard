@@ -73,6 +73,7 @@ public class MoveCardFrame extends EditorFrame {
 
             try {
                 columnToAdd = currentPanel.getColumnByTitle(columnName);
+                columnToAdd.addCard(currentCard);
             }
 
             catch (KanbanObjectNotFoundException e){
@@ -90,7 +91,6 @@ public class MoveCardFrame extends EditorFrame {
                 return;
             }
 
-            columnToAdd.addCard(currentCard);
             dispose();
         }
         else {

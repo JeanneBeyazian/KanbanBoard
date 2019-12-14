@@ -31,7 +31,6 @@ public class RemoveColumnFrame extends EditorFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	protected JLabel chooseColumnLabel;
     protected  JComboBox<String> columnsBox;
-    protected String type = "column";
 
     public RemoveColumnFrame(BoardPanel currentPanel) {
 
@@ -48,8 +47,8 @@ public class RemoveColumnFrame extends EditorFrame implements ActionListener {
                 ("Removing a column from the board")));
 
         Map<JComponent, Pair<Integer,Integer>> map = Map.ofEntries(
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(chooseColumnLabel, new Pair<>(0,2)),
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(columnsBox, new Pair<>(1,2))
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(chooseColumnLabel, new Pair<>(0,1)),
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(columnsBox, new Pair<>(1,1))
         );
 
         placeComponents(map, 3);

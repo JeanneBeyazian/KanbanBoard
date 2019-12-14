@@ -42,6 +42,7 @@ public class KanbanBoard extends JFrame {
 
         // Set up the JFrame
         boardName = title;
+        setName("KanbanBoardFrame");
         this.setTitle(title);
         setSize(WIDTH, HEIGHT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -150,6 +151,17 @@ public class KanbanBoard extends JFrame {
             }
      	   board.addColumn(newBoardCol);
         }
+    }
+
+    public void loadBoardVersion(int changeID) {
+
+        ChangeLog log = ChangeLog.getInstance();
+        int toLoad = log.findByID(changeID);
+
+        KanbanBoard oldBoard = new KanbanBoard("[LOG VERSION] " + this.getTitle());
+
+
+
     }
 
 }

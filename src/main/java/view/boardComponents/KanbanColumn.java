@@ -3,7 +3,6 @@ package view.boardComponents;
 import annotations.ClassAnnotation;
 
 import controller.ColumnRole;
-import controller.OptionPanes;
 import controller.exceptions.KanbanObjectNotFoundException;
 import controller.exceptions.UnknownKanbanObjectException;
 import model.Change;
@@ -37,7 +36,6 @@ public class KanbanColumn extends JPanel {
     private JLabel titleLabel;
     private ColumnRole role;
     private ScrollContainer columnPane;
-
 
     private static final int WIDTH = 200;
     private static final int HEIGHT = 710;

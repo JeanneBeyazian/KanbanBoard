@@ -74,6 +74,7 @@ public class ActivityButton extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         // Once you click on log panel, go back to one state of the board
+
     }
 
 
