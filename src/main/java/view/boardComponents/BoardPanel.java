@@ -75,7 +75,7 @@ public class BoardPanel extends JPanel {
             removeAll();
             revalidate();
             repaint();
-            Change change = new Change(Change.ChangeType.REMOVE, parentBoard.getBoardName(), this);
+            Change change = new Change(Change.ChangeType.CLEAR, parentBoard.getBoardName(), this);
             ChangeLog.getInstance().addChange(change);
         } catch (UnknownKanbanObjectException u){
             System.out.println("Failed to log.");

@@ -7,7 +7,7 @@ import view.containers.LogPanel;
 
 @ClassAnnotation(
         classAuthors = "Petra",
-        classEditors = "",
+        classEditors = "Jeanne",
         creationDate = "08/12/2019",
         lastEdit = "08/12/2019"
 )

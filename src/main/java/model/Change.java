@@ -53,7 +53,7 @@ public class Change {
      * of a change which is possible.
      */
     public enum ChangeType{
-        ADD, REMOVE, UPDATE, MOVE
+        ADD, REMOVE, UPDATE, MOVE, CLEAR
     }
 
     /**
@@ -143,6 +143,9 @@ public class Change {
             }
             if (changeType == ChangeType.MOVE){
                 return time + "Moved \"" + objTitle +"\" to \"" + newParentTitle + "\"";
+            }
+            if (changeType == ChangeType.CLEAR){
+                return time + "Cleared the " + className +" called \"" + objTitle + "\"";
             }
             throw new ChangeTypeNotImplementedException(changeType);
     }
