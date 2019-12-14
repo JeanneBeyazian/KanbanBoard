@@ -148,9 +148,6 @@ public class KanbanBoard extends JFrame {
     }
 
 
-    public static void main(String[] args) {
-        KanbanBoard board = new KanbanBoard("KanbanBoard");
-    }
 
     /**
      * Open an existing saved Kanban Board

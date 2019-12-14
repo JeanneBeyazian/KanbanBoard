@@ -36,6 +36,10 @@ public class LogTranslater {
 
     }
 
+    /**
+     * Translation process : for each changes in the given log, checks type of change and reproduces it
+     * in a new empty KanbanBoard.
+     */
     private void translate() {
 
         for (Change change : log) {
@@ -131,7 +135,7 @@ public class LogTranslater {
                 card.getDescription().setText((String)change.getUpdatedValue());
             }
             else if (change.getUpdatedField().equals("story points")) {
-                card.getStoryPointsBox().setSelectedItem((Integer)change.getUpdatedValue());
+                card.getStoryPointsBox().setSelectedItem((Integer.valueOf((String)change.getUpdatedValue())));
             }
 
             card.update();

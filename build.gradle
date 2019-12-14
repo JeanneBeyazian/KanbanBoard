@@ -1,6 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'application'
-mainClassName = 'model.KanbanBoard'
+mainClassName = 'view.MainFrame'
 dependencies{
     implementation 'org.openjfx:javafx:14-ea+2'
     testCompile 'junit:junit:4.12'

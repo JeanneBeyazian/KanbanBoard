@@ -47,7 +47,7 @@ public class EditorPanel extends JPanel {
 
         setBackground(new java.awt.Color(26, 58, 161));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.setBorder(new EmptyBorder(new Insets(10,10,10,10)));
+        this.setBorder(new EmptyBorder(new Insets(10,15,10,15)));
 
         // Editor title
         add(Box.createRigidArea(new Dimension(0, 5)));
@@ -56,20 +56,27 @@ public class EditorPanel extends JPanel {
         add(new JSeparator());
 
         // New group layout to display user commands
+        add(Box.createRigidArea(new Dimension(0, 15)));
         add(createCommandsLayout());
+        add(Box.createRigidArea(new Dimension(0, 15)));
         add(new JSeparator());
 
         // WIP limit
+        add(Box.createRigidArea(new Dimension(0, 5)));
         add(createWIPLimitBox());
+        add(Box.createRigidArea(new Dimension(0, 5)));
         add(new JSeparator());
 
         // Activity log
+        add(Box.createRigidArea(new Dimension(0, 5)));
         add(createLabel("Activity Log"));
+        add(Box.createRigidArea(new Dimension(0, 5)));
         add(new LogPanel());
         add(new JSeparator());
 
+        // Create clear and exit buttons
+        add(Box.createRigidArea(new Dimension(0, 10)));
         add(createClearButton());
-        // Create an exit button
         add(Box.createRigidArea(new Dimension(0, 5)));
         add(createExitButton());
     }
@@ -107,37 +114,24 @@ public class EditorPanel extends JPanel {
         // Set up panel and group layout
         JPanel pane = new JPanel();
         pane.setOpaque(false);
-        GroupLayout group = new GroupLayout(pane);
-        pane.setLayout(group);
-        group.setAutoCreateGaps(true);
-        group.setAutoCreateContainerGaps(true);
+        GridLayout grid = new GridLayout(0,2);
+        pane.setLayout(grid);
 
-        // First, horizontal grouping
-        group.setHorizontalGroup(
-                group.createSequentialGroup()
-                        .addGroup(group.createParallelGroup(LEADING)
-                                .addComponent(addCardButton).addComponent(removeCardButton)
-                                .addComponent(addColumnButton).addComponent(removeColumnButton))
-                        .addGroup(group.createParallelGroup()
-                                .addComponent(addCardLabel).addComponent(removeCardLabel)
-                                .addComponent(addColumnLabel).addComponent(removeColumnLabel))
-        );
+        //Set horizontal and vertical gap
+        grid.setHgap(10);
+        grid.setVgap(15);
 
-        // Second, vertical grouping
-        group.setVerticalGroup(
-                group.createSequentialGroup()
-                        .addGroup(group.createParallelGroup(BASELINE)
-                                .addComponent(addCardButton).addComponent(addCardLabel))
-                        .addGroup(group.createParallelGroup(BASELINE)
-                                .addComponent(removeCardButton).addComponent(removeCardLabel))
-                        .addGroup(group.createParallelGroup(BASELINE)
-                                .addComponent(addColumnButton).addComponent(addColumnLabel))
-                        .addGroup(group.createParallelGroup(BASELINE)
-                                .addComponent(removeColumnButton).addComponent(removeColumnLabel))
-                        .addGap(10)
-        );
+        // Add card buttons
+        pane.add(addCardLabel);
+        pane.add(addCardButton);
+        pane.add(removeCardLabel);
+        pane.add(removeCardButton);
 
-        group.linkSize(SwingConstants.HORIZONTAL, addCardButton, removeCardButton, addColumnButton, removeColumnButton);
+        // Add column buttons
+        pane.add(addColumnLabel);
+        pane.add(addColumnButton);
+        pane.add(removeColumnLabel);
+        pane.add(removeColumnButton);
 
         return pane;
     }
@@ -165,6 +159,8 @@ public class EditorPanel extends JPanel {
     private JButton createButton(String buttonName) {
 
         JButton button = new JButton(buttonName);
+        button.setMaximumSize(new Dimension(150,20));
+        button.setPreferredSize(new Dimension(150,20));
         button.setBackground(new java.awt.Color(21, 34, 59));
         button.setForeground(Color.lightGray);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -211,6 +207,7 @@ public class EditorPanel extends JPanel {
         exitButton.setName("exitButton");
         exitButton.setToolTipText("Quit Indigo-Kanban?");
         exitButton.addActionListener(e->System.exit(0));
+        exitButton.setForeground(Color.black);
         exitButton.setBackground(new java.awt.Color(250, 105, 128));
 
         return exitButton;
