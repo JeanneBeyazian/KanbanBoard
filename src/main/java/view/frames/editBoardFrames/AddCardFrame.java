@@ -95,7 +95,6 @@ public class AddCardFrame extends AddFrame implements ActionListener {
             }
 
             catch(KanbanObjectNotFoundException e){
-                // TODO = ALERT USER OF COLUMNN ERROR
                 System.out.println("Error: Column not found");
                 e.printStackTrace();
                 return;

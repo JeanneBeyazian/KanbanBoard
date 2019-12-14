@@ -16,13 +16,14 @@ import java.util.Date;
 @ClassAnnotation(
         classAuthors = {"Petra"},
         creationDate = "22/11/2019",
-        lastEdit = "08/12/2019"
+        lastEdit = "14/12/2019"
 )
 
 
 /**
- * This class stores the attributes a single Change object
- * requires before it is used withing the change log.
+ * This class stores the attributes of a single Change object.
+ * The Change objects are then stored in the ChangeLog and displayed to the user.
+ * Each Change object has a 'changeType' implemented using enums.
  */
 
 public class Change {

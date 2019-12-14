@@ -76,7 +76,6 @@ public class MoveCardFrame extends EditorFrame {
             }
 
             catch (KanbanObjectNotFoundException e){
-                // TODO = ALERT USER OF COLUMNN ERROR
                 System.out.println("Error: Column not found");
                 e.printStackTrace();
                 return;

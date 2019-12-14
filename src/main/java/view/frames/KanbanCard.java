@@ -207,6 +207,10 @@ public class KanbanCard extends JFrame {
         return move;
     }
 
+    /**
+     * Method which decides whether a card has been updated on save.
+     * Checks for changes such as title, description, or story points change.
+     */
     private void update() {
 
         // Get input values

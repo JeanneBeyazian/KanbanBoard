@@ -17,9 +17,9 @@ import java.util.ArrayList;
 
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
+        classAuthors = {"Jeanne", "Petra"},
         creationDate = "08/11/2019",
-        lastEdit = "08/12/2019, by Petra"
+        lastEdit = "08/12/2019"
 )
 /**
  * This class sets up the application frame.

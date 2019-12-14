@@ -19,12 +19,12 @@ import static controller.OptionPanes.errorPane;
 
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne, (Ali, Nathan, Petra)"},
+        classAuthors = {"Jeanne", "Ali", "Nathan", "Petra"},
         creationDate = "13/11/2019",
-        lastEdit = "08/12/2019"
+        lastEdit = "14/12/2019"
 )
 /**
- *
+ * This class implements the functionalities of a column in a Kanban Board.
  */
 public class KanbanColumn extends JPanel {
 
@@ -42,7 +42,13 @@ public class KanbanColumn extends JPanel {
     private static final int WIDTH = 200;
     private static final int HEIGHT = 710;
 
-
+    /**
+     * Constructor for the KanbanColumn class.
+     * Whenever a new KanbanColumn object is constructed it is logged into the Change Log.
+     * It also creates a new ArrayList for the cards to be added to the column.
+     * @param columnTitle
+     * @param role
+     */
     public KanbanColumn(String columnTitle, ColumnRole role) {
         // track change
         try {

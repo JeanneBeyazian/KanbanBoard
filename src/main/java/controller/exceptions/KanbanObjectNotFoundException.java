@@ -17,7 +17,6 @@ public class KanbanObjectNotFoundException extends Exception {
     //class name of searched object
     private String objectType;
     //if you're looking for an object in a parent with ID
-    // TODO - add field for object title
     private int parentId = -1;
 
     /**

@@ -1,24 +1,34 @@
 package view.boardComponents;
 
-//import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime; 
+import java.time.LocalDateTime;
 
+/**
+ * This class registers any change made on the board and classifies it as a 'Command' action.
+ */
 public class Command {    
 	
-	//DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
    LocalDateTime now;
    String action;
    KanbanColumn col;
    KanbanCardButton card;
-   
-   
-   public Command(String cmd, KanbanColumn newCol){
+
+	/**
+	 * Constructor for the creation of new columns.
+	 * @param cmd
+	 * @param newCol
+	 */
+	public Command(String cmd, KanbanColumn newCol){
 	   now = LocalDateTime.now();  
 	   action = cmd;
 	   col = newCol;
    }
-   
-   public Command(String cmd, KanbanCardButton newCard){
+
+	/**
+	 * Constructor for the creation of new cards.
+	 * @param cmd
+	 * @param newCard
+	 */
+	public Command(String cmd, KanbanCardButton newCard){
 	   now = LocalDateTime.now();  
 	   action = cmd;
 	   card = newCard;

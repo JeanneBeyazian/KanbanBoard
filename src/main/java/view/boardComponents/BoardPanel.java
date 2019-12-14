@@ -16,9 +16,9 @@ import static controller.OptionPanes.missingComponentError;
 
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne, (Petra)"},
+        classAuthors = {"Jeanne", "Petra"},
         creationDate = "09/11/2019",
-        lastEdit = "06/12/2019"
+        lastEdit = "14/12/2019"
 )
 /**
  * This class creates the panel that will contain the columns

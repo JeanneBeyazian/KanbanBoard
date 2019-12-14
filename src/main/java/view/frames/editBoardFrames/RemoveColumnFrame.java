@@ -56,7 +56,10 @@ public class RemoveColumnFrame extends EditorFrame implements ActionListener {
 
     }
 
-
+    /**
+     * Method triggering the removal of a column.
+     * @param event
+     */
     public void actionPerformed(ActionEvent event) {
 
         if (event.getSource() == submit) {
