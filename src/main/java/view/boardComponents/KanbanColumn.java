@@ -230,10 +230,17 @@ public class KanbanColumn extends JPanel {
             return;
         }
 
-        cards.clear();
-        columnPane.removeAll();
-        revalidate();
-        repaint();
+        try {
+            cards.clear();
+            columnPane.removeAll();
+            revalidate();
+            repaint();
+            Change change = new Change(Change.ChangeType.CLEAR, this.getColumnTitle(), this);
+            ChangeLog.getInstance().addChange(change);
+        } catch (UnknownKanbanObjectException u){
+            System.out.println("Failed to log.");
+            u.printStackTrace();
+        }
     }
 
 
