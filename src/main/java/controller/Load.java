@@ -30,6 +30,7 @@ public class Load {
 			board = (BoardPanel) input.readObject();
 
 		} catch (Exception ex) {
+			System.out.println("here i am");
 			ex.printStackTrace();
 		} finally {
 

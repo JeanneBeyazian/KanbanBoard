@@ -64,11 +64,11 @@ public class Change {
 
         Class<?> classType = obj.getClass();
 
-        if (classType == KanbanBoard.class) {
+        if (classType == KanbanBoard.class || classType == BoardPanel.class) {
             className = "Board";
         } else if (classType == KanbanColumn.class) {
             className = "Column";
-        } else if (classType == KanbanCard.class) {
+        } else if (classType == KanbanCard.class || classType == KanbanCardButton.class) {
             className = "Card";
         } else {
             throw new UnknownKanbanObjectException(obj.getClass());
@@ -96,6 +96,8 @@ public class Change {
         }
 
     }
+
+
 
     /**
      * Constructor for moved object

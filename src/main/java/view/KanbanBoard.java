@@ -67,7 +67,7 @@ public class KanbanBoard extends JFrame {
     private void initialseKanbanBoard() {
 
         // Create board panel
-        board = new BoardPanel();
+        board = new BoardPanel(this);
         add(board);
 
         //board.setPreferredSize(new Dimension(WIDTH/4*3, HEIGHT));

@@ -2,6 +2,11 @@ package view.boardComponents;
 
 import annotations.ClassAnnotation;
 import controller.exceptions.KanbanObjectNotFoundException;
+import controller.exceptions.UnknownKanbanObjectException;
+import model.Change;
+import model.ChangeLog;
+import view.KanbanBoard;
+import view.frames.KanbanCard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,11 +33,14 @@ public class BoardPanel extends JPanel {
     private int WIPlimit;
     private int WIPcount;
 
-    public BoardPanel() {
+    private KanbanBoard parentBoard;
+
+    public BoardPanel(KanbanBoard parentBoard) {
         super();
         initialiseBoard();
         WIPcount = 0;
         WIPlimit = 0;
+        this.parentBoard = parentBoard;
     }
 
     public void initialiseBoard() {
@@ -61,10 +69,19 @@ public class BoardPanel extends JPanel {
             missingComponentError("Column");
             return;
         }
-        columns.clear();
-        removeAll();
-        revalidate();
-        repaint();
+        try {
+            columns.clear();
+            removeAll();
+            revalidate();
+            repaint();
+            Change change = new Change(Change.ChangeType.REMOVE, parentBoard.getBoardName(), this);
+            ChangeLog.getInstance().addChange(change);
+        } catch (UnknownKanbanObjectException u){
+            System.out.println("Failed to log.");
+            u.printStackTrace();
+        }
+
+
     }
 
     public boolean isEmpty() {
