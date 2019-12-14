@@ -2,7 +2,10 @@ package view.frames.editBoardFrames;
 
 import annotations.ClassAnnotation;
 import controller.exceptions.KanbanObjectNotFoundException;
+import controller.exceptions.UnknownKanbanObjectException;
 import javafx.util.Pair;
+import model.Change;
+import model.ChangeLog;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanCardButton;
 import view.boardComponents.KanbanColumn;
@@ -26,6 +29,7 @@ public class MoveCardFrame extends EditorFrame {
     private JComboBox<String> columnsBox;
     private JComboBox<String> thisColumnBox;
     private KanbanCardButton currentCard;
+
 
     public MoveCardFrame(BoardPanel currentPanel, KanbanCardButton currentCard) {
 
@@ -79,6 +83,11 @@ public class MoveCardFrame extends EditorFrame {
             try {
                 columnToAdd = currentPanel.getColumnByTitle(columnName);
                 columnToAdd.addCard(currentCard);
+                Change change = new Change(Change.ChangeType.MOVE, currentCard.getCardButtonTitle(), currentCard, currentColumn, columnToAdd);
+                ChangeLog.getInstance().addChange(change);
+            } catch (UnknownKanbanObjectException u){
+                System.out.println("Failed to log.");
+                u.printStackTrace();
             }
 
             catch (KanbanObjectNotFoundException e){

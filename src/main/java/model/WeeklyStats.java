@@ -84,8 +84,8 @@ public class WeeklyStats {
                 Class<?> classType = obj.getClass();
 
                 if(type == Change.ChangeType.MOVE && classType == KanbanCard.class) {
-                    KanbanColumn newParentColumn = (KanbanColumn) change.getNewParentType();
-                    KanbanColumn oldParentColumn = (KanbanColumn) change.getOldParentType();
+                    KanbanColumn newParentColumn = (KanbanColumn) change.getNewParent();
+                    KanbanColumn oldParentColumn = (KanbanColumn) change.getOldParent();
 
                     // Check if new parent column is of type completed, and old parent column wasn't completed
                     if (newParentColumn.getRole() == ColumnRole.COMPLETED
