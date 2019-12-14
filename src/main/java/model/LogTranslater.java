@@ -1,6 +1,7 @@
 package model;
 
 import annotations.ClassAnnotation;
+import controller.ColumnRole;
 import controller.exceptions.ChangeTypeNotImplementedException;
 import controller.exceptions.KanbanObjectNotFoundException;
 import view.KanbanBoard;
@@ -23,33 +24,28 @@ import java.util.List;
 public class LogTranslater {
 
     private List<Change> log;
-    private KanbanBoard board;
+    private KanbanBoard board = new KanbanBoard();
 
     public LogTranslater(List<Change> log) {
 
         this.log = log;
-        board = new KanbanBoard();
+        translate();
+        board.getEditorPanel().setVisible(false);
         board.setVisible(true);
-        try{
-            translate();
-        }
-        catch (Exception e){
-        }
+
 
     }
 
-    private void translate() throws ChangeTypeNotImplementedException{
+    private void translate() {
 
         for (Change change : log) {
 
             Change.ChangeType changeType = change.getChangeType();
-
-                if (changeType == Change.ChangeType.ADD) add(change);
+                if (changeType==Change.ChangeType.ADD) add(change);
                 if (changeType == Change.ChangeType.REMOVE) remove(change);
                 if (changeType == Change.ChangeType.UPDATE) update(change);
                 if (changeType == Change.ChangeType.MOVE) move(change);
                 if (changeType == Change.ChangeType.CLEAR) clear(change);
-                throw new ChangeTypeNotImplementedException(changeType);
         }
     }
 
@@ -59,15 +55,19 @@ public class LogTranslater {
      * @param change
      * @throws ChangeTypeNotImplementedException
      */
-    private void add(Change change) throws ChangeTypeNotImplementedException {
+    private void add(Change change) {
 
-        if (change.getObject() == KanbanBoard.class) {
-            board.setBoardName(change.getobjTitle());
+        Class<?> classType = change.getObject().getClass();
+
+        if (classType == KanbanBoard.class) {
+            board.setBoardName("[LOG VERSION UNTIL CHANGE "
+                    + log.get(log.size()-1).getId() +" OF BOARD :  " + change.getobjTitle()
+                    + "] - Please do not modify past versions.");
         }
-        else if (change.getObject() == KanbanColumn.class){
+        else if (classType == KanbanColumn.class){
             board.getBoard().addColumn((KanbanColumn) change.getObject());
         }
-        else if (change.getObject() == KanbanCard.class) {
+        else if (classType== KanbanCard.class) {
             try {
                 board.getBoard().getColumnByTitle(change.getNewParentTitle())
                         .addCard((KanbanCardButton)change.getObject());
@@ -75,7 +75,6 @@ public class LogTranslater {
                 new KanbanObjectNotFoundException();
             }
         }
-        else throw new ChangeTypeNotImplementedException(change.getChangeType(), change.getObject());
 
     }
 
@@ -84,12 +83,15 @@ public class LogTranslater {
      * @param change
      * @throws ChangeTypeNotImplementedException
      */
-    private void remove(Change change) throws ChangeTypeNotImplementedException {
+    private void remove(Change change) {
 
-        if (change.getObject() == KanbanColumn.class) {
+        Class<?> classType = change.getObject().getClass();
+
+
+        if (classType== KanbanColumn.class) {
             board.remove((KanbanColumn)change.getObject());
         }
-        else if (change.getObject() == KanbanCard.class || change.getObject() == KanbanCardButton.class) {
+        else if (classType== KanbanCard.class || change.getObject() == KanbanCardButton.class) {
             try {
                 KanbanColumn old = (KanbanColumn) change.getOldParent();
                 board.getBoard().getColumnByTitle(old.getColumnTitle())
@@ -98,7 +100,6 @@ public class LogTranslater {
                 new KanbanObjectNotFoundException();
             }
         }
-        else throw new ChangeTypeNotImplementedException(change.getChangeType(), change.getObject());
 
     }
 
@@ -107,10 +108,34 @@ public class LogTranslater {
      * @param change
      * @throws ChangeTypeNotImplementedException
      */
-    private void update(Change change) throws ChangeTypeNotImplementedException {
-        if (change.getObject() == KanbanColumn.class) {}
-        else if (change.getObject() == KanbanCard.class || change.getObject() == KanbanCardButton.class) {}
-        else throw new ChangeTypeNotImplementedException(change.getChangeType(), change.getObject());
+    private void update(Change change)  {
+
+        Class<?> classType = change.getObject().getClass();
+
+        if (classType== KanbanColumn.class) {
+            if (change.getUpdatedField().equals("role")){
+                ((KanbanColumn)change.getObject()).setRole((ColumnRole)change.getUpdatedValue());
+            }
+            else if (change.getUpdatedField().equals("title")) {
+                ((KanbanColumn)change.getObject()).setColumnTitle((String)change.getUpdatedValue());
+            }
+        }
+
+        else if (classType== KanbanCard.class || change.getObject() == KanbanCardButton.class) {
+            KanbanCard card = (KanbanCard)change.getObject();
+
+            if (change.getUpdatedField().equals("title")){
+                card.getCardTitleField().setText((String)change.getUpdatedValue());
+            }
+            else if (change.getUpdatedField().equals("description")) {
+                card.getDescription().setText((String)change.getUpdatedValue());
+            }
+            else if (change.getUpdatedField().equals("story points")) {
+                card.getStoryPointsBox().setSelectedItem((Integer)change.getUpdatedValue());
+            }
+
+            card.update();
+        }
 
     }
 
@@ -119,11 +144,21 @@ public class LogTranslater {
      * @param change
      * @throws ChangeTypeNotImplementedException
      */
-    private void move(Change change) throws ChangeTypeNotImplementedException {
-        if (change.getObject() == KanbanCard.class || change.getObject() == KanbanCardButton.class) {
+    private void move(Change change) {
+        Class<?> classType = change.getObject().getClass();
 
+        if (classType== KanbanCard.class || classType== KanbanCardButton.class) {
+            KanbanColumn prevCol = (KanbanColumn) change.getOldParent();
+            try {
+                board.getBoard().getColumnByTitle(change.getNewParentTitle())
+                        .addCard((KanbanCardButton)change.getObject());
+                board.getBoard().getColumnByTitle(prevCol.getColumnTitle())
+                        .removeCard((KanbanCardButton) change.getObject());
+
+            } catch (Exception e){
+                new KanbanObjectNotFoundException();
+            }
         }
-        else throw new ChangeTypeNotImplementedException(change.getChangeType(), change.getObject());
 
     }
 
@@ -132,7 +167,7 @@ public class LogTranslater {
      * @param change
      * @throws ChangeTypeNotImplementedException
      */
-    private void clear(Change change) throws ChangeTypeNotImplementedException {
+    private void clear(Change change)  {
         if (change.getObject() == KanbanColumn.class) {
             KanbanColumn col = (KanbanColumn)change.getObject();
             col.clearColumn();
@@ -140,7 +175,6 @@ public class LogTranslater {
         else if (change.getObject() == KanbanBoard.class) {
             ((KanbanBoard)change.getObject()).getBoard().clearBoard();
         }
-        else throw new ChangeTypeNotImplementedException(change.getChangeType(), change.getObject());
 
     }
 

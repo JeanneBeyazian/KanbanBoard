@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 @ClassAnnotation(
         classAuthors = "Jeanne",
@@ -67,7 +69,14 @@ public class ActivityButton extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         // Once you click on log panel, go back to one state of the board
             ChangeLog log = ChangeLog.getInstance();
-            LogTranslater trl = new LogTranslater(log.getChanges().subList(0, log.findByID(changeID)));
+            int toLoad = log.findByID(changeID);
+            if (toLoad>0) {
+                ArrayList<Change> changeToLoad = new ArrayList<>();
+                for (int i = 0; i<=toLoad; i++) {
+                    changeToLoad.add(log.getChanges().get(i));
+                }
+                LogTranslater trl = new LogTranslater(changeToLoad);
+            }
 
     }
 

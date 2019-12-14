@@ -83,7 +83,7 @@ public class KanbanBoard extends JFrame {
     }
 
     /**
-     * Create each components for the frame : Board panel, Editor panel, Kaban Menu bar
+     * Create each components for the frame : Board panel, Editor panel, Kanban Menu bar
      */
     private void initialseKanbanBoard() {
 

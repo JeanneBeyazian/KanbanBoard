@@ -34,6 +34,9 @@ public class UpdateColumnFrame extends AddFrame implements ActionListener{
         submit.addActionListener(this);
     }
 
+    /**
+     * Sets up the constituents of the frame
+     */
     private void setUpFrame() {
 
         container.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
@@ -57,7 +60,6 @@ public class UpdateColumnFrame extends AddFrame implements ActionListener{
 
     }
 
-    // TODO : put everything in column class
     public void actionPerformed(ActionEvent event) {
 
         if (event.getSource() == submit) {

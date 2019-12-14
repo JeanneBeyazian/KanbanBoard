@@ -34,7 +34,6 @@ public class KanbanCard extends JFrame {
     private KanbanCardButton cardButton;
     private JTextField title;
     private JTextArea description;
-    private JTextArea storyPoints;
 
     private String cardTitle;
     private String cardDescription;
@@ -100,6 +99,10 @@ public class KanbanCard extends JFrame {
 
     }
 
+    /**
+     * Top pane contains title and description of card
+     * @return topPane
+     */
     private JPanel makeTopPane(){
 
         JPanel topPane = new JPanel();
@@ -113,6 +116,10 @@ public class KanbanCard extends JFrame {
 
     }
 
+    /**
+     * Bottom pane contains story points and buttons
+     * @return
+     */
     private JPanel makeBottomPane() {
 
         JPanel bottomPane = new JPanel();
@@ -144,6 +151,10 @@ public class KanbanCard extends JFrame {
         description.setColumns(30);
     }
 
+    /**
+     * Make a JComboBox to store the story points
+     * @param selectedPoints
+     */
     private void createStoryPointsBox(int selectedPoints) {
 
         storyPointsBox = new JComboBox<Integer>();
@@ -160,12 +171,14 @@ public class KanbanCard extends JFrame {
     }
 
     /**
+     * Create a button to delete the card frame as well as its assocaited kanbanCardButton
      * @return button to delete card
      */
     public JButton createDeleteButton() {
+
         JButton delete = new JButton("Delete card");
         delete.setBounds(500,500,5,5);
-        //delete.addActionListener(e->cardButton.getColumn().removeCard(cardButton, null));
+
         delete.addActionListener(e-> {
             try {
                 cardButton.getColumn().removeCard(cardButton);
@@ -212,7 +225,7 @@ public class KanbanCard extends JFrame {
      * Method which decides whether a card has been updated on save.
      * Checks for changes such as title, description, or story points change.
      */
-    private void update() {
+    public void update() {
 
         // Get input values
         String newTitle = title.getText();
@@ -270,6 +283,17 @@ public class KanbanCard extends JFrame {
 
     }
 
+    public JTextArea getDescription() {
+        return description;
+    }
+
+    public JTextField getCardTitleField() {
+        return title;
+    }
+
+    public JComboBox<Integer> getStoryPointsBox() {
+        return storyPointsBox;
+    }
 
     /**
      * @return card title (String)

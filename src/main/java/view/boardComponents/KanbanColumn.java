@@ -130,7 +130,6 @@ public class KanbanColumn extends JPanel {
             return;
         }
 
-
         this.role = role;
 
         // track change
@@ -188,10 +187,10 @@ public class KanbanColumn extends JPanel {
                                     board.getWIPcount() + ".", "WIP Limit Too Low");
                     return;
         }
+
         if (role == ColumnRole.IN_PROGRESS) board.incrementWIPCount(card.getCard().getStoryPoints());
 
         cards.add(card);                                                // Add to ArrayList
-
         card.setAlignmentX(Component.CENTER_ALIGNMENT);                 // Add to columnPane
         columnPane.add(card);
         revalidate();
@@ -210,7 +209,6 @@ public class KanbanColumn extends JPanel {
             if (role == ColumnRole.IN_PROGRESS) getBoard().decrementWIPCount(card.getCard().getStoryPoints());
             cards.remove(card);
             columnPane.remove(card);
-            card.setCard(null);
             revalidate();
             repaint();
         }
@@ -260,18 +258,30 @@ public class KanbanColumn extends JPanel {
         return total;
     }
 
+    /**
+     * @return column title
+     */
 	public String getColumnTitle() {
         return titleLabel.getText();
     }
 
+    /**
+     * @return parent BoardPanel
+     */
     public BoardPanel getBoard() {
         return (BoardPanel)this.getParent();
     }
 
+    /**
+     * @return column unique ID
+     */
     public int getId(){
         return id;
     }
 
+    /**
+     * @return ArrayList of all the cards on this column
+     */
     public ArrayList<KanbanCardButton> getCards() {
         return cards;
     }

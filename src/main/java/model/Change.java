@@ -11,6 +11,7 @@ import view.frames.KanbanCard;
 import java.lang.Class;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.Temporal;
 import java.util.Date;
 
 @ClassAnnotation(
@@ -40,7 +41,7 @@ public class Change {
 
     // updates
     private String updatedField = "";
-    private String updatedValue = "";
+    private Object updatedValue = null;
 
     //moves
     private String newParentTitle = "";
@@ -68,6 +69,7 @@ public class Change {
         this.changeType = changeType;
         this.objTitle = objTitle;
         this.date = LocalDateTime.now();
+        this.obj = obj;
 
         Class<?> classType = obj.getClass();
 
@@ -91,7 +93,7 @@ public class Change {
      * @param updatedValue
      * @throws UnknownKanbanObjectException
      */
-    public Change(ChangeType changeType, String objTitle, Object obj, String updatedField, String updatedValue)
+    public Change(ChangeType changeType, String objTitle, Object obj, String updatedField, Object updatedValue)
             throws UnknownKanbanObjectException {
         this(changeType, objTitle, obj);
         this.updatedField = updatedField;
@@ -99,8 +101,11 @@ public class Change {
 
         // truncate if length is too long
         // eg. description
-        if(updatedValue.length() >= 25){
-            this.updatedValue = updatedValue.substring(0,24) + "...";
+        if(updatedValue.getClass() == String.class ) {
+            String val = (String)updatedValue;
+            if (val.length() >= 25 ) {
+                this.updatedValue = ((String)updatedValue).substring(0, 24) + "...";
+            }
         }
 
     }
@@ -115,8 +120,6 @@ public class Change {
      */
     public Change(ChangeType changeType, String objTitle, Object obj, Object newParent, Object oldParent) throws UnknownKanbanObjectException {
         this(changeType, objTitle, obj);
-        this.newParentTitle = newParentTitle;
-
         this.newParent = newParent;
         this.oldParent = oldParent;
     }
@@ -188,6 +191,9 @@ public class Change {
      */
     public Object getObject() { return obj; }
 
+    /**
+     * @return new parent title for moved objects or added object
+     */
     public String getNewParentTitle() {
         return newParentTitle;
     }
@@ -204,7 +210,17 @@ public class Change {
 
     public Object getOldParent(){return newParent;}
 
+    public String getUpdatedField() {
+        return updatedField;
+    }
 
+    public Object getUpdatedValue() {
+        return updatedValue;
+    }
+
+    /**
+     * @return change unique ID
+     */
     public static int getId() {
         return id;
     }
