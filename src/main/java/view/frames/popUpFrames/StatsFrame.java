@@ -15,10 +15,12 @@ import java.awt.*;
 )
 public class StatsFrame extends JFrame {
 
+    private KanbanBoard currentBoard;
 
     public StatsFrame(KanbanBoard board) {
 
         setTitle("Board Statistics for board " + board.getBoardName());
+        currentBoard = board;
         setSize(600,400);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -27,14 +29,15 @@ public class StatsFrame extends JFrame {
     }
 
 
-
     private void createInfoPanel() {
 
         JPanel container = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
-        JLabel avgVelocityLabel = new JLabel("Overall Velocity Per Week : " + WeeklyStats.getAverageVelocityPerWeek());
-        JLabel avgLeadTime = new JLabel("Average Lead Time Per Week : " + WeeklyStats.getAverageLeadTimePerWeek());
+        JLabel avgVelocityLabel = new JLabel("Overall Velocity Per Week : " +
+                WeeklyStats.getAverageVelocityPerWeek());
+        JLabel avgLeadTime = new JLabel("Average Lead Time Per Week : " +
+                WeeklyStats.getAverageLeadTimePerWeek(currentBoard));
         JLabel avgWIP = new JLabel("Average Work In Progress Per Week : " + WeeklyStats.getAverageWIPPerWeek());
 
         container.add(avgVelocityLabel);

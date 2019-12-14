@@ -27,6 +27,8 @@ import java.util.Date;
 
 public class Change {
 
+    private static int id = -1;   // Unique ID
+
     private String objTitle;
     private ChangeType changeType;
     private String className;
@@ -192,4 +194,7 @@ public class Change {
     public Object getOldParentType(){return newParentType;}
 
 
+    public static int getId() {
+        return id;
+    }
 }

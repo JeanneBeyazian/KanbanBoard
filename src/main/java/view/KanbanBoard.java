@@ -153,4 +153,15 @@ public class KanbanBoard extends JFrame {
         }
     }
 
+    public void loadBoardVersion(int changeID) {
+
+        ChangeLog log = ChangeLog.getInstance();
+        int toLoad = log.findByID(changeID);
+
+        KanbanBoard oldBoard = new KanbanBoard("[LOG VERSION] " + this.getTitle());
+
+
+
+    }
+
 }

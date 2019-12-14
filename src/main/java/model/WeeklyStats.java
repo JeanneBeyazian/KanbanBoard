@@ -2,6 +2,7 @@ package model;
 
 import annotations.ClassAnnotation;
 import controller.ColumnRole;
+import view.KanbanBoard;
 import view.boardComponents.KanbanColumn;
 import view.frames.KanbanCard;
 
@@ -20,7 +21,7 @@ import java.util.List;
 )
 public class WeeklyStats {
 
-    private static ArrayList<ArrayList<Change>> weeklyChanges;
+    private static ArrayList<ArrayList<Change>> weeklyChanges = getWeeklyChanges();
 
     /**
      * Generate a 2D list of weekly changes lists
@@ -63,8 +64,6 @@ public class WeeklyStats {
      * @return overall velocity (expressed in SP/week)
      */
     public static int getAverageVelocityPerWeek() {
-
-        weeklyChanges = getWeeklyChanges();
 
         if (weeklyChanges.isEmpty()) return 0;
 
@@ -113,7 +112,20 @@ public class WeeklyStats {
     }
 
     // Todo - LEAD TIME : time it takes for an item to get COMPLETED (expressed in weeks)
-    public static int getAverageLeadTimePerWeek() {
+    public static int getAverageLeadTimePerWeek(KanbanBoard currentboard) {
+
+        if (weeklyChanges.isEmpty()) return 0;
+
+        for (ArrayList<Change> changes : weeklyChanges) {
+
+            if (!changes.isEmpty()) {
+
+                Change endOfWeek = changes.get(changes.size() - 1);
+
+
+            }
+        }
+
         // Maybe look at all cards in completed columns, and get their creation date ?
         return 0;
     }
@@ -125,19 +137,4 @@ public class WeeklyStats {
 
 
 
-
-
-
-
-    // ---------UNUSED, please keep for now
-    private String getWeekOfYear(LocalDateTime timestamp) {
-
-        ZoneOffset zoneOffset = ZoneOffset.from(OffsetDateTime.now());
-        OffsetDateTime offsetDateTime = timestamp.atOffset(zoneOffset);
-        Date date = Date.from(offsetDateTime.toInstant());
-
-        String weekOfYear = new SimpleDateFormat("w").format(date);
-
-        return weekOfYear;
-    }
 }

@@ -22,6 +22,7 @@ import static javax.swing.GroupLayout.Alignment.*;
         creationDate = "15/11/2019",
         lastEdit = "10/12/2019"
 )
+
 /**
  * The editor panel is a panel which makes all the buttons and user commands directly available
  * on the right side of the kanban board.
@@ -147,10 +148,12 @@ public class EditorPanel extends JPanel {
      * @return label
      */
     private JLabel createLabel(String labelName) {
+
         JLabel label = new JLabel(labelName);
         label.setForeground(Color.lightGray);
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
         return label;
+
     }
 
     /**
@@ -205,7 +208,6 @@ public class EditorPanel extends JPanel {
 
         JButton exitButton = createButton("Exit Application");
         exitButton.setName("exitButton");
-
         exitButton.setToolTipText("Quit Indigo-Kanban?");
         exitButton.addActionListener(e->System.exit(0));
         exitButton.setBackground(new java.awt.Color(250, 105, 128));
@@ -219,7 +221,6 @@ public class EditorPanel extends JPanel {
      * @return button to clear the board : remove all columns
      */
     private JButton createClearButton() {
-
 
         JButton clear = createButton("Clear board");
         clear.setName("clearButton");
