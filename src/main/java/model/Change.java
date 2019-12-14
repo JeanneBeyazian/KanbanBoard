@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @ClassAnnotation(
-        classAuthors = "Petra, Jeanne",
+        classAuthors = "Petra",
         classEditors = "Jeanne",
         creationDate = "22/11/2019",
         lastEdit = "14/12/2019"
