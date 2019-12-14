@@ -11,7 +11,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne & Nathan"},
+        classAuthors = "Jeanne",
+        classEditors = "Jeanne, Nathan",
         creationDate = "13/11/2019",
         lastEdit = "08/11/2019"
 )

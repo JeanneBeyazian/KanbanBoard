@@ -2,7 +2,8 @@ package controller.exceptions;
 import annotations.ClassAnnotation;
 
 @ClassAnnotation(
-        classAuthors = {"Petra"},
+        classAuthors = "Petra",
+        classEditors = "",
         creationDate = "22/11/2019",
         lastEdit = "22/11/2019"
 )
@@ -17,7 +18,6 @@ public class KanbanObjectNotFoundException extends Exception {
     //class name of searched object
     private String objectType;
     //if you're looking for an object in a parent with ID
-    // TODO - add field for object title
     private int parentId = -1;
 
     /**

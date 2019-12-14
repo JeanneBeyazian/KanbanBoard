@@ -10,7 +10,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne", "Petra"},
+        classAuthors = "Jeanne",
+        classEditors = "Jeanne, Petra",
         creationDate = "22/11/2019",
         lastEdit = "08/12/2019"
 )

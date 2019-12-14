@@ -17,9 +17,10 @@ import java.util.ArrayList;
 
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
+        classAuthors = "Jeanne",
+        classEditors = "Jeanne, Petra",
         creationDate = "08/11/2019",
-        lastEdit = "08/12/2019, by Petra"
+        lastEdit = "08/12/2019"
 )
 /**
  * This class sets up the application frame.
@@ -42,6 +43,7 @@ public class KanbanBoard extends JFrame {
 
         // Set up the JFrame
         boardName = title;
+        setName("KanbanBoardFrame");
         this.setTitle(title);
         setSize(WIDTH, HEIGHT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -67,7 +69,7 @@ public class KanbanBoard extends JFrame {
     private void initialseKanbanBoard() {
 
         // Create board panel
-        board = new BoardPanel();
+        board = new BoardPanel(this);
         add(board);
 
         //board.setPreferredSize(new Dimension(WIDTH/4*3, HEIGHT));
@@ -107,7 +109,7 @@ public class KanbanBoard extends JFrame {
     public BoardPanel getBoard(){
         return board;
     }
-    
+
     public void setBoard(BoardPanel newBoard){
         board = newBoard;
         board.setVisible(true);
@@ -175,6 +177,14 @@ public class KanbanBoard extends JFrame {
             }
             board.addColumn(newBoardCol);
         }
+    public void loadBoardVersion(int changeID) {
+
+        ChangeLog log = ChangeLog.getInstance();
+        int toLoad = log.findByID(changeID);
+
+        KanbanBoard oldBoard = new KanbanBoard("[LOG VERSION] " + this.getTitle());
+
+
 
     }
 

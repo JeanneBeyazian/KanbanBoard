@@ -1,5 +1,6 @@
 package view.frames.editBoardFrames;
 
+import annotations.ClassAnnotation;
 import controller.exceptions.KanbanObjectNotFoundException;
 import javafx.util.Pair;
 import view.boardComponents.BoardPanel;
@@ -14,7 +15,12 @@ import java.util.Map;
 
 import static controller.OptionPanes.*;
 
-
+@ClassAnnotation(
+        classAuthors = "Jeanne",
+        classEditors = "Jeanne, Petra",
+        creationDate = "28/11/2019",
+        lastEdit = "12/12/2019"
+)
 public class MoveCardFrame extends EditorFrame {
 
     private JComboBox<String> columnsBox;
@@ -29,7 +35,6 @@ public class MoveCardFrame extends EditorFrame {
         this.setUpFrame();
 
     }
-
 
     private void setUpFrame() {
 
@@ -73,10 +78,10 @@ public class MoveCardFrame extends EditorFrame {
 
             try {
                 columnToAdd = currentPanel.getColumnByTitle(columnName);
+                columnToAdd.addCard(currentCard);
             }
 
             catch (KanbanObjectNotFoundException e){
-                // TODO = ALERT USER OF COLUMNN ERROR
                 System.out.println("Error: Column not found");
                 e.printStackTrace();
                 return;
@@ -91,7 +96,6 @@ public class MoveCardFrame extends EditorFrame {
                 return;
             }
 
-            columnToAdd.addCard(currentCard);
             dispose();
         }
         else {

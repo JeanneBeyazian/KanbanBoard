@@ -11,7 +11,8 @@ import java.awt.*;
 import java.io.File;
 
 @ClassAnnotation(
-        classAuthors = {"Nathan, Jeanne"},
+        classAuthors = "Nathan, Jeanne",
+        classEditors = "Jeanne",
         creationDate = "08/12/2019",
         lastEdit = "12/12/2019"
 )
@@ -73,10 +74,13 @@ public class MainFrame extends JFrame {
 
         // Create components for bottom container
         JTextField nameField = new JTextField(30);
+        nameField.setName("nameField");
         JLabel nameLabel = new JLabel("Enter a name for your board : ");
+        nameLabel.setName("nameLabel");
         nameLabel.setForeground(Color.lightGray);
 
         JButton submit = createButton("Create");
+        submit.setName("submitButton");
         submit.setBackground(new java.awt.Color(133, 113, 240));
         submit.addActionListener(e->{
             new KanbanBoard(nameField.getText()).setVisible(true);
@@ -100,7 +104,6 @@ public class MainFrame extends JFrame {
         constraints.anchor = GridBagConstraints.EAST;
         bottomContainer.add(submit,constraints);
 
-
         return bottomContainer;
     }
 
@@ -115,7 +118,9 @@ public class MainFrame extends JFrame {
 
         // Buttons
         JButton newBoard = createButton("Create new board");
+        newBoard.setName("newButton");
         JButton open = createButton("Open existing board");
+        open.setName("openButton");
         // Buttons action listeners
         newBoard.addActionListener(e->bottomContainer.setVisible(true));
         open.addActionListener(e->{

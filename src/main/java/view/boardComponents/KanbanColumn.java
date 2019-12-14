@@ -3,7 +3,6 @@ package view.boardComponents;
 import annotations.ClassAnnotation;
 
 import controller.ColumnRole;
-import controller.OptionPanes;
 import controller.exceptions.KanbanObjectNotFoundException;
 import controller.exceptions.UnknownKanbanObjectException;
 import model.Change;
@@ -25,12 +24,13 @@ import static controller.OptionPanes.errorPane;
 
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne", "Ali", "Nathan", "Petra"},
+        classAuthors = "Jeanne",
+        classEditors = "Jeanne, Ali, Nathan, Petra",
         creationDate = "13/11/2019",
-        lastEdit = "08/12/2019"
+        lastEdit = "14/12/2019"
 )
 /**
- *
+ * This class implements the functionalities of a column in a Kanban Board.
  */
 public class KanbanColumn extends JPanel {
 
@@ -191,7 +191,7 @@ public class KanbanColumn extends JPanel {
         titleLabel.setBackground(role.getColumnColour());
 
         try {
-            Change change = new Change(Change.ChangeType.UPDATE, nameIn, KanbanColumn.class,
+            Change change = new Change(Change.ChangeType.UPDATE, nameIn, this,
                     "title", nameIn);
             ChangeLog.getInstance().addChange(change);
         } catch (UnknownKanbanObjectException u){
@@ -220,7 +220,7 @@ public class KanbanColumn extends JPanel {
 
         // track change
         try {
-            Change change = new Change(Change.ChangeType.UPDATE, getColumnTitle(), KanbanColumn.class,
+            Change change = new Change(Change.ChangeType.UPDATE, getColumnTitle(), this,
                     "role", role.name());
             ChangeLog.getInstance().addChange(change);
         } catch (UnknownKanbanObjectException u){
@@ -264,9 +264,6 @@ public class KanbanColumn extends JPanel {
      */
     public void addCard(KanbanCardButton card) {
 
-    	Command addNewCard = new Command("add card", card);
-    	//getBoard().addCommand(addNewCard);
-
         BoardPanel board = getBoard();
 
         // Check if IN_PROGRESS column, and make sure it doesn't exceed WIP limit
@@ -294,7 +291,7 @@ public class KanbanColumn extends JPanel {
      * @throws KanbanObjectNotFoundException
      */
     public void removeCard(KanbanCardButton card) throws KanbanObjectNotFoundException{
-    	
+
     	if(card != null) {
             if (role == ColumnRole.IN_PROGRESS) getBoard().decrementWIPCount(card.getCard().getStoryPoints());
             cards.remove(card);

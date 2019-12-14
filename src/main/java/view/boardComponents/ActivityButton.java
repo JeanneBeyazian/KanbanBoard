@@ -9,7 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
+        classAuthors = "Jeanne",
+        classEditors = "",
         creationDate = "22/11/2019",
         lastEdit = "12/12/2019"
 )
@@ -74,6 +75,7 @@ public class ActivityButton extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event) {
         // Once you click on log panel, go back to one state of the board
+
     }
 
 

@@ -21,7 +21,8 @@ import static controller.OptionPanes.commandNotFoundError;
 import static controller.OptionPanes.missingComponentError;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne", "Petra"},
+        classAuthors = "Jeanne",
+        classEditors = "Jeanne, Petra",
         creationDate = "29/11/2019",
         lastEdit = "12/12/2019"
 )
@@ -31,7 +32,6 @@ public class RemoveColumnFrame extends EditorFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	protected JLabel chooseColumnLabel;
     protected  JComboBox<String> columnsBox;
-    protected String type = "column";
 
     public RemoveColumnFrame(BoardPanel currentPanel) {
 
@@ -48,15 +48,18 @@ public class RemoveColumnFrame extends EditorFrame implements ActionListener {
                 ("Removing a column from the board")));
 
         Map<JComponent, Pair<Integer,Integer>> map = Map.ofEntries(
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(chooseColumnLabel, new Pair<>(0,2)),
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(columnsBox, new Pair<>(1,2))
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(chooseColumnLabel, new Pair<>(0,1)),
+                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(columnsBox, new Pair<>(1,1))
         );
 
         placeComponents(map, 3);
 
     }
 
-
+    /**
+     * Method triggering the removal of a column.
+     * @param event
+     */
     public void actionPerformed(ActionEvent event) {
 
         if (event.getSource() == submit) {

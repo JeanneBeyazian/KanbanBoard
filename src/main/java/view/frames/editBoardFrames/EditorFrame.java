@@ -13,9 +13,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
-        creationDate = "29/11/2019",
-        lastEdit = "05/11/2019"
+        classAuthors = "Jeanne",
+        classEditors = "",
+        creationDate = "28/11/2019",
+        lastEdit = "12/12/2019"
 )
 /**
  * Editor JFrame to add/delete/modify components on the current BoardPanel.
@@ -44,13 +45,17 @@ abstract public class EditorFrame extends JFrame implements ActionListener {
         add(container);
         pack();
         setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     /** Create the buttons for submission and closing the frame */
     private void createButtons() {
         cancel = new JButton("Cancel");
-        submit = new JButton("Submit");
         cancel.addActionListener(e -> this.dispose());
+        cancel.setName("cancelButton");
+
+        submit = new JButton("Submit");
+        submit.setName("submitButton");
     }
 
     protected void placeComponents(Map<JComponent, Pair<Integer,Integer>> compCoordinates, int submitY) {
@@ -89,6 +94,8 @@ abstract public class EditorFrame extends JFrame implements ActionListener {
         ArrayList<KanbanColumn> cols = currentPanel.getColumns();
         for (KanbanColumn column : cols) columnsBox.addItem(column.getColumnTitle());
         if (cols.isEmpty()==true) columnsBox.setEnabled(false); // If no columns on board, can't choose from combobox
+
+        columnsBox.setName("columnsBox");
         return columnsBox;
     }
 

@@ -6,7 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
+        classAuthors = "Jeanne",
+        classEditors = "",
         creationDate = "09/12/2019",
         lastEdit = "09/12/2019"
 )
@@ -29,17 +30,18 @@ public abstract class PopUpFrames extends JDialog {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
+        setVisible(true);
 
         containerPanel = new JPanel();
         containerPanel.setLayout(new BoxLayout(containerPanel, BoxLayout.Y_AXIS));
         containerPanel.add(createText());
 
         add(containerPanel);
-        iniatilise();
+        initialise();
     }
 
 
-    private void iniatilise() {
+    private void initialise() {
 
         buttonPanel = new JPanel();
 

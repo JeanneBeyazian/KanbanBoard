@@ -14,18 +14,22 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @ClassAnnotation(
-        classAuthors = {"Petra"},
+        classAuthors = "Petra, Jeanne",
+        classEditors = "Jeanne",
         creationDate = "22/11/2019",
-        lastEdit = "08/12/2019"
+        lastEdit = "14/12/2019"
 )
 
 
 /**
- * This class stores the attributes a single Change object
- * requires before it is used withing the change log.
+ * This class stores the attributes of a single Change object.
+ * The Change objects are then stored in the ChangeLog and displayed to the user.
+ * Each Change object has a 'changeType' implemented using enums.
  */
 
 public class Change {
+
+    private static int id = -1;   // Unique ID
 
     private String objTitle;
     private ChangeType changeType;
@@ -40,6 +44,8 @@ public class Change {
 
     //moves
     private String newParentTitle = "";
+    private Object oldParentType = null;
+    private Object newParentType = null;
 
 
     /**
@@ -47,7 +53,7 @@ public class Change {
      * of a change which is possible.
      */
     public enum ChangeType{
-        ADD, REMOVE, UPDATE, MOVE
+        ADD, REMOVE, UPDATE, MOVE, CLEAR
     }
 
     /**
@@ -64,11 +70,11 @@ public class Change {
 
         Class<?> classType = obj.getClass();
 
-        if (classType == KanbanBoard.class) {
+        if (classType == KanbanBoard.class || classType == BoardPanel.class) {
             className = "Board";
         } else if (classType == KanbanColumn.class) {
             className = "Column";
-        } else if (classType == KanbanCard.class) {
+        } else if (classType == KanbanCard.class || classType == KanbanCardButton.class) {
             className = "Card";
         } else {
             throw new UnknownKanbanObjectException(obj.getClass());
@@ -84,7 +90,8 @@ public class Change {
      * @param updatedValue
      * @throws UnknownKanbanObjectException
      */
-    public Change(ChangeType changeType, String objTitle, Object obj, String updatedField, String updatedValue) throws UnknownKanbanObjectException {
+    public Change(ChangeType changeType, String objTitle, Object obj, String updatedField, String updatedValue)
+            throws UnknownKanbanObjectException {
         this(changeType, objTitle, obj);
         this.updatedField = updatedField;
         this.updatedValue = updatedValue;
@@ -97,6 +104,8 @@ public class Change {
 
     }
 
+
+
     /**
      * Constructor for moved object
      * @param changeType
@@ -105,10 +114,12 @@ public class Change {
      * @param newParentTitle
      * @throws UnknownKanbanObjectException
      */
-    public Change(ChangeType changeType, String objTitle, Object obj, String newParentTitle) throws UnknownKanbanObjectException {
+    public Change(ChangeType changeType, String objTitle, Object obj, String newParentTitle, Object newParentType,
+                  Object oldParentType) throws UnknownKanbanObjectException {
         this(changeType, objTitle, obj);
         this.newParentTitle = newParentTitle;
-
+        this.newParentType = newParentType;
+        this.oldParentType = oldParentType;
     }
 
     /**
@@ -132,6 +143,9 @@ public class Change {
             }
             if (changeType == ChangeType.MOVE){
                 return time + "Moved \"" + objTitle +"\" to \"" + newParentTitle + "\"";
+            }
+            if (changeType == ChangeType.CLEAR){
+                return time + "Cleared the " + className +" called \"" + objTitle + "\"";
             }
             throw new ChangeTypeNotImplementedException(changeType);
     }
@@ -175,4 +189,19 @@ public class Change {
      */
     public Object getObject() { return obj; }
 
+
+    /**
+     * @return reference to new parent Object of moved Object
+     */
+    public Object getNewParentType(){return newParentType;}
+
+    /**
+     * @return reference to old parent Object of moved Object
+     */
+    public Object getOldParentType(){return newParentType;}
+
+
+    public static int getId() {
+        return id;
+    }
 }

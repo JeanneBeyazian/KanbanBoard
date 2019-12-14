@@ -6,7 +6,8 @@ import annotations.ClassAnnotation;
 import view.containers.LogPanel;
 
 @ClassAnnotation(
-        classAuthors = {"Petra"},
+        classAuthors = "Petra",
+        classEditors = "Jeanne",
         creationDate = "08/12/2019",
         lastEdit = "08/12/2019"
 )
@@ -86,6 +87,20 @@ public class ChangeLog {
         changes.add(change);
         updateLogListeners();
 
+    }
+
+    /**
+     * Find a specific change and its position in teh changes list using its ID
+     * @param changeID unique id of change to find
+     * @return index of this change in log list
+     */
+    public int findByID(int changeID) {
+
+        int index = -1;
+        for (Change change : changes) {
+            if (change.getId() == changeID) index = changes.indexOf(change);
+        }
+        return index;
     }
 
 }

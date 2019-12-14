@@ -15,7 +15,8 @@ import java.awt.*;
 
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne & Nathan", "Petra"},
+        classAuthors = "Jeanne & Nathan",
+        classEditors = "Jeanne, Nathan, Petra",
         creationDate = "13/11/2019",
         lastEdit = "08/12/2019"
 )
@@ -207,6 +208,10 @@ public class KanbanCard extends JFrame {
         return move;
     }
 
+    /**
+     * Method which decides whether a card has been updated on save.
+     * Checks for changes such as title, description, or story points change.
+     */
     private void update() {
 
         // Get input values
@@ -225,7 +230,7 @@ public class KanbanCard extends JFrame {
         // track change
         if(!cardTitle.equals(newTitle)) {
             try {
-                Change change = new Change(Change.ChangeType.UPDATE, cardTitle, KanbanCard.class,
+                Change change = new Change(Change.ChangeType.UPDATE, cardTitle, this,
                         "title", newTitle);
                 ChangeLog.getInstance().addChange(change);
             } catch (UnknownKanbanObjectException u) {
@@ -236,7 +241,7 @@ public class KanbanCard extends JFrame {
 
         if(!cardDescription.equals(newDescription)) {
             try {
-                Change change = new Change(Change.ChangeType.UPDATE, cardTitle, KanbanCard.class,
+                Change change = new Change(Change.ChangeType.UPDATE, cardTitle, this,
                         "description", newDescription);
                 ChangeLog.getInstance().addChange(change);
             } catch (UnknownKanbanObjectException u) {
@@ -247,7 +252,7 @@ public class KanbanCard extends JFrame {
 
         if(cardStoryPoints != newPoint) {
             try {
-                Change change = new Change(Change.ChangeType.UPDATE, cardTitle, KanbanCard.class,
+                Change change = new Change(Change.ChangeType.UPDATE, cardTitle, this,
                         "story points", String.valueOf(newPoint));
                 ChangeLog.getInstance().addChange(change);
             } catch (UnknownKanbanObjectException u) {

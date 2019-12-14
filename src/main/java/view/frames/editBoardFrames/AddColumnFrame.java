@@ -17,9 +17,10 @@ import java.util.Map;
 import static controller.OptionPanes.commandNotFoundError;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
+        classAuthors = "Jeanne",
+        classEditors = "Jeanne, Petra",
         creationDate = "28/11/2019",
-        lastEdit = "29/11/2019"
+        lastEdit = "12/12/2019"
 )
 
 public class AddColumnFrame extends AddFrame implements ActionListener {
@@ -36,6 +37,7 @@ public class AddColumnFrame extends AddFrame implements ActionListener {
         super("column", currentPanel);
         rolesBox = createRolesList();
         submit.addActionListener(this);
+        setName("addColumnFrame");
         this.setUpFrame();
 
     }

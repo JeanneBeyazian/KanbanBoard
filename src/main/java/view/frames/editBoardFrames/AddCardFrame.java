@@ -1,6 +1,7 @@
 package view.frames.editBoardFrames;
 
 import annotations.ClassAnnotation;
+import controller.OptionPanes;
 import controller.exceptions.KanbanObjectNotFoundException;
 import javafx.util.Pair;
 import view.boardComponents.BoardPanel;
@@ -18,7 +19,8 @@ import java.util.Map;
 import static controller.OptionPanes.*;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne", "Petra"},
+        classAuthors = "Jeanne",
+        classEditors = "Jeanne, Petra",
         creationDate = "28/11/2019",
         lastEdit = "12/12/2019"
 )
@@ -33,6 +35,7 @@ public class AddCardFrame extends AddFrame implements ActionListener {
     public AddCardFrame(BoardPanel currentPanel) {
         super("card", currentPanel);
         submit.addActionListener(this);
+        setName("addCardFrame");
         this.setUpFrame();
     }
 
@@ -40,7 +43,11 @@ public class AddCardFrame extends AddFrame implements ActionListener {
 
         // Set up description area
         cardDescriptionArea = new JTextArea();
+        cardDescriptionArea.setName("cardDescriptionArea");
+
         JLabel descriptionLabel = new JLabel("Description:");
+        descriptionLabel.setName("descriptionLabel");
+
         cardDescriptionArea.setRows(5);
         cardDescriptionArea.setColumns(30);
 
@@ -49,10 +56,12 @@ public class AddCardFrame extends AddFrame implements ActionListener {
         JLabel pointsLabel = new JLabel("Story Points:");
         int max = 150;
         for (int i = 0; i <= max; i++) storyPointsBox.addItem(i);
+        storyPointsBox.setName("storyPointsBox");
 
         // Set up columns combo box
         columnsBox = createColumnsList();
         JLabel columnLabel = new JLabel("In Column:");
+        columnLabel.setName("chooseColumnLabel");
 
         Map<JComponent, Pair<Integer,Integer>> map = Map.ofEntries(
                 new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(titleLabel, new Pair<>(0,0)),
@@ -81,7 +90,7 @@ public class AddCardFrame extends AddFrame implements ActionListener {
 
             String cardName = "";
 
-            if (!(titleField.getText() == null || titleField.getText().isEmpty()))  cardName = titleField.getText();
+            if (!(titleField.getText() == null || titleField.getText().isEmpty())) cardName = titleField.getText();
             else cardName = "Unnamed Card";
 
             String description = cardDescriptionArea.getText();
@@ -95,7 +104,7 @@ public class AddCardFrame extends AddFrame implements ActionListener {
             }
 
             catch(KanbanObjectNotFoundException e){
-                // TODO = ALERT USER OF COLUMNN ERROR
+                OptionPanes.commandNotFoundError();
                 System.out.println("Error: Column not found");
                 e.printStackTrace();
                 return;
