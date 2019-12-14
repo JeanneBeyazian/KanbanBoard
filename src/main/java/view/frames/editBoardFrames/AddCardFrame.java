@@ -19,7 +19,8 @@ import java.util.Map;
 import static controller.OptionPanes.*;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne", "Petra"},
+        classAuthors = "Jeanne",
+        classEditors = "Jeanne, Petra",
         creationDate = "28/11/2019",
         lastEdit = "12/12/2019"
 )

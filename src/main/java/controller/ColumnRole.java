@@ -3,7 +3,8 @@ package controller;
 import annotations.ClassAnnotation;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
+        classAuthors = "Jeanne",
+        classEditors = "",
         creationDate = "14/11/2019",
         lastEdit = "10/12/2019"
 )

@@ -6,7 +6,8 @@ import annotations.ClassAnnotation;
 import view.containers.LogPanel;
 
 @ClassAnnotation(
-        classAuthors = {"Petra"},
+        classAuthors = "Petra",
+        classEditors = "",
         creationDate = "08/12/2019",
         lastEdit = "08/12/2019"
 )

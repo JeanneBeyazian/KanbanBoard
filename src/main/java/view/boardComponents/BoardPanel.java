@@ -16,7 +16,8 @@ import static controller.OptionPanes.missingComponentError;
 
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne", "Petra"},
+        classAuthors = "Jeanne",
+        classEditors = "Petra",
         creationDate = "09/11/2019",
         lastEdit = "14/12/2019"
 )

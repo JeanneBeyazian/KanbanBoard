@@ -19,7 +19,8 @@ import java.awt.event.ItemEvent;
 
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
+        classAuthors = "Jeanne",
+        classEditors = "Jeanne, Trey",
         creationDate = "13/11/2019",
         lastEdit = "12/12/2019"
 )

@@ -15,7 +15,8 @@ import java.awt.*;
 
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne & Nathan", "Petra"},
+        classAuthors = "Jeanne & Nathan",
+        classEditors = "Jeanne, Nathan, Petra",
         creationDate = "13/11/2019",
         lastEdit = "08/12/2019"
 )

@@ -11,7 +11,8 @@ import java.awt.*;
 import java.io.File;
 
 @ClassAnnotation(
-        classAuthors = {"Nathan, Jeanne"},
+        classAuthors = "Nathan, Jeanne",
+        classEditors = "Jeanne",
         creationDate = "08/12/2019",
         lastEdit = "12/12/2019"
 )

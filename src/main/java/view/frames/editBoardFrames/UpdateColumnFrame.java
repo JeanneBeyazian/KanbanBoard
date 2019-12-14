@@ -16,7 +16,12 @@ import java.util.AbstractMap;
 import java.util.Map;
 
 import static controller.OptionPanes.commandNotFoundError;
-
+@ClassAnnotation(
+        classAuthors = "Jeanne",
+        classEditors = "Jeanne, Ali",
+        creationDate = "06/12/2019",
+        lastEdit = "12/12/2019"
+)
 public class UpdateColumnFrame extends AddFrame implements ActionListener{
 
     private JComboBox<String> rolesAvailable;

@@ -1,7 +1,15 @@
 package controller;
 
+import annotations.ClassAnnotation;
+
 import javax.swing.*;
 
+@ClassAnnotation(
+        classAuthors = "Jeanne",
+        classEditors = "",
+        creationDate = "08/12/2019",
+        lastEdit = "08/12/2019"
+)
 /**
  * JOptionPanes displayed to the user on the GUI to warn them of errors, or misuses.
  */

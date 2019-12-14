@@ -18,7 +18,8 @@ import static controller.OptionPanes.errorPane;
 import static javax.swing.GroupLayout.Alignment.*;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
+        classAuthors = "Jeanne",
+        classEditors = "",
         creationDate = "15/11/2019",
         lastEdit = "10/12/2019"
 )

@@ -13,9 +13,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
-        creationDate = "29/11/2019",
-        lastEdit = "05/11/2019"
+        classAuthors = "Jeanne",
+        classEditors = "",
+        creationDate = "28/11/2019",
+        lastEdit = "12/12/2019"
 )
 /**
  * Editor JFrame to add/delete/modify components on the current BoardPanel.

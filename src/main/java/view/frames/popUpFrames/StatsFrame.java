@@ -9,7 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
+        classAuthors = "Jeanne",
+        classEditors = "",
         creationDate = "13/12/2019",
         lastEdit = "13/12/2019"
 )

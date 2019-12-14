@@ -3,7 +3,8 @@ import annotations.ClassAnnotation;
 import model.Change;
 
 @ClassAnnotation(
-        classAuthors = {"Petra"},
+        classAuthors = "Petra",
+        classEditors = "",
         creationDate = "22/11/2019",
         lastEdit = "08/12/2019"
 )

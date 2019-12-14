@@ -21,7 +21,8 @@ import static controller.OptionPanes.commandNotFoundError;
 import static controller.OptionPanes.missingComponentError;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne", "Petra"},
+        classAuthors = "Jeanne",
+        classEditors = "Jeanne, Petra",
         creationDate = "29/11/2019",
         lastEdit = "12/12/2019"
 )

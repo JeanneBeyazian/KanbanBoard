@@ -8,9 +8,10 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
-        creationDate = "26/11/2019",
-        lastEdit = "05/11/2019"
+        classAuthors = "Jeanne",
+        classEditors = "",
+        creationDate = "28/11/2019",
+        lastEdit = "12/12/2019"
 )
 /**
  * Super class for addition of components on the board (columns or cards).

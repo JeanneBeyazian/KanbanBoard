@@ -15,7 +15,8 @@ import java.util.Date;
 import java.util.List;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
+        classAuthors = "Jeanne",
+        classEditors = "",
         creationDate = "13/12/2019",
         lastEdit = "13/12/2019"
 )

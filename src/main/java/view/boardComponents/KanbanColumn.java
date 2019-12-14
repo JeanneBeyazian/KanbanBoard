@@ -18,7 +18,8 @@ import static controller.OptionPanes.errorPane;
 
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne", "Ali", "Nathan", "Petra"},
+        classAuthors = "Jeanne",
+        classEditors = "Jeanne, Ali, Nathan, Petra",
         creationDate = "13/11/2019",
         lastEdit = "14/12/2019"
 )
@@ -177,9 +178,6 @@ public class KanbanColumn extends JPanel {
      * The button is added to the main container in the column : columnPane (ScrollContainer).
      */
     public void addCard(KanbanCardButton card) {
-
-    	Command addNewCard = new Command("add card", card);
-    	//getBoard().addCommand(addNewCard);
 
         BoardPanel board = getBoard();
 

@@ -9,7 +9,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
+        classAuthors = "Jeanne",
+        classEditors = "Nathan",
         creationDate = "13/12/2019",
         lastEdit = "13/12/2019"
 )

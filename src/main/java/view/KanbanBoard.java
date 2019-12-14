@@ -17,7 +17,8 @@ import java.util.ArrayList;
 
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne", "Petra"},
+        classAuthors = "Jeanne",
+        classEditors = "Jeanne, Petra",
         creationDate = "08/11/2019",
         lastEdit = "08/12/2019"
 )

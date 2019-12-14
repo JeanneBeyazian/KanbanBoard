@@ -9,7 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
+        classAuthors = "Jeanne",
+        classEditors = "",
         creationDate = "22/11/2019",
         lastEdit = "12/12/2019"
 )

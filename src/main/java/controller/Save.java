@@ -8,9 +8,10 @@ import annotations.ClassAnnotation;
 import view.boardComponents.BoardPanel;
 
 @ClassAnnotation(
-        classAuthors = {"Trey"},
+        classAuthors = "Trey",
         creationDate = "22/11/2019",
-        lastEdit = "14/12/2019"
+        classEditors = "",
+        lastEdit = "10/12/2019"
 )
 /**
  * Class which deals with saving a board object.
