@@ -91,7 +91,7 @@ public class LogTranslater {
         }
         else if (change.getObject() == KanbanCard.class || change.getObject() == KanbanCardButton.class) {
             try {
-                KanbanColumn old = (KanbanColumn) change.getOldParentType();
+                KanbanColumn old = (KanbanColumn) change.getOldParent();
                 board.getBoard().getColumnByTitle(old.getColumnTitle())
                         .removeCard((KanbanCardButton)change.getObject());
             } catch (Exception e){
