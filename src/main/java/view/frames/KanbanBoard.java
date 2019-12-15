@@ -130,7 +130,9 @@ public class KanbanBoard extends JFrame {
         return board;
     }
 
-    /** Set up child component BoardPanel
+
+    /**
+     * Change the associated board to a new one
      * @param newBoard
      */
     public void setBoard(BoardPanel newBoard){
@@ -148,15 +150,15 @@ public class KanbanBoard extends JFrame {
     /** @return name of the board */
     public String getBoardName(){ return this.getTitle(); }
 
+
     /**
-     * Set up new name for the board (changes frame title as well)
+     * Change the name of the board (including frame title)
      * @param newName
      */
     public void setBoardName(String newName){
         setTitle(newName);
         revalidate();
     }
-
 
     /**
      * Open an existing saved Kanban Board
@@ -178,6 +180,8 @@ public class KanbanBoard extends JFrame {
      	   board.addColumn(newBoardCol);
         }
     }
+
+
 
 
 }

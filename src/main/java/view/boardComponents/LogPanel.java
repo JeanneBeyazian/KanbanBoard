@@ -14,7 +14,7 @@ import java.awt.*;
         classAuthors = "Jeanne",
         classEditors = "Jeanne, Petra",
         creationDate = "22/11/2019",
-        lastEdit = "08/12/2019"
+        lastEdit = "15/12/2019"
 )
 /**
  * Log Panel is a tabbed pane made of two JPanels for activity log and versions history.
@@ -22,6 +22,7 @@ import java.awt.*;
  */
 public class LogPanel extends JPanel {
 
+    // Predefined size
     private static final int LOG_WIDTH = 100;
     private static final int LOG_HEIGHT = 330;
 

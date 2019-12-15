@@ -22,7 +22,7 @@ import java.awt.event.ItemEvent;
         classAuthors = "Jeanne",
         classEditors = "Jeanne, Trey",
         creationDate = "13/11/2019",
-        lastEdit = "12/12/2019"
+        lastEdit = "15/12/2019"
 )
 /**
  * This class is responsible for the creation of the menu bar at the top of the board.
@@ -32,7 +32,9 @@ import java.awt.event.ItemEvent;
 public class KanbanMenu extends JMenuBar {
 
 	private static final long serialVersionUID = 1L;
+
 	KanbanBoard currentBoard;
+
 
     public KanbanMenu(KanbanBoard currentBoard) {
 
@@ -51,7 +53,9 @@ public class KanbanMenu extends JMenuBar {
         add(createHelpMenu());
     }
 
-    /** Set up menu colour */
+    /** Set up menu colour
+     * @param menuName
+     *  */
     public JMenu makeMenu(String menuName) {
 
         JMenu menu = new JMenu(menuName);
@@ -61,15 +65,7 @@ public class KanbanMenu extends JMenuBar {
     }
 
 
-    public JMenuItem makeItem(String menuItemName, ImageIcon icon) {
-
-        JMenuItem menu = new JMenuItem(menuItemName, icon);
-        menu.setForeground(new java.awt.Color(228, 228, 228));
-        menu.setBackground(new java.awt.Color(33, 42, 101));
-        return menu;
-
-    }
-
+    //--- JMenus creation ---//
 
     /**
      * File menu : New board, Open board, Save board

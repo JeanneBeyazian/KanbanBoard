@@ -16,7 +16,7 @@ import java.util.List;
         classAuthors = "Jeanne",
         classEditors = "",
         creationDate = "22/11/2019",
-        lastEdit = "12/12/2019"
+        lastEdit = "15/12/2019"
 )
 
 /**
@@ -26,12 +26,17 @@ public class ActivityButton extends JPanel implements ActionListener {
 
 
 	private static final long serialVersionUID = 1L;
+
     private JButton activityButton;
     private int changeID;
+
+    // Predefined size
     private static final int ACTIVITY_BUTTON_WIDTH = 280;
     private static final int ACTIVITY_BUTTON_HEIGHT = 40;
 
+
     public ActivityButton(String str, Change.ChangeType changeType, int changeID) {
+
         this.changeID = changeID;
         activityButton = new JButton(str);
         initialiseButton();
@@ -41,6 +46,9 @@ public class ActivityButton extends JPanel implements ActionListener {
 
     }
 
+    /**
+     * Set up the button, its format, design and action listener
+     */
     private void initialiseButton() {
 
         activityButton.addActionListener(this);
@@ -54,7 +62,10 @@ public class ActivityButton extends JPanel implements ActionListener {
 
     }
 
-
+    /**
+     * Set button background depnding on the change type
+     * @param changeType
+     */
     private void setBackground(Change.ChangeType changeType) {
 
         if (changeType == Change.ChangeType.ADD) setBackground(new java.awt.Color(130, 191, 150, 255));
@@ -67,14 +78,18 @@ public class ActivityButton extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        // Once you click on log panel, go back to one state of the board
+
+        // Once you click on a log panel button, go back to one state of the board
             ChangeLog log = ChangeLog.getInstance();
+
             int toLoad = log.findByID(changeID);
-            if (toLoad>0) {
+
+            if (toLoad > 0) {
                 ArrayList<Change> changeToLoad = new ArrayList<>();
                 for (int i = 0; i<=toLoad; i++) {
                     changeToLoad.add(log.getChanges().get(i));
                 }
+
                 LogTranslater trl = new LogTranslater(changeToLoad);
             }
 

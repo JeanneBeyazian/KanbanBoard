@@ -21,7 +21,7 @@ import static controller.OptionPanes.errorPane;
         classAuthors = "Jeanne",
         classEditors = "Jeanne, Ali, Nathan, Petra",
         creationDate = "13/11/2019",
-        lastEdit = "14/12/2019"
+        lastEdit = "15/12/2019"
 )
 /**
  * This class implements the functionalities of a column in a Kanban Board.
@@ -38,8 +38,10 @@ public class KanbanColumn extends JPanel {
     private ColumnRole role;
     private ScrollContainer columnPane;
 
+    // Predefined size
     private static final int WIDTH = 200;
     private static final int HEIGHT = 710;
+
 
     /**
      * Constructor for the KanbanColumn class.
@@ -242,15 +244,35 @@ public class KanbanColumn extends JPanel {
         }
     }
 
+    /**
+     *  Get card having a given title
+     * @param title title of the card we're searching for
+     * @return reference to card
+     * @throws KanbanObjectNotFoundException
+     */
+    public KanbanCardButton getCardByTitle(String title) throws KanbanObjectNotFoundException {
+        for (KanbanCardButton card : cards) {
+            if (card.getCardButtonTitle().equals(title)) {
+                return card;
+            }
+        }
+        throw new KanbanObjectNotFoundException(KanbanCardButton.class);
+    }
 
-    /** GETTERS */
 
+    //----Getter methods ----//
+
+    /**
+     * Get the column role
+     * @return role
+     */
     public ColumnRole getRole() {
 		return role;
 	}
 
     /**
-     * @return the addition total of all story points for this column (int)
+     * Get the addition total of all story points for this column (int)
+     * @return columnStoryPointsTotal
      */
     private int getColumnStoryPointsTotal() {
 
@@ -287,20 +309,7 @@ public class KanbanColumn extends JPanel {
         return cards;
     }
 
-    /**
-     *  Get card having a given title
-     * @param title title of the card we're searching for
-     * @return reference to card
-     * @throws KanbanObjectNotFoundException
-     */
-    public KanbanCardButton getCardByTitle(String title) throws KanbanObjectNotFoundException {
-        for (KanbanCardButton card : cards) {
-            if (card.getCardButtonTitle().equals(title)) {
-                return card;
-            }
-        }
-        throw new KanbanObjectNotFoundException(KanbanCardButton.class);
-    }
+
 
 
 }

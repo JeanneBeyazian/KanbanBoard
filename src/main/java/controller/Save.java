@@ -11,7 +11,7 @@ import view.boardComponents.BoardPanel;
         classAuthors = "Trey",
         creationDate = "22/11/2019",
         classEditors = "",
-        lastEdit = "10/12/2019"
+        lastEdit = "12/12/2019"
 )
 /**
  * Class which deals with saving a board object.

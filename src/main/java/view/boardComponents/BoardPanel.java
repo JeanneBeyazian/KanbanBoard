@@ -7,6 +7,7 @@ import model.Change;
 import model.ChangeLog;
 import view.frames.KanbanBoard;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import static controller.OptionPanes.missingComponentError;
         classAuthors = "Jeanne",
         classEditors = "Petra",
         creationDate = "09/11/2019",
-        lastEdit = "14/12/2019"
+        lastEdit = "15/12/2019"
 )
 /**
  * This class creates the panel that will contain the columns
@@ -27,29 +28,41 @@ import static controller.OptionPanes.missingComponentError;
  */
 public class BoardPanel extends JPanel {
 
+
 	private static final long serialVersionUID = 1L;
+
+	// List of all columns in the board
     private ArrayList<KanbanColumn> columns;
 
+    // Current board work in progress counter and set limit
     private int WIPlimit;
     private int WIPcount;
 
     private KanbanBoard parentBoard;
 
+
+    /** Constructor for BoardPanel */
     public BoardPanel(KanbanBoard parentBoard) {
         super();
-        initialiseBoard();
-        WIPcount = 0;
-        WIPlimit = 0;
+        columns = new ArrayList<>();
         this.parentBoard = parentBoard;
+        initialiseBoard();
     }
 
+    /**
+     * Set up the board
+     */
     public void initialiseBoard() {
-        columns = new ArrayList<>();
         setBackground(Color.black);
         setLayout(new FlowLayout());
+        WIPcount = 0;
+        WIPlimit = 0;
     }
-    
 
+    /**
+     * Add a column to this board
+     * @param column KanbanColumn
+     */
     public void addColumn(KanbanColumn column) {
         columns.add(column);
         add(column);
@@ -57,6 +70,10 @@ public class BoardPanel extends JPanel {
         revalidate();
     }
 
+    /**
+     * Remove an input column from the board
+     * @param column KanbanColumn
+     */
     public void removeColumn(KanbanColumn column) {
     	columns.remove(column);
         remove(column);
@@ -64,16 +81,21 @@ public class BoardPanel extends JPanel {
         repaint();
     }
 
+    /**
+     * Remove all columns from the board
+     */
     public void clearBoard() {
+
+        // Make sure board isn't already empty
         if (isEmpty()) {
             missingComponentError("Column");
             return;
         }
         try {
-            columns.clear();
             removeAll();
             revalidate();
             repaint();
+            columns.clear();
             Change change = new Change(Change.ChangeType.CLEAR, parentBoard.getBoardName(), this);
             ChangeLog.getInstance().addChange(change);
         } catch (UnknownKanbanObjectException u){
@@ -81,33 +103,59 @@ public class BoardPanel extends JPanel {
             u.printStackTrace();
         }
 
-
     }
 
+    /**
+     * @return true if the board is empty of columns
+     */
     public boolean isEmpty() {
         return (columns.isEmpty());
     }
 
+    /**
+     * Get the list of all columns in the board
+     * @return
+     */
     public ArrayList<KanbanColumn> getColumns() {
         return columns;
     }
 
+    /**
+     * Increment the current WIP counter by input story points
+     * @param points from added card
+     */
     public void incrementWIPCount(int points){
         WIPcount += points;
     }
 
+    /**
+     * Decrement the current WIP vounter by input story points
+     * @param points from removed card
+     */
     public void decrementWIPCount(int points){
         WIPcount -= points;
     }
 
+    /**
+     * Set or reset current WIP limitation
+     * @param WIPlimit
+     */
     public void setWIPlimit(int WIPlimit) {
         this.WIPlimit = WIPlimit;
     }
 
+    /**
+     * Get the current value of the WIP counter
+     * @return WIPcount
+     */
     public int getWIPcount() {
         return WIPcount;
     }
 
+    /**
+     * Get the current set value of the WIP limit
+     * @return WIPLimit
+     */
     public int getWIPlimit() {
         return WIPlimit;
     }

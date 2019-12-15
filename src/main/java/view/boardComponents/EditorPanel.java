@@ -18,7 +18,7 @@ import static controller.OptionPanes.errorPane;
         classAuthors = "Jeanne",
         classEditors = "",
         creationDate = "15/11/2019",
-        lastEdit = "10/12/2019"
+        lastEdit = "15/12/2019"
 )
 
 /**
@@ -166,6 +166,11 @@ public class EditorPanel extends JPanel {
         return button;
     }
 
+    /**
+     * Create a JPanel containing a JComboBox allowing the user to set up a
+     * WIP limit for the current board
+     * @return JPanel wipPanel
+     */
     private JPanel createWIPLimitBox() {
 
         JPanel wipPanel = new JPanel();
@@ -174,8 +179,11 @@ public class EditorPanel extends JPanel {
         // Components for wipPanel
         JLabel wipLabel = createLabel( "Work In Progress Limit: ");
         JComboBox<Integer> wipBox = new JComboBox<Integer>();
+
+        // Action listener for combo box
         ActionListener wipAction = (e-> {
                 int selectedLimit = wipBox.getSelectedIndex();
+                // If user is trying to set a limit lower than current WIP count
                 if (selectedLimit < currentPanel.getWIPcount()) {
                     errorPane("The entered WIP limit is lower than the current WIP count : " +
                                     currentPanel.getWIPcount() + ".", "WIP Limit Too Low");
@@ -184,7 +192,7 @@ public class EditorPanel extends JPanel {
                 currentPanel.setWIPlimit(selectedLimit); });
         wipBox.addActionListener(wipAction);
 
-        // Making of wipBox
+        // Adding the wipBox values
         int max = 500;
         for (int i = 0; i <= max; i++) wipBox.addItem(i);
         wipBox.setSelectedIndex(50); // Default
