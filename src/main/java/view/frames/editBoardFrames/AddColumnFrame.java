@@ -2,13 +2,11 @@ package view.frames.editBoardFrames;
 
 import annotations.ClassAnnotation;
 import controller.ColumnRole;
-import controller.OptionPanes;
 import javafx.util.Pair;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanColumn;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.AbstractMap;
@@ -20,15 +18,17 @@ import static controller.OptionPanes.commandNotFoundError;
         classAuthors = "Jeanne",
         classEditors = "Jeanne, Petra",
         creationDate = "28/11/2019",
-        lastEdit = "12/12/2019"
+        lastEdit = "15/12/2019"
 )
 
+/**
+ * Frame for adding a column to the board
+ */
 public class AddColumnFrame extends AddFrame implements ActionListener {
 
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
+
 	private String role;
     private JComboBox<String> rolesBox;
 
@@ -42,7 +42,10 @@ public class AddColumnFrame extends AddFrame implements ActionListener {
 
     }
 
-    private void setUpFrame(){
+    /**
+     * Set up the frame and its components
+     */
+    private void setUpFrame() {
 
         JLabel chooseRole = new JLabel("Choose a role:");
 
@@ -59,6 +62,10 @@ public class AddColumnFrame extends AddFrame implements ActionListener {
     }
 
 
+    /**
+     * Action performed when adding a column to a board
+     * @param event
+     */
     public void actionPerformed(ActionEvent event) {
 
         if (event.getSource() == submit) {
@@ -71,6 +78,7 @@ public class AddColumnFrame extends AddFrame implements ActionListener {
             role = String.valueOf(rolesBox.getSelectedItem());
             ColumnRole setRole = null;
 
+            // Find the selected role
             for (ColumnRole enumRole : ColumnRole.values()) {
                 if ((enumRole.getColumnRole()).equals(role)) {
                     setRole = enumRole;

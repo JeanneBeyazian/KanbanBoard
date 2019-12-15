@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
         classAuthors = "Jeanne",
         classEditors = "",
         creationDate = "28/11/2019",
-        lastEdit = "12/12/2019"
+        lastEdit = "15/12/2019"
 )
 /**
  * Super class for addition of components on the board (columns or cards).
@@ -19,12 +19,23 @@ import java.awt.event.ActionListener;
  */
 abstract public class AddFrame extends EditorFrame implements ActionListener {
 
+    // Frame specific components
     protected JTextField titleField;
     protected JLabel titleLabel;
 
+
     public AddFrame(String type, BoardPanel currentPanel) {
+
         super(currentPanel);
         this.currentPanel = currentPanel;
+
+        setUpFrame(type);
+    }
+
+    /** Set up of the frame : make titleField and titleLabel */
+    protected void setUpFrame(String type) {
+        container.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
+                ("Adding a new " + type + " to the board")));
 
         titleLabel = new JLabel("Enter a title:");
         titleLabel.setName("titleLabel");
@@ -32,19 +43,18 @@ abstract public class AddFrame extends EditorFrame implements ActionListener {
         titleField = new JTextField(20);
         titleField.setName("titleField");
 
-        setUpFrame(type);
     }
 
-    /** Set up of the frame : add titleField and titleLabel */
-    protected void setUpFrame(String type) {
-        container.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
-                ("Adding a new " + type + " to the board")));
-    }
+    /**
+     * Create a combo box containing all the column roles available
+     * @return
+     */
+    protected JComboBox<String> createRolesList() {
 
-    protected JComboBox<String> createRolesList(){
         JComboBox<String> box = new JComboBox<>(ColumnRole.getRoles());
         box.setName("columnRolesBox");
         return box;
+
     }
 
 

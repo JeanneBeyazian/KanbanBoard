@@ -4,7 +4,7 @@ import annotations.ClassAnnotation;
 import controller.ColumnRole;
 import controller.exceptions.ChangeTypeNotImplementedException;
 import controller.exceptions.KanbanObjectNotFoundException;
-import view.KanbanBoard;
+import view.frames.KanbanBoard;
 import view.boardComponents.KanbanCardButton;
 import view.boardComponents.KanbanColumn;
 import view.frames.KanbanCard;

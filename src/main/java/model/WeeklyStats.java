@@ -2,16 +2,12 @@ package model;
 
 import annotations.ClassAnnotation;
 import controller.ColumnRole;
-import view.KanbanBoard;
+import view.frames.KanbanBoard;
 import view.boardComponents.KanbanColumn;
 import view.frames.KanbanCard;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @ClassAnnotation(

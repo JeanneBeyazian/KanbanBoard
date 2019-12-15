@@ -20,14 +20,18 @@ import static controller.OptionPanes.commandNotFoundError;
         classAuthors = "Jeanne",
         classEditors = "Jeanne, Ali",
         creationDate = "06/12/2019",
-        lastEdit = "12/12/2019"
+        lastEdit = "15/12/2019"
 )
+/**
+ * Frame for updating a column's information
+ */
 public class UpdateColumnFrame extends AddFrame implements ActionListener{
 
     private JComboBox<String> rolesAvailable;
     private KanbanColumn column;
 
     public UpdateColumnFrame(BoardPanel board, KanbanColumn column) {
+
         super("Column", board);
         this.column = column;
         this.setUpFrame();
@@ -35,7 +39,8 @@ public class UpdateColumnFrame extends AddFrame implements ActionListener{
     }
 
     /**
-     * Sets up the constituents of the frame
+     * Sets up the constituents of the frame :
+     * title field and label, roles field and combo box
      */
     private void setUpFrame() {
 
@@ -60,18 +65,25 @@ public class UpdateColumnFrame extends AddFrame implements ActionListener{
 
     }
 
+    /**
+     * Action performed : updates the column by getting all the changed fields
+     * @param event
+     */
     public void actionPerformed(ActionEvent event) {
 
+        // Make sure the source is known
         if (event.getSource() == submit) {
 
             String newColumnName = "";
 
+            // If nothing has been entered in the titleField, keep the already set one
             if (!(titleField.getText() == null || titleField.getText().isEmpty())) newColumnName = titleField.getText();
             else newColumnName = column.getColumnTitle();
 
             String role = (rolesAvailable.getSelectedItem().toString());
             ColumnRole setRole = null;
 
+            // Find the column role slected
             for (ColumnRole enumRole : ColumnRole.values()) {
                 if ((enumRole.getColumnRole()).equals(role)) {
                     setRole = enumRole;

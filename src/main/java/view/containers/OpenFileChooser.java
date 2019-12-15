@@ -2,7 +2,7 @@ package view.containers;
 
 import annotations.ClassAnnotation;
 import controller.Load;
-import view.KanbanBoard;
+import view.frames.KanbanBoard;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;

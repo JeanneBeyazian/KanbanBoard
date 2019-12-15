@@ -9,11 +9,9 @@ import view.boardComponents.KanbanCardButton;
 import view.boardComponents.KanbanColumn;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.AbstractMap;
-import java.util.HashMap;
 import java.util.Map;
 
 import static controller.OptionPanes.*;
@@ -22,23 +20,37 @@ import static controller.OptionPanes.*;
         classAuthors = "Jeanne",
         classEditors = "Jeanne, Petra",
         creationDate = "28/11/2019",
-        lastEdit = "12/12/2019"
+        lastEdit = "15/12/2019"
 )
-
+/**
+ * Frame for adding a card to the board
+ */
 public class AddCardFrame extends AddFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
+
+	// Frame specific components
 	private JTextArea cardDescriptionArea;
     private JComboBox<Integer> storyPointsBox;
     private JComboBox<String> columnsBox;
 
+
     public AddCardFrame(BoardPanel currentPanel) {
+
         super("card", currentPanel);
         submit.addActionListener(this);
         setName("addCardFrame");
         this.setUpFrame();
+
     }
 
+    /**
+     * Set up the frame and its components :
+     *      - title label and field,
+     *      - description label and area,
+     *      - story points label and combo box,
+     *      - column label and combo box.
+     */
     private void setUpFrame() {
 
         // Set up description area
@@ -79,6 +91,10 @@ public class AddCardFrame extends AddFrame implements ActionListener {
     }
 
 
+    /**
+     * Action performed when adding a card to the board
+     * @param event
+     */
     public void actionPerformed(ActionEvent event) {
 
         if (event.getSource() == submit) {
@@ -103,7 +119,7 @@ public class AddCardFrame extends AddFrame implements ActionListener {
                 columnToAdd = currentPanel.getColumnByTitle(columnName);
             }
 
-            catch(KanbanObjectNotFoundException e){
+            catch (KanbanObjectNotFoundException e) {
                 OptionPanes.commandNotFoundError();
                 System.out.println("Error: Column not found");
                 e.printStackTrace();

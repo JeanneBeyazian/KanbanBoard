@@ -9,7 +9,7 @@ import java.awt.*;
         classAuthors = "Jeanne",
         classEditors = "",
         creationDate = "09/12/2019",
-        lastEdit = "09/12/2019"
+        lastEdit = "15/12/2019"
 )
 
 /**
@@ -17,9 +17,11 @@ import java.awt.*;
  */
 public abstract class PopUpFrames extends JDialog {
 
+    // Frame components
     protected JPanel containerPanel;
     protected JPanel buttonPanel;
 
+    // Pre-defined size
     private static final int WIDTH = 650;
     private static final int HEIGHT = 300;
 
@@ -41,6 +43,9 @@ public abstract class PopUpFrames extends JDialog {
     }
 
 
+    /**
+     * Set up the frame and its components
+     */
     private void initialise() {
 
         buttonPanel = new JPanel();
@@ -55,13 +60,17 @@ public abstract class PopUpFrames extends JDialog {
     }
 
 
+    /** Abstract method that sets up the text displayed on the pop-up frame */
     protected abstract JTextArea createText();
 
+    /**
+     * Create a 'Go Back' button to dispose the frame
+     * @return JButton 'Go back'
+     */
     protected JButton createGoBackButton(){
 
         JButton cancel = new JButton("Go back");
         cancel.addActionListener(e->this.dispose());
-        //cancel.setBackground(new java.awt.Color(212, 171, 168));
         cancel.setBorderPainted(false);
         cancel.setAlignmentX(Component.CENTER_ALIGNMENT);
 

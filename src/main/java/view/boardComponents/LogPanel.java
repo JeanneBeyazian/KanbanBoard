@@ -1,9 +1,10 @@
-package view.containers;
+package view.boardComponents;
 
 import annotations.ClassAnnotation;
 import model.Change;
 import model.ChangeLog;
 import view.boardComponents.ActivityButton;
+import view.containers.ScrollContainer;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -24,13 +25,17 @@ public class LogPanel extends JPanel {
     private static final int LOG_WIDTH = 100;
     private static final int LOG_HEIGHT = 330;
 
+    // Container for activity buttons
     private ScrollContainer activityLog;
 
-    public LogPanel(){
+
+    /** Constructor for LogPanel*/
+    public LogPanel() {
+
         ChangeLog log = ChangeLog.getInstance();
         initialiseLogPanel();
 
-        log.addListener(this); // add this panel to ChangeLog listener list
+        log.addListener(this);      // add this panel to ChangeLog listener list
         updateLog();
     }
 
@@ -43,16 +48,10 @@ public class LogPanel extends JPanel {
         setOpaque(false);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         activityLog = new ScrollContainer();
-        add(makeChangeLog());
-    }
-
-
-    private JPanel makeChangeLog(){
-
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(activityLog);
-        return panel;
     }
+
 
     /**
      * Triggered by ChangeLog (observer design pattern).
@@ -61,6 +60,7 @@ public class LogPanel extends JPanel {
     public void updateLog() {
 
         ChangeLog log = ChangeLog.getInstance();
+
         String logEntry = "";
         Change c = log.getLastChange();
         try {
@@ -69,6 +69,7 @@ public class LogPanel extends JPanel {
             System.out.println("Failed to convert log entry");
         }
 
+        // Create and add a new Activity button to the Log panel
         ActivityButton button = new ActivityButton(logEntry, c.getChangeType(), c.getId());
         activityLog.add(button);
 

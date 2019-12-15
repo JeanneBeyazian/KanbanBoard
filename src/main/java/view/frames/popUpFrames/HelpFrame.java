@@ -39,6 +39,7 @@ public class HelpFrame extends PopUpFrames{
                 "edit its title and role, or clear all of its cards. Once you add a card to a column," +
                 "clicking on it will allow you\nto view its description, and edit it. " +
                 "To do so, change any information directly on the card, then click 'save changes'.\n\n" +
+                "Use the Kanban Menu at the top to access statistics and other commands you might need.\n\n" +
                 "To exit the application, use the 'Exit application' button at the bottom of the editor panel.";
 
         helpTextArea.setText(helpString);

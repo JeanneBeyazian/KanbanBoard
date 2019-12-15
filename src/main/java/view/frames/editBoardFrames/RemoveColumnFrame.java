@@ -26,12 +26,17 @@ import static controller.OptionPanes.missingComponentError;
         creationDate = "29/11/2019",
         lastEdit = "12/12/2019"
 )
-
+/**
+ * Frame for removing a column from the board
+ */
 public class RemoveColumnFrame extends EditorFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
+
+	// Frame specific components
 	protected JLabel chooseColumnLabel;
-    protected  JComboBox<String> columnsBox;
+    protected JComboBox<String> columnsBox;
+
 
     public RemoveColumnFrame(BoardPanel currentPanel) {
 
@@ -42,6 +47,10 @@ public class RemoveColumnFrame extends EditorFrame implements ActionListener {
         this.setUpFrame();
     }
 
+    /**
+     * Set up the frame and its components :
+     * add a choose column label and combo box.
+     */
     private void setUpFrame() {
 
         container.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),

@@ -22,12 +22,17 @@ import static controller.OptionPanes.*;
         classAuthors = "Jeanne",
         classEditors = "Jeanne, Petra",
         creationDate = "28/11/2019",
-        lastEdit = "12/12/2019"
+        lastEdit = "15/12/2019"
 )
+/**
+ * Frame for moving a card from a column to another
+ */
 public class MoveCardFrame extends EditorFrame {
 
+    // Frame specific components
     private JComboBox<String> columnsBox;
     private JComboBox<String> thisColumnBox;
+
     private KanbanCardButton currentCard;
 
 
@@ -40,6 +45,10 @@ public class MoveCardFrame extends EditorFrame {
 
     }
 
+    /**
+     * Set up the frame and its components :
+     * add a this column label and combo box, chosen column label and combo box.
+     */
     private void setUpFrame() {
 
         // Set up columns combo boxes
@@ -64,9 +73,13 @@ public class MoveCardFrame extends EditorFrame {
 
     }
 
-
+    /**
+     * Action to move a card from a column to another
+     * @param event
+     */
     public void actionPerformed(ActionEvent event) {
 
+        // Make sure source is known
         if (event.getSource() == submit) {
 
             if(!columnsBox.isEnabled()) {
@@ -80,6 +93,7 @@ public class MoveCardFrame extends EditorFrame {
             KanbanColumn currentColumn = currentCard.getColumn();
 
 
+            // Get name of selected column and add card to it
             try {
                 columnToAdd = currentPanel.getColumnByTitle(columnName);
                 columnToAdd.addCard(currentCard);
@@ -88,14 +102,13 @@ public class MoveCardFrame extends EditorFrame {
             } catch (UnknownKanbanObjectException u){
                 System.out.println("Failed to log.");
                 u.printStackTrace();
-            }
-
-            catch (KanbanObjectNotFoundException e){
+            } catch (KanbanObjectNotFoundException e) {
                 System.out.println("Error: Column not found");
                 e.printStackTrace();
                 return;
             }
 
+            // Remove card from old parent column
             try {
                 currentColumn.removeCard(currentCard);
             }

@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import annotations.ClassAnnotation;
-import view.containers.LogPanel;
+import view.boardComponents.LogPanel;
 
 @ClassAnnotation(
         classAuthors = "Petra",
@@ -20,6 +20,7 @@ import view.containers.LogPanel;
  */
 
 public class ChangeLog {
+
     private List<Change> changes;
     private static ChangeLog instance = null; // store the single instance of this class
     private List<LogPanel> listeners; // store the log panel(s) listening for log changes

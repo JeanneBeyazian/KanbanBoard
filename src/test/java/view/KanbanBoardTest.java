@@ -3,13 +3,8 @@ import annotations.ClassAnnotation;
 import org.junit.Before;
 import org.junit.Test;
 import com.athaydes.automaton.Swinger;
-import view.frames.KanbanCard;
-import view.frames.editBoardFrames.AddColumnFrame;
+import view.frames.KanbanBoard;
 
-import javax.swing.*;
-import java.awt.*;
-
-import static com.athaydes.automaton.assertion.AutomatonMatcher.hasText;
 import static org.junit.Assert.assertThat;
 
 @ClassAnnotation(

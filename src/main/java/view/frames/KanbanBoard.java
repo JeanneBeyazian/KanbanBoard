@@ -1,4 +1,4 @@
-package view;
+package view.frames;
 
 import annotations.ClassAnnotation;
 import controller.exceptions.UnknownKanbanObjectException;
@@ -60,6 +60,7 @@ public class KanbanBoard extends JFrame {
         setVisible(true);
 
     }
+
 
     public KanbanBoard() {
 
@@ -124,11 +125,14 @@ public class KanbanBoard extends JFrame {
         setJMenuBar(menu);
     }
 
-
+    /** @return child component BoardPanel */
     public BoardPanel getBoard(){
         return board;
     }
-    
+
+    /** Set up child component BoardPanel
+     * @param newBoard
+     */
     public void setBoard(BoardPanel newBoard){
         board = newBoard;
         board.setVisible(true);
@@ -136,17 +140,22 @@ public class KanbanBoard extends JFrame {
         repaint();
     }
 
+    /** @return child component EditorPanel*/
     public EditorPanel getEditorPanel(){
         return editorPanel;
     }
 
+    /** @return name of the board */
     public String getBoardName(){ return this.getTitle(); }
 
+    /**
+     * Set up new name for the board (changes frame title as well)
+     * @param newName
+     */
     public void setBoardName(String newName){
         setTitle(newName);
         revalidate();
     }
-
 
 
     /**

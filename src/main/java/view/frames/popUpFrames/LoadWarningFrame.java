@@ -10,7 +10,7 @@ import java.awt.*;
         classAuthors = "Jeanne",
         classEditors = "",
         creationDate = "09/12/2019",
-        lastEdit = "10/12/2019"
+        lastEdit = "15/12/2019"
 )
 public class LoadWarningFrame extends PopUpFrames {
 
@@ -43,11 +43,16 @@ public class LoadWarningFrame extends PopUpFrames {
         return warningText;
     }
 
+    /**
+     * Create a button to submit the user's decision - proceed and load a board
+     * @return JButton proceed
+     */
     private JButton createSubmitButton() {
 
         JButton proceed = new JButton("Proceed");
         proceed.addActionListener(e->{
             new OpenFileChooser();
+            // Make sure the other board has been opened before closing current one
             if(Frame.getFrames().length>2)dispose();
         });
         proceed.setBorderPainted(false);

@@ -15,10 +15,10 @@ import java.awt.*;
 
 
 @ClassAnnotation(
-        classAuthors = "Jeanne & Nathan",
+        classAuthors = "Nathan & Jeanne",
         classEditors = "Jeanne, Nathan, Petra",
         creationDate = "13/11/2019",
-        lastEdit = "08/12/2019"
+        lastEdit = "15/12/2019"
 )
 /**
  * This class is responsible for the creation of kanban cards.
@@ -29,18 +29,27 @@ public class KanbanCard extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	private static int id;
+	private static int id;                  // unique int id
 
+    // Card frame components field
     private KanbanCardButton cardButton;
     private JTextField title;
     private JTextArea description;
+    private JComboBox<Integer> storyPointsBox;
 
+    // Internal object fields
     private String cardTitle;
     private String cardDescription;
     private Integer cardStoryPoints;
 
-    private JComboBox<Integer> storyPointsBox;
 
+    /**
+     * Constructor for KanbanCard
+     * @param button        Associated KanbanCardButton
+     * @param name          Card title, button name
+     * @param description   Card description
+     * @param storyPoints   Card slected story points
+     */
     public KanbanCard(KanbanCardButton button, String name, String description, int storyPoints) {
         ++id;
 
@@ -203,7 +212,7 @@ public class KanbanCard extends JFrame {
     }
 
     /**
-     * @return button for saving changes
+     * @return button for saving changes on a card
      */
     public JButton createSaveButton() {
 
@@ -213,6 +222,10 @@ public class KanbanCard extends JFrame {
         return save;
     }
 
+    /**
+     * Create JButton for moving a card from a column to another
+     * @return moveButton
+     */
     public JButton createMoveButton() {
 
         JButton move = new JButton("Change column");
@@ -235,11 +248,10 @@ public class KanbanCard extends JFrame {
         // Update
         setTitle(newTitle);
         description.setText(newDescription);
-        // storyPointsBox.se(newPoint);
         cardButton.setStoryPoints(String.valueOf(newPoint));
         cardButton.setTitle(newTitle);
 
-        //only log if values have changed
+        // Only log if values have changed
         // track change
         if(!cardTitle.equals(newTitle)) {
             try {
@@ -263,6 +275,7 @@ public class KanbanCard extends JFrame {
             }
         }
 
+
         if(cardStoryPoints != newPoint) {
             try {
                 Change change = new Change(Change.ChangeType.UPDATE, cardTitle, this,
@@ -274,7 +287,7 @@ public class KanbanCard extends JFrame {
             }
         }
 
-        // update internal object fields
+        // Update internal object fields
         cardTitle = newTitle;
         cardDescription = newDescription;
         cardStoryPoints = newPoint;
@@ -283,14 +296,23 @@ public class KanbanCard extends JFrame {
 
     }
 
-    public JTextArea getDescription() {
-        return description;
-    }
-
+    /**
+     * @return JTextField for card title choosing
+     */
     public JTextField getCardTitleField() {
         return title;
     }
 
+    /**
+     * @return JTextArea for card description choosing
+     */
+    public JTextArea getDescription() {
+        return description;
+    }
+
+    /**
+     * @return JComboBox for story points choosing
+     */
     public JComboBox<Integer> getStoryPointsBox() {
         return storyPointsBox;
     }

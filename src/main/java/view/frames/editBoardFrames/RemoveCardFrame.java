@@ -25,14 +25,16 @@ import static controller.OptionPanes.*;
         classAuthors = "Jeanne",
         classEditors = "Jeanne, Petra",
         creationDate = "29/11/2019",
-        lastEdit = "13/12/2019"
+        lastEdit = "15/12/2019"
 )
+/**
+ * Frame for removing a card from a column
+ */
 public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+
+	// Frame specific components
 	private JLabel chooseCardLabel;
     private JComboBox<String> chooseCardBox;
     private JButton columnChosenButton;
@@ -66,6 +68,10 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
         placeComponents(map, 3);
     }
 
+    /**
+     * Get the Kanban Column object slected in the combo box
+     * @return KanbanColumn selected column
+     */
     private KanbanColumn getSelectedColumn() {
 
         KanbanColumn toReturn = null;

@@ -1,36 +1,25 @@
 package view.frames;
 
 import annotations.ClassAnnotation;
-import controller.Load;
-import view.KanbanBoard;
 import view.containers.OpenFileChooser;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.io.File;
 
 @ClassAnnotation(
         classAuthors = "Nathan, Jeanne",
         classEditors = "Jeanne",
         creationDate = "08/12/2019",
-        lastEdit = "12/12/2019"
+        lastEdit = "15/12/2019"
 )
 public class MainFrame extends JFrame {
 
+    // Frame components
     private JPanel mainContainer;
     private JPanel bottomContainer;
     private JPanel buttonsPanel;
 
     public MainFrame() {
-
-        // PLEASE KEEP THIS.
-
-//        try {
-//            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//        } catch (Exception e) {
-//        }
-
         setTitle("Welcome to Kanban Board Indigo");
         setLocationRelativeTo(null);
         setResizable(false);

@@ -3,7 +3,7 @@ package model;
 
 import controller.exceptions.ChangeTypeNotImplementedException;
 import controller.exceptions.UnknownKanbanObjectException;
-import view.KanbanBoard;
+import view.frames.KanbanBoard;
 import view.boardComponents.*;
 import annotations.ClassAnnotation;
 import view.frames.KanbanCard;
@@ -11,7 +11,6 @@ import view.frames.KanbanCard;
 import java.lang.Class;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 
 @ClassAnnotation(
         classAuthors = "Petra",
@@ -117,7 +116,8 @@ public class Change {
      * @param newParent
      * @throws UnknownKanbanObjectException
      */
-    public Change(ChangeType changeType, String objTitle, Object obj, Object newParent, Object oldParent) throws UnknownKanbanObjectException {
+    public Change(ChangeType changeType, String objTitle, Object obj, Object newParent, Object oldParent)
+            throws UnknownKanbanObjectException {
         this(changeType, objTitle, obj);
         this.newParent = newParent;
         this.oldParent = oldParent;

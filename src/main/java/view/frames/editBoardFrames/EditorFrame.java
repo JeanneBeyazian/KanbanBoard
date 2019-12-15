@@ -9,14 +9,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 @ClassAnnotation(
         classAuthors = "Jeanne",
         classEditors = "",
         creationDate = "28/11/2019",
-        lastEdit = "12/12/2019"
+        lastEdit = "15/12/2019"
 )
 /**
  * Editor JFrame to add/delete/modify components on the current BoardPanel.
@@ -24,16 +23,19 @@ import java.util.Map;
  */
 abstract public class EditorFrame extends JFrame implements ActionListener {
 
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
+
 	protected BoardPanel currentPanel;
-    protected JPanel container;             // contains frame components
+
+	// Frame specific components
+    protected JPanel container;
     protected JButton submit;
     protected JButton cancel;
 
+
     public EditorFrame(BoardPanel currentPanel) {
+
         this.currentPanel = currentPanel;
         createButtons();
         initialise();
@@ -58,13 +60,19 @@ abstract public class EditorFrame extends JFrame implements ActionListener {
         submit.setName("submitButton");
     }
 
+    /**
+     * This method places all the components in their given location following a GridBagLayout
+     * @param compCoordinates   Map of the Component to be placed and its coordinates
+     * @param submitY           Y axis coordinate for buttons Submit and Cancel
+     */
     protected void placeComponents(Map<JComponent, Pair<Integer,Integer>> compCoordinates, int submitY) {
 
+        // Sets up the constraints
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(10, 10, 10, 10);
         constraints.anchor = GridBagConstraints.WEST;
 
-
+        // For each component in the map, make the constraints by getting its associated coordinates
         for (JComponent comp : compCoordinates.keySet()) {
             Pair<Integer, Integer> coo = compCoordinates.get(comp);
             constraints.gridx = coo.getKey();
@@ -72,6 +80,7 @@ abstract public class EditorFrame extends JFrame implements ActionListener {
             container.add(comp, constraints);
         }
 
+        // Finally, places buttons submit and cancel
         constraints.gridwidth = 2;
         constraints.gridx = 0;
         constraints.gridy = submitY;

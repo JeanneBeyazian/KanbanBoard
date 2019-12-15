@@ -1,7 +1,7 @@
 package view.frames.popUpFrames;
 
 import annotations.ClassAnnotation;
-import view.KanbanBoard;
+import view.frames.KanbanBoard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,12 +10,12 @@ import java.awt.*;
         classAuthors = "Jeanne",
         classEditors = "",
         creationDate = "10/12/2019",
-        lastEdit = "10/12/2019"
+        lastEdit = "15/12/2019"
 )
 public class WIPProgressFrame extends PopUpFrames {
 
     private KanbanBoard currentBoard;
-    private JProgressBar bar;
+    private JProgressBar bar;               // visual representation of WIP progress
     private JLabel progress;
 
     public WIPProgressFrame(KanbanBoard currentBoard) {
@@ -49,6 +49,9 @@ public class WIPProgressFrame extends PopUpFrames {
 
     }
 
+    /**
+     * @return JButton for refreshing the frame and get new stats after updating the board
+     */
     private JButton createRefreshButton() {
 
         JButton refresh = new JButton("Refresh");
@@ -58,6 +61,10 @@ public class WIPProgressFrame extends PopUpFrames {
         return refresh;
     }
 
+    /**
+     * Create the JProgressBar : visual representation of the WIP progress
+     * @return WIP progress bar
+     */
     private JProgressBar createBar() {
 
         bar = new JProgressBar();
@@ -65,13 +72,18 @@ public class WIPProgressFrame extends PopUpFrames {
         bar.setMaximumSize(new Dimension(250,75));
         bar.setStringPainted(true);
 
+        // Adds current stats to the bar
         updateBar();
 
         return bar;
 
     }
 
+    /**
+     * Calculates statistics and updates the JProgressBar
+     */
     private void updateBar() {
+
         int max = currentBoard.getBoard().getWIPlimit();
         int current = currentBoard.getBoard().getWIPcount();
 

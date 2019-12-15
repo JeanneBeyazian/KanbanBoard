@@ -5,8 +5,7 @@ import controller.exceptions.KanbanObjectNotFoundException;
 import controller.exceptions.UnknownKanbanObjectException;
 import model.Change;
 import model.ChangeLog;
-import view.KanbanBoard;
-import view.frames.KanbanCard;
+import view.frames.KanbanBoard;
 
 import javax.swing.*;
 import java.awt.*;

@@ -2,7 +2,7 @@ package view.boardComponents;
 
 import annotations.ClassAnnotation;
 import controller.Save;
-import view.KanbanBoard;
+import view.frames.KanbanBoard;
 import view.frames.MainFrame;
 import view.frames.editBoardFrames.AddCardFrame;
 import view.frames.editBoardFrames.AddColumnFrame;

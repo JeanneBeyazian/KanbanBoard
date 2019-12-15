@@ -236,7 +236,7 @@ public class KanbanColumn extends JPanel {
             repaint();
             Change change = new Change(Change.ChangeType.CLEAR, this.getColumnTitle(), this);
             ChangeLog.getInstance().addChange(change);
-        } catch (UnknownKanbanObjectException e){
+        } catch (UnknownKanbanObjectException e) {
             System.out.println("Failed to log.");
             e.printStackTrace();
         }
