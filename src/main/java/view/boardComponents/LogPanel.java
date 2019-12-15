@@ -51,6 +51,7 @@ public class LogPanel extends JPanel {
         activityLog = new ScrollContainer();
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(activityLog);
+        add(panel);
     }
 
 
