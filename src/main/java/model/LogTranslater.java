@@ -33,8 +33,8 @@ public class LogTranslater {
         board.getEditorPanel().setVisible(false);
         board.setVisible(true);
 
-
     }
+
 
     /**
      * Translation process : for each changes in the given log, checks type of change and reproduces it
@@ -44,12 +44,14 @@ public class LogTranslater {
 
         for (Change change : log) {
 
+            // Get the changetype for this change
             Change.ChangeType changeType = change.getChangeType();
-                if (changeType==Change.ChangeType.ADD) add(change);
-                if (changeType == Change.ChangeType.REMOVE) remove(change);
-                if (changeType == Change.ChangeType.UPDATE) update(change);
-                if (changeType == Change.ChangeType.MOVE) move(change);
-                if (changeType == Change.ChangeType.CLEAR) clear(change);
+
+            if (changeType==Change.ChangeType.ADD) add(change);
+            if (changeType == Change.ChangeType.REMOVE) remove(change);
+            if (changeType == Change.ChangeType.UPDATE) update(change);
+            if (changeType == Change.ChangeType.MOVE) move(change);
+            if (changeType == Change.ChangeType.CLEAR) clear(change);
         }
     }
 
@@ -65,7 +67,8 @@ public class LogTranslater {
 
         if (classType == KanbanBoard.class) {
             board.setBoardName("[LOG VERSION UNTIL CHANGE "
-                    + log.get(log.size()-1).getId() +" OF BOARD :  " + change.getobjTitle()
+                    + log.get(log.size()-1).getId() +" OF BOARD :  "
+                    + change.getobjTitle()
                     + "] - Please do not modify past versions.");
         }
         else if (classType == KanbanColumn.class){
@@ -81,6 +84,7 @@ public class LogTranslater {
         }
 
     }
+
 
     /**
      * If an object has been removed from the board
@@ -107,6 +111,7 @@ public class LogTranslater {
 
     }
 
+
     /**
      * If an object from the board has been updated
      * @param change
@@ -116,6 +121,7 @@ public class LogTranslater {
 
         Class<?> classType = change.getObject().getClass();
 
+        // If a column has been updated
         if (classType== KanbanColumn.class) {
             if (change.getUpdatedField().equals("role")){
                 ((KanbanColumn)change.getObject()).setRole((ColumnRole)change.getUpdatedValue());
@@ -125,7 +131,10 @@ public class LogTranslater {
             }
         }
 
+        // If a card has been updated
         else if (classType== KanbanCard.class || change.getObject() == KanbanCardButton.class) {
+
+            // Get the card object
             KanbanCard card = (KanbanCard)change.getObject();
 
             if (change.getUpdatedField().equals("title")){
@@ -138,6 +147,7 @@ public class LogTranslater {
                 card.getStoryPointsBox().setSelectedItem((Integer.valueOf((String)change.getUpdatedValue())));
             }
 
+            // Update the card information
             card.update();
         }
 
@@ -149,19 +159,18 @@ public class LogTranslater {
      * @throws ChangeTypeNotImplementedException
      */
     private void move(Change change) {
+
         Class<?> classType = change.getObject().getClass();
+        KanbanColumn prevCol = (KanbanColumn) change.getOldParent();
 
-        if (classType== KanbanCard.class || classType== KanbanCardButton.class) {
-            KanbanColumn prevCol = (KanbanColumn) change.getOldParent();
-            try {
-                board.getBoard().getColumnByTitle(change.getNewParentTitle())
-                        .addCard((KanbanCardButton)change.getObject());
-                board.getBoard().getColumnByTitle(prevCol.getColumnTitle())
-                        .removeCard((KanbanCardButton) change.getObject());
+        try {
+            board.getBoard().getColumnByTitle(change.getNewParentTitle())
+                    .addCard((KanbanCardButton)change.getObject());
+            board.getBoard().getColumnByTitle(prevCol.getColumnTitle())
+                    .removeCard((KanbanCardButton) change.getObject());
 
-            } catch (Exception e){
-                new KanbanObjectNotFoundException();
-            }
+        } catch (Exception e){
+            new KanbanObjectNotFoundException();
         }
 
     }
@@ -172,6 +181,8 @@ public class LogTranslater {
      * @throws ChangeTypeNotImplementedException
      */
     private void clear(Change change)  {
+
+        // Check if column or board has been cleared
         if (change.getObject() == KanbanColumn.class) {
             KanbanColumn col = (KanbanColumn)change.getObject();
             col.clearColumn();

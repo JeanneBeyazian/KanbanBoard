@@ -113,7 +113,7 @@ public class WeeklyStats {
     }
 
     // Todo - LEAD TIME : time it takes for an item to get COMPLETED (expressed in weeks)
-    public static int getAverageLeadTimePerWeek(KanbanBoard currentboard) {
+    public static int getAverageLeadTimePerWeek(KanbanBoard currentBoard) {
 
         if (weeklyChanges.isEmpty()) return 0;
 

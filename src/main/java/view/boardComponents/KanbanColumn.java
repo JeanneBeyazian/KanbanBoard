@@ -223,21 +223,22 @@ public class KanbanColumn extends JPanel {
     public void clearColumn() {
 
         // If called on empty column
-        if (cards.isEmpty()) {
-
-            return;
-        }
+        if (cards.isEmpty()) return;
 
         try {
+            for (int i=0; i<cards.size(); i++) {
+                columnPane.remove(columnPane.getComponent(0));
+                repaint();
+                revalidate();
+            }
             cards.clear();
-            columnPane.removeAll();
             revalidate();
             repaint();
             Change change = new Change(Change.ChangeType.CLEAR, this.getColumnTitle(), this);
             ChangeLog.getInstance().addChange(change);
-        } catch (UnknownKanbanObjectException u){
+        } catch (UnknownKanbanObjectException e){
             System.out.println("Failed to log.");
-            u.printStackTrace();
+            e.printStackTrace();
         }
     }
 

@@ -11,13 +11,12 @@ import view.frames.KanbanCard;
 import java.lang.Class;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.Temporal;
-import java.util.Date;
+
 
 @ClassAnnotation(
         classAuthors = "Petra",
         classEditors = "Jeanne",
-        creationDate = "22/11/2019",
+        creationDate = "04/12/2019",
         lastEdit = "14/12/2019"
 )
 
@@ -134,7 +133,7 @@ public class Change {
             String time = "At " + getTimestamp().format(format) + " : ";
 
             if (changeType == ChangeType.ADD){
-                return time + "Inserted new " + className +" called \"" + objTitle + "\"";
+                return time + "Created new " + className +" called \"" + objTitle + "\"";
             }
             if (changeType == ChangeType.REMOVE){
                 return time + "Removed the " + className +" called \"" + objTitle + "\"";
@@ -169,14 +168,6 @@ public class Change {
     }
 
     /**
-     * Returns the object class' name
-     * @return className
-     */
-    public String getClassName(){
-        return className;
-    }
-
-    /**
      * Returns the current date and time of when the change was made
      * @return date
      */
@@ -207,13 +198,18 @@ public class Change {
     /**
      * @return reference to old parent Object of moved Object
      */
-
     public Object getOldParent(){return newParent;}
 
+    /**
+     * @return field that has been updated on a given object change
+     */
     public String getUpdatedField() {
         return updatedField;
     }
 
+    /**
+     * @return the value inserted in the updated field for a given object change
+     */
     public Object getUpdatedValue() {
         return updatedValue;
     }
