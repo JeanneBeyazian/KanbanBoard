@@ -97,7 +97,7 @@ public class MoveCardFrame extends EditorFrame {
             try {
                 columnToAdd = currentPanel.getColumnByTitle(columnName);
                 columnToAdd.addCard(currentCard);
-                Change change = new Change(Change.ChangeType.MOVE, currentCard.getCardButtonTitle(), currentCard, currentColumn, columnToAdd);
+                Change change = new Change(currentPanel, Change.ChangeType.MOVE, currentCard.getCardButtonTitle(), currentCard, currentColumn, columnToAdd);
                 ChangeLog.getInstance().addChange(change);
             } catch (UnknownKanbanObjectException u){
                 System.out.println("Failed to log.");

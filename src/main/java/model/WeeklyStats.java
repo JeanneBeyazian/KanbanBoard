@@ -6,8 +6,12 @@ import view.frames.KanbanBoard;
 import view.boardComponents.KanbanColumn;
 import view.frames.KanbanCard;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @ClassAnnotation(
@@ -54,6 +58,24 @@ public class WeeklyStats {
         return listOfWeeks;
     }
 
+
+    /**
+     * Return the week number for that date
+     * @param timestamp
+     * @return
+     */
+    private String getWeekOfYear(LocalDateTime timestamp) {
+
+        // Convert LocalDateTime to Date
+        ZoneOffset zoneOffset = ZoneOffset.from(OffsetDateTime.now());
+        OffsetDateTime offsetDateTime = timestamp.atOffset(zoneOffset);
+        Date date = Date.from(offsetDateTime.toInstant());
+
+        // Get week number for that year
+        String weekOfYear = new SimpleDateFormat("w").format(date);
+
+        return weekOfYear;
+    }
 
 
     /**
@@ -112,11 +134,16 @@ public class WeeklyStats {
     public static int getAverageLeadTimePerWeek(KanbanBoard currentBoard) {
 
         if (weeklyChanges.isEmpty()) return 0;
+        //number of week 0
+        //number of week  n
+        // n - 0
 
         for (ArrayList<Change> changes : weeklyChanges) {
 
             if (!changes.isEmpty()) {
 
+                Change one = changes.get(0);
+                one.getCurrentBoard().getWIPcount();
                 Change endOfWeek = changes.get(changes.size() - 1);
 
 
@@ -127,9 +154,45 @@ public class WeeklyStats {
         return 0;
     }
 
-    // Todo - WIP : number of story points in WIP column (expressed in SP)
-    public static int getAverageWIPPerWeek() {
+
+    /**
+     * Get the average wip per week
+     * @param wipList of wip per week
+     * @return average of wiplist data
+     */
+    private static double getWIPAvergae(ArrayList<Integer> wipList) {
+
+        Integer wipSum = 0;
+
+        if(!wipList.isEmpty()) {
+            for (Integer weekWIP : wipList) {
+                wipSum += weekWIP;
+            }
+            return (wipSum.doubleValue()/wipList.size());
+        }
         return 0;
+    }
+
+
+    public static double getAverageWIPPerWeek() {
+
+        if (weeklyChanges.isEmpty()) return 0;
+
+        // List to add up all weekly wip
+        ArrayList<Integer> wipList = new ArrayList<Integer>();
+
+        for (ArrayList<Change> changes : weeklyChanges) {
+
+            if (!changes.isEmpty()) {
+                // Get end of week results
+                Change endOfWeek = changes.get(changes.size() - 1);
+                int weekWIP = endOfWeek.getCurrentBoard().getWIPcount();
+                wipList.add(weekWIP);
+            }
+
+        }
+
+        return WeeklyStats.getWIPAvergae(wipList);
     }
 
 

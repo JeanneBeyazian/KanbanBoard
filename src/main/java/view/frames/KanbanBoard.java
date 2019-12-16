@@ -49,7 +49,7 @@ public class KanbanBoard extends JFrame {
 
         // track change
         try {
-            Change change = new Change(Change.ChangeType.ADD, title, this);
+            Change change = new Change(board, Change.ChangeType.ADD, title, this);
             ChangeLog.getInstance().addChange(change);
         } catch (UnknownKanbanObjectException u){
             System.out.println("Failed to log.");
@@ -71,7 +71,7 @@ public class KanbanBoard extends JFrame {
 
         // track change
         try {
-            Change change = new Change(Change.ChangeType.ADD, "", this);
+            Change change = new Change(board, Change.ChangeType.ADD, "", this);
             ChangeLog.getInstance().addChange(change);
         } catch (UnknownKanbanObjectException u){
             System.out.println("Failed to log.");

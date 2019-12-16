@@ -59,7 +59,7 @@ public class KanbanCard extends JFrame {
 
         // track change
         try {
-            Change change = new Change(Change.ChangeType.ADD, name, this);
+            Change change = new Change(getBoard(), Change.ChangeType.ADD, name, this);
             ChangeLog.getInstance().addChange(change);
         } catch (UnknownKanbanObjectException u){
             System.out.println("Failed to log.");
@@ -194,7 +194,7 @@ public class KanbanCard extends JFrame {
 
                 //log change
                 try {
-                    Change change = new Change(Change.ChangeType.REMOVE, cardTitle, this);
+                    Change change = new Change(getBoard(), Change.ChangeType.REMOVE, cardTitle, this);
                     ChangeLog.getInstance().addChange(change);
                 } catch (UnknownKanbanObjectException u){
                     System.out.println("Failed to log.");
@@ -255,7 +255,7 @@ public class KanbanCard extends JFrame {
         // track change
         if(!cardTitle.equals(newTitle)) {
             try {
-                Change change = new Change(Change.ChangeType.UPDATE, cardTitle, this,
+                Change change = new Change(getBoard(), Change.ChangeType.UPDATE, cardTitle, this,
                         "title", newTitle);
                 ChangeLog.getInstance().addChange(change);
             } catch (UnknownKanbanObjectException u) {
@@ -266,7 +266,7 @@ public class KanbanCard extends JFrame {
 
         if(!cardDescription.equals(newDescription)) {
             try {
-                Change change = new Change(Change.ChangeType.UPDATE, cardTitle, this,
+                Change change = new Change(getBoard(), Change.ChangeType.UPDATE, cardTitle, this,
                         "description", newDescription);
                 ChangeLog.getInstance().addChange(change);
             } catch (UnknownKanbanObjectException u) {
@@ -278,7 +278,7 @@ public class KanbanCard extends JFrame {
 
         if(cardStoryPoints != newPoint) {
             try {
-                Change change = new Change(Change.ChangeType.UPDATE, cardTitle, this,
+                Change change = new Change(getBoard(), Change.ChangeType.UPDATE, cardTitle, this,
                         "story points", String.valueOf(newPoint));
                 ChangeLog.getInstance().addChange(change);
             } catch (UnknownKanbanObjectException u) {

@@ -30,6 +30,8 @@ public class Change {
 
     private static int id = -1;   // Unique ID
 
+    private BoardPanel currentBoard;
+
     private String objTitle;
     private ChangeType changeType;
     private String className;
@@ -62,8 +64,9 @@ public class Change {
      * @param obj
      * @throws UnknownKanbanObjectException
      */
-    public Change(ChangeType changeType, String objTitle, Object obj) throws UnknownKanbanObjectException {
+    public Change(BoardPanel panel, ChangeType changeType, String objTitle, Object obj) throws UnknownKanbanObjectException {
         ++id;
+        this.currentBoard = panel;
         this.changeType = changeType;
         this.objTitle = objTitle;
         this.date = LocalDateTime.now();
@@ -91,9 +94,9 @@ public class Change {
      * @param updatedValue
      * @throws UnknownKanbanObjectException
      */
-    public Change(ChangeType changeType, String objTitle, Object obj, String updatedField, Object updatedValue)
+    public Change(BoardPanel panel, ChangeType changeType, String objTitle, Object obj, String updatedField, Object updatedValue)
             throws UnknownKanbanObjectException {
-        this(changeType, objTitle, obj);
+        this(panel, changeType, objTitle, obj);
         this.updatedField = updatedField;
         this.updatedValue = updatedValue;
 
@@ -116,9 +119,9 @@ public class Change {
      * @param newParent
      * @throws UnknownKanbanObjectException
      */
-    public Change(ChangeType changeType, String objTitle, Object obj, Object newParent, Object oldParent)
+    public Change(BoardPanel panel, ChangeType changeType, String objTitle, Object obj, Object newParent, Object oldParent)
             throws UnknownKanbanObjectException {
-        this(changeType, objTitle, obj);
+        this(panel, changeType, objTitle, obj);
         this.newParent = newParent;
         this.oldParent = oldParent;
     }
@@ -212,6 +215,13 @@ public class Change {
      */
     public Object getUpdatedValue() {
         return updatedValue;
+    }
+
+    /**
+     * @return current board on which the change has occurred
+     */
+    public BoardPanel getCurrentBoard() {
+        return currentBoard;
     }
 
     /**

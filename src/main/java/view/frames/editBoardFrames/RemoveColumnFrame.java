@@ -88,7 +88,7 @@ public class RemoveColumnFrame extends EditorFrame implements ActionListener {
                 currentPanel.removeColumn(col);
                 //log change
 
-                Change change = new Change(Change.ChangeType.REMOVE, columnName, col);
+                Change change = new Change(currentPanel, Change.ChangeType.REMOVE, columnName, col);
                 ChangeLog.getInstance().addChange(change);
 
 

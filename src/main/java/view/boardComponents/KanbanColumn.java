@@ -53,7 +53,7 @@ public class KanbanColumn extends JPanel {
     public KanbanColumn(String columnTitle, ColumnRole role) {
         // track change
         try {
-            Change change = new Change(Change.ChangeType.ADD, columnTitle, this);
+            Change change = new Change(getBoard(), Change.ChangeType.ADD, columnTitle, this);
             ChangeLog.getInstance().addChange(change);
         } catch (UnknownKanbanObjectException u){
             System.out.println("Failed to log.");
@@ -108,7 +108,7 @@ public class KanbanColumn extends JPanel {
         titleLabel.setBackground(role.getColumnColour());
 
         try {
-            Change change = new Change(Change.ChangeType.UPDATE, nameIn, this,
+            Change change = new Change(getBoard(), Change.ChangeType.UPDATE, nameIn, this,
                     "title", nameIn);
             ChangeLog.getInstance().addChange(change);
         } catch (UnknownKanbanObjectException u){
@@ -136,7 +136,7 @@ public class KanbanColumn extends JPanel {
 
         // track change
         try {
-            Change change = new Change(Change.ChangeType.UPDATE, getColumnTitle(), this,
+            Change change = new Change(getBoard(), Change.ChangeType.UPDATE, getColumnTitle(), this,
                     "role", role.name());
             ChangeLog.getInstance().addChange(change);
         } catch (UnknownKanbanObjectException u){
@@ -236,7 +236,7 @@ public class KanbanColumn extends JPanel {
             cards.clear();
             revalidate();
             repaint();
-            Change change = new Change(Change.ChangeType.CLEAR, this.getColumnTitle(), this);
+            Change change = new Change(getBoard(), Change.ChangeType.CLEAR, this.getColumnTitle(), this);
             ChangeLog.getInstance().addChange(change);
         } catch (UnknownKanbanObjectException e) {
             System.out.println("Failed to log.");

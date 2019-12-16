@@ -129,7 +129,7 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
             try {
                 KanbanCardButton card = col.getCardByTitle(cardName);
                 col.removeCard(card);
-                Change change = new Change(Change.ChangeType.REMOVE, cardName, card);
+                Change change = new Change(currentPanel, Change.ChangeType.REMOVE, cardName, card);
                 ChangeLog.getInstance().addChange(change);
             }
             catch (KanbanObjectNotFoundException e) {
