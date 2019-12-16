@@ -1,6 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'application'
 mainClassName = 'view.MainFrame'
+
 dependencies{
     implementation 'org.openjfx:javafx:14-ea+2'
     testCompile 'junit:junit:4.12'
@@ -12,8 +13,4 @@ repositories{
 
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-}
 
