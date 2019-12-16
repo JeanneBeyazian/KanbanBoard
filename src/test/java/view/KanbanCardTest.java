@@ -12,7 +12,8 @@ import javax.swing.*;
 import static org.junit.Assert.assertEquals;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
+        classAuthors = "Jeanne",
+        classEditors = "",
         creationDate = "13/11/2019",
         lastEdit = "05/11/2019"
 )

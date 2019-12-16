@@ -3,11 +3,9 @@ package view.boardComponents;
 import annotations.ClassAnnotation;
 import model.Change;
 import model.ChangeLog;
-import view.boardComponents.ActivityButton;
 import view.containers.ScrollContainer;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 @ClassAnnotation(

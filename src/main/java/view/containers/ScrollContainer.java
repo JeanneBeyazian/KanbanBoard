@@ -70,4 +70,8 @@ public class ScrollContainer extends JScrollPane {
     public int getActivityButtons(){
         return container.getComponentCount();
     }
+
+    public JPanel getContainer() {
+        return container;
+    }
 }

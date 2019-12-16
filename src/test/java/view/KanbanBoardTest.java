@@ -8,7 +8,8 @@ import view.frames.KanbanBoard;
 import static org.junit.Assert.assertThat;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
+        classAuthors = "Jeanne",
+        classEditors = "",
         creationDate = "09/11/2019",
         lastEdit = "22/11/2019"
 )

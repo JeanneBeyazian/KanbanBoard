@@ -11,7 +11,8 @@ import view.frames.MainFrame;
 import java.awt.*;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
+        classAuthors = "Jeanne",
+        classEditors = "",
         creationDate = "13/12/2019",
         lastEdit = "13/12/2019"
 )
@@ -23,15 +24,17 @@ public class MainFrameTest {
     @Before
     public void prepare() {
         mainFrame = new MainFrame();
-        //swinger = Swinger.forSwingWindow();
-        swinger = Swinger.getUserWith(mainFrame);
+        swinger = Swinger.forSwingWindow();
+        //swinger = Swinger.getUserWith(mainFrame);
         swinger.setDEFAULT(Speed.FAST);
     }
 
 
     @Test
     public void addComponentsToBoard() {
-        swinger.clickOn("newButton").type("My New Kanban Board");
+        swinger.clickOn("newButton");
+        Component field = swinger.getAt("nameField");
+        swinger.moveTo(field).type("My New Kanban Board").clickOn("text:Create").pause(5000);
 
     }
 

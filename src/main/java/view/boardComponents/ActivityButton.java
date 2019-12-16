@@ -95,5 +95,11 @@ public class ActivityButton extends JPanel implements ActionListener {
 
     }
 
-
+    /**
+     * Get the button inside ActivityButton panel
+     * @return activity button
+     */
+    public JButton getActivityButton() {
+        return activityButton;
+    }
 }

@@ -6,6 +6,7 @@ import org.junit.Test;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanCardButton;
 import view.boardComponents.KanbanColumn;
+import view.frames.KanbanBoard;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -14,7 +15,8 @@ import java.util.Random;
 import static org.junit.Assert.assertEquals;
 
 @ClassAnnotation(
-        classAuthors = {"Jeanne"},
+        classAuthors = "Jeanne",
+        classEditors = "",
         creationDate = "05/11/2019",
         lastEdit = "05/11/2019"
 )
@@ -78,7 +80,7 @@ public class KanbanColumnTest {
 
     @Test
     public void verifyBoard(){
-        BoardPanel board = new BoardPanel();
+        BoardPanel board = new BoardPanel(new KanbanBoard("Test Board"));
         Random rd = new Random();
         ColumnRole[] array = ColumnRole.values();
 
