@@ -79,4 +79,11 @@ public class LogPanel extends JPanel {
 
     }
 
+    /**
+     * Return the scroll container activity log
+     * @return scroll container
+     */
+    public ScrollContainer getActivityLog() {
+        return activityLog;
+    }
 }

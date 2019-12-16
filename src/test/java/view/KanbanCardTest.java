@@ -28,4 +28,6 @@ public class KanbanCardTest {
         frame.add(card);
         assertEquals(1,frame.getComponentCount());
     }
+
+
 }

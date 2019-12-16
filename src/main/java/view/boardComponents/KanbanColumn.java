@@ -183,14 +183,14 @@ public class KanbanColumn extends JPanel {
         BoardPanel board = getBoard();
 
         // Check if IN_PROGRESS column, and make sure it doesn't exceed WIP limit
-        if (role == ColumnRole.IN_PROGRESS &&
+        if (role == ColumnRole.IN_PROGRESS && board!=null &&
                 (board.getWIPcount()+card.getCard().getStoryPoints() > board.getWIPlimit())) {
                     errorPane("The entered WIP limit is lower than the current WIP count : " +
                                     board.getWIPcount() + ".", "WIP Limit Too Low");
                     return;
         }
 
-        if (role == ColumnRole.IN_PROGRESS) board.incrementWIPCount(card.getCard().getStoryPoints());
+        if (role == ColumnRole.IN_PROGRESS && board!=null) board.incrementWIPCount(card.getCard().getStoryPoints());
 
         cards.add(card);                                                // Add to ArrayList
         card.setAlignmentX(Component.CENTER_ALIGNMENT);                 // Add to columnPane
@@ -199,6 +199,7 @@ public class KanbanColumn extends JPanel {
         repaint();
 
     }
+
 
     /**
      * Remove a selected KanbanCardButton from the column.

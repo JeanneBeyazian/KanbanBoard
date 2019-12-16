@@ -83,6 +83,7 @@ public class WIPProgressFrame extends PopUpFrames {
      * Calculates statistics and updates the JProgressBar
      */
     private void updateBar() {
+        currentBoard.getBoard().refershWIP();
 
         int max = currentBoard.getBoard().getWIPlimit();
         int current = currentBoard.getBoard().getWIPcount();

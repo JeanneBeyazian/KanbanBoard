@@ -49,8 +49,8 @@ public class KanbanCardButton extends JPanel {
         buttonTitle = new JLabel(other.getCardButtonTitle());
         String description = other.getCard().getCardDescription();
         int points = other.getCard().getStoryPoints();
-        card = new KanbanCard(this, getCardButtonTitle(), description, points);
         column = other.getColumn();
+        card = new KanbanCard(this, getCardButtonTitle(), description, points);
         storyPoints = new JLabel(String.valueOf(points));
 
         initialise();

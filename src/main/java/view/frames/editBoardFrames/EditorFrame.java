@@ -44,7 +44,7 @@ abstract public class EditorFrame extends JFrame implements ActionListener {
     /** Set up of the frame */
     protected void initialise() {
         container = new JPanel(new GridBagLayout());
-        add(container);
+        getContentPane().add(container);
         pack();
         setLocationRelativeTo(null);
         setVisible(true);

@@ -19,6 +19,7 @@ public class EditorFramesTest {
     @Before
     public void prepare(){
         KanbanBoard kanbanBoard = new KanbanBoard("Test Board");
+        kanbanBoard.setVisible(false);
         frame = new AddCardFrame(kanbanBoard.getBoard());
         swinger = Swinger.getUserWith(frame);
     }
@@ -33,7 +34,6 @@ public class EditorFramesTest {
         for (Component button : buttons) {
             System.out.println(button.getName());
         }
-        //swinger.clickOn("submitButton");
 //        board.getWindows().get("addColumnFrame");
 //        swinger.clickOn(submitButton);
     }

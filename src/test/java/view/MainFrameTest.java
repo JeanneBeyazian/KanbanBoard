@@ -9,6 +9,9 @@ import org.junit.Test;
 import view.frames.MainFrame;
 
 import java.awt.*;
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
 
 @ClassAnnotation(
         classAuthors = "Jeanne",
@@ -25,7 +28,6 @@ public class MainFrameTest {
     public void prepare() {
         mainFrame = new MainFrame();
         swinger = Swinger.forSwingWindow();
-        //swinger = Swinger.getUserWith(mainFrame);
         swinger.setDEFAULT(Speed.FAST);
     }
 
@@ -34,13 +36,18 @@ public class MainFrameTest {
     public void addComponentsToBoard() {
         swinger.clickOn("newButton");
         Component field = swinger.getAt("nameField");
-        swinger.moveTo(field).type("My New Kanban Board").clickOn("text:Create").pause(5000);
+        swinger.moveTo(field).type("My New Kanban Board")
+                .clickOn("text:Create")
+                .pause(250);
+
+        ArrayList<Frame> activeFrames = new ArrayList<>();
+        for (Frame c : Frame.getFrames()) {
+            if (c.isActive())  activeFrames.add(c);
+        }
+
+        assertEquals(1,(activeFrames).size());
 
     }
 
-    @After
-    public void close() {
-
-    }
 
 }

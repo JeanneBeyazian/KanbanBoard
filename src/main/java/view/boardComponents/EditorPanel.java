@@ -30,6 +30,7 @@ import static controller.OptionPanes.errorPane;
 public class EditorPanel extends JPanel {
 
     BoardPanel currentPanel;
+    LogPanel logPanel;
 
     public EditorPanel(BoardPanel currentPanel) {
         this.currentPanel = currentPanel;
@@ -68,7 +69,8 @@ public class EditorPanel extends JPanel {
         add(Box.createRigidArea(new Dimension(0, 5)));
         add(createLabel("Activity Log"));
         add(Box.createRigidArea(new Dimension(0, 5)));
-        add(new LogPanel());
+        logPanel = new LogPanel();
+        add(logPanel);
         add(new JSeparator());
 
         // Create clear and exit buttons
@@ -235,6 +237,13 @@ public class EditorPanel extends JPanel {
 
     }
 
+    /**
+     * Get the log activity panel
+     * @return logPanel
+     */
+    public LogPanel getLogPanel() {
+        return logPanel;
+    }
 }
 
 

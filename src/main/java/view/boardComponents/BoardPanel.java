@@ -1,6 +1,7 @@
 package view.boardComponents;
 
 import annotations.ClassAnnotation;
+import controller.ColumnRole;
 import controller.exceptions.KanbanObjectNotFoundException;
 import controller.exceptions.UnknownKanbanObjectException;
 import model.Change;
@@ -12,6 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static controller.OptionPanes.errorPane;
 import static controller.OptionPanes.missingComponentError;
 
 
@@ -80,6 +82,23 @@ public class BoardPanel extends JPanel {
         revalidate();
         repaint();
     }
+
+    /**
+     * Make sure WIP is up to date
+     */
+    public void refershWIP(){
+
+        for (KanbanColumn col :columns) {
+
+            if (col.getRole() == ColumnRole.IN_PROGRESS) {
+
+                for (KanbanCardButton card : col.getCards()) {
+                    incrementWIPCount(card.getCard().getStoryPoints());
+                }
+            }
+        }
+    }
+
 
     /**
      * Remove all columns from the board
