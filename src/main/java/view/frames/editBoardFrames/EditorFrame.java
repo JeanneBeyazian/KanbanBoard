@@ -1,7 +1,6 @@
 package view.frames.editBoardFrames;
 import annotations.ClassAnnotation;
 
-import javafx.util.Pair;
 import model.Coordinates;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanColumn;

@@ -132,7 +132,7 @@ public class KanbanBoardTest {
                     .pause(250);
         }
 
-        swinger.pause(250);
+        swinger.pause(500);
 
 
         KanbanColumn column = null;

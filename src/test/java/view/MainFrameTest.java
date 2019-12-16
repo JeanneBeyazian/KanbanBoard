@@ -34,9 +34,7 @@ public class MainFrameTest {
 
     @Test
     public void addComponentsToBoard() {
-        swinger.clickOn("newButton");
-        Component field = swinger.getAt("nameField");
-        swinger.moveTo(field).type("My New Kanban Board")
+        swinger.clickOn("newButton")
                 .clickOn("text:Create")
                 .pause(250);
 
