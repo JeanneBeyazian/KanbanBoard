@@ -130,28 +130,9 @@ public class WeeklyStats {
 
     }
 
-    // Todo - LEAD TIME : time it takes for an item to get COMPLETED (expressed in weeks)
-    public static int getAverageLeadTimePerWeek(KanbanBoard currentBoard) {
-
-        if (weeklyChanges.isEmpty()) return 0;
-        //number of week 0
-        //number of week  n
-        // n - 0
-
-        for (ArrayList<Change> changes : weeklyChanges) {
-
-            if (!changes.isEmpty()) {
-
-                Change one = changes.get(0);
-                one.getCurrentBoard().getWIPcount();
-                Change endOfWeek = changes.get(changes.size() - 1);
-
-
-            }
-        }
-
-        // Maybe look at all cards in completed columns, and get their creation date ?
-        return 0;
+    public static double getAverageLeadTimePerWeek(KanbanBoard currentBoard) {
+        // Following Little's Law
+        return getAverageWIPPerWeek()/getAverageVelocityPerWeek();
     }
 
 
