@@ -1,5 +1,7 @@
 package view.boardComponents;
 
+import annotations.ClassAnnotation;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -14,6 +16,12 @@ import java.util.ArrayList;
  *
  * This class was not finished, due to time constraints.
  */
+@ClassAnnotation(
+        classAuthors = "Jeanne",
+        classEditors = "",
+        creationDate = "16/12/2019",
+        lastEdit = "16/12/2019"
+)
 public class DragAndDrop extends JFrame {
 
     // Frame components

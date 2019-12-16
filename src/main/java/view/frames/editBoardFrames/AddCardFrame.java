@@ -3,7 +3,7 @@ package view.frames.editBoardFrames;
 import annotations.ClassAnnotation;
 import controller.OptionPanes;
 import controller.exceptions.KanbanObjectNotFoundException;
-import javafx.util.Pair;
+import model.Coordinates;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanCardButton;
 import view.boardComponents.KanbanColumn;
@@ -77,15 +77,15 @@ public class AddCardFrame extends AddFrame implements ActionListener {
         JLabel columnLabel = new JLabel("In Column:");
         columnLabel.setName("chooseColumnLabel");
 
-        Map<JComponent, Pair<Integer,Integer>> map = Map.ofEntries(
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(titleLabel, new Pair<>(0,0)),
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(titleField, new Pair<>(1,0)),
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(descriptionLabel, new Pair<>(0,2)),
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(cardDescriptionArea, new Pair<>(1,2)),
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(pointsLabel, new Pair<>(0,5)),
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(storyPointsBox, new Pair<>(1,5)),
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(columnLabel, new Pair<>(0,6)),
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(columnsBox, new Pair<>(1,6))
+        Map<JComponent, Coordinates> map = Map.ofEntries(
+                new AbstractMap.SimpleEntry<JComponent, Coordinates>(titleLabel, new Coordinates(0,0)),
+                new AbstractMap.SimpleEntry<JComponent, Coordinates>(titleField, new Coordinates(1,0)),
+                new AbstractMap.SimpleEntry<JComponent, Coordinates>(descriptionLabel, new Coordinates(0,2)),
+                new AbstractMap.SimpleEntry<JComponent, Coordinates>(cardDescriptionArea, new Coordinates(1,2)),
+                new AbstractMap.SimpleEntry<JComponent, Coordinates>(pointsLabel, new Coordinates(0,5)),
+                new AbstractMap.SimpleEntry<JComponent, Coordinates>(storyPointsBox, new Coordinates(1,5)),
+                new AbstractMap.SimpleEntry<JComponent, Coordinates>(columnLabel, new Coordinates(0,6)),
+                new AbstractMap.SimpleEntry<JComponent, Coordinates>(columnsBox, new Coordinates(1,6))
         );
 
         placeComponents(map, 7);

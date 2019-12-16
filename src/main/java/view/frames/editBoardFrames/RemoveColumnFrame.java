@@ -3,15 +3,13 @@ import annotations.ClassAnnotation;
 import controller.exceptions.KanbanObjectNotFoundException;
 import controller.exceptions.UnknownKanbanObjectException;
 
-import javafx.util.Pair;
 import model.Change;
 import model.ChangeLog;
+import model.Coordinates;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanColumn;
-import view.frames.KanbanCard;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.AbstractMap;
@@ -56,9 +54,9 @@ public class RemoveColumnFrame extends EditorFrame implements ActionListener {
         container.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
                 ("Removing a column from the board")));
 
-        Map<JComponent, Pair<Integer,Integer>> map = Map.ofEntries(
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(chooseColumnLabel, new Pair<>(0,1)),
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(columnsBox, new Pair<>(1,1))
+        Map<JComponent, Coordinates> map = Map.ofEntries(
+                new AbstractMap.SimpleEntry<JComponent, Coordinates>(chooseColumnLabel, new Coordinates(0,1)),
+                new AbstractMap.SimpleEntry<JComponent, Coordinates>(columnsBox, new Coordinates(1,1))
         );
 
         placeComponents(map, 3);

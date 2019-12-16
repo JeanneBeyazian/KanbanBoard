@@ -2,7 +2,7 @@ package view.frames.editBoardFrames;
 
 import annotations.ClassAnnotation;
 import controller.ColumnRole;
-import javafx.util.Pair;
+import model.Coordinates;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanColumn;
 
@@ -51,15 +51,14 @@ public class AddColumnFrame extends AddFrame implements ActionListener {
 
         JLabel chooseRole = new JLabel("Choose a role:");
 
-        Map<JComponent, Pair<Integer,Integer>> map = Map.ofEntries(
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(titleLabel, new Pair<>(0,0)),
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(titleField, new Pair<>(1,0)),
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(chooseRole, new Pair<>(0,2)),
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(rolesBox, new Pair<>(1,2))
+        Map<JComponent, Coordinates> map = Map.ofEntries(
+                new AbstractMap.SimpleEntry<JComponent, Coordinates>(titleLabel, new Coordinates(0,0)),
+                new AbstractMap.SimpleEntry<JComponent, Coordinates>(titleField, new Coordinates(1,0)),
+                new AbstractMap.SimpleEntry<JComponent, Coordinates>(chooseRole, new Coordinates(0,2)),
+                new AbstractMap.SimpleEntry<JComponent, Coordinates>(rolesBox, new Coordinates(1,2))
         );
 
         placeComponents(map, 3);
-
 
     }
 

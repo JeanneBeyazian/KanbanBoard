@@ -3,16 +3,15 @@ package view.frames.editBoardFrames;
 import annotations.ClassAnnotation;
 import controller.exceptions.KanbanObjectNotFoundException;
 import controller.exceptions.UnknownKanbanObjectException;
-import javafx.util.Pair;
+
 import model.Change;
 import model.ChangeLog;
+import model.Coordinates;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanCardButton;
 import view.boardComponents.KanbanColumn;
-import view.frames.KanbanCard;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.AbstractMap;
@@ -59,10 +58,10 @@ public class RemoveCardFrame extends RemoveColumnFrame implements ActionListener
         container.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),
                 ("Removing a card from the board")));
 
-        Map<JComponent, Pair<Integer,Integer>> map = Map.ofEntries(
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(chooseCardLabel, new Pair<>(0,2)),
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(chooseCardBox, new Pair<>(1,2)),
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(columnChosenButton, new Pair<>(3,1))
+        Map<JComponent, Coordinates> map = Map.ofEntries(
+                new AbstractMap.SimpleEntry<JComponent, Coordinates>(chooseCardLabel, new Coordinates(0,2)),
+                new AbstractMap.SimpleEntry<JComponent, Coordinates>(chooseCardBox, new Coordinates(1,2)),
+                new AbstractMap.SimpleEntry<JComponent, Coordinates>(columnChosenButton, new Coordinates(3,1))
         );
 
         placeComponents(map, 3);

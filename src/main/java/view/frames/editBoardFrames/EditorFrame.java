@@ -2,6 +2,7 @@ package view.frames.editBoardFrames;
 import annotations.ClassAnnotation;
 
 import javafx.util.Pair;
+import model.Coordinates;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanColumn;
 
@@ -66,7 +67,7 @@ abstract public class EditorFrame extends JFrame implements ActionListener {
      * @param compCoordinates   Map of the Component to be placed and its coordinates
      * @param submitY           Y axis coordinate for buttons Submit and Cancel
      */
-    protected void placeComponents(Map<JComponent, Pair<Integer,Integer>> compCoordinates, int submitY) {
+    protected void placeComponents(Map<JComponent, Coordinates> compCoordinates, int submitY) {
 
         // Sets up the constraints
         GridBagConstraints constraints = new GridBagConstraints();
@@ -75,9 +76,9 @@ abstract public class EditorFrame extends JFrame implements ActionListener {
 
         // For each component in the map, make the constraints by getting its associated coordinates
         for (JComponent comp : compCoordinates.keySet()) {
-            Pair<Integer, Integer> coo = compCoordinates.get(comp);
-            constraints.gridx = coo.getKey();
-            constraints.gridy = coo.getValue();
+            Coordinates coo = compCoordinates.get(comp);
+            constraints.gridx = coo.getX();
+            constraints.gridy = coo.getY();
             container.add(comp, constraints);
         }
 

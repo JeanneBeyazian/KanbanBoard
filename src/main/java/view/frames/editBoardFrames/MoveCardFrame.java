@@ -3,15 +3,14 @@ package view.frames.editBoardFrames;
 import annotations.ClassAnnotation;
 import controller.exceptions.KanbanObjectNotFoundException;
 import controller.exceptions.UnknownKanbanObjectException;
-import javafx.util.Pair;
 import model.Change;
 import model.ChangeLog;
+import model.Coordinates;
 import view.boardComponents.BoardPanel;
 import view.boardComponents.KanbanCardButton;
 import view.boardComponents.KanbanColumn;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.AbstractMap;
 import java.util.Map;
@@ -62,11 +61,11 @@ public class MoveCardFrame extends EditorFrame {
         columnsBox.removeItem(String.valueOf(thisColumnBox.getSelectedItem()));
         JLabel columnsLabel = new JLabel("To column:");
 
-        Map<JComponent, Pair<Integer,Integer>> map = Map.ofEntries(
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(thisColumnLabel, new Pair<>(0,2)),
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(thisColumnBox, new Pair<>(1,2)),
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(columnsLabel, new Pair<>(0,3)),
-                new AbstractMap.SimpleEntry<JComponent, Pair<Integer,Integer>>(columnsBox, new Pair<>(1,3))
+        Map<JComponent, Coordinates> map = Map.ofEntries(
+                new AbstractMap.SimpleEntry<JComponent, Coordinates>(thisColumnLabel, new Coordinates(0,2)),
+                new AbstractMap.SimpleEntry<JComponent, Coordinates>(thisColumnBox, new Coordinates(1,2)),
+                new AbstractMap.SimpleEntry<JComponent, Coordinates>(columnsLabel, new Coordinates(0,3)),
+                new AbstractMap.SimpleEntry<JComponent, Coordinates>(columnsBox, new Coordinates(1,3))
         );
 
         placeComponents(map, 4);
