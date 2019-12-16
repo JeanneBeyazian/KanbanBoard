@@ -193,4 +193,19 @@ public class BoardPanel extends JPanel {
         }
         throw new KanbanObjectNotFoundException(KanbanColumn.class);
     }
+
+    /**
+     *  Get column having a given ID
+     * @param id ID of the column we're searching for
+     * @return reference to column
+     * @throws KanbanObjectNotFoundException
+     */
+    public KanbanColumn getColumnById(int id) throws KanbanObjectNotFoundException {
+        for (KanbanColumn col : columns) {
+            if (col.getId() == id) {
+                return col;
+            }
+        }
+        throw new KanbanObjectNotFoundException(KanbanColumn.class);
+    }
 }

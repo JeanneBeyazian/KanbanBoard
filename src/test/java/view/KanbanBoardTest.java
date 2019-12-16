@@ -44,13 +44,6 @@ public class KanbanBoardTest {
 
         assertEquals(30, board.getBoard().getColumns().size());
         assertEquals(30*2, board.getBoard().getComponentCount()); // Includes empty boxes
-
-
-//        for(Component f : board.getFrames() ) {
-//            System.out.println(f.getName());
-//        }
-//        board.getWindows().get("addColumnFrame");
-//        swinger.clickOn(submitButton);
     }
 
     @Test
@@ -137,7 +130,7 @@ public class KanbanBoardTest {
 
         KanbanColumn column = null;
         try {
-            column = board.getBoard().getColumnByTitle("Column");
+            column = board.getBoard().getColumns().get(0);
         } catch (Exception e) {
             new KanbanObjectNotFoundException();
         }

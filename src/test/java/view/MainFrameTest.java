@@ -34,7 +34,7 @@ public class MainFrameTest {
 
     @Test
     public void addComponentsToBoard() {
-        swinger.clickOn("newButton")
+        swinger.clickOn("text:Create new board")
                 .clickOn("text:Create")
                 .pause(250);
 
