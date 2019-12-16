@@ -58,6 +58,7 @@ abstract public class EditorFrame extends JFrame implements ActionListener {
 
         submit = new JButton("Submit");
         submit.setName("submitButton");
+
     }
 
     /**

@@ -5,6 +5,7 @@ import view.boardComponents.BoardPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 @ClassAnnotation(
@@ -55,6 +56,15 @@ abstract public class AddFrame extends EditorFrame implements ActionListener {
         box.setName("columnRolesBox");
         return box;
 
+    }
+
+    /**
+     * Method to check what has triggered the event
+     * @param event
+     * @return true if either enter pressed from titlefield, or submit button pressed
+     */
+    protected boolean checkEvenSource (ActionEvent event){
+        return (event.getSource() == submit || event.getSource() == titleField);
     }
 
 

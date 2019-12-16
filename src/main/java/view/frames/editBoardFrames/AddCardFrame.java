@@ -53,6 +53,8 @@ public class AddCardFrame extends AddFrame implements ActionListener {
      */
     private void setUpFrame() {
 
+        titleField.addActionListener(this);
+
         // Set up description area
         cardDescriptionArea = new JTextArea();
         cardDescriptionArea.setName("cardDescriptionArea");
@@ -97,7 +99,7 @@ public class AddCardFrame extends AddFrame implements ActionListener {
      */
     public void actionPerformed(ActionEvent event) {
 
-        if (event.getSource() == submit) {
+        if (checkEvenSource(event)) {
 
             if(!columnsBox.isEnabled()) {
                 missingComponentError("Column");

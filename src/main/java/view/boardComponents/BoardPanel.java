@@ -92,10 +92,10 @@ public class BoardPanel extends JPanel {
             return;
         }
         try {
-            removeAll();
+            columns = new ArrayList<KanbanColumn>();
+            this.removeAll();
             revalidate();
             repaint();
-            columns.clear();
             Change change = new Change(Change.ChangeType.CLEAR, parentBoard.getBoardName(), this);
             ChangeLog.getInstance().addChange(change);
         } catch (UnknownKanbanObjectException u){

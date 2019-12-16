@@ -47,6 +47,8 @@ public class AddColumnFrame extends AddFrame implements ActionListener {
      */
     private void setUpFrame() {
 
+        titleField.addActionListener(this);
+
         JLabel chooseRole = new JLabel("Choose a role:");
 
         Map<JComponent, Pair<Integer,Integer>> map = Map.ofEntries(
@@ -68,7 +70,7 @@ public class AddColumnFrame extends AddFrame implements ActionListener {
      */
     public void actionPerformed(ActionEvent event) {
 
-        if (event.getSource() == submit) {
+        if (checkEvenSource(event)) {
 
             String columnTitle = "";
 

@@ -19,13 +19,9 @@ import static org.junit.Assert.assertEquals;
 )
 public class KanbanCardTest {
 
-//    @BeforeClass
-//    public void prepare(){
-//        JFrame frame = new JFrame();
-//    }
 
     @Test
-    public void testApp() {
+    public void testCardButton() {
         KanbanCardButton card = new KanbanCardButton(new KanbanColumn
                 ("Name", ColumnRole.IN_PROGRESS), "Name", "Description", 50);
         JFrame frame = new JFrame();
