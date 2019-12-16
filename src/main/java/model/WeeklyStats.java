@@ -18,8 +18,12 @@ import java.util.List;
         classAuthors = "Jeanne",
         classEditors = "",
         creationDate = "13/12/2019",
-        lastEdit = "13/12/2019"
+        lastEdit = "16/12/2019"
 )
+/**
+ * Calculates the board statistics from the given log data.
+ * These statistics are accessible from the menu and displayed in a stats frame.
+ */
 public class WeeklyStats {
 
     private static ArrayList<ArrayList<Change>> weeklyChanges = getWeeklyChanges();
@@ -56,25 +60,6 @@ public class WeeklyStats {
         }
 
         return listOfWeeks;
-    }
-
-
-    /**
-     * Return the week number for that date
-     * @param timestamp
-     * @return
-     */
-    private String getWeekOfYear(LocalDateTime timestamp) {
-
-        // Convert LocalDateTime to Date
-        ZoneOffset zoneOffset = ZoneOffset.from(OffsetDateTime.now());
-        OffsetDateTime offsetDateTime = timestamp.atOffset(zoneOffset);
-        Date date = Date.from(offsetDateTime.toInstant());
-
-        // Get week number for that year
-        String weekOfYear = new SimpleDateFormat("w").format(date);
-
-        return weekOfYear;
     }
 
 
@@ -155,6 +140,10 @@ public class WeeklyStats {
     }
 
 
+    /**
+     * Calculate the average amount of work in progress per week, expressed in story points
+     * @return avgWIP
+     */
     public static double getAverageWIPPerWeek() {
 
         if (weeklyChanges.isEmpty()) return 0;

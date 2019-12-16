@@ -186,15 +186,12 @@ public class KanbanMenu extends JMenuBar {
                 new JOptionPane().showMessageDialog(null, teamMsg, "Our Team (Indigo) !",
                 JOptionPane.INFORMATION_MESSAGE));
 
-        JMenuItem settings = new JMenuItem("Settings");
-        
         JMenuItem exitBoard = new JMenuItem("Exit Kanban");
         exitBoard.addActionListener(e->System.exit(0));
 
         kanban.add(kanbanStats);
         kanban.add(wipProgress);
         kanban.add(team);
-        kanban.add(settings);
         kanban.add(new JSeparator(SwingConstants.HORIZONTAL));
         kanban.add(exitBoard);
 
