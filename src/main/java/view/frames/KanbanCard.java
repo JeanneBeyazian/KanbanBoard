@@ -56,6 +56,9 @@ public class KanbanCard extends JFrame {
         cardTitle = name;
         cardDescription = description;
         cardStoryPoints = storyPoints;
+        this.cardButton = button;
+        add(makeContainerPanel(name,description,storyPoints));
+        initialise();
 
         // track change
         try {
@@ -66,9 +69,6 @@ public class KanbanCard extends JFrame {
             u.printStackTrace();
         }
 
-        this.cardButton = button;
-        add(makeContainerPanel(name,description,storyPoints));
-        initialise();
     }
 
     /**
@@ -191,10 +191,12 @@ public class KanbanCard extends JFrame {
         delete.addActionListener(e-> {
             try {
                 cardButton.getColumn().removeCard(cardButton);
+                this.dispose();
 
                 //log change
                 try {
-                    Change change = new Change(getBoard(), Change.ChangeType.REMOVE, cardTitle, this);
+                    Change change = new Change(cardButton.getColumn().getBoard(), Change.ChangeType.REMOVE,
+                            cardTitle, this);
                     ChangeLog.getInstance().addChange(change);
                 } catch (UnknownKanbanObjectException u){
                     System.out.println("Failed to log.");
@@ -230,7 +232,7 @@ public class KanbanCard extends JFrame {
 
         JButton move = new JButton("Change column");
         move.setBounds(500,500,5,5);
-        move.addActionListener(e->new MoveCardFrame(getBoard(),cardButton).setVisible(true));
+        move.addActionListener(e->new MoveCardFrame(cardButton.getColumn().getBoard(),cardButton).setVisible(true));
         return move;
     }
 

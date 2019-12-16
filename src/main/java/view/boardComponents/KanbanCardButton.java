@@ -33,8 +33,8 @@ public class KanbanCardButton extends JPanel {
     public KanbanCardButton(KanbanColumn columnIn, String name, String description, int storyPoints) {
 
         buttonTitle = new JLabel(name);
-        card = new KanbanCard(this, name, description, storyPoints);
         column = columnIn;
+        card = new KanbanCard(this, name, description, storyPoints);
         this.storyPoints = new JLabel(String.valueOf(storyPoints));
 
         initialise();

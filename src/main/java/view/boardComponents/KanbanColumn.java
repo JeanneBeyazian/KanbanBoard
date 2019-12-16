@@ -226,13 +226,8 @@ public class KanbanColumn extends JPanel {
 
         // If called on empty column
         if (cards.isEmpty()) return;
-
         try {
-            for (int i=0; i<cards.size(); i++) {
-                columnPane.remove(columnPane.getComponent(0));
-                repaint();
-                revalidate();
-            }
+            columnPane.removeAll();
             cards.clear();
             revalidate();
             repaint();

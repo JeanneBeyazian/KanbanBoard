@@ -81,7 +81,7 @@ public class ActivityButton extends JPanel implements ActionListener {
 
         // Once you click on a log panel button, go back to one state of the board
             ChangeLog log = ChangeLog.getInstance();
-
+            
             int toLoad = log.findByID(changeID);
 
             if (toLoad > 0) {
